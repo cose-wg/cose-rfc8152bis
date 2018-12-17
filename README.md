@@ -2,13 +2,13 @@
 
 This is the working area for individual Internet-Drafts.
 
-## CBOR Algori ms for Objec Signing&nbsp;and&nbsp;Encryp ion&nbsp;(COSE)
+## CBOR Algorithms for Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE)
 
 * [Editor's Copy](https://cose-wg.github.io/cose-rfc8152bis/#go.draft-schaad-cose-rfc8152bis-algs.html)
 * [Individual Draft](https://tools.ietf.org/html/draft-schaad-cose-rfc8152bis-algs)
 * [Compare Editor's Copy to Individual Draft](https://cose-wg.github.io/cose-rfc8152bis/#go.draft-schaad-cose-rfc8152bis-algs.diff)
 
-## CBOR Objec Signing&nbsp;and&nbsp;Encryp ion&nbsp;(COSE) - S ruc ures and Process
+## CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE) - Structures and Process
 
 * [Editor's Copy](https://cose-wg.github.io/cose-rfc8152bis/#go.draft-schaad-cose-rfc8152bis-struct.html)
 * [Individual Draft](https://tools.ietf.org/html/draft-schaad-cose-rfc8152bis-struct)
