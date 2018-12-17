@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='US-ASCII'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC8152 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8152.xml">
@@ -16,7 +16,7 @@
 <rfc ipr="trust200902" docName="draft-schaad-cose-rfc8152bis-struct-00" category="std" obsoletes="8152" >
   <front>
     <title abbrev="COSE Structure">CBOR
-    Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE) - Structures and Process</title>
+    Object Signing and Encryption (COSE) - Structures and Process</title>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -34,7 +34,7 @@
         This document along with <xref target="I-D.schaad-cose-rfc8152bis-algs"/> obsoletes RFC8152.
       </t>
     </abstract>
-    
+
   </front>
   <middle>
     <section anchor="introduction" title="Introduction"  >
@@ -130,7 +130,7 @@ values = any
       <t>The COSE object structure is designed so that there can be a large amount of common code when parsing and processing the different types of security messages.  All of the message structures are built on the CBOR array type.  The first three elements of the array always contain the same information: <list style="numbers">
 <t>The set of protected header parameters wrapped in a bstr.</t>
 <t>The set of unprotected header parameters as a map.</t>
-<t>The content of the message.  The content is either the plaintext or the ciphertext as appropriate.  The content may be detached, but the location is still used.  The content is wrapped in a bstr when present and is a nil value when detached.  </t></list> 
+<t>The content of the message.  The content is either the plaintext or the ciphertext as appropriate.  The content may be detached, but the location is still used.  The content is wrapped in a bstr when present and is a nil value when detached.  </t></list>
 
 Elements after this point are dependent on the specific message type.  </t>
 
@@ -178,7 +178,7 @@ Elements after this point are dependent on the specific message type.  </t>
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
 COSE_Messages = COSE_Untagged_Message / COSE_Tagged_Message
-      
+
 COSE_Untagged_Message = COSE_Sign / COSE_Sign1 /
     COSE_Encrypt / COSE_Encrypt0 /
     COSE_Mac / COSE_Mac0
@@ -225,7 +225,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
         <t>The set of header parameters defined in this section are: </t>
         <t><list style="hanging"><t hangText="alg:"> This parameter is used to indicate the algorithm used for the security processing.  This parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign0, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header in the protected header bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <xref target="cose-algorithm-registry"  />).  </t>
 
-<t hangText="crit:">The parameter is used to indicate which protected header labels an application that is processing a message is required to understand.  Parameters defined in this document do not need to be included as they should be understood by all implementations.  When present, this parameter MUST be placed in the protected header bucket.  The array MUST have at least one value in it.  
+<t hangText="crit:">The parameter is used to indicate which protected header labels an application that is processing a message is required to understand.  Parameters defined in this document do not need to be included as they should be understood by all implementations.  When present, this parameter MUST be placed in the protected header bucket.  The array MUST have at least one value in it.
 
 <vspace blankLines="0"/> Not all labels need to be included in the 'crit' parameter.  The rules for deciding which header labels are placed in the array are: <list style="symbols">
 
@@ -254,7 +254,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
 <t hangText="counter signature:">This parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on computing counter signatures are found in <xref target="counter_signature"  />.  </t>
 </list> </t>
-       
+
         <texttable anchor="Header-Table" title="Common Header Parameters" suppress-title="false" align="center" style="full">
           <ttcol align="left" width="9em">Name</ttcol>
           <ttcol align="left" width="5em">Label</ttcol>
@@ -296,7 +296,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
           <c>COSE_Signature / [+ COSE_Signature ]</c>
           <c/>
           <c>CBOR-encoded signature structure</c>
-          
+
         </texttable>
 
         <t>The CDDL fragment that represents the set of headers defined in this section is given below.  Each of the headers is tagged as optional because they do not need to be in every map; headers required in specific maps are discussed above.  </t>
@@ -365,7 +365,7 @@ COSE_Sign = [
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
           <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
 COSE_Signature =  [
-    Headers,      
+    Headers,
     signature : bstr
 ]
 </artwork>
@@ -400,7 +400,7 @@ COSE_Sign1 = [
       <section title="Externally Supplied Data" anchor="Extern_AAD"  >
         <t>One of the features offered in the COSE document is the ability for applications to provide additional data to be authenticated, but that is not carried as part of the COSE object.  The primary reason for supporting this can be seen by looking at the CoAP message structure <xref target="RFC7252"  />, where the facility exists for options to be carried before the payload.  Examples of data that can be placed in this location would be the CoAP code or CoAP options.  If the data is in the header section, then it is available for proxies to help in performing its operations.  For example, the Accept Option can be used by a proxy to determine if an appropriate value is in the proxy's cache.  But the sender can prevent a proxy from changing the set of values that it will accept by including that value in the resulting authentication tag.  However, it may also be desired to protect these values so that if they are modified in transit, it can be detected.  </t>
 
-        <t>This document describes the process for using a byte array of externally supplied authenticated data; however, the method of constructing the byte array is a function of the application.  Applications that use this feature need to define how the externally supplied authenticated data is to be constructed.  Such a construction needs to take into account the following issues: 
+        <t>This document describes the process for using a byte array of externally supplied authenticated data; however, the method of constructing the byte array is a function of the application.  Applications that use this feature need to define how the externally supplied authenticated data is to be constructed.  Such a construction needs to take into account the following issues:
 <list style="symbols">
 
 <t>If multiple items are included, applications need to ensure that the same byte string is not produced if there are different inputs.  This could occur by appending the strings 'AB' and 'CDE' or by appending the strings 'ABC' and 'DE'.  This is usually addressed by making fields a fixed width and/or encoding the length of the field as part of the output.  Using options from CoAP <xref target="RFC7252"  /> as an example, these fields use a TLV structure so they can be concatenated without any problems.  </t>
@@ -465,7 +465,7 @@ Sig_structure = [
       <section title="Enveloped COSE Structure" anchor="EnvelopedData"  >
         <t>The enveloped structure allows for one or more recipients of a message.  There are provisions for parameters about the content and parameters about the recipient information to be carried in the message.  The protected parameters associated with the content are authenticated by the content encryption algorithm.  The protected parameters associated with the recipient are authenticated by the recipient algorithm (when the algorithm supports it).  Examples of parameters about the content are the type of the content and the content encryption algorithm.  Examples of parameters about the recipient are the recipient's key identifier and the recipient's encryption algorithm.  </t>
 
-        <t>The same techniques and structures are used for encrypting both the plaintext and the keys.  This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"  /> and "JSON Web Encryption (JWE)" <xref target="RFC7516"  /> where different structures are used for the content layer and for the recipient layer.  Two structures are defined: COSE_Encrypt to hold the encrypted content and COSE_recipient to hold the encrypted keys for recipients.  
+        <t>The same techniques and structures are used for encrypting both the plaintext and the keys.  This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"  /> and "JSON Web Encryption (JWE)" <xref target="RFC7516"  /> where different structures are used for the content layer and for the recipient layer.  Two structures are defined: COSE_Encrypt to hold the encrypted content and COSE_recipient to hold the encrypted keys for recipients.
 
 Examples of encrypted messages can be found in <xref target="EnvelopedExamples"  />.  </t>
         <t>The COSE_Encrypt structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Encrypt structure is identified by the CBOR tag 96.  The CDDL fragment that represents this is: </t>
@@ -502,7 +502,7 @@ COSE_Encrypt = [
         <t>The CDDL fragment that corresponds to the above text for COSE_recipient is: </t>
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
           <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
-COSE_recipient = [    
+COSE_recipient = [
     Headers,
     ciphertext : bstr / nil,
     ? recipients : [+COSE_recipient]
@@ -510,7 +510,7 @@ COSE_recipient = [
 </artwork>
         </figure>
         <section anchor="key-management-methods" title="Content Key Distribution Methods"  >
-          <t>An encrypted message consists of an encrypted content and an encrypted CEK for one or more recipients.  The CEK is encrypted for each recipient, using a key specific to that recipient.  The details of this encryption depend on which class the recipient algorithm falls into.  Specific details on each of the classes can be found in <xref target="key-management-algs"  />.  A short summary of the five content key distribution methods is: 
+          <t>An encrypted message consists of an encrypted content and an encrypted CEK for one or more recipients.  The CEK is encrypted for each recipient, using a key specific to that recipient.  The details of this encryption depend on which class the recipient algorithm falls into.  Specific details on each of the classes can be found in <xref target="key-management-algs"  />.  A short summary of the five content key distribution methods is:
 <list style="hanging">
 <t hangText="direct:">The CEK is the same as the identified previously distributed symmetric key or is derived from a previously distributed secret.  No CEK is transported in the message.  </t>
 
@@ -783,9 +783,9 @@ COSE_KeySet = [+COSE_Key]
 <t hangText="kid:">This parameter is used to give an identifier for a key.  The identifier is not structured and can be anything from a user-provided string to a value computed on the public portion of the key.  This field is intended for matching against a 'kid' parameter in a message in order to filter down the set of keys that need to be checked.  </t>
 <t hangText="key_ops:">This parameter is defined to restrict the set of operations that a key is to be used for.  The value of the field is an array of values from <xref target="table-key-ops"  />.  Algorithms define the values of key ops that are permitted to appear and are required for specific operations.  The set of values matches that in <xref target="RFC7517"  /> and <xref target="W3C.WebCrypto"  />.  </t>
 
-<t hangText="Base IV:">This parameter is defined to carry the base portion of an IV.  It is designed to be used with the Partial IV header parameter defined in <xref target="cose-headers"  />.  This field provides the ability to associate a Partial IV with a key that is then modified on a per message basis with the Partial IV. 
+<t hangText="Base IV:">This parameter is defined to carry the base portion of an IV.  It is designed to be used with the Partial IV header parameter defined in <xref target="cose-headers"  />.  This field provides the ability to associate a Partial IV with a key that is then modified on a per message basis with the Partial IV.
 
- <vspace blankLines="1"/> Extreme care needs to be taken when using a Base IV in an application.  Many encryption algorithms lose security if the same IV is used twice. 
+ <vspace blankLines="1"/> Extreme care needs to be taken when using a Base IV in an application.  Many encryption algorithms lose security if the same IV is used twice.
 
  <vspace blankLines="1"/> If different keys are derived for each sender, using the same Base IV with Partial IVs starting at zero is likely to ensure that the IV would not be used twice for a single key.  If different keys are derived for each sender, starting at the same Base IV is likely to satisfy this condition.  If the same key is used for multiple senders, then the application needs to provide for a method of dividing the IV space up between the senders.  This could be done by providing a different base point to start from or a different Partial IV to start with and restricting the number of messages to be sent before rekeying.  </t></list> </t>
         <texttable title="Key Operation Values" anchor="table-key-ops" suppress-title="false" align="center" style="full">
@@ -823,14 +823,14 @@ COSE_KeySet = [+COSE_Key]
           <c>10</c>
           <c>The key is used for validating MACs.</c>
         </texttable>
- 
+
       </section>
     </section>
 
     <section title="Signature Algorithms" anchor="SigAlgs" numbered="yes" toc="default">
       <t>There are two signature algorithm schemes.  The first is signature with appendix.  In this scheme, the message content is processed and a signature is produced; the signature is called the appendix.  This is the scheme used by algorithms such as ECDSA and the RSA Probabilistic Signature Scheme (RSASSA-PSS).  (In fact, the SSA in RSASSA-PSS stands for Signature Scheme with Appendix.) </t>
       <t>The signature functions for this scheme are: </t>
-      
+
       <figure title="" suppress-title="false" align="left" alt="" width="" height="">
         <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
    signature = Sign(message content, key)
@@ -959,7 +959,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <t>A parameter identifying the recipient's key SHOULD be present.  A parameter identifying the sender's key SHOULD be present.  </t></list> </t>
       </section>
     </section>
-      
+
 <section anchor="CBOR-Canonical" title="CBOR Encoder Restrictions"  >
       <t>There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
       <t><list style="symbols">
@@ -993,36 +993,36 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         The registeries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
         The only known action at this time is to update the references.
       </t>
-      
+
       <section anchor="cbor-tag-assignment" title="CBOR Tag Assignment"  >
         <t>IANA has assigned the following tags from the "CBOR Tags" registry.  The tags for COSE_Sign1, COSE_Encrypt0, and COSE_Mac0 were assigned in the 1 to 23 value range (one byte long when encoded).  The tags for COSE_Sign, COSE_Encrypt, and COSE_Mac were assigned in the 24 to 255 value range (two bytes long when encoded).  </t>
         <t>The tags assigned are in <xref target="CBOR-Tags"  />.  </t>
       </section>
- 
+
       <section anchor="cose-header-key-table" title="COSE Header Parameters Registry"  >
         <t>
-        IANA has created a registry titled "COSE Header Parameters". 
-        The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"  />. 
-        Guidelines for the experts are provided in <xref target="review"  />. 
-        It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well. 
+        IANA has created a registry titled "COSE Header Parameters".
+        The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"  />.
+        Guidelines for the experts are provided in <xref target="review"  />.
+        It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well.
         </t>
 
         <t>The columns of the registry are:
         <list style="hanging">
         <t hangText="Name:">
-        The name is present to make it easier to refer to and discuss the registration entry. 
- The value is not used in the protocol. 
+        The name is present to make it easier to refer to and discuss the registration entry.
+ The value is not used in the protocol.
  Names are to be unique in the table.
         </t>
 
 <t hangText="Label:">
 This is the value used for the label.
-  The label can be either an integer or a string. 
- Registration in the table is based on the value of the label requested. 
- Integer values between 1 and 255 and strings of length 1 are designated as "Standards Action". 
-Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required". 
-Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review". 
-Integer values in the range -1 to -65536 are "delegated to the COSE Header Algorithm Parameters registry". 
+  The label can be either an integer or a string.
+ Registration in the table is based on the value of the label requested.
+ Integer values between 1 and 255 and strings of length 1 are designated as "Standards Action".
+Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required".
+Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review".
+Integer values in the range -1 to -65536 are "delegated to the COSE Header Algorithm Parameters registry".
 Integer values less than -65536 are marked as private use.
 </t>
 
@@ -1031,13 +1031,13 @@ Integer values less than -65536 are marked as private use.
 </t>
 
 <t hangText="Value Registry:">
-This contains a pointer to the registry used to contain values where the set is limited. 
+This contains a pointer to the registry used to contain values where the set is limited.
  </t>
  <t hangText="Description:">
    This contains a brief description of the header field.
  </t>
  <t hangText="Reference:">
-        This contains a pointer to the specification defining the header field (where public). 
+        This contains a pointer to the specification defining the header field (where public).
  </t>
         </list>
         </t>
@@ -1052,9 +1052,9 @@ This contains a pointer to the registry used to contain values where the set is 
       </section>
       <section anchor="IANA-Alg-Registry" title="COSE Header Algorithm Parameters Registry"  >
         <t>
-          IANA has created a registry titled "COSE Header Algorithm Parameters". 
- The registry uses the "Expert Review Required" registration procedure. 
- Expert review guidelines are provided in <xref target="review"  />. 
+          IANA has created a registry titled "COSE Header Algorithm Parameters".
+ The registry uses the "Expert Review Required" registration procedure.
+ Expert review guidelines are provided in <xref target="review"  />.
  </t>
 
  <t>
@@ -1062,34 +1062,34 @@ This contains a pointer to the registry used to contain values where the set is 
    <list style="hanging">
 
 <t hangText="Name:">
-The name is present to make it easier to refer to and discuss the registration entry. 
- The value is not used in the protocol. 
+The name is present to make it easier to refer to and discuss the registration entry.
+ The value is not used in the protocol.
  </t>
 
 <t hangText="Algorithm:">
-The algorithm(s) that this registry entry is used for. 
- This value is taken from the "COSE Algorithms" registry. 
- Multiple algorithms can be specified in this entry. 
- For the table, the algorithm/label pair MUST be unique. 
+The algorithm(s) that this registry entry is used for.
+ This value is taken from the "COSE Algorithms" registry.
+ Multiple algorithms can be specified in this entry.
+ For the table, the algorithm/label pair MUST be unique.
  </t>
 
 <t hangText="Label:">
-This is the value used for the label. 
- The label is an integer in the range of -1 to -65536. 
+This is the value used for the label.
+ The label is an integer in the range of -1 to -65536.
  </t>
 
 <t hangText="Type:">
-This contains the CBOR type for the value portion of the label. 
+This contains the CBOR type for the value portion of the label.
  </t>
 
  <t hangText="Description:">
- This contains a brief description of the header field. 
+ This contains a brief description of the header field.
  </t>
 
 <t hangText="Reference:">
-This contains a pointer to the specification defining the header field (where public). 
+This contains a pointer to the specification defining the header field (where public).
  </t>
-</list> 
+</list>
 </t>
 
 <!--
@@ -1099,10 +1099,10 @@ This contains a pointer to the specification defining the header field (where pu
 
       <section anchor="cose-algorithm-registry" title="COSE Algorithms Registry"  >
         <t>
-        IANA has created a registry titled "COSE Algorithms". 
- The registry has been created to use the "Expert Review Required" registration procedure. 
- Guidelines for the experts are provided in <xref target="review"  />. 
- It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well. 
+        IANA has created a registry titled "COSE Algorithms".
+ The registry has been created to use the "Expert Review Required" registration procedure.
+ Guidelines for the experts are provided in <xref target="review"  />.
+ It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well.
  </t>
 
 
@@ -1112,28 +1112,28 @@ This contains a pointer to the specification defining the header field (where pu
      </t>
 
      <t hangText="Name:">
-     A value that can be used to identify an algorithm in documents for easier comprehension. 
- The name SHOULD be unique. 
-However, the 'Value' field is what is used to identify the algorithm, not the 'name' field. 
+     A value that can be used to identify an algorithm in documents for easier comprehension.
+ The name SHOULD be unique.
+However, the 'Value' field is what is used to identify the algorithm, not the 'name' field.
  </t>
 <t hangText="Value:">
-The value to be used to identify this algorithm. 
- Algorithm values MUST be unique. 
- The value can be a positive integer, a negative integer, or a string. 
- Integer values between -256 and 255 and strings of length 1 are designated as "Standards Action". 
- Integer values from -65536 to 65535 and strings of length 2 are designated as "Specification Required". 
- Integer values greater than 65535 and strings of length greater than 2 are designated as "Expert Review". 
- Integer values less than -65536 are marked as private use. 
+The value to be used to identify this algorithm.
+ Algorithm values MUST be unique.
+ The value can be a positive integer, a negative integer, or a string.
+ Integer values between -256 and 255 and strings of length 1 are designated as "Standards Action".
+ Integer values from -65536 to 65535 and strings of length 2 are designated as "Specification Required".
+ Integer values greater than 65535 and strings of length greater than 2 are designated as "Expert Review".
+ Integer values less than -65536 are marked as private use.
  </t>
 
  <t hangText="Description:">
- A short description of the algorithm. 
+ A short description of the algorithm.
  </t>
  <t hangText="Reference:">
- A document where the algorithm is defined (if publicly available). 
+ A document where the algorithm is defined (if publicly available).
  </t>
  <t hangText="Recommended:">
- Does the IETF have a consensus recommendation to use the algorithm?  The legal values are 'Yes', 'No', and 'Deprecated'. 
+ Does the IETF have a consensus recommendation to use the algorithm?  The legal values are 'Yes', 'No', and 'Deprecated'.
  </t>
    </list>
  </t>
@@ -1145,17 +1145,17 @@ The initial contents of the registry can be found in Tables <xref target="table_
 
  <t>
  NOTE: The assignment of algorithm identifiers in this document was done so that positive numbers were used for the first layer objects (COSE_Sign, COSE_Sign1, COSE_Encrypt, COSE_Encrypt0, COSE_Mac, and COSE_Mac0).
-  Negative numbers were used for second layer objects (COSE_Signature and COSE_recipient). 
- Expert reviewers should consider this practice, but are not expected to be restricted by this precedent. 
+  Negative numbers were used for second layer objects (COSE_Signature and COSE_recipient).
+ Expert reviewers should consider this practice, but are not expected to be restricted by this precedent.
  </t>
       </section>
 
       <section anchor="cose-key-map-registry" title="COSE Key Common Parameters Registry"  >
         <t>
-        IANA has created a registry titled "COSE Key Common Parameters". 
- The registry has been created to use the "Expert Review Required" registration procedure. 
- Guidelines for the experts are provided in <xref target="review"  />. 
- It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well. 
+        IANA has created a registry titled "COSE Key Common Parameters".
+ The registry has been created to use the "Expert Review Required" registration procedure.
+ Guidelines for the experts are provided in <xref target="review"  />.
+ It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well.
  </t>
 
         <t>
@@ -1164,37 +1164,37 @@ The initial contents of the registry can be found in Tables <xref target="table_
         <t>
 <list style="hanging">
 <t hangText="Name:">
-This is a descriptive name that enables easier reference to the item. 
- It is not used in the encoding. 
+This is a descriptive name that enables easier reference to the item.
+ It is not used in the encoding.
  </t>
 <t hangText="Label:">
-The value to be used to identify this algorithm. 
- Key map labels MUST be unique. 
- The label can be a positive integer, a negative integer, or a string. 
- Integer values between 0 and 255 and strings of length 1 are designated as "Standards Action". 
- Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required". 
- Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review". 
- Integer values in the range -65536 to -1 are "used for key parameters specific to a single algorithm delegated to the COSE Key Type Parameters registry". 
- Integer values less than -65536 are marked as private use. 
+The value to be used to identify this algorithm.
+ Key map labels MUST be unique.
+ The label can be a positive integer, a negative integer, or a string.
+ Integer values between 0 and 255 and strings of length 1 are designated as "Standards Action".
+ Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required".
+ Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review".
+ Integer values in the range -65536 to -1 are "used for key parameters specific to a single algorithm delegated to the COSE Key Type Parameters registry".
+ Integer values less than -65536 are marked as private use.
  </t>
 
 <t hangText="CBOR Type:">
-This field contains the CBOR type for the field. 
+This field contains the CBOR type for the field.
  </t>
  <t hangText="Value Registry:">
-   This field denotes the registry that values come from, if one exists. 
+   This field denotes the registry that values come from, if one exists.
  </t>
  <t hangText="Description:">
- This field contains a brief description for the field. 
+ This field contains a brief description for the field.
  </t>
  <t hangText="Reference:">
-        This contains a pointer to the public specification for the field if one exists. 
+        This contains a pointer to the public specification for the field if one exists.
  </t>
 </list>
         </t>
         <!--
         <t>
-        This registry has been initially populated by the values in <xref target="table-key-labels"  />. 
+        This registry has been initially populated by the values in <xref target="table-key-labels"  />.
         All of the entries in the "References" column of this registry point to this document.
         </t>
         -->
@@ -1202,9 +1202,9 @@ This field contains the CBOR type for the field.
 
       <section anchor="cose-key-parameter-registry" title="COSE Key Type Parameters Registry"  >
         <t>
-        IANA has created a  registry titled "COSE Key Type Parameters". 
- The registry has been created to use the "Expert Review Required" registration procedure. 
- Expert review guidelines are provided in <xref target="review"  />. 
+        IANA has created a  registry titled "COSE Key Type Parameters".
+ The registry has been created to use the "Expert Review Required" registration procedure.
+ Expert review guidelines are provided in <xref target="review"  />.
  </t>
 
  <t>
@@ -1214,31 +1214,31 @@ This field contains the CBOR type for the field.
    <list style="hanging">
 
      <t hangText="Key Type:">
-     This field contains a descriptive string of a key type. 
- This should be a value that is in the "COSE Key Common Parameters" registry and is placed in the 'kty' field of a COSE Key structure. 
+     This field contains a descriptive string of a key type.
+ This should be a value that is in the "COSE Key Common Parameters" registry and is placed in the 'kty' field of a COSE Key structure.
  </t>
 
  <t hangText="Name:">
- This is a descriptive name that enables easier reference to the item. 
+ This is a descriptive name that enables easier reference to the item.
  It is not used in the encoding.
  </t>
 
  <t hangText="Label:">
- The label is to be unique for every value of key type. 
- The range of values is from -65536 to -1. 
- Labels are expected to be reused for different keys. 
+ The label is to be unique for every value of key type.
+ The range of values is from -65536 to -1.
+ Labels are expected to be reused for different keys.
  </t>
 
  <t hangText="CBOR Type:">
- This field contains the CBOR type for the field. 
+ This field contains the CBOR type for the field.
  </t>
 
 <t hangText="Description:">
-This field contains a brief description for the field. 
+This field contains a brief description for the field.
  </t>
 
  <t hangText="Reference:">
- This contains a pointer to the public specification for the field if one exists. 
+ This contains a pointer to the public specification for the field if one exists.
  </t>
    </list>
  </t>
@@ -1250,29 +1250,29 @@ This field contains a brief description for the field.
 
       <section anchor="cose-key-type-registry" title="COSE Key Types Registry"  >
         <t>
-        IANA has created a new registry titled "COSE Key Types". 
- The registry has been created to use the "Expert Review Required" registration procedure. 
- Expert review guidelines are provided in <xref target="review"  />. 
+        IANA has created a new registry titled "COSE Key Types".
+ The registry has been created to use the "Expert Review Required" registration procedure.
+ Expert review guidelines are provided in <xref target="review"  />.
  </t>
 
         <t>
           The columns of this table are:
           <list style="hanging">
             <t hangText="Name:">
-            This is a descriptive name that enables easier reference to the item. 
- The name MUST be unique. 
- It is not used in the encoding. 
+            This is a descriptive name that enables easier reference to the item.
+ The name MUST be unique.
+ It is not used in the encoding.
  </t>
  <t hangText="Value:">
- This is the value used to identify the curve. 
- These values MUST be unique. 
- The value can be a positive integer, a negative integer, or a string. 
+ This is the value used to identify the curve.
+ These values MUST be unique.
+ The value can be a positive integer, a negative integer, or a string.
  </t>
  <t hangText="Description:">
- This field contains a brief description of the curve. 
+ This field contains a brief description of the curve.
  </t>
  <t hangText="References:">
-        This contains a pointer to the public specification for the curve if one exists. 
+        This contains a pointer to the public specification for the curve if one exists.
  </t>
           </list>
         </t>
@@ -1451,7 +1451,7 @@ This field contains a brief description for the field.
 <t>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </t></list> </t>
       </section>
     </section>
-    
+
     <section anchor="security-considerations" title="Security Considerations"  >
       <t>There are a number of security considerations that need to be taken into account by implementers of this specification.  The security considerations that are specific to an individual algorithm are placed next to the description of the algorithm.  While some considerations have been highlighted here, additional considerations may be found in the documents listed in the references.  </t>
 
@@ -1514,7 +1514,7 @@ This field contains a brief description for the field.
 <date year="2013" month="July"/></front>
 <seriesInfo name='FIPS PUB' value='186-4' />
 <seriesInfo name='DOI' value='10.6028/NIST.FIPS.186-4' />
-</reference>  
+</reference>
 
 <reference anchor="MAC" quote-title="true" target="http://csrc.nist.gov/publications/fips/fips113/fips113.html"><front>
 <title>Computer Data Authentication</title>
@@ -1730,35 +1730,35 @@ This field contains a brief description for the field.
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
-    }, 
+    },
     / ciphertext / h'64f84d913ba60a76070a9a48f26e97e863e2852948658f0
-811139868826e89218a75715b', 
+811139868826e89218a75715b',
     / recipients / [
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
           / alg / 1:-3 / A128KW /
-        }, 
+        },
         / ciphertext / h'dbd43c4e9d719c27c6275c67d628d493f090593db82
-18f11', 
+18f11',
         / recipients / [
           [
             / protected / h'a1013818' / {
                 \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-              } / , 
+              } / ,
             / unprotected / {
               / ephemeral / -1:{
-                / kty / 1:2, 
-                / crv / -1:1, 
+                / kty / 1:2,
+                / crv / -1:1,
                 / x / -2:h'b2add44368ea6d641f9ca9af308b4079aeb519f11
-e9b8a55a600b21233e86e68', 
+e9b8a55a600b21233e86e68',
                 / y / -3:false
-              }, 
+              },
               / kid / 4:'meriadoc.brandybuck@buckland.example'
-            }, 
+            },
             / ciphertext / h''
           ]
         ]
@@ -1799,17 +1799,17 @@ e9b8a55a600b21233e86e68',
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'', 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+    / protected / h'',
+    / unprotected / {},
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
 5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
 98f53afd2fa0f30a'
@@ -1834,28 +1834,28 @@ e9b8a55a600b21233e86e68',
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'', 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+    / protected / h'',
+    / unprotected / {},
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
 5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
 98f53afd2fa0f30a'
-      ], 
+      ],
       [
         / protected / h'a1013823' / {
             \ alg \ 1:-36
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
+        },
         / signature / h'00a2d28a7c2bdb1587877420f65adf7d0b9a06635dd1
 de64bb62974c863f0b160dd2163734034e6ac003b01e8705524c5c4ca479a952f024
 7ee8cb0b4fb7397ba08d009e0c8bf482270cc5771aa143966e5a469a09f613488030
@@ -1881,29 +1881,29 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'', 
+    / protected / h'',
     / unprotected / {
       / countersign / 7:[
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'5ac05e289d5d0e1b0a7f048a5d2b643813ded50bc9e4
 9220f4f7278f85f19d4a77d655c9d3b51e805a74b099e1e085aacd97fc29d72f887e
 8802bb6650cceb2c'
       ]
-    }, 
-    / payload / 'This is the content.', 
+    },
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
 5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
 98f53afd2fa0f30a'
@@ -1913,7 +1913,7 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 )
 </artwork></figure> </section>
 
-        <section anchor="Appendix_B_1_4" title="Signature with Criticality"  ><t>This example uses the following: 
+        <section anchor="Appendix_B_1_4" title="Signature with Criticality"  ><t>This example uses the following:
 <list style="symbols"><t>Signature Algorithm: ECDSA w/ SHA-256, Curve P-256</t>
 
 <t>There is a criticality marker on the "reserved" header parameter</t></list> </t>
@@ -1924,23 +1924,23 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'a2687265736572766564f40281687265736572766564' / 
+    / protected / h'a2687265736572766564f40281687265736572766564' /
 {
-        "reserved":false, 
+        "reserved":false,
         \ crit \ 2:[
           "reserved"
         ]
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'3fc54702aa56e1b2cb20284294c9106a63f91bac658d
 69351210a031d8fc7c5ff3e4be39445b1a3e83e1510d1aca2f2e8a7c081c7645042b
 18aba9d1fad1bd9c'
@@ -1966,11 +1966,11 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
   [
     / protected / h'a10126' / {
         \ alg \ 1:-7 \ ECDSA 256 \
-      } / , 
+      } / ,
     / unprotected / {
       / kid / 4:'11'
-    }, 
-    / payload / 'This is the content.', 
+    },
+    / payload / 'This is the content.',
     / signature / h'8eb33e4ca31d1c465ab05aac34cc6b23d58fef5c083106c4
 d25a91aef0b0117e2af9a291aa32e14ab834dc56ed2a223444547e01f11d3b0916e5
 a4c345cacb36'
@@ -1992,27 +1992,27 @@ a4c345cacb36'
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'c9cf4df2fe6c632bf7886413'
-    }, 
+    },
     / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-c52a357da7a644b8070a151b0', 
+c52a357da7a644b8070a151b0',
     / recipients / [
       [
         / protected / h'a1013818' / {
             \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+          } / ,
         / unprotected / {
           / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:1, 
+            / kty / 1:2,
+            / crv / -1:1,
             / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-bf054e1c7b4d91d6280', 
+bf054e1c7b4d91d6280',
             / y / -3:true
-          }, 
+          },
           / kid / 4:'meriadoc.brandybuck@buckland.example'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -2042,21 +2042,21 @@ bf054e1c7b4d91d6280',
   [
     / protected / h'a1010a' / {
         \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a76c'
-    }, 
+    },
     / ciphertext / h'753548a19b1307084ca7b2056924ed95f2e3b17006dfe93
-1b687b847', 
+1b687b847',
     / recipients / [
       [
         / protected / h'a10129' / {
             \ alg \ 1:-10
-          } / , 
+          } / ,
         / unprotected / {
-          / salt / -20:'aabbccddeeffgghh', 
+          / salt / -20:'aabbccddeeffgghh',
           / kid / 4:'our-secret'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -2079,40 +2079,40 @@ bf054e1c7b4d91d6280',
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
-      / iv / 5:h'c9cf4df2fe6c632bf7886413', 
+      / iv / 5:h'c9cf4df2fe6c632bf7886413',
       / countersign / 7:[
         / protected / h'a1013823' / {
             \ alg \ 1:-36
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
+        },
         / signature / h'00929663c8789bb28177ae28467e66377da12302d7f9
 594d2999afa5dfa531294f8896f2b6cdf1740014f4c7f1a358e3a6cf57f4ed6fb02f
 cf8f7aa989f5dfd07f0700a3a7d8f3c604ba70fa9411bd10c2591b483e1d2c31de00
 3183e434d8fba18f17a4c7e3dfa003ac1cf3d30d44d2533c4989d3ac38c38b71481c
 c3430c9d65e7ddff'
       ]
-    }, 
+    },
     / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-c52a357da7a644b8070a151b0', 
+c52a357da7a644b8070a151b0',
     / recipients / [
       [
         / protected / h'a1013818' / {
             \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+          } / ,
         / unprotected / {
           / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:1, 
+            / kty / 1:2,
+            / crv / -1:1,
             / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-bf054e1c7b4d91d6280', 
+bf054e1c7b4d91d6280',
             / y / -3:true
-          }, 
+          },
           / kid / 4:'meriadoc.brandybuck@buckland.example'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -2136,22 +2136,22 @@ bf054e1c7b4d91d6280',
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
-    }, 
+    },
     / ciphertext / h'64f84d913ba60a76070a9a48f26e97e863e28529d8f5335
-e5f0165eee976b4a5f6c6f09d', 
+e5f0165eee976b4a5f6c6f09d',
     / recipients / [
       [
         / protected / h'a101381f' / {
             \ alg \ 1:-32 \ ECHD-SS+A128KW \
-          } / , 
+          } / ,
         / unprotected / {
-          / static kid / -3:'peregrin.took@tuckborough.example', 
-          / kid / 4:'meriadoc.brandybuck@buckland.example', 
+          / static kid / -3:'peregrin.took@tuckborough.example',
+          / kid / 4:'meriadoc.brandybuck@buckland.example',
           / U nonce / -22:h'0101'
-        }, 
+        },
         / ciphertext / h'41e0d76f579dbd0d936a662d54d8582037de2e366fd
 e1c62'
       ]
@@ -2175,10 +2175,10 @@ e1c62'
   [
     / protected / h'a1010a' / {
         \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a78c'
-    }, 
+    },
     / ciphertext / h'5974e1b99a3a4cc09a659aa2e9e7fff161d38ce71cb45ce
 460ffb569'
   ]
@@ -2196,10 +2196,10 @@ e1c62'
   [
     / protected / h'a1010a' / {
         \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+      } / ,
     / unprotected / {
       / partial iv / 6:h'61a7'
-    }, 
+    },
     / ciphertext / h'252a8911d465c125b6764739700f0141ed09192de139e05
 3bd09abca'
   ]
@@ -2226,17 +2226,17 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
   [
     / protected / h'a1010f' / {
         \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
-    / tag / h'9e1226ba1f81b848', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
+    / tag / h'9e1226ba1f81b848',
     / recipients / [
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
-          / alg / 1:-6 / direct /, 
+          / alg / 1:-6 / direct /,
           / kid / 4:'our-secret'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -2257,23 +2257,23 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
   [
     / protected / h'a10105' / {
         \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / tag / h'81a03448acd3d305376eaa11fb3fe416a955be2cbe7ec96f012c99
-4bc3f16a41', 
+4bc3f16a41',
     / recipients / [
       [
         / protected / h'a101381a' / {
             \ alg \ 1:-27 \ ECDH-SS + HKDF-256 \
-          } / , 
+          } / ,
         / unprotected / {
-          / static kid / -3:'peregrin.took@tuckborough.example', 
-          / kid / 4:'meriadoc.brandybuck@buckland.example', 
+          / static kid / -3:'peregrin.took@tuckborough.example',
+          / kid / 4:'meriadoc.brandybuck@buckland.example',
           / U nonce / -22:h'4d8553e7e74f3c6a3a9dd3ef286a8195cbf8a23d
 19558ccfec7d34b824f42d92bd06bd2c7f0271f0214e141fb779ae2856abf585a583
 68b017e7f2a9e5ce4db5'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -2281,7 +2281,7 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
 )
 </artwork></figure> </section>
 
-        <section anchor="Appendix_B_5_3" title="Wrapped MAC"  ><t>This example uses the following: 
+        <section anchor="Appendix_B_5_3" title="Wrapped MAC"  ><t>This example uses the following:
 <list style="symbols">
 <t>MAC: AES-MAC, 128-bit key, truncated to 64 bits</t>
 
@@ -2294,17 +2294,17 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
   [
     / protected / h'a1010e' / {
         \ alg \ 1:14 \ AES-CBC-MAC-128//64 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
-    / tag / h'36f5afaf0bab5d43', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
+    / tag / h'36f5afaf0bab5d43',
     / recipients / [
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
-          / alg / 1:-5 / A256KW /, 
+          / alg / 1:-5 / A256KW /,
           / kid / 4:'018c0ae5-4d9b-471b-bfd6-eef314bc7037'
-        }, 
+        },
         / ciphertext / h'711ab0dc2fc4585dce27effa6781c8093eba906f227
 b6eb0'
       ]
@@ -2332,36 +2332,36 @@ b6eb0'
   [
     / protected / h'a10105' / {
         \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / tag / h'bf48235e809b5c42e995f2b7d5fa13620e7ed834e337f6aa43df16
-1e49e9323e', 
+1e49e9323e',
     / recipients / [
       [
         / protected / h'a101381c' / {
             \ alg \ 1:-29 \ ECHD-ES+A128KW \
-          } / , 
+          } / ,
         / unprotected / {
           / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:3, 
+            / kty / 1:2,
+            / crv / -1:3,
             / x / -2:h'0043b12669acac3fd27898ffba0bcd2e6c366d53bc4db
 71f909a759304acfb5e18cdc7ba0b13ff8c7636271a6924b1ac63c02688075b55ef2
-d613574e7dc242f79c3', 
+d613574e7dc242f79c3',
             / y / -3:true
-          }, 
+          },
           / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
+        },
         / ciphertext / h'339bc4f79984cdc6b3e6ce5f315a4c7d2b0ac466fce
 a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
-      ], 
+      ],
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
-          / alg / 1:-5 / A256KW /, 
+          / alg / 1:-5 / A256KW /,
           / kid / 4:'018c0ae5-4d9b-471b-bfd6-eef314bc7037'
-        }, 
+        },
         / ciphertext / h'0b2c7cfce04e98276342d6476a7723c090dfdd15f9a
 518e7736549e998370695e6d6a83b4ae507bb'
       ]
@@ -2373,7 +2373,7 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 
       <section title="Examples of MAC0 Messages" anchor="Mac0Examples"  >
         <section anchor="Appendix_B_6_1" title="Shared Secret Direct MAC"  >
-<t>This example uses the following: 
+<t>This example uses the following:
 <list style="symbols"><t>MAC: AES-CMAC, 256-bit key, truncated to 64 bits</t>
 
 <t>Recipient class: direct shared secret</t></list> </t>
@@ -2386,9 +2386,9 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
   [
     / protected / h'a1010f' / {
         \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / tag / h'726043745027214f'
   ]
 )
@@ -2409,41 +2409,41 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 [
   {
-    -1:1, 
+    -1:1,
     -2:h'65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c0
-8551d', 
+8551d',
     -3:h'1e52ed75701163f7f9e40ddf9f341b3dc9ba860af7e0ca7ca7e9eecd008
-4d19c', 
-    1:2, 
+4d19c',
+    1:2,
     2:'meriadoc.brandybuck@buckland.example'
-  }, 
+  },
   {
-    -1:1, 
+    -1:1,
     -2:h'bac5b11cad8f99f9c72b05cf4b9e26d244dc189f745228255a219a86d6a
-09eff', 
+09eff',
     -3:h'20138bf82dc1b6d562be0fa54ab7804a3a64b6d72ccfed6b6fb6ed28bbf
-c117e', 
-    1:2, 
+c117e',
+    1:2,
     2:'11'
-  }, 
+  },
   {
-    -1:3, 
+    -1:3,
     -2:h'0072992cb3ac08ecf3e5c63dedec0d51a8c1f79ef2f82f94f3c737bf5de
 7986671eac625fe8257bbd0394644caaa3aaf8f27a4585fbbcad0f2457620085e5c8
-f42ad', 
+f42ad',
     -3:h'01dca6947bce88bc5790485ac97427342bc35f887d86d65a089377e247e
 60baa55e4e8501e2ada5724ac51d6909008033ebc10ac999b9d7f5cc2519f3fe1ea1
-d9475', 
-    1:2, 
+d9475',
+    1:2,
     2:'bilbo.baggins@hobbiton.example'
-  }, 
+  },
   {
-    -1:1, 
+    -1:1,
     -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbfbf054e1c7b4d91
-d6280', 
+d6280',
     -3:h'f01400b089867804b8e9fc96c3932161f1934f4223069170d924b7e03bf
-822bb', 
-    1:2, 
+822bb',
+    1:2,
     2:'peregrin.took@tuckborough.example'
   }
 ]
@@ -2462,66 +2462,66 @@ d6280',
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 [
   {
-    1:2, 
-    2:'meriadoc.brandybuck@buckland.example', 
-    -1:1, 
+    1:2,
+    2:'meriadoc.brandybuck@buckland.example',
+    -1:1,
     -2:h'65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c0
-8551d', 
+8551d',
     -3:h'1e52ed75701163f7f9e40ddf9f341b3dc9ba860af7e0ca7ca7e9eecd008
-4d19c', 
+4d19c',
     -4:h'aff907c99f9ad3aae6c4cdf21122bce2bd68b5283e6907154ad911840fa
 208cf'
-  }, 
+  },
   {
-    1:2, 
-    2:'11', 
-    -1:1, 
+    1:2,
+    2:'11',
+    -1:1,
     -2:h'bac5b11cad8f99f9c72b05cf4b9e26d244dc189f745228255a219a86d6a
-09eff', 
+09eff',
     -3:h'20138bf82dc1b6d562be0fa54ab7804a3a64b6d72ccfed6b6fb6ed28bbf
-c117e', 
+c117e',
     -4:h'57c92077664146e876760c9520d054aa93c3afb04e306705db609030850
 7b4d3'
-  }, 
+  },
   {
-    1:2, 
-    2:'bilbo.baggins@hobbiton.example', 
-    -1:3, 
+    1:2,
+    2:'bilbo.baggins@hobbiton.example',
+    -1:3,
     -2:h'0072992cb3ac08ecf3e5c63dedec0d51a8c1f79ef2f82f94f3c737bf5de
 7986671eac625fe8257bbd0394644caaa3aaf8f27a4585fbbcad0f2457620085e5c8
-f42ad', 
+f42ad',
     -3:h'01dca6947bce88bc5790485ac97427342bc35f887d86d65a089377e247e
 60baa55e4e8501e2ada5724ac51d6909008033ebc10ac999b9d7f5cc2519f3fe1ea1
-d9475', 
+d9475',
     -4:h'00085138ddabf5ca975f5860f91a08e91d6d5f9a76ad4018766a476680b
 55cd339e8ab6c72b5facdb2a2a50ac25bd086647dd3e2e6e99e84ca2c3609fdf177f
 eb26d'
-  }, 
+  },
   {
-    1:4, 
-    2:'our-secret', 
+    1:4,
+    2:'our-secret',
     -1:h'849b57219dae48de646d07dbb533566e976686457c1491be3a76dcea6c4
 27188'
-  }, 
+  },
   {
-    1:2, 
-    -1:1, 
-    2:'peregrin.took@tuckborough.example', 
+    1:2,
+    -1:1,
+    2:'peregrin.took@tuckborough.example',
     -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbfbf054e1c7b4d91
-d6280', 
+d6280',
     -3:h'f01400b089867804b8e9fc96c3932161f1934f4223069170d924b7e03bf
-822bb', 
+822bb',
     -4:h'02d1f7e6f26c43d4868d87ceb2353161740aacf1f7163647984b522a848
 df1c3'
-  }, 
+  },
   {
-    1:4, 
-    2:'our-secret2', 
+    1:4,
+    2:'our-secret2',
     -1:h'849b5786457c1491be3a76dcea6c4271'
-  }, 
+  },
   {
-    1:4, 
-    2:'018c0ae5-4d9b-471b-bfd6-eef314bc7037', 
+    1:4,
+    2:'018c0ae5-4d9b-471b-bfd6-eef314bc7037',
     -1:h'849b57219dae48de646d07dbb533566e976686457c1491be3a76dcea6c4
 27188'
   }
@@ -2529,7 +2529,7 @@ df1c3'
 </artwork></figure> </section>
       </section>
     </section>
- 
+
     <section title="Acknowledgments" numbered="no" >
       <t>This document is a product of the COSE working group of the IETF.  </t>
       <t>The following individuals are to blame for getting me started on this project in the first place: Richard Barnes, Matt Miller, and Martin Thomson.  </t>
@@ -2543,4 +2543,4 @@ df1c3'
 
   </back>
 </rfc>
- 
+

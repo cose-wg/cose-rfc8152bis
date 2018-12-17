@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='US-ASCII'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC8152 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8152.xml">
-]>  
+]>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <?rfc toc="yes"?>
@@ -12,7 +12,7 @@
 <rfc ipr="trust200902" category="std" docName="draft-schaad-cose-rfc8152bis-algs-00" obsoletes="8152">
   <front>
     <title abbrev="COSE Algorithms">CBOR
-    Algoritms for Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE)</title>
+    Algoritms for Object Signing and Encryption (COSE)</title>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -25,10 +25,10 @@
 
     <abstract>
       <t>
-        Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size. 
-        There is a need for the ability to have basic security services defined for this data format. 
-        This document defines the CBOR Object Signing and Encryption (COSE) protocol. 
-        This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization. 
+        Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.
+        There is a need for the ability to have basic security services defined for this data format.
+        This document defines the CBOR Object Signing and Encryption (COSE) protocol.
+        This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.
         COSE additionally describes how to represent cryptographic keys using CBOR.
       </t>
       <t>
@@ -41,15 +41,15 @@
     </abstract>
   </front>
 
-  
+
   <middle>
     <section anchor="introduction" title="Introduction"  >
       <t>
-        There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT). 
-        One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />. 
-        CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC7159"  /> by allowing for binary data, among other changes. 
-        CBOR is being adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures. 
-        CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder. 
+        There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).
+        One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />.
+        CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC7159"  /> by allowing for binary data, among other changes.
+        CBOR is being adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.
+        CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.
         A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.
       </t>
 
@@ -83,12 +83,12 @@
         <t>Authenticated Encryption with Authenticated Data (AEAD) <xref target="RFC5116"  /> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
       </section>
     </section>
-    
+
     <section title="Signature Algorithms" anchor="SigAlgs"  >
       <t>
         The document defines signature algorithm identifiers for two signature algorithms.
       </t>
-      
+
       <section title="ECDSA" anchor="ECDSA"  >
         <t>ECDSA <xref target="DSS"  /> defines a signature algorithm using ECC.  Implementations SHOULD use a deterministic version of ECDSA such as the one defined in <xref target="RFC6979"  />.  The use of a deterministic signature algorithm allows for systems to avoid relying on random number generators in order to avoid generating the same value of 'k' (the per-message random value). Biased generation of the value 'k' can be attacked, and collisions of this value leads to leaked keys.  It additionally allows for doing deterministic tests for the signature algorithm.  The use of deterministic ECDSA does not lessen the need to have good random number generation when creating the private key.  </t>
         <t>The ECDSA signature algorithm is parameterized with a hash function (h).  In the event that the length of the hash function output is greater than the group of the key, the leftmost bytes of the hash output are used.  </t>
@@ -118,7 +118,7 @@
         <t>The signature algorithm results in a pair of integers (R, S).  These integers will be the same length as the length of the key used for the signature process.  The signature is encoded by converting the integers into byte strings of the same length as the key size.  The length is rounded up to the nearest byte and is left padded with zero bits to get to the correct length.  The two integers are then concatenated together to form a byte string that is the resulting signature.  </t>
 
         <t>
-          Using the function defined in <xref target="RFC8017"  />, the signature is: 
+          Using the function defined in <xref target="RFC8017"  />, the signature is:
           <vspace blankLines="1"/>
           Signature = I2OSP(R, n) | I2OSP(S, n)
           <vspace blankLines="0"/>
@@ -170,7 +170,7 @@
       <t>
         This section defines the usages for two MAC algorithms.
       </t>
-      
+
 
       <section title="Hash-Based Message Authentication Codes (HMACs)"  >
         <t>HMAC <xref target="RFC2104"  /> <xref target="RFC4231"  /> was designed to deal with length extension attacks.  The algorithm was also designed to allow for new hash algorithms to be directly plugged in without changes to the hash function.  The HMAC design process has been shown as solid since, while the security of hash algorithms such as MD5 has decreased over time; the security of HMAC combined with MD5 has not yet been shown to be compromised <xref target="RFC6151"  />.  </t>
@@ -255,14 +255,14 @@
         <section title="Security Considerations"  >
           <t>A number of attacks exist against Cipher Block Chaining Message Authentication Code (CBC-MAC) that need to be considered.
   <list style="symbols">
-<t>A single key must only be used for messages of a fixed and known length.  If this is not the case, an attacker will be able to generate a message with a valid tag given two message and tag pairs.  This can be addressed by using different keys for messages of different lengths. 
+<t>A single key must only be used for messages of a fixed and known length.  If this is not the case, an attacker will be able to generate a message with a valid tag given two message and tag pairs.  This can be addressed by using different keys for messages of different lengths.
 
  The current structure mitigates this problem, as a specific encoding structure that includes lengths is built and signed.  (CMAC also addresses this issue.) </t>
 <t>Cipher Block Chaining (CBC) mode, if the same key is used for both encryption and authentication operations, an attacker can produce messages with a valid authentication code.   </t><t>If the IV can be modified, then messages can be forged.  This is addressed by fixing the IV to all zeros.  </t></list> </t>
         </section>
       </section>
     </section>
-    
+
     <section title="Content Encryption Algorithms"  >
       <t>
         This docuement defines the identifier and usages for three content encryption algorithms.
@@ -415,9 +415,9 @@
     </section>
     <section title="Key Derivation Functions (KDFs)"  >
       <t>
-        This document defines a single context structure and a single KDF. 
-        These elements are used for all of the recipient algorithms defined in this document that require a KDF process. 
-        These algorithms are defined in Sections <xref target="direct-kdf"  format="counter"/>, <xref target="ECDH"  format="counter"/>, and <xref target="ECDH-wrap"  format="counter"/>. 
+        This document defines a single context structure and a single KDF.
+        These elements are used for all of the recipient algorithms defined in this document that require a KDF process.
+        These algorithms are defined in Sections <xref target="direct-kdf"  format="counter"/>, <xref target="ECDH"  format="counter"/>, and <xref target="ECDH-wrap"  format="counter"/>.
       </t>
 
       <section title="HMAC-Based Extract-and-Expand Key Derivation Function (HKDF)" anchor="HKDF"  >
@@ -472,7 +472,7 @@
         <t>The context information structure is used to ensure that the derived keying material is "bound" to the context of the transaction.  The context information structure used here is based on that defined in <xref target="SP800-56A"  />.  By using CBOR for the encoding of the context information structure, we automatically get the same type and length separation of fields that is obtained by the use of ASN.1.  This means that there is no need to encode the lengths for the base elements, as it is done by the encoding used in JOSE (Section 4.6.2 of <xref target="RFC7518"  />).   </t>
 
         <t>The context information structure refers to PartyU and PartyV as the two parties that are doing the key derivation.  Unless the application protocol defines differently, we assign PartyU to the entity that is creating the message and PartyV to the entity that is receiving the message.  By doing this association, different keys will be derived for each direction as the context information is different in each direction.  </t>
-       
+
         <t>The context structure is built from information that is known to both entities.  This information can be obtained from a variety of sources: <list style="symbols"><t>Fields can be defined by the application.  This is commonly used to assign fixed names to parties, but it can be used for other items such as nonces.  </t>
 
 <t>Fields can be defined by usage of the output.  Examples of this are the algorithm and key size that are being generated.  </t>
@@ -480,7 +480,7 @@
         <t>Fields can be defined by parameters from the message.  We define a set of parameters in <xref target="KDF_Context_Alg_Params"  /> that can be used to carry the values associated with the context structure.  Examples of this are identities and nonce values.  These parameters are designed to be placed in the unprotected bucket of the recipient structure; they do not need to be in the protected bucket since they already are included in the cryptographic computation by virtue of being included in the context structure. </t></list> </t>
 
 
-        
+
         <texttable title="Context Algorithm Parameters" anchor="KDF_Context_Alg_Params" suppress-title="false" align="center" style="full">
           <ttcol align="left">Name</ttcol>
           <ttcol align="left">Label</ttcol>
@@ -521,21 +521,21 @@
         <t>We define a CBOR object to hold the context information.  This object is referred to as COSE_KDF_Context.  The object is based on a CBOR array type.  The fields in the array are: <list style="hanging">
 <t hangText="AlgorithmID:">This field indicates the algorithm for which the key material will be used.  This normally is either a key wrap algorithm identifier or a content encryption algorithm identifier.  The values are from the "COSE Algorithms" registry.  This field is required to be present.  The field exists in the context information so that if the same environment is used for different algorithms, then completely different keys will be generated for each of those algorithms.  This practice means if algorithm A is broken and thus is easier to find, the key derived for algorithm B will not be the same as the key derived for algorithm A. </t>
 
-<t hangText="PartyUInfo:">This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented.  The elements of the PartyUInfo array are: 
+<t hangText="PartyUInfo:">This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented.  The elements of the PartyUInfo array are:
 <list style="hanging">
-<t hangText="identity:">This contains the identity information for party U.  The identities can be assigned in one of two manners.  First, a protocol can assign identities based on roles.  For example, the roles of "client" and "server" may be assigned to different entities in the protocol.  Each entity would then use the correct label for the data they send or receive.  The second way for a protocol to assign identities is to use a name based on a naming system (i.e., DNS, X.509 names). 
- 
+<t hangText="identity:">This contains the identity information for party U.  The identities can be assigned in one of two manners.  First, a protocol can assign identities based on roles.  For example, the roles of "client" and "server" may be assigned to different entities in the protocol.  Each entity would then use the correct label for the data they send or receive.  The second way for a protocol to assign identities is to use a name based on a naming system (i.e., DNS, X.509 names).
+
 <vspace blankLines="1"/> We define an algorithm parameter 'PartyU identity' that can be used to carry identity information in the message.  However, identity information is often known as part of the protocol and can thus be inferred rather than made explicit.  If identity information is carried in the message, applications SHOULD have a way of validating the supplied identity information.  The identity information does not need to be specified and is set to nil in that case.  </t>
 
-<t hangText="nonce:">This contains a nonce value.  The nonce can either be implicit from the protocol or be carried as a value in the unprotected headers. 
- 
-<vspace blankLines="1"/> We define an algorithm parameter 'PartyU nonce' that can be used to carry this value in the message; however, the nonce value could be determined by the application and the value determined from elsewhere.  
+<t hangText="nonce:">This contains a nonce value.  The nonce can either be implicit from the protocol or be carried as a value in the unprotected headers.
+
+<vspace blankLines="1"/> We define an algorithm parameter 'PartyU nonce' that can be used to carry this value in the message; however, the nonce value could be determined by the application and the value determined from elsewhere.
 
 <vspace blankLines="1"/> This option does not need to be specified and is set to nil in that case. </t>
 
 <t hangText="other:">This contains other information that is defined by the protocol. This option does not need to be specified and is set to nil in that case. </t></list> </t>
 <t hangText="PartyVInfo:">This field holds information about party V.  The content of the structure is the same as for the PartyUInfo but for party V.  </t>
-<t hangText="SuppPubInfo:">This field contains public information that is mutually known to both parties. 
+<t hangText="SuppPubInfo:">This field contains public information that is mutually known to both parties.
  <list style="hanging">
 
 <t hangText="keyDataLength:">This is set to the number of bits of the desired output value.  This practice means if algorithm A can use two different key lengths, the key derived for longer key size will not contain the key for shorter key size as a prefix. </t>
@@ -569,21 +569,21 @@ COSE_KDF_Context = [
         </figure>
       </section>
     </section>
-    
+
     <section title="Content Key Distribution Methods" anchor="key-management-algs"  >
       <t>
         This document defines the identifiers and usage for a number of content key distribution methods.
       </t>
-      
+
       <section title="Direct Key"  >
         <t>
-        This recipient algorithm is the simplest; the identified key is directly used as the key for the next layer down in the message. 
-        There are no algorithm parameters defined for this algorithm.  The algorithm identifier value is assigned  in <xref target="table-direct"  />. 
+        This recipient algorithm is the simplest; the identified key is directly used as the key for the next layer down in the message.
+        There are no algorithm parameters defined for this algorithm.  The algorithm identifier value is assigned  in <xref target="table-direct"  />.
         </t>
         <t>
           When this algorithm is used, the protected field MUST be zero length.  The key type MUST be 'Symmetric'.
         </t>
-        
+
         <texttable title="Direct Key" anchor="table-direct" suppress-title="false" align="center" style="full">
           <ttcol align="left">Name</ttcol>
           <ttcol align="left">Value</ttcol>
@@ -592,7 +592,7 @@ COSE_KDF_Context = [
           <c>-6</c>
           <c>Direct use of CEK</c>
         </texttable>
-        
+
         <section title="Security Considerations"  >
           <t>This recipient algorithm has several potential problems that need to be considered: <list style="symbols">
           <t>These keys need to have some method to be regularly updated over time.  All of the content encryption algorithms specified in this document have limits on how many times a key can be used without significant loss of security.  </t>
@@ -602,9 +602,9 @@ COSE_KDF_Context = [
           <t>Breaking one message means all messages are broken.  If an adversary succeeds in determining the key for a single message, then the key for all messages is also determined.  </t></list> </t>
         </section>
       </section>
-      
+
       <section title="Direct Key with KDF" anchor="direct-kdf"  >
-        <t>These recipient algorithms take a common shared secret between the two parties and applies the HKDF function (<xref target="HKDF"  />), using the context structure defined in <xref target="context"  /> to transform the shared secret into the CEK. 
+        <t>These recipient algorithms take a common shared secret between the two parties and applies the HKDF function (<xref target="HKDF"  />), using the context structure defined in <xref target="context"  /> to transform the shared secret into the CEK.
 
         The 'protected' field can be of non-zero length.  Either the 'salt' parameter of HKDF or the 'PartyU nonce' parameter of the context structure MUST be present.  The salt/nonce parameter can be generated either randomly or deterministically.  The requirement is that it be a unique value for the shared secret in question.  </t>
 
@@ -679,17 +679,17 @@ COSE_KDF_Context = [
           <t>The shared secret needs to have some method to be regularly updated over time.  The shared secret is the basis of trust.  </t>
         </section>
       </section>
-    
+
       <section title="Direct ECDH" anchor="ECDH"  >
         <t>The mathematics for ECDH can be found in <xref target="RFC6090"  />.  In this document, the algorithm is extended to be used with the two curves defined in <xref target="RFC7748"  />.  </t>
 
         <t>ECDH is parameterized by the following: <list style="symbols">
-        <t>Curve Type/Curve: The curve selected controls not only the size of the shared secret, but the mathematics for computing the shared secret.  The curve selected also controls how a point in the curve is represented and what happens for the identity points on the curve.  In this specification, we allow for a number of different curves to be used.  A set of curves are defined in <xref target="table-ec-curves"  />. 
+        <t>Curve Type/Curve: The curve selected controls not only the size of the shared secret, but the mathematics for computing the shared secret.  The curve selected also controls how a point in the curve is represented and what happens for the identity points on the curve.  In this specification, we allow for a number of different curves to be used.  A set of curves are defined in <xref target="table-ec-curves"  />.
         <vspace blankLines="0"/> The math used to obtain the computed secret is based on the curve selected and not on the ECDH algorithm.  For this reason, a new algorithm does not need to be defined for each of the curves.  </t>
 
         <t>Computed Secret to Shared Secret: Once the computed secret is known, the resulting value needs to be converted to a byte string to run the KDF.  The x-coordinate is used for all of the curves defined in this document.  For curves X25519 and X448, the resulting value is used directly as it is a byte string of a known length.  For the P-256, P-384, and P-521 curves, the x-coordinate is run through the I2OSP function defined in <xref target="RFC8017"  />, using the same computation for n as is defined in <xref target="ECDSA"  />.  </t>
 
-        <t>Ephemeral-Static or Static-Static: The key agreement process may be done using either a static or an ephemeral key for the sender's side.  When using ephemeral keys, the sender MUST generate a new ephemeral key for every key agreement operation.  The ephemeral key is placed in the 'ephemeral key' parameter and MUST be present for all algorithm identifiers that use ephemeral keys.  When using static keys, the sender MUST either generate a new random value or create a unique value. 
+        <t>Ephemeral-Static or Static-Static: The key agreement process may be done using either a static or an ephemeral key for the sender's side.  When using ephemeral keys, the sender MUST generate a new ephemeral key for every key agreement operation.  The ephemeral key is placed in the 'ephemeral key' parameter and MUST be present for all algorithm identifiers that use ephemeral keys.  When using static keys, the sender MUST either generate a new random value or create a unique value.
         For the KDFs used, this means either the 'salt' parameter for HKDF (<xref target="HKDF_Alg_Params"  />) or the 'PartyU nonce' parameter for the context structure (<xref target="KDF_Context_Alg_Params"  />) MUST be present (both can be present if desired). The value in the parameter MUST be unique for the pair of keys being used.  It is acceptable to use a global counter that is incremented for every static-static operation and use the resulting value.  When using static keys, the static key should be identified to the recipient.  The static key can be identified either by providing the key ('static key') or by providing a key identifier for the static key ('static key id').  Both of these parameters are defined in <xref target="table-ecdh-es-parameter-table"  />.  </t>
 
         <t>Key Derivation Algorithm: The result of an ECDH key agreement process does not provide a uniformly random secret.  As such, it needs to be run through a KDF in order to produce a usable key.  Processing the secret through a KDF also allows for the introduction of context material: how the key is going to be used and one-time material for static-static key agreement.  All of the algorithms defined in this document use one of the HKDF algorithms defined in <xref target="HKDF"  /> with the context structure defined in <xref target="context"  />.  </t>
@@ -756,7 +756,7 @@ COSE_KDF_Context = [
         <t>The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.</t>
         <t>If the 'alg' field is present, it MUST match the key agreement algorithm being used.</t><t>If the 'key_ops' field is present, it MUST include 'derive key' or 'derive bits' for the private key.</t>
         <t>If the 'key_ops' field is present, it MUST be empty for the public key.</t></list> </t>
-        
+
         <section title="Security Considerations"  >
           <t>There is a method of checking that points provided from external entities are valid.  For the 'EC2' key format, this can be done by checking that the x and y values form a point on the curve.  For the 'OKP' format, there is no simple way to do point validation.  </t>
           <t>Consideration was given to requiring that the public keys of both entities be provided as part of the key derivation process (as recommended in Section 6.1 of <xref target="RFC7748"  />). This was not done as COSE is used in a store and forward format rather than in online key exchange.  In order for this to be a problem, either the receiver public key has to be chosen maliciously or the sender has to be malicious.  In either case, all security evaporates anyway.  </t>
@@ -888,7 +888,7 @@ COSE_KDF_Context = [
  <list style="hanging" hangIndent="5">
 
 <t hangText="crv:">This contains an identifier of the curve to be used with the key. The curves defined in this document for this key type can be found in <xref target="table-ec-curves"  />.  Other curves may be registered in the future, and private curves can be used as well.  </t>
-<t hangText="x:">This contains the x-coordinate for the EC point.  The integer is converted to an octet string as defined in <xref target="SEC1"  />.  Leading zero octets MUST be preserved. 
+<t hangText="x:">This contains the x-coordinate for the EC point.  The integer is converted to an octet string as defined in <xref target="SEC1"  />.  Leading zero octets MUST be preserved.
  </t>
 <t hangText="y:">This contains either the sign bit or the value of the y-coordinate for the EC point.  When encoding the value y, the integer is converted to an octet string (as defined in <xref target="SEC1"  />) and encoded as a CBOR bstr.  Leading zero octets MUST be preserved.  The compressed point encoding is also supported.  Compute the sign bit as laid out in the Elliptic-Curve-Point-to-Octet-String Conversion function of <xref target="SEC1"  />.  If the sign bit is zero, then encode y as a CBOR false value; otherwise, encode y as a CBOR true value.  The encoding of the infinity point is not supported.  </t>
 <t hangText="d:">This contains the private key.  </t></list> </t>
@@ -1113,7 +1113,7 @@ COSE_KDF_Context = [
 <t>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </t></list> </t>
       </section>
     </section>
-    
+
     <section anchor="security-considerations" title="Security Considerations"  >
       <t>There are a number of security considerations that need to be taken into account by implementers of this specification.  The security considerations that are specific to an individual algorithm are placed next to the description of the algorithm.  While some considerations have been highlighted here, additional considerations may be found in the documents listed in the references.  </t>
 
@@ -1153,7 +1153,7 @@ COSE_KDF_Context = [
           <date month='November' year='2019' />
         </front>
       </reference>
-      
+
 
 <?rfc include="reference.RFC.2104" ?>
 <?rfc include="reference.RFC.2119" ?>
@@ -1181,7 +1181,7 @@ COSE_KDF_Context = [
 <date year="2013" month="July"/></front>
 <seriesInfo name='FIPS PUB' value='186-4' />
 <seriesInfo name='DOI' value='10.6028/NIST.FIPS.186-4' />
-</reference>  
+</reference>
 
 <reference anchor="MAC" quote-title="true" target="http://csrc.nist.gov/publications/fips/fips113/fips113.html"><front>
 <title>Computer Data Authentication</title>
@@ -1346,17 +1346,17 @@ COSE_KDF_Context = [
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'', 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+    / protected / h'',
+    / unprotected / {},
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
 5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
 98f53afd2fa0f30a'
@@ -1381,28 +1381,28 @@ COSE_KDF_Context = [
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'', 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+    / protected / h'',
+    / unprotected / {},
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
 5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
 98f53afd2fa0f30a'
-      ], 
+      ],
       [
         / protected / h'a1013823' / {
             \ alg \ 1:-36
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
+        },
         / signature / h'00a2d28a7c2bdb1587877420f65adf7d0b9a06635dd1
 de64bb62974c863f0b160dd2163734034e6ac003b01e8705524c5c4ca479a952f024
 7ee8cb0b4fb7397ba08d009e0c8bf482270cc5771aa143966e5a469a09f613488030
@@ -1428,29 +1428,29 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'', 
+    / protected / h'',
     / unprotected / {
       / countersign / 7:[
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'5ac05e289d5d0e1b0a7f048a5d2b643813ded50bc9e4
 9220f4f7278f85f19d4a77d655c9d3b51e805a74b099e1e085aacd97fc29d72f887e
 8802bb6650cceb2c'
       ]
-    }, 
-    / payload / 'This is the content.', 
+    },
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
 5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
 98f53afd2fa0f30a'
@@ -1460,7 +1460,7 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 )
 </artwork></figure> </section>
 
-        <section anchor="Appendix_B_1_4" title="Signature with Criticality"  ><t>This example uses the following: 
+        <section anchor="Appendix_B_1_4" title="Signature with Criticality"  ><t>This example uses the following:
 <list style="symbols"><t>Signature Algorithm: ECDSA w/ SHA-256, Curve P-256</t>
 
 <t>There is a criticality marker on the "reserved" header parameter</t></list> </t>
@@ -1471,23 +1471,23 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 98(
   [
-    / protected / h'a2687265736572766564f40281687265736572766564' / 
+    / protected / h'a2687265736572766564f40281687265736572766564' /
 {
-        "reserved":false, 
+        "reserved":false,
         \ crit \ 2:[
           "reserved"
         ]
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / signatures / [
       [
         / protected / h'a10126' / {
             \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'11'
-        }, 
+        },
         / signature / h'3fc54702aa56e1b2cb20284294c9106a63f91bac658d
 69351210a031d8fc7c5ff3e4be39445b1a3e83e1510d1aca2f2e8a7c081c7645042b
 18aba9d1fad1bd9c'
@@ -1513,11 +1513,11 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
   [
     / protected / h'a10126' / {
         \ alg \ 1:-7 \ ECDSA 256 \
-      } / , 
+      } / ,
     / unprotected / {
       / kid / 4:'11'
-    }, 
-    / payload / 'This is the content.', 
+    },
+    / payload / 'This is the content.',
     / signature / h'8eb33e4ca31d1c465ab05aac34cc6b23d58fef5c083106c4
 d25a91aef0b0117e2af9a291aa32e14ab834dc56ed2a223444547e01f11d3b0916e5
 a4c345cacb36'
@@ -1539,27 +1539,27 @@ a4c345cacb36'
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'c9cf4df2fe6c632bf7886413'
-    }, 
+    },
     / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-c52a357da7a644b8070a151b0', 
+c52a357da7a644b8070a151b0',
     / recipients / [
       [
         / protected / h'a1013818' / {
             \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+          } / ,
         / unprotected / {
           / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:1, 
+            / kty / 1:2,
+            / crv / -1:1,
             / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-bf054e1c7b4d91d6280', 
+bf054e1c7b4d91d6280',
             / y / -3:true
-          }, 
+          },
           / kid / 4:'meriadoc.brandybuck@buckland.example'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -1589,21 +1589,21 @@ bf054e1c7b4d91d6280',
   [
     / protected / h'a1010a' / {
         \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a76c'
-    }, 
+    },
     / ciphertext / h'753548a19b1307084ca7b2056924ed95f2e3b17006dfe93
-1b687b847', 
+1b687b847',
     / recipients / [
       [
         / protected / h'a10129' / {
             \ alg \ 1:-10
-          } / , 
+          } / ,
         / unprotected / {
-          / salt / -20:'aabbccddeeffgghh', 
+          / salt / -20:'aabbccddeeffgghh',
           / kid / 4:'our-secret'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -1626,40 +1626,40 @@ bf054e1c7b4d91d6280',
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
-      / iv / 5:h'c9cf4df2fe6c632bf7886413', 
+      / iv / 5:h'c9cf4df2fe6c632bf7886413',
       / countersign / 7:[
         / protected / h'a1013823' / {
             \ alg \ 1:-36
-          } / , 
+          } / ,
         / unprotected / {
           / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
+        },
         / signature / h'00929663c8789bb28177ae28467e66377da12302d7f9
 594d2999afa5dfa531294f8896f2b6cdf1740014f4c7f1a358e3a6cf57f4ed6fb02f
 cf8f7aa989f5dfd07f0700a3a7d8f3c604ba70fa9411bd10c2591b483e1d2c31de00
 3183e434d8fba18f17a4c7e3dfa003ac1cf3d30d44d2533c4989d3ac38c38b71481c
 c3430c9d65e7ddff'
       ]
-    }, 
+    },
     / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-c52a357da7a644b8070a151b0', 
+c52a357da7a644b8070a151b0',
     / recipients / [
       [
         / protected / h'a1013818' / {
             \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+          } / ,
         / unprotected / {
           / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:1, 
+            / kty / 1:2,
+            / crv / -1:1,
             / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-bf054e1c7b4d91d6280', 
+bf054e1c7b4d91d6280',
             / y / -3:true
-          }, 
+          },
           / kid / 4:'meriadoc.brandybuck@buckland.example'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -1683,22 +1683,22 @@ bf054e1c7b4d91d6280',
   [
     / protected / h'a10101' / {
         \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
-    }, 
+    },
     / ciphertext / h'64f84d913ba60a76070a9a48f26e97e863e28529d8f5335
-e5f0165eee976b4a5f6c6f09d', 
+e5f0165eee976b4a5f6c6f09d',
     / recipients / [
       [
         / protected / h'a101381f' / {
             \ alg \ 1:-32 \ ECHD-SS+A128KW \
-          } / , 
+          } / ,
         / unprotected / {
-          / static kid / -3:'peregrin.took@tuckborough.example', 
-          / kid / 4:'meriadoc.brandybuck@buckland.example', 
+          / static kid / -3:'peregrin.took@tuckborough.example',
+          / kid / 4:'meriadoc.brandybuck@buckland.example',
           / U nonce / -22:h'0101'
-        }, 
+        },
         / ciphertext / h'41e0d76f579dbd0d936a662d54d8582037de2e366fd
 e1c62'
       ]
@@ -1722,10 +1722,10 @@ e1c62'
   [
     / protected / h'a1010a' / {
         \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+      } / ,
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a78c'
-    }, 
+    },
     / ciphertext / h'5974e1b99a3a4cc09a659aa2e9e7fff161d38ce71cb45ce
 460ffb569'
   ]
@@ -1743,10 +1743,10 @@ e1c62'
   [
     / protected / h'a1010a' / {
         \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+      } / ,
     / unprotected / {
       / partial iv / 6:h'61a7'
-    }, 
+    },
     / ciphertext / h'252a8911d465c125b6764739700f0141ed09192de139e05
 3bd09abca'
   ]
@@ -1773,17 +1773,17 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
   [
     / protected / h'a1010f' / {
         \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
-    / tag / h'9e1226ba1f81b848', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
+    / tag / h'9e1226ba1f81b848',
     / recipients / [
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
-          / alg / 1:-6 / direct /, 
+          / alg / 1:-6 / direct /,
           / kid / 4:'our-secret'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -1804,23 +1804,23 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
   [
     / protected / h'a10105' / {
         \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / tag / h'81a03448acd3d305376eaa11fb3fe416a955be2cbe7ec96f012c99
-4bc3f16a41', 
+4bc3f16a41',
     / recipients / [
       [
         / protected / h'a101381a' / {
             \ alg \ 1:-27 \ ECDH-SS + HKDF-256 \
-          } / , 
+          } / ,
         / unprotected / {
-          / static kid / -3:'peregrin.took@tuckborough.example', 
-          / kid / 4:'meriadoc.brandybuck@buckland.example', 
+          / static kid / -3:'peregrin.took@tuckborough.example',
+          / kid / 4:'meriadoc.brandybuck@buckland.example',
           / U nonce / -22:h'4d8553e7e74f3c6a3a9dd3ef286a8195cbf8a23d
 19558ccfec7d34b824f42d92bd06bd2c7f0271f0214e141fb779ae2856abf585a583
 68b017e7f2a9e5ce4db5'
-        }, 
+        },
         / ciphertext / h''
       ]
     ]
@@ -1828,7 +1828,7 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
 )
 </artwork></figure> </section>
 
-        <section anchor="Appendix_B_5_3" title="Wrapped MAC"  ><t>This example uses the following: 
+        <section anchor="Appendix_B_5_3" title="Wrapped MAC"  ><t>This example uses the following:
 <list style="symbols">
 <t>MAC: AES-MAC, 128-bit key, truncated to 64 bits</t>
 
@@ -1841,17 +1841,17 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
   [
     / protected / h'a1010e' / {
         \ alg \ 1:14 \ AES-CBC-MAC-128//64 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
-    / tag / h'36f5afaf0bab5d43', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
+    / tag / h'36f5afaf0bab5d43',
     / recipients / [
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
-          / alg / 1:-5 / A256KW /, 
+          / alg / 1:-5 / A256KW /,
           / kid / 4:'018c0ae5-4d9b-471b-bfd6-eef314bc7037'
-        }, 
+        },
         / ciphertext / h'711ab0dc2fc4585dce27effa6781c8093eba906f227
 b6eb0'
       ]
@@ -1879,36 +1879,36 @@ b6eb0'
   [
     / protected / h'a10105' / {
         \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / tag / h'bf48235e809b5c42e995f2b7d5fa13620e7ed834e337f6aa43df16
-1e49e9323e', 
+1e49e9323e',
     / recipients / [
       [
         / protected / h'a101381c' / {
             \ alg \ 1:-29 \ ECHD-ES+A128KW \
-          } / , 
+          } / ,
         / unprotected / {
           / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:3, 
+            / kty / 1:2,
+            / crv / -1:3,
             / x / -2:h'0043b12669acac3fd27898ffba0bcd2e6c366d53bc4db
 71f909a759304acfb5e18cdc7ba0b13ff8c7636271a6924b1ac63c02688075b55ef2
-d613574e7dc242f79c3', 
+d613574e7dc242f79c3',
             / y / -3:true
-          }, 
+          },
           / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
+        },
         / ciphertext / h'339bc4f79984cdc6b3e6ce5f315a4c7d2b0ac466fce
 a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
-      ], 
+      ],
       [
-        / protected / h'', 
+        / protected / h'',
         / unprotected / {
-          / alg / 1:-5 / A256KW /, 
+          / alg / 1:-5 / A256KW /,
           / kid / 4:'018c0ae5-4d9b-471b-bfd6-eef314bc7037'
-        }, 
+        },
         / ciphertext / h'0b2c7cfce04e98276342d6476a7723c090dfdd15f9a
 518e7736549e998370695e6d6a83b4ae507bb'
       ]
@@ -1920,7 +1920,7 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 
       <section title="Examples of MAC0 Messages" anchor="Mac0Examples"  >
         <section anchor="Appendix_B_6_1" title="Shared Secret Direct MAC"  >
-<t>This example uses the following: 
+<t>This example uses the following:
 <list style="symbols"><t>MAC: AES-CMAC, 256-bit key, truncated to 64 bits</t>
 
 <t>Recipient class: direct shared secret</t></list> </t>
@@ -1933,9 +1933,9 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
   [
     / protected / h'a1010f' / {
         \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
-    / unprotected / {}, 
-    / payload / 'This is the content.', 
+      } / ,
+    / unprotected / {},
+    / payload / 'This is the content.',
     / tag / h'726043745027214f'
   ]
 )
@@ -1956,41 +1956,41 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 [
   {
-    -1:1, 
+    -1:1,
     -2:h'65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c0
-8551d', 
+8551d',
     -3:h'1e52ed75701163f7f9e40ddf9f341b3dc9ba860af7e0ca7ca7e9eecd008
-4d19c', 
-    1:2, 
+4d19c',
+    1:2,
     2:'meriadoc.brandybuck@buckland.example'
-  }, 
+  },
   {
-    -1:1, 
+    -1:1,
     -2:h'bac5b11cad8f99f9c72b05cf4b9e26d244dc189f745228255a219a86d6a
-09eff', 
+09eff',
     -3:h'20138bf82dc1b6d562be0fa54ab7804a3a64b6d72ccfed6b6fb6ed28bbf
-c117e', 
-    1:2, 
+c117e',
+    1:2,
     2:'11'
-  }, 
+  },
   {
-    -1:3, 
+    -1:3,
     -2:h'0072992cb3ac08ecf3e5c63dedec0d51a8c1f79ef2f82f94f3c737bf5de
 7986671eac625fe8257bbd0394644caaa3aaf8f27a4585fbbcad0f2457620085e5c8
-f42ad', 
+f42ad',
     -3:h'01dca6947bce88bc5790485ac97427342bc35f887d86d65a089377e247e
 60baa55e4e8501e2ada5724ac51d6909008033ebc10ac999b9d7f5cc2519f3fe1ea1
-d9475', 
-    1:2, 
+d9475',
+    1:2,
     2:'bilbo.baggins@hobbiton.example'
-  }, 
+  },
   {
-    -1:1, 
+    -1:1,
     -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbfbf054e1c7b4d91
-d6280', 
+d6280',
     -3:h'f01400b089867804b8e9fc96c3932161f1934f4223069170d924b7e03bf
-822bb', 
-    1:2, 
+822bb',
+    1:2,
     2:'peregrin.took@tuckborough.example'
   }
 ]
@@ -2009,66 +2009,66 @@ d6280',
 <artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
 [
   {
-    1:2, 
-    2:'meriadoc.brandybuck@buckland.example', 
-    -1:1, 
+    1:2,
+    2:'meriadoc.brandybuck@buckland.example',
+    -1:1,
     -2:h'65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c0
-8551d', 
+8551d',
     -3:h'1e52ed75701163f7f9e40ddf9f341b3dc9ba860af7e0ca7ca7e9eecd008
-4d19c', 
+4d19c',
     -4:h'aff907c99f9ad3aae6c4cdf21122bce2bd68b5283e6907154ad911840fa
 208cf'
-  }, 
+  },
   {
-    1:2, 
-    2:'11', 
-    -1:1, 
+    1:2,
+    2:'11',
+    -1:1,
     -2:h'bac5b11cad8f99f9c72b05cf4b9e26d244dc189f745228255a219a86d6a
-09eff', 
+09eff',
     -3:h'20138bf82dc1b6d562be0fa54ab7804a3a64b6d72ccfed6b6fb6ed28bbf
-c117e', 
+c117e',
     -4:h'57c92077664146e876760c9520d054aa93c3afb04e306705db609030850
 7b4d3'
-  }, 
+  },
   {
-    1:2, 
-    2:'bilbo.baggins@hobbiton.example', 
-    -1:3, 
+    1:2,
+    2:'bilbo.baggins@hobbiton.example',
+    -1:3,
     -2:h'0072992cb3ac08ecf3e5c63dedec0d51a8c1f79ef2f82f94f3c737bf5de
 7986671eac625fe8257bbd0394644caaa3aaf8f27a4585fbbcad0f2457620085e5c8
-f42ad', 
+f42ad',
     -3:h'01dca6947bce88bc5790485ac97427342bc35f887d86d65a089377e247e
 60baa55e4e8501e2ada5724ac51d6909008033ebc10ac999b9d7f5cc2519f3fe1ea1
-d9475', 
+d9475',
     -4:h'00085138ddabf5ca975f5860f91a08e91d6d5f9a76ad4018766a476680b
 55cd339e8ab6c72b5facdb2a2a50ac25bd086647dd3e2e6e99e84ca2c3609fdf177f
 eb26d'
-  }, 
+  },
   {
-    1:4, 
-    2:'our-secret', 
+    1:4,
+    2:'our-secret',
     -1:h'849b57219dae48de646d07dbb533566e976686457c1491be3a76dcea6c4
 27188'
-  }, 
+  },
   {
-    1:2, 
-    -1:1, 
-    2:'peregrin.took@tuckborough.example', 
+    1:2,
+    -1:1,
+    2:'peregrin.took@tuckborough.example',
     -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbfbf054e1c7b4d91
-d6280', 
+d6280',
     -3:h'f01400b089867804b8e9fc96c3932161f1934f4223069170d924b7e03bf
-822bb', 
+822bb',
     -4:h'02d1f7e6f26c43d4868d87ceb2353161740aacf1f7163647984b522a848
 df1c3'
-  }, 
+  },
   {
-    1:4, 
-    2:'our-secret2', 
+    1:4,
+    2:'our-secret2',
     -1:h'849b5786457c1491be3a76dcea6c4271'
-  }, 
+  },
   {
-    1:4, 
-    2:'018c0ae5-4d9b-471b-bfd6-eef314bc7037', 
+    1:4,
+    2:'018c0ae5-4d9b-471b-bfd6-eef314bc7037',
     -1:h'849b57219dae48de646d07dbb533566e976686457c1491be3a76dcea6c4
 27188'
   }
@@ -2076,7 +2076,7 @@ df1c3'
 </artwork></figure> </section>
       </section>
     </section>
- 
+
     <section title="Acknowledgments" numbered="no" >
       <t>This document is a product of the COSE working group of the IETF.  </t>
       <t>The following individuals are to blame for getting me started on this project in the first place: Richard Barnes, Matt Miller, and Martin Thomson.  </t>
