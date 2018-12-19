@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='US-ASCII'?>
 <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!ENTITY RFC8152 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8152.xml">
+<!ENTITY RFC8152 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8152.xml">
 ]>
 
 <!--  <!ENTITY cose-alg SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.schaad-cose-rfc8152bis-algs.xml"> -->
@@ -38,13 +38,45 @@
   </front>
   <middle>
     <section anchor="introduction" title="Introduction"  >
-      <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC7159"  /> by allowing for binary data, among other changes.  CBOR is being adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
+      <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC7159"  /> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
 
-      <t>The JOSE working group produced a set of documents <xref target="RFC7515"  /> <xref target="RFC7516"  /> <xref target="RFC7517"  /> <xref target="RFC7518"  /> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
+      <t>The JOSE working group produced a set of documents <xref target="RFC7515"  /> <xref target="RFC7516"  /> <xref target="RFC7517"  /> <xref target="RFC7518"  /> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.schaad-cose-rfc8152bis-alg"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
 
       <t><list style="symbols">
 <t>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded string.  </t>
-<t>COSE is not a direct copy of the JOSE specification.  In the process of creating COSE, decisions that were made for JOSE were re-examined.  In many cases, different results were decided on as the criteria were not always the same.  </t></list> </t>
+      <t>COSE is not a direct copy of the JOSE specification.  In the process of creating COSE, decisions that were made for JOSE were re-examined.  In many cases, different results were decided on as the criteria were not always the same.  </t></list> </t>
+
+      <t>
+        This document contains:
+        <list style="symbols">
+          <t>
+            The description of the structure for the CBOR objects which are transmitted over the wire.
+            Two objects are defined for encryption, signing and message authentication.
+            One object is defined for transporting keys and one for transporting groups of keys.
+          </t>
+          <t>
+            The procedures used to compute build the inputs to the cryptographic functions required for each of the structures.
+          </t>
+          <t>
+            A starting set of attributes that apply to the different security objects.
+          </t>
+        </list>
+      </t>
+
+      <t>
+        This document does not contain the rules and procedures for using specific cryptographic algorithms.
+        Details on specific algorithms can be found in <xref target="I-D.schaad-cose-rfc8152bis-alg"/> and <xref target="RFCXXXX"/>.
+        Details for additional algorithms are expected to be defined in future documents.
+      </t>
+
+      <t>
+        One feature that is present in CMS <xref target="RFC5652"/> that is not present in this standard is a digest structure.
+        This omission is deliberate.
+        It is better for the structure to be defined in each document as different protocols will want to include a different set of fields as part of the structure.
+        While an algorithm identifier and the digesst value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
+        Applications may additionally want to defined additional data fields as part of the stucture.
+        A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application specific.
+      </t>
 
       <section anchor="design-changes-from-jose" title="Design Changes from JOSE"  >
         <t><list style="symbols">
@@ -58,17 +90,24 @@
 
       <section anchor="requirements-terminology" title="Requirements Terminology"  >
 
-        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
-      "MAY", and "OPTIONAL" in this document are to be interpreted as
-      described in BCP 14 <xref target="RFC2119" /> <xref target="RFC8174" /> when, and only when, they
-      appear in all capitals, as shown here. </t>
-        <t>When the words appear in lowercase, this interpretation does not apply.  </t>
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
+        </t>
       </section>
 
       <section anchor="cbor-grammar" title="CBOR Grammar"  >
-        <t>There is currently no standard CBOR grammar available for use by specifications.  The CBOR structures are therefore described in prose.  </t>
-        <t>The document was developed by first working on the grammar and then developing the prose to go with it.  An artifact of this is that the prose was written using the primitive type strings defined by CBOR Data Definition Language (CDDL) <xref target="I-D.ietf-cbor-cddl"  />.  In this specification, the following primitive types are used:
+        <t>
+          There was not a standard CBOR grammar available when COSE was originally written.
+          For that reason the CBOR structures defined here are described in prose.
+          Since that time CBOR Data Definition Language (CDDL) <xref target="I-D.ietf-cbor-cddl"/> has been published as an RFC.
+          The CBOR grammar presented in this document is compatible with CDDL.
+        </t>
+
+        <t>
+          The document was developed by first working on the grammar and then developing the prose to go with it.
+          An artifact of this is that the prose was written using the primitive type strings defined by CBOR Data Definition Language (CDDL) <xref target="I-D.ietf-cbor-cddl"  />.
+          In this specification, the following primitive types are used:
+          
  <list style="empty">
 <t>any -- non-specific value that permits all CBOR values to be placed here.</t>
 <t>bool -- a boolean value (true: major type 7, value 21; false: major type 7, value 20).</t>
@@ -83,7 +122,10 @@
 <t>FOO / BAR -- indicates that either FOO or BAR can appear here.</t>
 <t>[+ FOO] -- indicates that the type FOO appears one or more times in an array.</t></list> </t>
 
-        <t>As well as the prose description, a version of a CBOR grammar is presented in CDDL.  Since CDDL has not been published in an RFC, this grammar may not work with the final version of CDDL.  The CDDL grammar is informational; the prose description is normative.  </t>
+<t>
+  As well as the prose description, a version of a CBOR grammar is presented in CDDL.
+  The CDDL grammar is informational; the prose description is normative.
+</t>
 
         <t>The collected CDDL can be extracted from the XML version of this document via the following XPath expression below.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) </t>
 
@@ -106,7 +148,10 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure /
       <section title="CBOR-Related Terminology" anchor="label"  >
         <t>In JSON, maps are called objects and only have one kind of map key: a string.  In COSE, we use strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
-        <t>The presence of a label in a COSE map that is not a string or an integer is an error.  Applications can either fail processing or process messages with incorrect labels; however, they MUST NOT create messages with incorrect labels.  </t>
+        <t>
+          The presence of a label in a COSE map that is not a string or an integer is an error. 
+          Applications can either fail processing or process messages by ignoring incorrect labels; however, they MUST NOT create messages with incorrect labels. 
+        </t>
 
         <t>A CDDL grammar fragment defines the non-terminal 'label', as in the previous paragraph, and 'values', which permits any value to be used.  </t>
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
@@ -116,6 +161,7 @@ values = any
 </artwork>
         </figure>
       </section>
+      
       <section title="Document Terminology"  >
         <t>In this document, we use the following terminology: </t>
         <t>Byte is a synonym for octet.</t>
@@ -126,15 +172,27 @@ values = any
         <t>Authenticated Encryption with Authenticated Data (AEAD) <xref target="RFC5116"  /> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
       </section>
     </section>
+    
     <section anchor="the-cosemsg-structure" title="Basic COSE Structure"  >
-      <t>The COSE object structure is designed so that there can be a large amount of common code when parsing and processing the different types of security messages.  All of the message structures are built on the CBOR array type.  The first three elements of the array always contain the same information: <list style="numbers">
-<t>The set of protected header parameters wrapped in a bstr.</t>
-<t>The set of unprotected header parameters as a map.</t>
-<t>The content of the message.  The content is either the plaintext or the ciphertext as appropriate.  The content may be detached, but the location is still used.  The content is wrapped in a bstr when present and is a nil value when detached.  </t></list> 
+      <t>
+        The COSE object structure is designed so that there can be a large amount of common code when parsing and processing the different types of security messages.
+        All of the message structures are built on the CBOR array type.
+        The first three elements of the array always contain the same information:
+        <list style="numbers">
+          <t>The set of protected header parameters wrapped in a bstr.</t>
+          <t>The set of unprotected header parameters as a map.</t>
+          <t>
+            The content of the message. 
+            The content is either the plaintext or the ciphertext as appropriate. 
+            The content may be detached (i.e. transported separately from the COSE structure), but the location is still used. 
+            The content is wrapped in a bstr when present and is a nil value when detached.
+          </t>
+        </list> 
 
-Elements after this point are dependent on the specific message type.  </t>
+        Elements after this point are dependent on the specific message type.
+      </t>
 
-      <t>COSE messages are also built using the concept of layers to separate different types of cryptographic concepts.  As an example of how this works, consider the COSE_Encrypt message (<xref target="EnvelopedData"  />).  This message type is broken into two layers: the content layer and the recipient layer.  In the content layer, the plaintext is encrypted and information about the encrypted message is placed.  In the recipient layer, the content encryption key (CEK) is encrypted and information about how it is encrypted for each recipient is placed.  A single layer version of the encryption message COSE_Encrypt0 (<xref target="EnvelopedData0"  />) is provided for cases where the CEK is pre-shared.  </t>
+      <t>COSE messages are built using the concept of layers to separate different types of cryptographic concepts.  As an example of how this works, consider the COSE_Encrypt message (<xref target="EnvelopedData"  />).  This message type is broken into two layers: the content layer and the recipient layer.  In the content layer, the plaintext is encrypted and information about the encrypted message is placed.  In the recipient layer, the content encryption key (CEK) is encrypted and information about how it is encrypted for each recipient is placed.  A single layer version of the encryption message COSE_Encrypt0 (<xref target="EnvelopedData0"  />) is provided for cases where the CEK is pre-shared.  </t>
 
       <t>Identification of which type of message has been presented is done by the following methods: <list style="numbers">
 <t>The specific message type is known from the context.  This may be defined by a marker in the containing structure or by restrictions specified by the application protocol.  </t>
@@ -193,10 +251,27 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
     <section anchor="header-parameters" title="Header Parameters"  >
       <t>The structure of COSE has been designed to have two buckets of information that are not considered to be part of the payload itself, but are used for holding information about content, algorithms, keys, or evaluation hints for the processing of the layer.  These two buckets are available for use in all of the structures except for keys.  While these buckets are present, they may not all be usable in all instances.  For example, while the protected bucket is defined as part of the recipient structure, some of the algorithms used for recipient structures do not provide for authenticated data.  If this is the case, the protected bucket is left empty.  </t>
       <t>Both buckets are implemented as CBOR maps.  The map key is a 'label' (<xref target="label"  />).  The value portion is dependent on the definition for the label.  Both maps use the same set of label/value pairs.  The integer and string values for labels have been divided into several sections including a standard range, a private range, and a range that is dependent on the algorithm selected.  The defined labels can be found in the "COSE Header Parameters" IANA registry (<xref target="cose-header-key-table"  />).  </t>
-      <t>Two buckets are provided for each layer: <list style="hanging">
-<t hangText="protected:">Contains parameters about the current layer that are to be cryptographically protected.  This bucket MUST be empty if it is not going to be included in a cryptographic computation.  This bucket is encoded in the message as a binary object.  This value is obtained by CBOR encoding the protected map and wrapping it in a bstr object.  Senders SHOULD encode a zero-length map as a zero-length string rather than as a zero-length map (encoded as h'a0').  The zero-length binary encoding is preferred because it is both shorter and the version used in the serialization structures for cryptographic computation.  After encoding the map, the value is wrapped in the binary object.  Recipients MUST accept both a zero-length binary value and a zero-length map encoded in the binary value.  The wrapping allows for the encoding of the protected map to be transported with a greater chance that it will not be altered in transit.  (Badly behaved intermediates could decode and re-encode, but this will result in a failure to verify unless the re-encoded byte string is identical to the decoded byte string.) This avoids the problem of all parties needing to be able to do a common canonical encoding.  </t>
+      <t>
+        Two buckets are provided for each layer:
+        <list style="hanging">
+          <t hangText="protected:">
+            Contains parameters about the current layer that are cryptographically protected. 
+            This bucket MUST be empty if it is not going to be included in a cryptographic computation. 
+            This bucket is encoded in the message as a binary object. 
+            This value is obtained by CBOR encoding the protected map and wrapping it in a bstr object. 
+            Senders SHOULD encode a zero-length map as a zero-length byte string rather than as a zero-length map (encoded as h'a0'). 
+            The zero-length binary encoding is preferred because it is both shorter and the version used in the serialization structures for cryptographic computation. 
+            After encoding the map, the value is wrapped in the binary object. 
+            Recipients MUST accept both a zero-length binary value and a zero-length map encoded in the binary value. 
+            The wrapping allows for the encoding of the protected map to be transported with a greater chance that it will not be altered in transit. 
+            (Badly behaved intermediates could decode and re-encode, but this will result in a failure to verify unless the re-encoded byte string is identical to the decoded byte string.)
+            This avoids the problem of all parties needing to be able to do a common canonical encoding.
+          </t>
 
-<t hangText="unprotected:">Contains parameters about the current layer that are not cryptographically protected.  </t></list> Only parameters that deal with the current layer are to be placed at that layer.  As an example of this, the parameter 'content type' describes the content of the message being carried in the message.  As such, this parameter is placed only in the content layer and is not placed in the recipient or signature layers.  In principle, one should be able to process any given layer without reference to any other layer.  With the exception of the COSE_Sign structure, the only data that needs to cross layers is the cryptographic key.  </t>
+          <t hangText="unprotected:">Contains parameters about the current layer that are not cryptographically protected.  </t>
+        </list>
+        Only parameters that deal with the current layer are to be placed at that layer.  As an example of this, the parameter 'content type' describes the content of the message being carried in the message.  As such, this parameter is placed only in the content layer and is not placed in the recipient or signature layers.  In principle, one should be able to process any given layer without reference to any other layer.  With the exception of the COSE_Sign structure, the only data that needs to cross layers is the cryptographic key.
+      </t>
 
       <t>The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<xref target="cose-header-key-table"  />).  Some common parameters are defined in the next section, but a number of parameters are defined throughout this document.  </t>
 
@@ -223,7 +298,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
         <t>This section defines a set of common header parameters.  A summary of these parameters can be found in <xref target="Header-Table"  />.  This table should be consulted to determine the value of label and the type of the value.  </t>
 
         <t>The set of header parameters defined in this section are: </t>
-        <t><list style="hanging"><t hangText="alg:"> This parameter is used to indicate the algorithm used for the security processing.  This parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign0, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header in the protected header bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see !!! cose-algorithm-registry !!! <!--<xref target="cose-algorithm-registry"  />-->).  </t>
+        <t><list style="hanging"><t hangText="alg:"> This parameter is used to indicate the algorithm used for the security processing.  This parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign0, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header in the protected header bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <<xref target="COSE.-algorithms"  />).  </t>
 
 <t hangText="crit:">The parameter is used to indicate which protected header labels an application that is processing a message is required to understand.  Parameters defined in this document do not need to be included as they should be understood by all implementations.  When present, this parameter MUST be placed in the protected header bucket.  The array MUST have at least one value in it.  
 
@@ -398,31 +473,62 @@ COSE_Sign1 = [
         </figure>
       </section>
       <section title="Externally Supplied Data" anchor="Extern_AAD"  >
-        <t>One of the features offered in the COSE document is the ability for applications to provide additional data to be authenticated, but that is not carried as part of the COSE object.  The primary reason for supporting this can be seen by looking at the CoAP message structure <xref target="RFC7252"  />, where the facility exists for options to be carried before the payload.  Examples of data that can be placed in this location would be the CoAP code or CoAP options.  If the data is in the header section, then it is available for proxies to help in performing its operations.  For example, the Accept Option can be used by a proxy to determine if an appropriate value is in the proxy's cache.  But the sender can prevent a proxy from changing the set of values that it will accept by including that value in the resulting authentication tag.  However, it may also be desired to protect these values so that if they are modified in transit, it can be detected.  </t>
+        <t>
+          One of the features offered in the COSE document is the ability for applications to provide additional data to be authenticated, but that is not carried as part of the COSE object. 
+          The primary reason for supporting this can be seen by looking at the CoAP message structure <xref target="RFC7252"  />, where the facility exists for options to be carried before the payload. 
+          Examples of data that can be placed in this location would be the CoAP code or CoAP options. 
+          If the data is in the header section, then it is available for proxies to help in performing its operations. 
+          For example, the Accept Option can be used by a proxy to determine if an appropriate value is in the proxy's cache. 
+          But the sender can cause a failure at the server if a proxy, or an attacker, changes the set of accept values by including the field in the application supplied data.
+        </t>
 
-        <t>This document describes the process for using a byte array of externally supplied authenticated data; however, the method of constructing the byte array is a function of the application.  Applications that use this feature need to define how the externally supplied authenticated data is to be constructed.  Such a construction needs to take into account the following issues: 
-<list style="symbols">
+        <t>
+          This document describes the process for using a byte array of externally supplied authenticated data; the method of constructing the byte array is a function of the application. 
+          Applications that use this feature need to define how the externally supplied authenticated data is to be constructed.  Such a construction needs to take into account the following issues: 
+          <list style="symbols">
 
-<t>If multiple items are included, applications need to ensure that the same byte string is not produced if there are different inputs.  This could occur by appending the strings 'AB' and 'CDE' or by appending the strings 'ABC' and 'DE'.  This is usually addressed by making fields a fixed width and/or encoding the length of the field as part of the output.  Using options from CoAP <xref target="RFC7252"  /> as an example, these fields use a TLV structure so they can be concatenated without any problems.  </t>
+            <t>
+              If multiple items are included, applications need to ensure that the same byte string cannot produced if there are different inputs. 
+              This could occur by appending the strings 'AB' and 'CDE' or by appending the strings 'ABC' and 'DE'. 
+              This is usually addressed by making fields a fixed width and/or encoding the length of the field as part of the output. 
+              Using options from CoAP <xref target="RFC7252"  /> as an example, these fields use a TLV structure so they can be concatenated without any problems.
+            </t>
 
-<t>If multiple items are included, an order for the items needs to be defined.  Using options from CoAP as an example, an application could state that the fields are to be ordered by the option number.  </t>
+            <t>If multiple items are included, an order for the items needs to be defined.  Using options from CoAP as an example, an application could state that the fields are to be ordered by the option number.  </t>
 
-<t>Applications need to ensure that the byte stream is going to be the same on both sides.  Using options from CoAP might give a problem if the same relative numbering is kept.  An intermediate node could insert or remove an option, changing how the relative number is done.  An application would need to specify that the relative number must be re-encoded to be relative only to the options that are in the external data.  </t></list> </t>
+            <t>
+              Applications need to ensure that the byte string is going to be the same on both sides. 
+              Using options from CoAP might give a problem if the same relative numbering is kept. 
+              An intermediate node could insert or remove an option, changing how the relative number is done. 
+              An application would need to specify that the relative number must be re-encoded to be relative only to the options that are in the external data. 
+            </t>
+          </list>
+        </t>
       </section>
 
       <section title="Signing and Verification Process" anchor="Sig_structure"  >
-        <t>In order to create a signature, a well-defined byte stream is needed.  The Sig_struture is used to create the canonical form.  This signing and verification process takes in the body information (COSE_Sign or COSE_Sign1), the signer information (COSE_Signature), and the application data (external source).  A Sig_structure is a CBOR array.  The fields of the Sig_struture in order are:
- <list style="numbers">
-<t>A text string identifying the context of the signature.  The context string is:
- <list style="empty">
-<t>&quot;Signature&quot; for signatures using the COSE_Signature structure.</t>
-<t>&quot;Signature1&quot; for signatures using the COSE_Sign1 structure.</t>
-<t>&quot;CounterSignature&quot; for signatures used as counter signature attributes.</t></list> </t>
-<t>The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  </t>
+        <t>
+          In order to create a signature, a well-defined byte string is needed.
+          The Sig_struture is used to create the canonical form. 
+          This signing and verification process takes in the body information (COSE_Sign or COSE_Sign1), the signer information (COSE_Signature), and the application data (external source). 
+          A Sig_structure is a CBOR array. 
+          The fields of the Sig_struture in order are:
+          <list style="numbers">
+            <t>
+              A text string identifying the context of the signature.  The context string is:
+              <list style="empty">
+                <t>&quot;Signature&quot; for signatures using the COSE_Signature structure.</t>
+                <t>&quot;Signature1&quot; for signatures using the COSE_Sign1 structure.</t>
+                <t>&quot;CounterSignature&quot; for signatures used as counter signature attributes.</t>
+              </list>
+            </t>
+            <t>The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  </t>
 
-<t>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  This field is omitted for the COSE_Sign1 signature structure.  </t>
-<t>The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length binary string.  (See <xref target="Extern_AAD"  /> for application guidance on constructing this field.) </t>
-<t>The payload to be signed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </t></list> </t>
+            <t>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  This field is omitted for the COSE_Sign1 signature structure.  </t>
+            <t>The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length binary string.  (See <xref target="Extern_AAD"  /> for application guidance on constructing this field.) </t>
+            <t>The payload to be signed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </t>
+          </list>
+        </t>
         <t>The CDDL fragment that describes the above text is:  </t>
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
           <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
@@ -449,25 +555,45 @@ Sig_structure = [
 <t>Create the value ToBeSigned by encoding the Sig_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
 <t>Call the signature verification algorithm passing in K (the key to verify with), alg (the algorithm used sign with), ToBeSigned (the value to sign), and sig (the signature to be verified).  </t></list> </t>
 
-        <t>In addition to performing the signature verification, the application may also perform the appropriate checks to ensure that the key is correctly paired with the signing identity and that the signing identity is authorized before performing actions.  </t>
+<t>
+  In addition to performing the signature verification, the application performs the appropriate checks to ensure that the key is correctly paired with the signing identity and that the signing identity is authorized before performing actions.
+</t>
       </section>
+      
       <section anchor="counter_signature" title="Computing Counter Signatures"  >
-        <t>Counter signatures provide a method of associating a different signature generated by different signers with some piece of content.  This is normally used to provide a signature on a signature allowing for a proof that a signature existed at a given time (i.e., a Timestamp).  In this document, we allow for counter signatures to exist in a greater number of environments.  As an example, it is possible to place a counter signature in the unprotected attributes of a COSE_Encrypt object.  This would allow for an intermediary to either verify that the encrypted byte stream has not been modified, without being able to decrypt it, or assert that an encrypted byte stream either existed at a given time or passed through it in terms of routing (i.e., a proxy signature).  </t>
+        <t>
+          Counter signatures provide a method of associating a different signature generated by different signers with some piece of content. 
+          This is normally used to provide a signature on a signature allowing for a proof that a signature existed at a given time (e.g., a Timestamp).
+          In this document, we allow for counter signatures to exist in a greater number of environments. 
+          As an example, it is possible to place a counter signature in the unprotected attributes of a COSE_Encrypt object. 
+          This would allow for an intermediary to either verify that the encrypted byte string has not been modified, without being able to decrypt it, or assert that an encrypted byte string either existed at a given time or passed through it in terms of routing (e.g., a proxy signature).
+        </t>
 
         <t>An example of a counter signature on a signature can be found in <xref target="Appendix_B_1_3"  />.  An example of a counter signature in an encryption object can be found in <xref target="Appendix_B_3_3"  />.  </t>
-        <t>The creation and validation of counter signatures over the different items relies on the fact that the objects have the same structure.  The elements are a set of protected attributes, a set of unprotected attributes, and a body, in that order.  This means that the Sig_structure can be used in a uniform manner to get the byte stream for processing a signature.  If the counter signature is going to be computed over a COSE_Encrypt structure, the body_protected and payload items can be mapped into the Sig_structure in the same manner as from the COSE_Sign structure.  </t>
+        <t>The creation and validation of counter signatures over the different items relies on the fact that the objects have the same structure.  The elements are a set of protected attributes, a set of unprotected attributes, and a body, in that order.  This means that the Sig_structure can be used in a uniform manner to get the byte string for processing a signature.  If the counter signature is going to be computed over a COSE_Encrypt structure, the body_protected and payload items can be mapped into the Sig_structure in the same manner as from the COSE_Sign structure.  </t>
 
         <t>It should be noted that only a signature algorithm with appendix (see <xref target="SigAlgs"  />) can be used for counter signatures.  This is because the body should be able to be processed without having to evaluate the counter signature, and this is not possible for signature schemes with message recovery.  </t>
       </section>
     </section>
+    
     <section anchor="encryption-object" title="Encryption Objects"  >
-      <t>COSE supports two different encryption structures.  COSE_Encrypt0 is used when a recipient structure is not needed because the key to be used is known implicitly.  COSE_Encrypt is used the rest of the time.  This includes cases where there are multiple recipients or a recipient algorithm other than direct is used.  </t>
+      <t>
+        COSE supports two different encryption structures. 
+        COSE_Encrypt0 is used when a recipient structure is not needed because the key to be used is known implicitly.
+        COSE_Encrypt is used the rest of the time.
+        This includes cases where there are multiple recipients or a recipient algorithm other than direct (i.e. pre-shared secret) is used.
+      </t>
+      
       <section title="Enveloped COSE Structure" anchor="EnvelopedData"  >
         <t>The enveloped structure allows for one or more recipients of a message.  There are provisions for parameters about the content and parameters about the recipient information to be carried in the message.  The protected parameters associated with the content are authenticated by the content encryption algorithm.  The protected parameters associated with the recipient are authenticated by the recipient algorithm (when the algorithm supports it).  Examples of parameters about the content are the type of the content and the content encryption algorithm.  Examples of parameters about the recipient are the recipient's key identifier and the recipient's encryption algorithm.  </t>
 
-        <t>The same techniques and structures are used for encrypting both the plaintext and the keys.  This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"  /> and "JSON Web Encryption (JWE)" <xref target="RFC7516"  /> where different structures are used for the content layer and for the recipient layer.  Two structures are defined: COSE_Encrypt to hold the encrypted content and COSE_recipient to hold the encrypted keys for recipients.  
+        <t>
+          The same techniques and nearly the same structure is used for encrypting both the plaintext and the keys. 
+          This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"  /> and "JSON Web Encryption (JWE)" <xref target="RFC7516"  /> where different structures are used for the content layer and for the recipient layer. 
+          Two structures are defined: COSE_Encrypt to hold the encrypted content and COSE_recipient to hold the encrypted keys for recipients.  
 
-Examples of encrypted messages can be found in <xref target="EnvelopedExamples"  />.  </t>
+          Examples of encrypted messages can be found in <xref target="EnvelopedExamples"  />.
+        </t>
         <t>The COSE_Encrypt structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Encrypt structure is identified by the CBOR tag 96.  The CDDL fragment that represents this is: </t>
         <figure title="" suppress-title="false" align="left" alt="" width="" height="">
           <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
@@ -546,7 +672,7 @@ COSE_Encrypt0 = [
         </figure>
       </section>
       <section anchor="encryption-algorithm-for-aead-algorithms" title="How to Encrypt and Decrypt for AEAD Algorithms"  >
-        <t>The encryption algorithm for AEAD algorithms is fairly simple.  The first step is to create a consistent byte stream for the authenticated data structure.  For this purpose, we use an Enc_structure.  The Enc_structure is a CBOR array.  The fields of the Enc_structure in order are:
+        <t>The encryption algorithm for AEAD algorithms is fairly simple.  The first step is to create a consistent byte string for the authenticated data structure.  For this purpose, we use an Enc_structure.  The Enc_structure is a CBOR array.  The fields of the Enc_structure in order are:
  <list style="numbers">
 
 <t>A text string identifying the context of the authenticated data structure.  The context string is:
@@ -574,7 +700,7 @@ Enc_structure = [
 
 <t>Create an Enc_structure and populate it with the appropriate fields.  </t>
 
-<t>Encode the Enc_structure to a byte stream (Additional Authenticated Data (AAD)), using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
+<t>Encode the Enc_structure to a byte string (Additional Authenticated Data (AAD)), using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
 
 <t>Determine the encryption key (K).  This step is dependent on the class of recipient algorithm being used.  For: <list style="hanging">
 <t hangText="No Recipients:">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<xref target="KeyTransport"  />), key wrap keys (<xref target="key_wrap_algs"  />), or pre-shared secrets.  </t>
@@ -586,7 +712,7 @@ Enc_structure = [
 
         <t>How to decrypt a message: <list style="numbers">
 <t>Create an Enc_structure and populate it with the appropriate fields.  </t>
-<t>Encode the Enc_structure to a byte stream (AAD), using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
+<t>Encode the Enc_structure to a byte string (AAD), using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
 <t>Determine the decryption key.  This step is dependent on the class of recipient algorithm being used.  For: <list style="hanging">
 <t hangText="No Recipients:">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<xref target="KeyTransport"  />), key wrap keys (<xref target="key_wrap_algs"  />), or pre-shared secrets.  </t>
 
@@ -700,13 +826,13 @@ MAC_structure = [
         </figure>
         <t>The steps to compute a MAC are: <list style="numbers"><t>Create a MAC_structure and populate it with the appropriate fields.  </t>
 
-<t>Create the value ToBeMaced by encoding the MAC_structure to a byte stream, using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
+<t>Create the value ToBeMaced by encoding the MAC_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
 
 <t>Call the MAC creation algorithm passing in K (the key to use), alg (the algorithm to MAC with), and ToBeMaced (the value to compute the MAC on).  </t>
 <t>Place the resulting MAC in the 'tag' field of the COSE_Mac or COSE_Mac0 structure.  </t><t>Encrypt and encode the MAC key for each recipient of the message.  </t></list> </t>
         <t>The steps to verify a MAC are: <list style="numbers"><t>Create a MAC_structure object and populate it with the appropriate fields.  </t>
 
-<t>Create the value ToBeMaced by encoding the MAC_structure to a byte stream, using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
+<t>Create the value ToBeMaced by encoding the MAC_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"  />.  </t>
 <t>Obtain the cryptographic key from one of the recipients of the message.  </t>
 <t>Call the MAC creation algorithm passing in K (the key to use), alg (the algorithm to MAC with), and ToBeMaced (the value to compute the MAC on).  </t>
 <t>Compare the MAC value to the 'tag' field of the COSE_Mac or COSE_Mac0 structure.  </t></list> </t>
@@ -977,7 +1103,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 
 <t>Applications may define new header parameters for a specific purpose.  Applications will often times select specific header parameters to use or not to use.  For example, an application would normally state a preference for using either the IV or the Partial IV parameter.  If the Partial IV parameter is specified, then the application would also need to define how the fixed portion of the IV would be determined.  </t>
 
-<t>When applications use externally defined authenticated data, they need to define how that data is encoded.  This document assumes that the data will be provided as a byte stream.  More information can be found in <xref target="Extern_AAD"  />.  </t>
+<t>When applications use externally defined authenticated data, they need to define how that data is encoded.  This document assumes that the data will be provided as a byte string.  More information can be found in <xref target="Extern_AAD"  />.  </t>
 
 <t>Applications need to determine the set of security algorithms that are to be used.  When selecting the algorithms to be used as the mandatory-to-implement set, consideration should be given to choosing different types of algorithms when two are chosen for a specific purpose.  An example of this would be choosing HMAC-SHA512 and AES-CMAC as different MAC algorithms; the construction is vastly different between these two algorithms.  This means that a weakening of one algorithm would be unlikely to lead to a weakening of the other algorithms.  Of course, these algorithms do not provide the same level of security and thus may not be comparable for the desired security functionality.  </t>
 
@@ -1302,7 +1428,11 @@ This field contains a brief description for the field.
       </section>
 
       <section title="CoAP Content-Formats Registry"  >
-        <t>IANA has added the following entries to the "CoAP Content-Formats" registry.</t>
+        <t>
+          IANA  added the following entries to the "CoAP Content-Formats" registry while processing <xref target="RFC8152"/>.
+          IANA is requested to update the reference value from <xref target="RFC8152"/> to [[This Document]].
+        </t>
+        
         <texttable anchor="CoAP_content_type" title="CoAP Content-Formats for COSE" suppress-title="false" align="center" style="full">
           <ttcol align="left">Media Type</ttcol>
           <ttcol align="left">Encoding</ttcol>
@@ -1386,8 +1516,14 @@ This field contains a brief description for the field.
   <back>
     <references title="Normative References">
 
-<reference anchor="COAP.Formats" quote-title="true" target="http://www.iana.org/assignments/core-parameters/"><front>
-<title>Constrained RESTful Environments (CoRE) Parameters</title>
+<reference anchor="COAP.Formats" quote-title="true" target="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats"><front>
+<title>CoAP Content-Formats</title>
+<author><organization>IANA</organization></author>
+<date/></front>
+</reference>
+
+<reference anchor="COSE.Algorithms" quote-title="true" target="https://www.iana.org/assignments/cose/cose.xhtml#algorithms"><front>
+<title>COSE Algorithms</title>
 <author><organization>IANA</organization></author>
 <date/></front>
 </reference>
