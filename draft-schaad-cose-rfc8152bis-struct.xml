@@ -40,7 +40,7 @@
     <section anchor="introduction" title="Introduction"  >
       <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC7159"  /> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
 
-      <t>The JOSE working group produced a set of documents <xref target="RFC7515"  /> <xref target="RFC7516"  /> <xref target="RFC7517"  /> <xref target="RFC7518"  /> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.schaad-cose-rfc8152bis-alg"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
+      <t>The JOSE working group produced a set of documents <xref target="RFC7515"  /> <xref target="RFC7516"  /> <xref target="RFC7517"  /> <xref target="RFC7518"  /> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.schaad-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
 
       <t><list style="symbols">
 <t>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded string.  </t>
@@ -65,7 +65,7 @@
 
       <t>
         This document does not contain the rules and procedures for using specific cryptographic algorithms.
-        Details on specific algorithms can be found in <xref target="I-D.schaad-cose-rfc8152bis-alg"/> and <xref target="RFCXXXX"/>.
+        Details on specific algorithms can be found in <xref target="I-D.schaad-cose-rfc8152bis-algs"/> and <xref target="RFC8230"/>.
         Details for additional algorithms are expected to be defined in future documents.
       </t>
 
@@ -129,13 +129,13 @@
 
         <t>The collected CDDL can be extracted from the XML version of this document via the following XPath expression below.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) </t>
 
-        <t><figure title="" suppress-title="false" align="left" alt="" width="" height=""><artwork type="XPATH" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <t><figure align="left"><artwork type="XPATH" xml:space="preserve" align="left">
 //artwork[@type='CDDL']/text()
 </artwork></figure> </t>
 
         <t>CDDL expects the initial non-terminal symbol to be the first symbol in the file.  For this reason, the first fragment of CDDL is presented here.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 start = COSE_Messages / COSE_Key / COSE_KeySet / Internal_Types
 
 ; This is defined to make the tool quieter:
@@ -154,8 +154,8 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure /
         </t>
 
         <t>A CDDL grammar fragment defines the non-terminal 'label', as in the previous paragraph, and 'values', which permits any value to be used.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 label = int / tstr
 values = any
 </artwork>
@@ -201,7 +201,7 @@ values = any
 <t>When a COSE object is carried in a media type of 'application/cose', the optional parameter 'cose-type' can be used to identify the embedded object.  The parameter is OPTIONAL if the tagged version of the structure is used.  The parameter is REQUIRED if the untagged version of the structure is used.  The value to use with the parameter for each of the structures can be found in <xref target="CBOR-Tags"  />.  </t><t>When a COSE object is carried as a CoAP payload, the CoAP Content-Format Option can be used to identify the message content.  The CoAP Content-Format values can be found in <xref target="CoAP_content_type"  />.  The CBOR tag for the message structure is not required as each security message is uniquely identified.  </t></list> </t>
 
       <!--Table 1 -->
-      <texttable anchor="CBOR-Tags" title="COSE Message Identification" suppress-title="false" align="center" style="full">
+      <texttable anchor="CBOR-Tags" title="COSE Message Identification" align="center" style="full">
         <ttcol align="left">CBOR Tag</ttcol>
         <ttcol align="left">cose-type</ttcol>
         <ttcol align="left">Data Item</ttcol>
@@ -233,8 +233,8 @@ values = any
       </texttable>
 
       <t>The following CDDL fragment identifies all of the top messages defined in this document.  Separate non-terminals are defined for the tagged and the untagged versions of the messages.  </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+      <figure align="left">
+        <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Messages = COSE_Untagged_Message / COSE_Tagged_Message
       
 COSE_Untagged_Message = COSE_Sign / COSE_Sign1 /
@@ -278,8 +278,8 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
       <t>Labels in each of the maps MUST be unique.  When processing messages, if a label appears multiple times, the message MUST be rejected as malformed.  Applications SHOULD verify that the same label does not occur in both the protected and unprotected headers.  If the message is not rejected as malformed, attributes MUST be obtained from the protected bucket before they are obtained from the unprotected bucket.  </t>
 
       <t>The following CDDL fragment represents the two header buckets.  A group "Headers" is defined in CDDL that represents the two buckets in which attributes are placed.  This group is used to provide these two fields consistently in all locations.  A type is also defined that represents the map of common headers.  </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+      <figure align="left">
+        <artwork type="CDDL" xml:space="preserve" align="left">
 Headers = (
     protected : empty_or_serialized_map,
     unprotected : header_map
@@ -298,7 +298,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
         <t>This section defines a set of common header parameters.  A summary of these parameters can be found in <xref target="Header-Table"  />.  This table should be consulted to determine the value of label and the type of the value.  </t>
 
         <t>The set of header parameters defined in this section are: </t>
-        <t><list style="hanging"><t hangText="alg:"> This parameter is used to indicate the algorithm used for the security processing.  This parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign0, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header in the protected header bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <<xref target="COSE.-algorithms"  />).  </t>
+        <t><list style="hanging"><t hangText="alg:"> This parameter is used to indicate the algorithm used for the security processing.  This parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign0, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header in the protected header bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <xref target="COSE.Algorithms"  />).  </t>
 
 <t hangText="crit:">The parameter is used to indicate which protected header labels an application that is processing a message is required to understand.  Parameters defined in this document do not need to be included as they should be understood by all implementations.  When present, this parameter MUST be placed in the protected header bucket.  The array MUST have at least one value in it.  
 
@@ -330,7 +330,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 <t hangText="counter signature:">This parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on computing counter signatures are found in <xref target="counter_signature"  />.  </t>
 </list> </t>
        
-        <texttable anchor="Header-Table" title="Common Header Parameters" suppress-title="false" align="center" style="full">
+        <texttable anchor="Header-Table" title="Common Header Parameters" align="center" style="full">
           <ttcol align="left" width="9em">Name</ttcol>
           <ttcol align="left" width="5em">Label</ttcol>
           <ttcol align="left" width="14em">Value Type</ttcol>
@@ -375,8 +375,8 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
         </texttable>
 
         <t>The CDDL fragment that represents the set of headers defined in this section is given below.  Each of the headers is tagged as optional because they do not need to be in every map; headers required in specific maps are discussed above.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 Generic_Headers = (
     ? 1 =&gt; int / tstr,  ; algorithm identifier
     ? 2 =&gt; [+label],    ; criticality
@@ -404,8 +404,8 @@ For example, the COSE_Sign structure might include signatures generated with the
 
         <t>The signature structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Sign structure is identified by the CBOR tag 98.  The CDDL fragment that represents this is: </t>
 
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Sign_Tagged = #6.98(COSE_Sign)
 </artwork>
         </figure>
@@ -421,8 +421,8 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
   <vspace blankLines="1"/> Note: When a signature with a message recovery algorithm is used (<xref target="SigAlgs"  />), the maximum number of bytes that can be recovered is the length of the payload.  The size of the payload is reduced by the number of bytes that will be recovered.  If all of the bytes of the payload are consumed, then the payload is encoded as a zero-length binary string rather than as being absent.  </t>
 <t hangText="signatures:">This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.  </t></list> </t>
         <t>The CDDL fragment that represents the above text for COSE_Sign follows.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Sign = [
     Headers,
     payload : bstr / nil,
@@ -437,8 +437,8 @@ COSE_Sign = [
 <t hangText="signature:">This field contains the computed signature value.  The type of the field is a bstr.  Algorithms MUST specify padding if the signature value is not a multiple of 8 bits.  </t></list> </t>
 
         <t>The CDDL fragment that represents the above text for COSE_Signature follows.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Signature =  [
     Headers,      
     signature : bstr
@@ -449,8 +449,8 @@ COSE_Signature =  [
       <section title="Signing with One Signer"  >
         <t>The COSE_Sign1 signature structure is used when only one signature is going to be placed on a message.  The parameters dealing with the content and the signature are placed in the same pair of buckets rather than having the separation of COSE_Sign.  </t>
         <t>The structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Sign1 structure is identified by the CBOR tag 18.  The CDDL fragment that represents this is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Sign1_Tagged = #6.18(COSE_Sign1)
 </artwork>
         </figure>
@@ -462,8 +462,8 @@ COSE_Sign1_Tagged = #6.18(COSE_Sign1)
 <t hangText="payload:">This is as described in <xref target="full-signature"  />.  </t>
 <t hangText="signature:">This field contains the computed signature value.  The type of the field is a bstr.  </t></list> </t>
         <t>The CDDL fragment that represents the above text for COSE_Sign1 follows.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Sign1 = [
     Headers,
     payload : bstr / nil,
@@ -530,8 +530,8 @@ COSE_Sign1 = [
           </list>
         </t>
         <t>The CDDL fragment that describes the above text is:  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 Sig_structure = [
     context : "Signature" / "Signature1" / "CounterSignature",
     body_protected : empty_or_serialized_map,
@@ -595,8 +595,8 @@ Sig_structure = [
           Examples of encrypted messages can be found in <xref target="EnvelopedExamples"  />.
         </t>
         <t>The COSE_Encrypt structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Encrypt structure is identified by the CBOR tag 96.  The CDDL fragment that represents this is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
 </artwork>
         </figure>
@@ -607,8 +607,8 @@ COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
 <t hangText="recipients:">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient.  </t></list> </t>
 
         <t>The CDDL fragment that corresponds to the above text is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Encrypt = [
     Headers,
     ciphertext : bstr / nil,
@@ -626,8 +626,8 @@ COSE_Encrypt = [
 <t hangText="recipients:">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient (an example of this can be found in <xref target="three-layer"  />). If there are no recipient information structures, this element is absent.  </t></list> </t>
 
         <t>The CDDL fragment that corresponds to the above text for COSE_recipient is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_recipient = [    
     Headers,
     ciphertext : bstr / nil,
@@ -650,8 +650,8 @@ COSE_recipient = [
         <t>Examples of encrypted messages can be found in <xref target="EnvelopedExamples"  />.  </t>
 
         <t>The COSE_Encrypt0 structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Encrypt0 structure is identified by the CBOR tag 16.  The CDDL fragment that represents this is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Encrypt0_Tagged = #6.16(COSE_Encrypt0)
 </artwork>
         </figure>
@@ -662,8 +662,8 @@ COSE_Encrypt0_Tagged = #6.16(COSE_Encrypt0)
 <t hangText="unprotected:">This is as described in <xref target="header-parameters"  />.</t>
 <t hangText="ciphertext:">This is as described in <xref target="EnvelopedData"  />.</t></list> </t>
         <t>The CDDL fragment for COSE_Encrypt0 that corresponds to the above text is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Encrypt0 = [
     Headers,
     ciphertext : bstr / nil,
@@ -686,8 +686,8 @@ COSE_Encrypt0 = [
 <t>The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  </t><t>The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length bstr.  (See <xref target="Extern_AAD"  /> for application guidance on constructing this field.) </t></list> </t>
 
         <t>The CDDL fragment that describes the above text is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 Enc_structure = [
     context : "Encrypt" / "Encrypt0" / "Enc_Recipient" /
         "Mac_Recipient" / "Rec_Recipient",
@@ -705,7 +705,12 @@ Enc_structure = [
 <t>Determine the encryption key (K).  This step is dependent on the class of recipient algorithm being used.  For: <list style="hanging">
 <t hangText="No Recipients:">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<xref target="KeyTransport"  />), key wrap keys (<xref target="key_wrap_algs"  />), or pre-shared secrets.  </t>
 
-<t hangText="Direct Encryption and Direct Key Agreement:">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.) Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf" format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH" format="counter"/>.-->  </t>
+<t hangText="Direct Encryption and Direct Key Agreement:">
+  The key is determined by the key and algorithm in the recipient structure. 
+  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
+  (For direct, the KDF can be thought of as the identity operation.)
+  Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf" format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH" format="counter"/>.--> of <xref target="I-D.schaad-cose-rfc8152bis-algs"/>.
+</t>
 <t hangText="Other:">The key is randomly or pseudorandomly generated.  </t></list> </t>
 
 <t>Call the encryption algorithm with K (the encryption key), P (the plaintext), and AAD.  Place the returned ciphertext into the 'ciphertext' field of the structure.  </t><t>For recipients of the message, recursively perform the encryption algorithm for that recipient, using K (the encryption key) as the plaintext.  </t></list> </t>
@@ -716,7 +721,11 @@ Enc_structure = [
 <t>Determine the decryption key.  This step is dependent on the class of recipient algorithm being used.  For: <list style="hanging">
 <t hangText="No Recipients:">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<xref target="KeyTransport"  />), key wrap keys (<xref target="key_wrap_algs"  />), or pre-shared secrets.  </t>
 
-<t hangText="Direct Encryption and Direct Key Agreement:">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.) Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf"  format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH"  format="counter"/>-->.  </t>
+<t hangText="Direct Encryption and Direct Key Agreement:">
+  The key is determined by the key and algorithm in the recipient structure. 
+  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
+  (For direct, the KDF can be thought of as the identity operation.)
+</t>
 <t hangText="Other:">The key is determined by decoding and decrypting one of the recipient structures.  </t></list> </t>
 
 <t>Call the decryption algorithm with K (the decryption key to use), C (the ciphertext), and AAD.  </t></list> </t>
@@ -753,8 +762,8 @@ Enc_structure = [
       <section title="MACed Message with Recipients" anchor="Mac_n"  >
         <t>The multiple recipient MACed message uses two structures: the COSE_Mac structure defined in this section for carrying the body and the COSE_recipient structure (<xref target="EnvelopedData"  />) to hold the key used for the MAC computation.  Examples of MACed messages can be found in <xref target="MacExamples"  />.  </t>
         <t>The MAC structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Mac structure is identified by the CBOR tag 97.  The CDDL fragment that represents this is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Mac_Tagged = #6.97(COSE_Mac)
 </artwork>
         </figure>
@@ -766,8 +775,8 @@ COSE_Mac_Tagged = #6.97(COSE_Mac)
 <t hangText="tag:">This field contains the MAC value.  </t>
 <t hangText="recipients:">This is as described in <xref target="EnvelopedData"  />.  </t></list> </t>
         <t>The CDDL fragment that represents the above text for COSE_Mac follows.  </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Mac = [
    Headers,
    payload : bstr / nil,
@@ -781,9 +790,8 @@ COSE_Mac = [
         <t>In this section, we describe the structure and methods to be used when doing MAC authentication for those cases where the recipient is implicitly known.  </t>
         <t>The MACed message uses the COSE_Mac0 structure defined in this section for carrying the body.  Examples of MACed messages with an implicit key can be found in <xref target="Mac0Examples"  />.  </t>
         <t>The MAC structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Mac0 structure is identified by the CBOR tag 17.  The CDDL fragment that represents this is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
-
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Mac0_Tagged = #6.17(COSE_Mac0)
 </artwork>
         </figure>
@@ -793,8 +801,8 @@ COSE_Mac0_Tagged = #6.17(COSE_Mac0)
 <t hangText="payload:">This is as described in <xref target="Mac_n"  />.</t>
 <t hangText="tag:">This field contains the MAC value.</t></list> </t>
         <t>The CDDL fragment that corresponds to the above text is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Mac0 = [
    Headers,
    payload : bstr / nil,
@@ -814,8 +822,8 @@ COSE_Mac0 = [
 
 <t>The payload to be MACed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </t></list> </t>
         <t>The CDDL fragment that corresponds to the above text is: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
 MAC_structure = [
      context : "MAC" / "MAC0",
      protected : empty_or_serialized_map,
@@ -846,8 +854,8 @@ MAC_structure = [
       <t>Each element in a COSE Key Set MUST be processed independently.  If one element in a COSE Key Set is either malformed or uses a key that is not understood by an application, that key is ignored and the other keys are processed normally.  </t>
       <t>The element "kty" is a required element in a COSE_Key map.  </t>
       <t>The CDDL grammar describing COSE_Key and COSE_KeySet is: </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork type="CDDL" xml:space="preserve" name="" align="left" alt="" width="" height="">
+      <figure align="left">
+        <artwork type="CDDL" xml:space="preserve" align="left">
 COSE_Key = {
     1 =&gt; tstr / int,          ; kty
     ? 2 =&gt; bstr,              ; kid
@@ -864,7 +872,7 @@ COSE_KeySet = [+COSE_Key]
         <t>This document defines a set of common parameters for a COSE Key object.  <xref target="table-key-labels"  /> provides a summary of the parameters defined in this section.  There are also parameters that are defined for specific key types.  Key-type-specific parameters can be found in <xref target="I-D.schaad-cose-rfc8152bis-algs"  />.  </t>
 
  <?rfc compact="no"?>
-        <texttable title="Key Map Labels" anchor="table-key-labels" suppress-title="false" align="center" style="full">
+        <texttable title="Key Map Labels" anchor="table-key-labels" align="center" style="full">
           <ttcol align="left">Name</ttcol>
           <ttcol align="left">Label</ttcol>
           <ttcol align="left" width="14em">CBOR Type</ttcol>
@@ -873,7 +881,7 @@ COSE_KeySet = [+COSE_Key]
           <c>kty</c>
           <c>1</c>
           <c>tstr / int</c>
-          <c>COSE Key Common Parameters</c>
+          <c>COSE Key Types</c>
           <c>Identification of the key type</c>
           &#xA;
           <c>kid</c>
@@ -914,7 +922,7 @@ COSE_KeySet = [+COSE_Key]
  <vspace blankLines="1"/> Extreme care needs to be taken when using a Base IV in an application.  Many encryption algorithms lose security if the same IV is used twice. 
 
  <vspace blankLines="1"/> If different keys are derived for each sender, using the same Base IV with Partial IVs starting at zero is likely to ensure that the IV would not be used twice for a single key.  If different keys are derived for each sender, starting at the same Base IV is likely to satisfy this condition.  If the same key is used for multiple senders, then the application needs to provide for a method of dividing the IV space up between the senders.  This could be done by providing a different base point to start from or a different Partial IV to start with and restricting the number of messages to be sent before rekeying.  </t></list> </t>
-        <texttable title="Key Operation Values" anchor="table-key-ops" suppress-title="false" align="center" style="full">
+        <texttable title="Key Operation Values" anchor="table-key-ops" align="center" style="full">
           <ttcol align="left">Name</ttcol>
           <ttcol align="left">Value</ttcol>
           <ttcol align="left">Description</ttcol>
@@ -957,17 +965,17 @@ COSE_KeySet = [+COSE_Key]
       <t>There are two signature algorithm schemes.  The first is signature with appendix.  In this scheme, the message content is processed and a signature is produced; the signature is called the appendix.  This is the scheme used by algorithms such as ECDSA and the RSA Probabilistic Signature Scheme (RSASSA-PSS).  (In fact, the SSA in RSASSA-PSS stands for Signature Scheme with Appendix.) </t>
       <t>The signature functions for this scheme are: </t>
       
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
-   signature = Sign(message content, key)
+      <figure align="left">
+        <artwork xml:space="preserve" align="left">
+signature = Sign(message content, key)
 
-   valid = Verification(message content, key, signature)
+valid = Verification(message content, key, signature)
 </artwork>
       </figure>
       <t>The second scheme is signature with message recovery (an example of such an algorithm is <xref target="PVSig" pageno="false" format="default"/>). In this scheme, the message content is processed, but part of it is included in the signature.  Moving bytes of the message content into the signature allows for smaller signatures; the signature size is still potentially large, but the message content has shrunk.  This has implications for systems implementing these algorithms and for applications that use them.  The first is that the message content is not fully available until after a signature has been validated.  Until that point, the part of the message contained inside of the signature is unrecoverable.  The second is that the security analysis of the strength of the signature is very much based on the structure of the message content.  Messages that are highly predictable require additional randomness to be supplied as part of the signature process.  In the worst case, it becomes the same as doing a signature with appendix.  Finally, in the event that multiple signatures are applied to a message, all of the signature algorithms are going to be required to consume the same number of bytes of message content.  This means that the mixing of the different schemes in a single message is not supported, and if a recovery signature scheme is used, then the same amount of content needs to be consumed by all of the signatures.  </t>
       <t>The signature functions for this scheme are: </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
+      <figure align="left">
+        <artwork xml:space="preserve" align="left">
 signature, message sent = Sign(message content, key)
 
 valid, message content = Verification(message sent, key, signature)
@@ -978,12 +986,12 @@ valid, message content = Verification(message sent, key, signature)
     </section>
 
     <section title="Message Authentication Code (MAC) Algorithms" numbered="yes" toc="default">
-      <t>Message Authentication Codes (MACs) provide data authentication and integrity protection.  They provide either no or very limited data origination.  A MAC, for example, can be used to prove the identity of the sender to a third party.  </t>
+      <t>Message Authentication Codes (MACs) provide data authentication and integrity protection.  They provide either no or very limited data origination.  A MAC, for example, cannot be used to prove the identity of the sender to a third party.  </t>
 
       <t>MACs use the same scheme as signature with appendix algorithms.  The message content is processed and an authentication code is produced.  The authentication code is frequently called a tag.  </t>
       <t>The MAC functions are: </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
+      <figure align="left">
+        <artwork xml:space="preserve" align="left">
 tag = MAC_Create(message content, key)
 
 valid = MAC_Verify(message content, key, tag)
@@ -997,8 +1005,8 @@ valid = MAC_Verify(message content, key, tag)
       <t>Content encryption algorithms provide data confidentiality for potentially large blocks of data using a symmetric key.  They provide integrity on the data that was encrypted; however, they provide either no or very limited data origination.  (One cannot, for example, be used to prove the identity of the sender to a third party.) The ability to provide data origination is linked to how the CEK is obtained.  </t>
 
       <t>COSE restricts the set of legal content encryption algorithms to those that support authentication both of the content and additional data.  The encryption process will generate some type of authentication value, but that value may be either explicit or implicit in terms of the algorithm definition.  For simplicity's sake, the authentication code will normally be defined as being appended to the ciphertext stream.  The encryption functions are: </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
+      <figure align="left">
+        <artwork xml:space="preserve" align="left">
 ciphertext = Encrypt(message content, key, additional data)
 
 valid, message content = Decrypt(cipher text, key, additional data)
@@ -1013,9 +1021,17 @@ valid, message content = Decrypt(cipher text, key, additional data)
       <t>KDFs are used to take some secret value and generate a different one.  The secret value comes in three flavors: <list style="symbols"><t>Secrets that are uniformly random:  This is the type of secret that is created by a good random number generator.</t><t>Secrets that are not uniformly random: This is type of secret that is created by operations like key agreement.</t>
 
 <t>Secrets that are not random: This is the type of secret that people generate for things like passwords.</t></list> </t>
-      <t>General KDFs work well with the first type of secret, can do reasonably well with the second type of secret, and generally do poorly with the last type of secret.  None of the KDFs in this section are designed to deal with the type of secrets that are used for passwords.  Functions like PBES2 <xref target="RFC8018" pageno="false" format="default"/> need to be used for that type of secret.  </t>
+<t>
+  General KDFs work well with the first type of secret, can do reasonably well with the second type of secret, and generally do poorly with the last type of secret. 
+  <!-- None of the KDFs in this section are designed to deal with the type of secrets that are used for passwords. -->
+  Functions like PBES2 <xref target="RFC8018" pageno="false" format="default"/> need to be used for non-random secrets.
+</t>
 
-      <t>The same KDF can be set up to deal with the first two types of secrets in a different way.  The KDF defined in !!! HDKF !!! <!--<xref target="HKDF" pageno="false" format="default"/>--> is such a function.  This is reflected in the set of algorithms defined for the HMAC-based Extract-and-Expand Key Derivation Function (HKDF).  </t>
+<t>
+  The same KDF can be set up to deal with the first two types of secrets in a different way. 
+  The KDF defined in !!! HDKF !!! <!--<xref target="HKDF" pageno="false" format="default"/>--> is such a function. 
+  This is reflected in the set of algorithms defined for the HMAC-based Extract-and-Expand Key Derivation Function (HKDF). 
+ </t>
 
       <t>When using KDFs, one component that is included is context information.  Context information is used to allow for different keying information to be derived from the same secret.  The use of context-based keying material is considered to be a good security practice.  </t>
 
@@ -1042,7 +1058,13 @@ valid, message content = Decrypt(cipher text, key, additional data)
         <t><list style="symbols">
 <t>The 'protected' field MUST be absent if the key wrap algorithm is an AE algorithm.  </t>
 
-<t>The 'recipients' field is normally absent, but can be used.  Applications MUST deal with a recipient field being present, not being able to decrypt that recipient is an acceptable way of dealing with it.  Failing to process the message is not an acceptable way of dealing with it.  </t><t>The plaintext to be encrypted is the key from next layer down (usually the content layer).  </t>
+<t>
+  The 'recipients' field is normally absent, but can be used.
+  Applications MUST deal with a recipient field being present that have unsupported algorthms, not being able to decrypt that recipient is an acceptable way of dealing with it. 
+  Failing to process the message is not an acceptable way of dealing with it. 
+</t>
+<t>The plaintext to be encrypted is the key from next layer down (usually the content layer). 
+</t>
 <t>At a minimum, the 'unprotected' field MUST contain the 'alg' parameter and SHOULD contain a parameter identifying the shared secret.  </t></list> </t>
 
       </section>
@@ -1072,8 +1094,8 @@ valid, message content = Decrypt(cipher text, key, additional data)
       </section>
       <section title="Key Agreement with Key Wrap" anchor="ECDH-Direct" numbered="yes" toc="default">
         <t>Key Agreement with Key Wrap uses a randomly generated CEK.  The CEK is then encrypted using a key wrap algorithm and a key derived from the shared secret computed by the key agreement algorithm.  The function for this would be: </t>
-        <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-          <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">
+        <figure align="left">
+          <artwork xml:space="preserve" align="left">
 encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </artwork>
         </figure>
@@ -1433,7 +1455,7 @@ This field contains a brief description for the field.
           IANA is requested to update the reference value from <xref target="RFC8152"/> to [[This Document]].
         </t>
         
-        <texttable anchor="CoAP_content_type" title="CoAP Content-Formats for COSE" suppress-title="false" align="center" style="full">
+        <texttable anchor="CoAP_content_type" title="CoAP Content-Formats for COSE" align="center" style="full">
           <ttcol align="left">Media Type</ttcol>
           <ttcol align="left">Encoding</ttcol>
           <ttcol align="left">ID</ttcol>
@@ -1682,6 +1704,7 @@ This field contains a brief description for the field.
 </front>
 <seriesInfo name='Work in Progress,' value='draft-ietf-core-object-security-03' />
 </reference>
+<?rfc include="reference.RFC.8230"?>
 </references>
 
     <section title="Guidelines for External Data Authentication of Algorithms"  >
@@ -1724,7 +1747,7 @@ This field contains a brief description for the field.
         <t>There is a group of people who want to have a counter signature parameter that is directly tied to the value being signed, and thus the authenticated and unauthenticated buckets can be removed from the message being sent.  The focus on this is an even smaller size, as all of the information on the process of creating the counter signature is implicit rather than being explicitly carried in the message.  This includes not only the algorithm identifier as presented above, but also items such as the key identification, which is always external to the signature structure.  This means that the entities that are doing the validation of the counter signature are required to infer which key is to be used from context rather than being explicit.  One way of doing this would be to presume that all data coming from a specific port (or to a specific URL) is to be validated by a specific key.  (Note that this does not require that the key identifier be part of the value signed as it does not serve a cryptographic purpose.  If the key validates the counter signature, then it should be presumed that the entity associated with that key produced the signature.) </t>
 
         <t>When computing the signature for the bare counter signature header, the same Sig_structure defined in <xref target="Sig_structure"  /> is used.  The sign_protected field is omitted, as there is no protected header field in this counter signature header.  The value of "CounterSignature0" is placed in the context field of the Sig_stucture.  </t>
-        <texttable anchor="CounterSign0" title="Header Parameter for CounterSignature0" suppress-title="false" align="center" style="full">
+        <texttable anchor="CounterSign0" title="Header Parameter for CounterSignature0" align="center" style="full">
           <ttcol align="left">Name</ttcol>
           <ttcol align="left">Label</ttcol>
           <ttcol align="left">Value Type</ttcol>
@@ -1751,8 +1774,8 @@ This field contains a brief description for the field.
 <t>Layer 2: Uses ECDH Ephemeral-Static direct to generate the layer 1 key.  </t></list> In effect, this example is a decomposed version of using the ECDH&nbhy;ES+A128KW algorithm.  </t>
 <t>Size of binary file is 183 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 96(
   [
     / protected / h'a10101' / {
@@ -1801,18 +1824,18 @@ e9b8a55a600b21233e86e68',
       <t>A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.  Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format.  Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.  If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.  </t>
 
       <t>As noted, the examples are presented using the CBOR's diagnostic notation.  A Ruby-based tool exists that can convert between the diagnostic notation and binary.  This tool can be installed with the command line: </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">gem install cbor-diag</artwork>
+      <figure align="left">
+        <artwork xml:space="preserve" align="left">gem install cbor-diag</artwork>
       </figure>
       <t>The diagnostic notation can be converted into binary files using the following command line: </t>
 
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height="">diag2cbor.rb &lt; inputfile &gt; outputfile
+      <figure align="left">
+        <artwork xml:space="preserve" align="left">diag2cbor.rb &lt; inputfile &gt; outputfile
 </artwork>
       </figure>
       <t>The examples can be extracted from the XML version of this document via an XPath expression as all of the artwork is tagged with the attribute type='CBORdiag'.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) </t>
-      <figure title="" suppress-title="false" align="left" alt="" width="" height="">
-        <artwork type="XPATH" xml:space="preserve" name="" align="left" alt="" width="" height="">//artwork[@type='CDDL']/text()</artwork>
+      <figure align="left">
+        <artwork type="XPATH" xml:space="preserve" align="left">//artwork[@type='CDDL']/text()</artwork>
       </figure>
 
       <section title="Examples of Signed Messages" anchor="SignedExamples"  >
@@ -1822,8 +1845,8 @@ e9b8a55a600b21233e86e68',
 <t>Signature Algorithm: ECDSA w/ SHA-256, Curve P-256</t></list> </t>
 
 <t>Size of binary file is 103 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 98(
   [
     / protected / h'', 
@@ -1857,8 +1880,8 @@ e9b8a55a600b21233e86e68',
 
 <t>Size of binary file is 277 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 98(
   [
     / protected / h'', 
@@ -1904,8 +1927,8 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 
 <t>Size of binary file is 180 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 98(
   [
     / protected / h'', 
@@ -1947,8 +1970,8 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 
 <t>Size of binary file is 125 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 98(
   [
     / protected / h'a2687265736572766564f40281687265736572766564' / 
@@ -1987,8 +2010,8 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 
 <t>Size of binary file is 98 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 18(
   [
     / protected / h'a10126' / {
@@ -2013,8 +2036,8 @@ a4c345cacb36'
 
 <t>Size of binary file is 151 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 96(
   [
     / protected / h'a10101' / {
@@ -2063,8 +2086,8 @@ bf054e1c7b4d91d6280',
 <t>Supplementary Public Other: "Encryption Example 02"</t></list> </t></list> </t>
 
 <t>Size of binary file is 91 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 96(
   [
     / protected / h'a1010a' / {
@@ -2100,8 +2123,8 @@ bf054e1c7b4d91d6280',
 
 <t>Size of binary file is 326 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 96(
   [
     / protected / h'a10101' / {
@@ -2157,8 +2180,8 @@ bf054e1c7b4d91d6280',
 
 <t>Size of binary file is 173 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 96(
   [
     / protected / h'a10101' / {
@@ -2196,8 +2219,8 @@ e1c62'
 
 <t>Size of binary file is 52 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 16(
   [
     / protected / h'a1010a' / {
@@ -2217,8 +2240,8 @@ e1c62'
 <t>This example uses the following: <list style="symbols"><t>CEK: AES-CCM w/ 128-bit key and a 64-bit tag</t><t>Prefix for IV is 89F52F65A1C580933B52</t></list> </t>
 
 <t>Size of binary file is 41 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 16(
   [
     / protected / h'a1010a' / {
@@ -2247,8 +2270,8 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
 
 <t>Size of binary file is 57 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 97(
   [
     / protected / h'a1010f' / {
@@ -2278,8 +2301,8 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
 <t>Recipient class: ECDH key agreement, two static keys, HKDF w/ context structure</t></list> </t>
 
 <t>Size of binary file is 214 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 97(
   [
     / protected / h'a10105' / {
@@ -2315,8 +2338,8 @@ RFC Editor - All of the examples will need to be modified after IANA has finaize
 <t>Recipient class: AES Key Wrap w/ a pre-shared 256-bit key</t></list> </t>
 
 <t>Size of binary file is 109 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 97(
   [
     / protected / h'a1010e' / {
@@ -2353,8 +2376,8 @@ b6eb0'
 <t>AES Key Wrap w/ 256-bit key</t></list> </t></list> </t>
 
 <t>Size of binary file is 309 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 97(
   [
     / protected / h'a10105' / {
@@ -2406,9 +2429,9 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 <t>Recipient class: direct shared secret</t></list> </t>
 
 <t>Size of binary file is 37 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
+<figure align="left">
 
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 17(
   [
     / protected / h'a1010f' / {
@@ -2431,9 +2454,9 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 
 <t>Size of binary file is 481 bytes</t>
 
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
+<figure align="left">
 
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 [
   {
     -1:1, 
@@ -2485,8 +2508,8 @@ d6280',
 <t>An EC key with a kid of "bilbo.baggins@hobbiton.example"</t><t>An EC key with a kid of "11"</t></list> </t>
 
 <t>Size of binary file is 816 bytes</t>
-<figure title="" suppress-title="false" align="left" alt="" width="" height="">
-<artwork type="CBORdiag" xml:space="preserve" name="" align="left" alt="" width="" height="">
+<figure align="left">
+<artwork type="CBORdiag" xml:space="preserve" align="left">
 [
   {
     1:2, 
