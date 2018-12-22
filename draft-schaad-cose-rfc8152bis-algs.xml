@@ -57,7 +57,7 @@
       <t>
         There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT). 
         One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />. 
-        CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC7159"  /> by allowing for binary data, among other changes. 
+        CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC8259"  /> by allowing for binary data, among other changes. 
         CBOR is being adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures. 
         CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder. 
         A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.
@@ -408,9 +408,9 @@
         </section>
       </section>
       <section title="ChaCha20 and Poly1305"  >
-        <t>ChaCha20 and Poly1305 combined together is an AEAD mode that is defined in <xref target="RFC7539"  />.  This is an algorithm defined to be a cipher that is not AES and thus would not suffer from any future weaknesses found in AES.  These cryptographic functions are designed to be fast in software-only implementations.  </t>
+        <t>ChaCha20 and Poly1305 combined together is an AEAD mode that is defined in <xref target="RFC8439"  />.  This is an algorithm defined to be a cipher that is not AES and thus would not suffer from any future weaknesses found in AES.  These cryptographic functions are designed to be fast in software-only implementations.  </t>
 
-        <t>The ChaCha20/Poly1305 AEAD construction defined in <xref target="RFC7539"  /> has no parameterization.  It takes a 256-bit key and a 96-bit nonce, as well as the plaintext and additional data as inputs and produces the ciphertext as an option.  We define one algorithm identifier for this algorithm in <xref target="Table-CHACHA"  />.  </t>
+        <t>The ChaCha20/Poly1305 AEAD construction defined in <xref target="RFC8439"  /> has no parameterization.  It takes a 256-bit key and a 96-bit nonce, as well as the plaintext and additional data as inputs and produces the ciphertext as an option.  We define one algorithm identifier for this algorithm in <xref target="Table-CHACHA"  />.  </t>
         <texttable title="Algorithm Value for AES-GCM" anchor="Table-CHACHA" suppress-title="false" align="center" style="full">
           <ttcol align="left">Name</ttcol>
           <ttcol align="left">Value</ttcol>
@@ -1108,7 +1108,7 @@ COSE_KDF_Context = [
 <?rfc include="reference.RFC.6090" ?>
 <?rfc include="reference.RFC.6979" ?>
 <?rfc include="reference.RFC.7049" ?>
-<?rfc include="reference.RFC.7539" ?>
+<?rfc include="reference.RFC.8439" ?>
 <?rfc include="reference.RFC.7748" ?>
 <?rfc include="reference.RFC.8174" ?>
 
@@ -1185,7 +1185,7 @@ COSE_KDF_Context = [
 <?rfc include="reference.RFC.5116" ?>
 <?rfc include="reference.RFC.5480" ?>
 <?rfc include="reference.RFC.6151" ?>
-<?rfc include="reference.RFC.7159" ?>
+<?rfc include="reference.RFC.8259" ?>
 <?rfc include="reference.RFC.7252" ?>
 <?rfc include="reference.RFC.7518" ?>
 <?rfc include="reference.RFC.8017" ?>
