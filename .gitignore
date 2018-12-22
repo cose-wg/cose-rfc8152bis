@@ -5,6 +5,8 @@
 *.txt
 *.upload
 *~
+\#*
+.#*
 .refcache
 .tags
 .targets.mk
