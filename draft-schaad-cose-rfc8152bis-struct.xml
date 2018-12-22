@@ -1197,7 +1197,9 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     <section title="Application Profiling Considerations"  >
       <t>This document is designed to provide a set of security services, but not impose algorithm implementation requirements for specific usage.  The interoperability requirements are provided for how each of the individual services are used and how the algorithms are to be used for interoperability.  The requirements about which algorithms and which services are needed are deferred to each application.  </t>
 
-      <t>An example of a profile can be found in <xref target="OSCOAP"  /> where two profiles are being developed.  One is for carrying content by itself, and the other is for carrying content in combination with CoAP headers.  </t>
+      <t>
+        An example of a profile can be found in <xref target="I-D.ietf-core-object-security"  /> where a profiles was developed for carrying content in combination with CoAP headers. 
+      </t>
 
       <t>It is intended that a profile of this document be created that defines the interoperability requirements for that specific application.  This section provides a set of guidelines and topics that need to be considered when profiling this document.  <list style="symbols"><t>Applications need to determine the set of messages defined in this document that they will be using.  The set of messages corresponds fairly directly to the set of security services that are needed and to the security levels needed.  </t>
 
@@ -1500,25 +1502,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </reference>
 
 <!--draft-selander-ace-object-security-06 = Expired. Replaced by draft-ietf-core-object-security-03 = Active, ID Exists-->
-<reference anchor='OSCOAP'>
-<front>
-<title>Object Security of CoAP (OSCOAP)</title>
-<author initials='G' surname='Selander' fullname='Goeran Selander'>
-    <organization />
-</author>
-<author initials='J' surname='Mattsson' fullname='John Mattsson'>
-    <organization />
-</author>
-<author initials='F' surname='Palombini' fullname='Francesca Palombini'>
-    <organization />
-</author>
-<author initials='L' surname='Seitz' fullname='Ludwig Seitz'>
-    <organization />
-</author>
-<date month='May' year='2017' />
-</front>
-<seriesInfo name='Work in Progress,' value='draft-ietf-core-object-security-03' />
-</reference>
+<?rfc include="reference.I-D.ietf-core-object-security"?>
 <?rfc include="reference.RFC.8230"?>
 </references>
 
