@@ -35,6 +35,15 @@
       </t>
     </abstract>
     
+    <note title="Contributing to this document">
+      <!-- RFC EDITOR - Please remove this note before publishing -->
+      <t>
+        The source for this draft is being maintained in GitHub.
+        Suggested changes should be submitted as pull requests  at <eref target="https://github.com/cose-wg/cose-rfc8152bis"/>.
+        Instructions are on that page as well.
+        Editorial changes can be managed in GitHub, but any substantial issues need to be discussed on the COSE mailing list.
+      </t>
+    </note>
   </front>
   <middle>
     <section anchor="introduction" title="Introduction"  >
@@ -1149,53 +1158,13 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
  
       <section anchor="cose-header-key-table" title="COSE Header Parameters Registry"  >
         <t>
-        IANA has created a registry titled "COSE Header Parameters". 
-        The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"  />. 
-        Guidelines for the experts are provided in <xref target="review"  />. 
-        It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well. 
-        </t>
-
-        <t>The columns of the registry are:
-        <list style="hanging">
-        <t hangText="Name:">
-        The name is present to make it easier to refer to and discuss the registration entry. 
- The value is not used in the protocol. 
- Names are to be unique in the table.
-        </t>
-
-<t hangText="Label:">
-This is the value used for the label.
-  The label can be either an integer or a string. 
- Registration in the table is based on the value of the label requested. 
- Integer values between 1 and 255 and strings of length 1 are designated as "Standards Action". 
-Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required". 
-Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review". 
-Integer values in the range -1 to -65536 are "delegated to the COSE Header Algorithm Parameters registry". 
-Integer values less than -65536 are marked as private use.
-</t>
-
-<t hangText="Value Type:">
-  This contains the CBOR type for the value portion of the label.
-</t>
-
-<t hangText="Value Registry:">
-This contains a pointer to the registry used to contain values where the set is limited. 
- </t>
- <t hangText="Description:">
-   This contains a brief description of the header field.
- </t>
- <t hangText="Reference:">
-        This contains a pointer to the specification defining the header field (where public). 
- </t>
-        </list>
+          IANA created a registry titled "COSE Header Parameters" as part of process <xref target="RFC8152"/>. 
+          The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"  />.
         </t>
 
         <t>
-          The initial contents of the registry is ...
-          <!--
-        The initial contents of the registry can be found in Tables <xref target="Header-Table"  format="counter"/> and <xref target="CounterSign0"  format="counter"/>.  All of the entries in the "References" column of this registry point to this document.  </t>
-        <t>Additionally, the label of 0 is to be marked as 'Reserved'.  </t>
-          -->
+          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
+          This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
         </t>
       </section>
       <section anchor="IANA-Alg-Registry" title="COSE Header Algorithm Parameters Registry"  >
@@ -1248,52 +1217,14 @@ This contains a pointer to the specification defining the header field (where pu
 
       <section anchor="cose-key-map-registry" title="COSE Key Common Parameters Registry"  >
         <t>
-        IANA has created a registry titled "COSE Key Common Parameters". 
- The registry has been created to use the "Expert Review Required" registration procedure. 
- Guidelines for the experts are provided in <xref target="review"  />. 
- It should be noted that, in addition to the expert review, some portions of the registry require a specification, potentially a Standards Track RFC, be supplied as well. 
- </t>
+          IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <xref target="RFC8152"/>.
+          The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"  />.
+        </t>
 
         <t>
-          The columns of the registry are:
+          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
+          This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
         </t>
-        <t>
-<list style="hanging">
-<t hangText="Name:">
-This is a descriptive name that enables easier reference to the item. 
- It is not used in the encoding. 
- </t>
-<t hangText="Label:">
-The value to be used to identify this algorithm. 
- Key map labels MUST be unique. 
- The label can be a positive integer, a negative integer, or a string. 
- Integer values between 0 and 255 and strings of length 1 are designated as "Standards Action". 
- Integer values from 256 to 65535 and strings of length 2 are designated as "Specification Required". 
- Integer values of greater than 65535 and strings of length greater than 2 are designated as "Expert Review". 
- Integer values in the range -65536 to -1 are "used for key parameters specific to a single algorithm delegated to the COSE Key Type Parameters registry". 
- Integer values less than -65536 are marked as private use. 
- </t>
-
-<t hangText="CBOR Type:">
-This field contains the CBOR type for the field. 
- </t>
- <t hangText="Value Registry:">
-   This field denotes the registry that values come from, if one exists. 
- </t>
- <t hangText="Description:">
- This field contains a brief description for the field. 
- </t>
- <t hangText="Reference:">
-        This contains a pointer to the public specification for the field if one exists. 
- </t>
-</list>
-        </t>
-        <!--
-        <t>
-        This registry has been initially populated by the values in <xref target="table-key-labels"  />. 
-        All of the entries in the "References" column of this registry point to this document.
-        </t>
-        -->
       </section>
 
       <section anchor="cose-key-parameter-registry" title="COSE Key Type Parameters Registry"  >
@@ -1385,7 +1316,7 @@ This field contains a brief description for the field.
 <t>Type name: application</t><t>Subtype name: cose</t>
 <t>Required parameters: N/A</t>
 <t>Optional parameters: cose-type</t><t>Encoding considerations: binary</t>
-<t>Security considerations: See the Security Considerations section of RFC 8152.</t>
+<t>Security considerations: See the Security Considerations section of [[This Document]].</t>
 <t>Interoperability considerations: N/A</t>
 <t>Published specification: RFC 8152</t>
 <t>Applications that use this media type: IoT applications sending security content over HTTP(S) transports.</t>
@@ -1409,7 +1340,7 @@ This field contains a brief description for the field.
 <t>Type name: application</t><t>Subtype name: cose-key</t><t>Required parameters: N/A</t>
 <t>Optional parameters: N/A</t>
 <t>Encoding considerations: binary</t>
-<t>Security considerations: See the Security Considerations section of RFC 8152.</t>
+<t>Security considerations: See the Security Considerations section of [[This Document]].</t>
 <t>Interoperability considerations: N/A</t>
 <t>Published specification: RFC 8152</t>
 <t>Applications that use this media type: Distribution of COSE based keys for IoT applications.</t>
@@ -1430,7 +1361,7 @@ This field contains a brief description for the field.
 <t>Required parameters: N/A</t>
 <t>Optional parameters: N/A</t>
 <t>Encoding considerations: binary</t>
-<t>Security considerations: See the Security Considerations section of RFC 8152.</t>
+<t>Security considerations: See the Security Considerations section of [[This Document]].</t>
 <t>Interoperability considerations: N/A</t>
 <t>Published specification: RFC 8152</t>
 <t>Applications that use this media type: Distribution of COSE based keys for IoT applications.</t>
@@ -1714,7 +1645,7 @@ This field contains a brief description for the field.
 
       <section title="Algorithm Identification"  >
         <t>In this section, three sets of recommendations are laid out.  The first set of recommendations apply to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations apply to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations apply to having implicit algorithms for multiple COSE object constructs.  </t>
-        <t>The key words from RFC 2119 are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.  </t>
+        <t>The key words from <xref target="RFC2119"/> are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.  </t>
         <t>This set of recommendations applies to the case where an application is distributing a fixed algorithm along with the key information for use in a single COSE object.  This normally applies to the smallest of the COSE objects, specifically COSE_Sign1, COSE_Mac0, and COSE_Encrypt0, but could apply to the other structures as well.  </t>
         <t>The following items should be taken into account: <list style="symbols">
 
