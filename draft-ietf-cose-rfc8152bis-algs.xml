@@ -9,7 +9,7 @@
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
 
-<rfc ipr="trust200902" category="std" docName="draft-schaad-cose-rfc8152bis-algs-00" obsoletes="8152">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-latest" obsoletes="8152">
   <front>
     <title abbrev="COSE Algorithms">CBOR
     Algoritms for Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE)</title>
@@ -131,7 +131,10 @@
 <t>If the 'key_ops' field is present, it MUST include 'verify' when verifying an ECDSA signature.</t></list> </t>
         <section title="Security Considerations"  >
           <t>The security strength of the signature is no greater than the minimum of the security strength associated with the bit length of the key and the security strength of the hash function.  </t>
-          <t>Note: Use of this technique is a good idea even when good random number generation exists.  Doing so both reduces the possibility of having the same value of 'k' in two signature operations and allows for reproducible signature values, which helps testing.  </t>
+          <t>
+            Note: Use of a deterministic signature technique is a good idea even when good random number generation exists. 
+            Doing so both reduces the possibility of having the same value of 'k' in two signature operations and allows for reproducible signature values, which helps testing.
+          </t>
 
           <t>There are two substitution attacks that can theoretically be mounted against the ECDSA signature algorithm.  <list style="symbols">
 <t>Changing the curve used to validate the signature: If one changes the curve used to validate the signature, then potentially one could have two messages with the same signature, each computed under a different curve.  The only requirement on the new curve is that its order be the same as the old one and it be acceptable to the client.  An example would be to change from using the curve secp256r1 (aka P-256) to using secp256k1.  (Both are 256-bit curves.) We currently do not have any way to deal with this version of the attack except to restrict the overall set of curves that can be used.  </t>
@@ -255,7 +258,7 @@
         <section title="Security Considerations"  >
           <t>A number of attacks exist against Cipher Block Chaining Message Authentication Code (CBC-MAC) that need to be considered.
   <list style="symbols">
-<t>A single key must only be used for messages of a fixed and known length.  If this is not the case, an attacker will be able to generate a message with a valid tag given two message and tag pairs.  This can be addressed by using different keys for messages of different lengths. 
+<t>A single key must only be used for messages of a fixed or known length.  If this is not the case, an attacker will be able to generate a message with a valid tag given two message and tag pairs.  This can be addressed by using different keys for messages of different lengths. 
 
  The current structure mitigates this problem, as a specific encoding structure that includes lengths is built and signed.  (CMAC also addresses this issue.) </t>
 <t>Cipher Block Chaining (CBC) mode, if the same key is used for both encryption and authentication operations, an attacker can produce messages with a valid authentication code.   </t><t>If the IV can be modified, then messages can be forged.  This is addressed by fixing the IV to all zeros.  </t></list> </t>

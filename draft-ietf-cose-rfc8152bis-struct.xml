@@ -13,7 +13,7 @@
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
 
-<rfc ipr="trust200902" docName="draft-schaad-cose-rfc8152bis-struct-00" category="std" obsoletes="8152" >
+<rfc ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-latest" category="std" obsoletes="8152" >
   <front>
     <title abbrev="COSE Structure">CBOR
     Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE) - Structures and Process</title>
