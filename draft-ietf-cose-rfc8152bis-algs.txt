@@ -4,13 +4,13 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                          December 17, 2018
+Obsoletes: 8152 (if approved)                           January 21, 2019
 Intended status: Standards Track
-Expires: June 20, 2019
+Expires: July 25, 2019
 
 
-        CBOR Algoritms for Object Signing and Encryption (COSE)
-                  draft-schaad-cose-rfc8152bis-algs-00
+        CBOR Algorithms for Object Signing and Encryption (COSE)
+                 draft-ietf-cose-rfc8152bis-algs-latest
 
 Abstract
 
@@ -30,6 +30,14 @@ Abstract
    This document along with [I-D.schaad-cose-rfc8152bis-struct]
    obsoletes RFC8152.
 
+Contributing to this document
+
+   The source for this draft is being maintained in GitHub.  Suggested
+   changes should be submitted as pull requests at <https://github.com/
+   cose-wg/cose-rfc8152bis>.  Instructions are on that page as well.
+   Editorial changes can be managed in GitHub, but any substantial
+   issues need to be discussed on the COSE mailing list.
+
 Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
@@ -42,25 +50,22 @@ Status of This Memo
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 1]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 20, 2019.
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 1]
-
-Internet-Draft               COSE Algorithms               December 2018
-
+   This Internet-Draft will expire on July 25, 2019.
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -75,17 +80,18 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Requirements Terminology  . . . . . . . . . . . . . . . .   4
      1.2.  Document Terminology  . . . . . . . . . . . . . . . . . .   4
-   2.  Signature Algorithms  . . . . . . . . . . . . . . . . . . . .   5
-     2.1.  ECDSA . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     1.3.  CBOR Grammar  . . . . . . . . . . . . . . . . . . . . . .   4
+   2.  Signature Algorithms  . . . . . . . . . . . . . . . . . . . .   4
+     2.1.  ECDSA . . . . . . . . . . . . . . . . . . . . . . . . . .   4
        2.1.1.  Security Considerations . . . . . . . . . . . . . . .   6
      2.2.  Edwards-Curve Digital Signature Algorithms (EdDSAs) . . .   7
        2.2.1.  Security Considerations . . . . . . . . . . . . . . .   8
    3.  Message Authentication Code (MAC) Algorithms  . . . . . . . .   8
      3.1.  Hash-Based Message Authentication Codes (HMACs) . . . . .   8
-       3.1.1.  Security Considerations . . . . . . . . . . . . . . .  10
+       3.1.1.  Security Considerations . . . . . . . . . . . . . . .   9
      3.2.  AES Message Authentication Code (AES-CBC-MAC) . . . . . .  10
        3.2.1.  Security Considerations . . . . . . . . . . . . . . .  11
    4.  Content Encryption Algorithms . . . . . . . . . . . . . . . .  11
@@ -100,20 +106,20 @@ Table of Contents
            (HKDF)  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      5.2.  Context Information Structure . . . . . . . . . . . . . .  18
    6.  Content Key Distribution Methods  . . . . . . . . . . . . . .  23
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 2]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
      6.1.  Direct Key  . . . . . . . . . . . . . . . . . . . . . . .  23
        6.1.1.  Security Considerations . . . . . . . . . . . . . . .  24
      6.2.  Direct Key with KDF . . . . . . . . . . . . . . . . . . .  24
        6.2.1.  Security Considerations . . . . . . . . . . . . . . .  25
      6.3.  AES Key Wrap  . . . . . . . . . . . . . . . . . . . . . .  26
        6.3.1.  Security Considerations for AES-KW  . . . . . . . . .  27
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 2]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
      6.4.  Direct ECDH . . . . . . . . . . . . . . . . . . . . . . .  27
        6.4.1.  Security Considerations . . . . . . . . . . . . . . .  29
      6.5.  ECDH with Key Wrap  . . . . . . . . . . . . . . . . . . .  30
@@ -124,51 +130,17 @@ Internet-Draft               COSE Algorithms               December 2018
      7.3.  Symmetric Keys  . . . . . . . . . . . . . . . . . . . . .  35
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
      8.1.  COSE Algorithms Registry  . . . . . . . . . . . . . . . .  35
-     8.2.  COSE Key Type Parameters Registry . . . . . . . . . . . .  37
-     8.3.  COSE Key Types Registry . . . . . . . . . . . . . . . . .  37
-     8.4.  COSE Elliptic Curves Registry . . . . . . . . . . . . . .  38
-     8.5.  Expert Review Instructions  . . . . . . . . . . . . . . .  39
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  40
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  42
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  42
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  43
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  45
-     A.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  45
-       A.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  45
-       A.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  46
-       A.1.3.  Counter Signature . . . . . . . . . . . . . . . . . .  47
-       A.1.4.  Signature with Criticality  . . . . . . . . . . . . .  48
-     A.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  49
-       A.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  49
-     A.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  50
-       A.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  50
-       A.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  51
-       A.3.3.  Counter Signature on Encrypted Content  . . . . . . .  52
-       A.3.4.  Encrypted Content with External Data  . . . . . . . .  54
-     A.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  54
-       A.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  54
-       A.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  55
-     A.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  55
-       A.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  55
-       A.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  56
-       A.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  57
-       A.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  58
-     A.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  59
-       A.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  59
-     A.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  60
-       A.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  60
-       A.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  61
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  63
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  64
-
-
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 3]
-
-Internet-Draft               COSE Algorithms               December 2018
-
+     8.2.  COSE Key Type Parameters Registry . . . . . . . . . . . .  36
+     8.3.  COSE Key Types Registry . . . . . . . . . . . . . . . . .  36
+     8.4.  COSE Elliptic Curves Registry . . . . . . . . . . . . . .  37
+     8.5.  Expert Review Instructions  . . . . . . . . . . . . . . .  37
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  38
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  40
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  40
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  42
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  43
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  43
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  44
 
 1.  Introduction
 
@@ -176,7 +148,7 @@ Internet-Draft               COSE Algorithms               December 2018
    make up the Internet of Things (IoT).  One of the standards that has
    come out of this process is "Concise Binary Object Representation
    (CBOR)" [RFC7049].  CBOR extended the data model of the JavaScript
-   Object Notation (JSON) [RFC7159] by allowing for binary data, among
+   Object Notation (JSON) [RFC8259] by allowing for binary data, among
    other changes.  CBOR is being adopted by several of the IETF working
    groups dealing with the IoT world as their encoding of data
    structures.  CBOR was designed specifically to be both small in terms
@@ -188,7 +160,15 @@ Internet-Draft               COSE Algorithms               December 2018
    [I-D.schaad-cose-rfc8152bis-struct] contains the serialization
    structures and the procedures for using the different cryptographic
    algorithms.  This document provides for an initial set of algorithms
-   that are then use with those structures.
+   that are then use with those structures.  Additional algorithms
+   beyond what are in this document are defined elsewhere.
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 3]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
 1.1.  Requirements Terminology
 
@@ -216,15 +196,12 @@ Internet-Draft               COSE Algorithms               December 2018
    algorithms, but they additionally provide for authentication of non-
    encrypted data as well.
 
+1.3.  CBOR Grammar
 
-
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 4]
-
-Internet-Draft               COSE Algorithms               December 2018
-
+   At the time that [RFC8152] was initially published, the CBOR Data
+   Definition Language (CDDL) [I-D.ietf-cbor-cddl] had not yet been
+   published.  This document uses a variant of CDDL which is described
+   in [I-D.schaad-cose-rfc8152bis-struct]
 
 2.  Signature Algorithms
 
@@ -241,6 +218,14 @@ Internet-Draft               COSE Algorithms               December 2018
    value).  Biased generation of the value 'k' can be attacked, and
    collisions of this value leads to leaked keys.  It additionally
    allows for doing deterministic tests for the signature algorithm.
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 4]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    The use of deterministic ECDSA does not lessen the need to have good
    random number generation when creating the private key.
 
@@ -273,15 +258,6 @@ Internet-Draft               COSE Algorithms               December 2018
    and SHA-512 be used with curve P-521.  This is aligned with the
    recommendation in Section 4 of [RFC5480].
 
-
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 5]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    The signature algorithm results in a pair of integers (R, S).  These
    integers will be the same length as the length of the key used for
    the signature process.  The signature is encoded by converting the
@@ -298,6 +274,13 @@ Internet-Draft               COSE Algorithms               December 2018
 
    When using a COSE key for this algorithm, the following checks are
    made:
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 5]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
    o  The 'kty' field MUST be present, and it MUST be 'EC2'.
 
@@ -316,10 +299,11 @@ Internet-Draft               COSE Algorithms               December 2018
    of the security strength associated with the bit length of the key
    and the security strength of the hash function.
 
-   Note: Use of this technique is a good idea even when good random
-   number generation exists.  Doing so both reduces the possibility of
-   having the same value of 'k' in two signature operations and allows
-   for reproducible signature values, which helps testing.
+   Note: Use of a deterministic signature technique is a good idea even
+   when good random number generation exists.  Doing so both reduces the
+   possibility of having the same value of 'k' in two signature
+   operations and allows for reproducible signature values, which helps
+   testing.
 
    There are two substitution attacks that can theoretically be mounted
    against the ECDSA signature algorithm.
@@ -330,14 +314,6 @@ Internet-Draft               COSE Algorithms               December 2018
       under a different curve.  The only requirement on the new curve is
       that its order be the same as the old one and it be acceptable to
       the client.  An example would be to change from using the curve
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 6]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
       secp256r1 (aka P-256) to using secp256k1.  (Both are 256-bit
       curves.)  We currently do not have any way to deal with this
       version of the attack except to restrict the overall set of curves
@@ -352,6 +328,15 @@ Internet-Draft               COSE Algorithms               December 2018
       part of the signature algorithm identifier, this attack is
       mitigated by including a signature algorithm identifier in the
       protected header.
+
+
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 6]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
 2.2.  Edwards-Curve Digital Signature Algorithms (EdDSAs)
 
@@ -387,13 +372,6 @@ Internet-Draft               COSE Algorithms               December 2018
 
                       Table 2: EdDSA Algorithm Values
 
-
-
-Schaad                    Expires June 20, 2019                 [Page 7]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    [RFC8032] describes the method of encoding the signature value.
 
    When using a COSE key for this algorithm, the following checks are
@@ -406,6 +384,15 @@ Internet-Draft               COSE Algorithms               December 2018
       for this signature algorithm.
 
    o  If the 'alg' field is present, it MUST match 'EdDSA'.
+
+
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 7]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
    o  If the 'key_ops' field is present, it MUST include 'sign' when
       creating an EdDSA signature.
@@ -442,22 +429,26 @@ Internet-Draft               COSE Algorithms               December 2018
    hash function (h), and an authentication tag value length.  For this
    specification, the inner and outer padding are fixed to the values
    set in [RFC2104].  The length of the authentication tag corresponds
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 8]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    to the difficulty of producing a forgery.  For use in constrained
-   environments, we define a set of HMAC algorithms that are truncated.
-   There are currently no known issues with truncation; however, the
-   security strength of the message tag is correspondingly reduced in
-   strength.  When truncating, the leftmost tag length bits are kept and
+   environments, we define one HMAC algorithms that is truncated.  There
+   are currently no known issues with truncation; however, the security
+   strength of the message tag is correspondingly reduced in strength.
+   When truncating, the leftmost tag length bits are kept and
    transmitted.
 
    The algorithms defined in this document can be found in Table 3.
+
+
+
+
+
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 8]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
    +-----------+-------+---------+----------+--------------------------+
    | Name      | Value | Hash    | Tag      | Description              |
@@ -496,16 +487,6 @@ Internet-Draft               COSE Algorithms               December 2018
    o  If the 'key_ops' field is present, it MUST include 'MAC verify'
       when verifying an HMAC authentication tag.
 
-
-
-
-
-
-Schaad                    Expires June 20, 2019                 [Page 9]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    Implementations creating and validating MAC values MUST validate that
    the key type, key length, and algorithm are correct and appropriate
    for the entities involved.
@@ -516,6 +497,14 @@ Internet-Draft               COSE Algorithms               December 2018
    weakened hash algorithms.  The current best known attack is to brute
    force the key.  This means that key size is going to be directly
    related to the security of an HMAC operation.
+
+
+
+
+Schaad                    Expires July 25, 2019                 [Page 9]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
 3.2.  AES Message Authentication Code (AES-CBC-MAC)
 
@@ -555,13 +544,6 @@ Internet-Draft               COSE Algorithms               December 2018
 
    o  The 'kty' field MUST be present, and it MUST be 'Symmetric'.
 
-
-
-Schaad                    Expires June 20, 2019                [Page 10]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    o  If the 'alg' field is present, it MUST match the AES-MAC algorithm
       being used.
 
@@ -571,12 +553,21 @@ Internet-Draft               COSE Algorithms               December 2018
    o  If the 'key_ops' field is present, it MUST include 'MAC verify'
       when verifying an AES-MAC authentication tag.
 
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 10]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
 3.2.1.  Security Considerations
 
    A number of attacks exist against Cipher Block Chaining Message
    Authentication Code (CBC-MAC) that need to be considered.
 
-   o  A single key must only be used for messages of a fixed and known
+   o  A single key must only be used for messages of a fixed or known
       length.  If this is not the case, an attacker will be able to
       generate a message with a valid tag given two message and tag
       pairs.  This can be addressed by using different keys for messages
@@ -593,7 +584,7 @@ Internet-Draft               COSE Algorithms               December 2018
 
 4.  Content Encryption Algorithms
 
-   This docuement defines the identifier and usages for three content
+   This document defines the identifier and usages for three content
    encryption algorithms.
 
 4.1.  AES GCM
@@ -613,9 +604,18 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 11]
+
+
+
+
+
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 11]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
       +---------+-------+------------------------------------------+
@@ -669,9 +669,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 12]
+Schaad                    Expires July 25, 2019                [Page 12]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
 4.2.  AES CCM
@@ -725,9 +725,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 13]
+Schaad                    Expires July 25, 2019                [Page 13]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    128 bits (16):  This produces a 128-bit authentication tag.  This
@@ -781,9 +781,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 14]
+Schaad                    Expires July 25, 2019                [Page 14]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    o  If the 'alg' field is present, it MUST match the AES-CCM algorithm
@@ -822,12 +822,12 @@ Internet-Draft               COSE Algorithms               December 2018
 4.3.  ChaCha20 and Poly1305
 
    ChaCha20 and Poly1305 combined together is an AEAD mode that is
-   defined in [RFC7539].  This is an algorithm defined to be a cipher
+   defined in [RFC8439].  This is an algorithm defined to be a cipher
    that is not AES and thus would not suffer from any future weaknesses
    found in AES.  These cryptographic functions are designed to be fast
    in software-only implementations.
 
-   The ChaCha20/Poly1305 AEAD construction defined in [RFC7539] has no
+   The ChaCha20/Poly1305 AEAD construction defined in [RFC8439] has no
    parameterization.  It takes a 256-bit key and a 96-bit nonce, as well
    as the plaintext and additional data as inputs and produces the
    ciphertext as an option.  We define one algorithm identifier for this
@@ -837,9 +837,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 15]
+Schaad                    Expires July 25, 2019                [Page 15]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    +-------------------+-------+---------------------------------------+
@@ -893,9 +893,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 16]
+Schaad                    Expires July 25, 2019                [Page 16]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
       secret -- a shared value that is secret.  Secrets may be either
@@ -949,9 +949,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 17]
+Schaad                    Expires July 25, 2019                [Page 17]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    +---------------+-----------------+---------------------------------+
@@ -972,10 +972,11 @@ Internet-Draft               COSE Algorithms               December 2018
    +------+-------+------+-------------------------------+-------------+
    | Name | Label | Type | Algorithm                     | Description |
    +------+-------+------+-------------------------------+-------------+
-   | salt | -20   | bstr | direct+HKDF-SHA-256, direct   | Random salt |
-   |      |       |      | +HKDF-SHA-512, direct+HKDF-   |             |
-   |      |       |      | AES-128, direct+HKDF-AES-256, |             |
-   |      |       |      | ECDH-ES+HKDF-256, ECDH-       |             |
+   | salt | -20   | bstr | direct+HKDF-SHA-256,          | Random salt |
+   |      |       |      | direct+HKDF-SHA-512,          |             |
+   |      |       |      | direct+HKDF-AES-128,          |             |
+   |      |       |      | direct+HKDF-AES-256, ECDH-    |             |
+   |      |       |      | ES+HKDF-256, ECDH-            |             |
    |      |       |      | ES+HKDF-512, ECDH-            |             |
    |      |       |      | SS+HKDF-256, ECDH-            |             |
    |      |       |      | SS+HKDF-512, ECDH-ES+A128KW,  |             |
@@ -1001,15 +1002,15 @@ Internet-Draft               COSE Algorithms               December 2018
 
    The context information structure refers to PartyU and PartyV as the
    two parties that are doing the key derivation.  Unless the
-   application protocol defines differently, we assign PartyU to the
 
 
 
-Schaad                    Expires June 20, 2019                [Page 18]
+Schaad                    Expires July 25, 2019                [Page 18]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
+   application protocol defines differently, we assign PartyU to the
    entity that is creating the message and PartyV to the entity that is
    receiving the message.  By doing this association, different keys
    will be derived for each direction as the context information is
@@ -1057,15 +1058,15 @@ Internet-Draft               COSE Algorithms               December 2018
    |          |       |      | direct+HKDF-AES-256,      |             |
    |          |       |      | ECDH-ES+HKDF-256, ECDH-   |             |
    |          |       |      | ES+HKDF-512, ECDH-        |             |
-   |          |       |      | SS+HKDF-256, ECDH-        |             |
 
 
 
-Schaad                    Expires June 20, 2019                [Page 19]
+Schaad                    Expires July 25, 2019                [Page 19]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
+   |          |       |      | SS+HKDF-256, ECDH-        |             |
    |          |       |      | SS+HKDF-512, ECDH-        |             |
    |          |       |      | ES+A128KW, ECDH-          |             |
    |          |       |      | ES+A192KW, ECDH-          |             |
@@ -1113,15 +1114,15 @@ Internet-Draft               COSE Algorithms               December 2018
    |          |       |      | SS+A192KW, ECDH-SS+A256KW |             |
    | PartyV   | -26   | bstr | direct+HKDF-SHA-256,      | Party V     |
    | other    |       |      | direct+HKDF-SHA-512,      | other       |
-   |          |       |      | direct+HKDF-AES-128,      | provided    |
 
 
 
-Schaad                    Expires June 20, 2019                [Page 20]
+Schaad                    Expires July 25, 2019                [Page 20]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
+   |          |       |      | direct+HKDF-AES-128,      | provided    |
    |          |       |      | direct+HKDF-AES-256,      | information |
    |          |       |      | ECDH-ES+HKDF-256, ECDH-   |             |
    |          |       |      | ES+HKDF-512, ECDH-        |             |
@@ -1169,15 +1170,15 @@ Internet-Draft               COSE Algorithms               December 2018
          used to carry identity information in the message.  However,
          identity information is often known as part of the protocol and
          can thus be inferred rather than made explicit.  If identity
-         information is carried in the message, applications SHOULD have
 
 
 
-Schaad                    Expires June 20, 2019                [Page 21]
+Schaad                    Expires July 25, 2019                [Page 21]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
+         information is carried in the message, applications SHOULD have
          a way of validating the supplied identity information.  The
          identity information does not need to be specified and is set
          to nil in that case.
@@ -1225,15 +1226,15 @@ Internet-Draft               COSE Algorithms               December 2018
 
    SuppPrivInfo:  This field contains private information that is
       mutually known private information.  An example of this
-      information would be a preexisting shared secret.  (This could,
 
 
 
-Schaad                    Expires June 20, 2019                [Page 22]
+Schaad                    Expires July 25, 2019                [Page 22]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
+      information would be a preexisting shared secret.  (This could,
       for example, be used in combination with an ECDH key agreement to
       provide a secondary proof of identity.)  The field is optional and
       will only be present if the application defines a structure for
@@ -1284,10 +1285,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-
-Schaad                    Expires June 20, 2019                [Page 23]
+Schaad                    Expires July 25, 2019                [Page 23]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
                   +--------+-------+-------------------+
@@ -1341,9 +1341,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 24]
+Schaad                    Expires July 25, 2019                [Page 24]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    A new IV must be used for each message if the same key is used.  The
@@ -1397,9 +1397,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 25]
+Schaad                    Expires July 25, 2019                [Page 25]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    key for any single message is discovered, only the message (or series
@@ -1453,9 +1453,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 26]
+Schaad                    Expires July 25, 2019                [Page 26]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
 6.3.1.  Security Considerations for AES-KW
@@ -1509,9 +1509,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 27]
+Schaad                    Expires July 25, 2019                [Page 27]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
       or by providing a key identifier for the static key ('static key
@@ -1565,9 +1565,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 28]
+Schaad                    Expires July 25, 2019                [Page 28]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    +-----------+-------+----------+---------------------+--------------+
@@ -1621,9 +1621,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 29]
+Schaad                    Expires July 25, 2019                [Page 29]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    Consideration was given to requiring that the public keys of both
@@ -1677,9 +1677,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 30]
+Schaad                    Expires July 25, 2019                [Page 30]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    +-----------+-------+---------+------------+--------+---------------+
@@ -1733,9 +1733,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 31]
+Schaad                    Expires July 25, 2019                [Page 31]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    o  If the 'alg' field is present, it MUST match the key agreement
@@ -1789,9 +1789,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 32]
+Schaad                    Expires July 25, 2019                [Page 32]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    Applications MUST check that the curve and the key type are
@@ -1845,9 +1845,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 33]
+Schaad                    Expires July 25, 2019                [Page 33]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
         as a CBOR true value.  The encoding of the infinity point is not
@@ -1901,9 +1901,9 @@ Internet-Draft               COSE Algorithms               December 2018
 
 
 
-Schaad                    Expires June 20, 2019                [Page 34]
+Schaad                    Expires July 25, 2019                [Page 34]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
    'x' also be present, but it can be recomputed from the required
@@ -1950,73 +1950,19 @@ Internet-Draft               COSE Algorithms               December 2018
 
 8.1.  COSE Algorithms Registry
 
-   IANA has created a new registry titled "COSE Algorithms".  The
-   registry has been created to use the "Expert Review Required"
-   registration procedure.  Guidelines for the experts are provided in
-   Section 8.5.  It should be noted that, in addition to the expert
+   IANA created and populated the "COSE Algorithms" registry as part of
+   processing processing [RFC8152].  IANA is requested to update the for
+   individual algorithms from [RFC8152] to this document.
 
 
 
-Schaad                    Expires June 20, 2019                [Page 35]
+
+Schaad                    Expires July 25, 2019                [Page 35]
 
-Internet-Draft               COSE Algorithms               December 2018
+Internet-Draft               COSE Algorithms                January 2019
 
 
-   review, some portions of the registry require a specification,
-   potentially a Standards Track RFC, be supplied as well.
-
-   The columns of the registry are:
-
-   Name:  A value that can be used to identify an algorithm in documents
-      for easier comprehension.  The name SHOULD be unique.  However,
-      the 'Value' field is what is used to identify the algorithm, not
-      the 'name' field.
-
-   Value:  The value to be used to identify this algorithm.  Algorithm
-      values MUST be unique.  The value can be a positive integer, a
-      negative integer, or a string.  Integer values between -256 and
-      255 and strings of length 1 are designated as "Standards Action".
-      Integer values from -65536 to 65535 and strings of length 2 are
-      designated as "Specification Required".  Integer values greater
-      than 65535 and strings of length greater than 2 are designated as
-      "Expert Review".  Integer values less than -65536 are marked as
-      private use.
-
-   Description:  A short description of the algorithm.
-
-   Reference:  A document where the algorithm is defined (if publicly
-      available).
-
-   Recommended:  Does the IETF have a consensus recommendation to use
-      the algorithm?  The legal values are 'Yes', 'No', and
-      'Deprecated'.
-
-   The initial contents of the registry can be found in Tables 1, 2, 3,
-   4, 5, 6, 7, 11, 12, 13, 14, and 16.  All of the entries in the
-   "References" column of this registry point to this document.  All of
-   the entries in the "Recommended" column are set to "Yes".
-
-   Additionally, the label of 0 is to be marked as 'Reserved'.
-
-   NOTE: The assignment of algorithm identifiers in this document was
-   done so that positive numbers were used for the first layer objects
-   (COSE_Sign, COSE_Sign1, COSE_Encrypt, COSE_Encrypt0, COSE_Mac, and
-   COSE_Mac0).  Negative numbers were used for second layer objects
-   (COSE_Signature and COSE_recipient).  Expert reviewers should
-   consider this practice, but are not expected to be restricted by this
-   precedent.
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 36]
-
-Internet-Draft               COSE Algorithms               December 2018
-
+   This document does not modify the guidance for designated experts.
 
 8.2.  COSE Key Type Parameters Registry
 
@@ -2062,17 +2008,19 @@ Internet-Draft               COSE Algorithms               December 2018
       the item.  The name MUST be unique.  It is not used in the
       encoding.
 
+
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 36]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    Value:  This is the value used to identify the curve.  These values
       MUST be unique.  The value can be a positive integer, a negative
       integer, or a string.
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 37]
-
-Internet-Draft               COSE Algorithms               December 2018
-
 
    Description:  This field contains a brief description of the curve.
 
@@ -2085,50 +2033,12 @@ Internet-Draft               COSE Algorithms               December 2018
 
 8.4.  COSE Elliptic Curves Registry
 
-   IANA has created a new registry titled "COSE Elliptic Curves".  The
-   registry has been created to use the "Expert Review Required"
-   registration procedure.  Guidelines for the experts are provided in
-   Section 8.5.  It should be noted that, in addition to the expert
-   review, some portions of the registry require a specification,
-   potentially a Standards Track RFC, be supplied as well.
+   IANA created and populated the "COSE Elliptic Curves" registry as
+   part of processing [RFC8152].  IANA is requested to change the
+   reference from [RFC8152] to this document for all values in the
+   registry.
 
-   The columns of the table are:
-
-   Name:  This is a descriptive name that enables easier reference to
-      the item.  It is not used in the encoding.
-
-   Value:  This is the value used to identify the curve.  These values
-      MUST be unique.  The integer values from -256 to 255 are
-      designated as "Standards Action".  The integer values from 256 to
-      65535 and -65536 to -257 are designated as "Specification
-      Required".  Integer values over 65535 are designated as "Expert
-      Review".  Integer values less than -65536 are marked as private
-      use.
-
-   Key Type:  This designates the key type(s) that can be used with this
-      curve.
-
-   Description:  This field contains a brief description of the curve.
-
-   Reference:  This contains a pointer to the public specification for
-      the curve if one exists.
-
-   Recommended:  Does the IETF have a consensus recommendation to use
-      the algorithm?  The legal values are 'Yes', 'No', and
-      'Deprecated'.
-
-   This registry has been initially populated by the values in Table 18.
-   All of the entries in the "References" column of this registry point
-   to this document.  All of the entries in the "Recommended" column are
-   set to "Yes".
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 38]
-
-Internet-Draft               COSE Algorithms               December 2018
-
+   This document does not change the guidance for Designated Experts.
 
 8.5.  Expert Review Instructions
 
@@ -2155,6 +2065,15 @@ Internet-Draft               COSE Algorithms               December 2018
       needed for the first-come, first-serve range if they are expected
       to be used outside of closed environments in an interoperable way.
       When specifications are not provided, the description provided
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 37]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
       needs to have sufficient information to identify what the point is
       being used for.
 
@@ -2175,16 +2094,6 @@ Internet-Draft               COSE Algorithms               December 2018
       (CFRG).  Algorithms that do not meet the security requirements of
       the community and the messages structures should not be
       registered.
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 39]
-
-Internet-Draft               COSE Algorithms               December 2018
-
 
 9.  Security Considerations
 
@@ -2213,6 +2122,14 @@ Internet-Draft               COSE Algorithms               December 2018
 
    The use of ECDH and direct plus KDF (with no key wrap) will not
    directly lead to the private key being leaked; the one way function
+
+
+
+Schaad                    Expires July 25, 2019                [Page 38]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    of the KDF will prevent that.  There is, however, a different issue
    that needs to be addressed.  Having two recipients requires that the
    CEK be shared between two recipients.  The second recipient therefore
@@ -2234,14 +2151,6 @@ Internet-Draft               COSE Algorithms               December 2018
    of algorithm in any distribution of key material and strictly enforce
    the matching of algorithms in the key structure to algorithms in the
    message structure.  In addition to checking that algorithms are
-
-
-
-Schaad                    Expires June 20, 2019                [Page 40]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    correct, the key form needs to be checked as well.  Do not use an
    'EC2' key where an 'OKP' key is expected.
 
@@ -2269,6 +2178,14 @@ Internet-Draft               COSE Algorithms               December 2018
    that use nonce values.  For all of the nonces defined in this
    document, there is some type of restriction on the nonce being a
    unique value either for a key or for some other conditions.  In all
+
+
+
+Schaad                    Expires July 25, 2019                [Page 39]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    of these cases, there is no known requirement on the nonce being both
    unique and unpredictable; under these circumstances, it's reasonable
    to use a counter for creation of the nonce.  In cases where one wants
@@ -2286,17 +2203,6 @@ Internet-Draft               COSE Algorithms               December 2018
    up to the applications to document how content padding is to be done
    in order to prevent or discourage such analysis.  (For example, the
    strings could be defined as 'YES' and 'NO '.)
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 41]
-
-Internet-Draft               COSE Algorithms               December 2018
-
 
 10.  References
 
@@ -2316,13 +2222,25 @@ Internet-Draft               COSE Algorithms               December 2018
               NIST.FIPS.186-4.pdf>.
 
    [I-D.schaad-cose-rfc8152bis-struct]
-              Schaad, J., "COSE Struct", November 2019,
-              <http://www.rfc-editor.org/info/rfc8032>.
+              Schaad, J., "CBOR Object Signing and Encryption (COSE) -
+              Structures and Process", draft-schaad-cose-rfc8152bis-
+              struct-01 (work in progress), December 2018.
 
    [MAC]      National Institute of Standards and Technology, "Computer
               Data Authentication", FIPS PUB 113, May 1985,
               <http://csrc.nist.gov/publications/fips/fips113/
               fips113.html>.
+
+
+
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 40]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
    [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
               Hashing for Message Authentication", RFC 2104,
@@ -2347,13 +2265,6 @@ Internet-Draft               COSE Algorithms               December 2018
               DOI 10.17487/RFC5869, May 2010,
               <https://www.rfc-editor.org/info/rfc5869>.
 
-
-
-Schaad                    Expires June 20, 2019                [Page 42]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    [RFC6090]  McGrew, D., Igoe, K., and M. Salter, "Fundamental Elliptic
               Curve Cryptography Algorithms", RFC 6090,
               DOI 10.17487/RFC6090, February 2011,
@@ -2368,10 +2279,6 @@ Internet-Draft               COSE Algorithms               December 2018
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
               October 2013, <https://www.rfc-editor.org/info/rfc7049>.
 
-   [RFC7539]  Nir, Y. and A. Langley, "ChaCha20 and Poly1305 for IETF
-              Protocols", RFC 7539, DOI 10.17487/RFC7539, May 2015,
-              <https://www.rfc-editor.org/info/rfc7539>.
-
    [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
               2016, <https://www.rfc-editor.org/info/rfc7748>.
@@ -2381,9 +2288,23 @@ Internet-Draft               COSE Algorithms               December 2018
               DOI 10.17487/RFC8032, January 2017,
               <http://www.rfc-editor.org/info/rfc8032>.
 
+
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 41]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8439]  Nir, Y. and A. Langley, "ChaCha20 and Poly1305 for IETF
+              Protocols", RFC 8439, DOI 10.17487/RFC8439, June 2018,
+              <https://www.rfc-editor.org/info/rfc8439>.
 
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               Standards for Efficient Cryptography, Version 2.0, May
@@ -2391,24 +2312,16 @@ Internet-Draft               COSE Algorithms               December 2018
 
 10.2.  Informative References
 
-   [CDDL]     Vigano, C. and H. Birkholz, "CBOR data definition language
-              (CDDL): a notational convention to express CBOR data
-              structures", Work in Progress, draft-greevenbosch-appsawg-
-              cbor-cddl-09, March 2017.
+   [I-D.ietf-cbor-cddl]
+              Birkholz, H., Vigano, C., and C. Bormann, "Concise data
+              definition language (CDDL): a notational convention to
+              express CBOR and JSON data structures", draft-ietf-cbor-
+              cddl-06 (work in progress), November 2018.
 
    [RFC4231]  Nystrom, M., "Identifiers and Test Vectors for HMAC-SHA-
               224, HMAC-SHA-256, HMAC-SHA-384, and HMAC-SHA-512",
               RFC 4231, DOI 10.17487/RFC4231, December 2005,
               <https://www.rfc-editor.org/info/rfc4231>.
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 43]
-
-Internet-Draft               COSE Algorithms               December 2018
-
 
    [RFC4493]  Song, JH., Poovendran, R., Lee, J., and T. Iwata, "The
               AES-CMAC Algorithm", RFC 4493, DOI 10.17487/RFC4493, June
@@ -2428,14 +2341,18 @@ Internet-Draft               COSE Algorithms               December 2018
               RFC 6151, DOI 10.17487/RFC6151, March 2011,
               <https://www.rfc-editor.org/info/rfc6151>.
 
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <https://www.rfc-editor.org/info/rfc7159>.
-
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
               DOI 10.17487/RFC7252, June 2014,
               <https://www.rfc-editor.org/info/rfc7252>.
+
+
+
+
+Schaad                    Expires July 25, 2019                [Page 42]
+
+Internet-Draft               COSE Algorithms                January 2019
+
 
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
@@ -2446,6 +2363,15 @@ Internet-Draft               COSE Algorithms               December 2018
               RFC 8017, DOI 10.17487/RFC8017, November 2016,
               <https://www.rfc-editor.org/info/rfc8017>.
 
+   [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
+              RFC 8152, DOI 10.17487/RFC8152, July 2017,
+              <https://www.rfc-editor.org/info/rfc8152>.
+
+   [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", STD 90, RFC 8259,
+              DOI 10.17487/RFC8259, December 2017,
+              <https://www.rfc-editor.org/info/rfc8259>.
+
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., and M. Smid,
               "Recommendation for Pair-Wise Key Establishment Schemes
@@ -2455,24 +2381,7 @@ Internet-Draft               COSE Algorithms               December 2018
               <http://nvlpubs.nist.gov/nistpubs/SpecialPublications/
               NIST.SP.800-56Ar2.pdf>.
 
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 44]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
 Appendix A.  Examples
-
-   This appendix includes a set of examples that show the different
-   features and message types that have been defined in this document.
-   To make the examples easier to read, they are presented using the
-   extended CBOR diagnostic notation (defined in [CDDL]) rather than as
-   a binary dump.
 
    A GitHub project has been created at <https://github.com/cose-wg/
    Examples> that contains not only the examples presented in this
@@ -2486,1028 +2395,6 @@ Appendix A.  Examples
    in this document are found, the examples on GitHub will be updated,
    and a note to that effect will be placed in the JSON file.
 
-   As noted, the examples are presented using the CBOR's diagnostic
-   notation.  A Ruby-based tool exists that can convert between the
-   diagnostic notation and binary.  This tool can be installed with the
-   command line:
-
-   gem install cbor-diag
-
-   The diagnostic notation can be converted into binary files using the
-   following command line:
-
-   diag2cbor.rb < inputfile > outputfile
-
-   The examples can be extracted from the XML version of this document
-   via an XPath expression as all of the artwork is tagged with the
-   attribute type='CBORdiag'.  (Depending on the XPath evaluator one is
-   using, it may be necessary to deal with &gt; as an entity.)
-
-   //artwork[@type='CDDL']/text()
-
-A.1.  Examples of Signed Messages
-
-A.1.1.  Single Signature
-
-   This example uses the following:
-
-   o  Signature Algorithm: ECDSA w/ SHA-256, Curve P-256
-
-   Size of binary file is 103 bytes
-
-
-
-Schaad                    Expires June 20, 2019                [Page 45]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   98(
-     [
-       / protected / h'',
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / signatures / [
-         [
-           / protected / h'a10126' / {
-               \ alg \ 1:-7 \ ECDSA 256 \
-             } / ,
-           / unprotected / {
-             / kid / 4:'11'
-           },
-           / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
-   5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
-   98f53afd2fa0f30a'
-         ]
-       ]
-     ]
-   )
-
-A.1.2.  Multiple Signers
-
-   This example uses the following:
-
-   o  Signature Algorithm: ECDSA w/ SHA-256, Curve P-256
-
-   o  Signature Algorithm: ECDSA w/ SHA-512, Curve P-521
-
-   Size of binary file is 277 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 46]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   98(
-     [
-       / protected / h'',
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / signatures / [
-         [
-           / protected / h'a10126' / {
-               \ alg \ 1:-7 \ ECDSA 256 \
-             } / ,
-           / unprotected / {
-             / kid / 4:'11'
-           },
-           / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
-   5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
-   98f53afd2fa0f30a'
-         ],
-         [
-           / protected / h'a1013823' / {
-               \ alg \ 1:-36
-             } / ,
-           / unprotected / {
-             / kid / 4:'bilbo.baggins@hobbiton.example'
-           },
-           / signature / h'00a2d28a7c2bdb1587877420f65adf7d0b9a06635dd1
-   de64bb62974c863f0b160dd2163734034e6ac003b01e8705524c5c4ca479a952f024
-   7ee8cb0b4fb7397ba08d009e0c8bf482270cc5771aa143966e5a469a09f613488030
-   c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
-   83ab87bb4f7a0297'
-         ]
-       ]
-     ]
-   )
-
-A.1.3.  Counter Signature
-
-   This example uses the following:
-
-   o  Signature Algorithm: ECDSA w/ SHA-256, Curve P-256
-
-   o  The same parameters are used for both the signature and the
-      counter signature.
-
-   Size of binary file is 180 bytes
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 47]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   98(
-     [
-       / protected / h'',
-       / unprotected / {
-         / countersign / 7:[
-           / protected / h'a10126' / {
-               \ alg \ 1:-7 \ ECDSA 256 \
-             } / ,
-           / unprotected / {
-             / kid / 4:'11'
-           },
-           / signature / h'5ac05e289d5d0e1b0a7f048a5d2b643813ded50bc9e4
-   9220f4f7278f85f19d4a77d655c9d3b51e805a74b099e1e085aacd97fc29d72f887e
-   8802bb6650cceb2c'
-         ]
-       },
-       / payload / 'This is the content.',
-       / signatures / [
-         [
-           / protected / h'a10126' / {
-               \ alg \ 1:-7 \ ECDSA 256 \
-             } / ,
-           / unprotected / {
-             / kid / 4:'11'
-           },
-           / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
-   5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
-   98f53afd2fa0f30a'
-         ]
-       ]
-     ]
-   )
-
-A.1.4.  Signature with Criticality
-
-   This example uses the following:
-
-   o  Signature Algorithm: ECDSA w/ SHA-256, Curve P-256
-
-   o  There is a criticality marker on the "reserved" header parameter
-
-   Size of binary file is 125 bytes
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 48]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   98(
-     [
-       / protected / h'a2687265736572766564f40281687265736572766564' /
-   {
-           "reserved":false,
-           \ crit \ 2:[
-             "reserved"
-           ]
-         } / ,
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / signatures / [
-         [
-           / protected / h'a10126' / {
-               \ alg \ 1:-7 \ ECDSA 256 \
-             } / ,
-           / unprotected / {
-             / kid / 4:'11'
-           },
-           / signature / h'3fc54702aa56e1b2cb20284294c9106a63f91bac658d
-   69351210a031d8fc7c5ff3e4be39445b1a3e83e1510d1aca2f2e8a7c081c7645042b
-   18aba9d1fad1bd9c'
-         ]
-       ]
-     ]
-   )
-
-A.2.  Single Signer Examples
-
-A.2.1.  Single ECDSA Signature
-
-   This example uses the following:
-
-   o  Signature Algorithm: ECDSA w/ SHA-256, Curve P-256
-
-   Size of binary file is 98 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 49]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   18(
-     [
-       / protected / h'a10126' / {
-           \ alg \ 1:-7 \ ECDSA 256 \
-         } / ,
-       / unprotected / {
-         / kid / 4:'11'
-       },
-       / payload / 'This is the content.',
-       / signature / h'8eb33e4ca31d1c465ab05aac34cc6b23d58fef5c083106c4
-   d25a91aef0b0117e2af9a291aa32e14ab834dc56ed2a223444547e01f11d3b0916e5
-   a4c345cacb36'
-     ]
-   )
-
-A.3.  Examples of Enveloped Messages
-
-A.3.1.  Direct ECDH
-
-   This example uses the following:
-
-   o  CEK: AES-GCM w/ 128-bit key
-
-   o  Recipient class: ECDH Ephemeral-Static, Curve P-256
-
-   Size of binary file is 151 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 50]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   96(
-     [
-       / protected / h'a10101' / {
-           \ alg \ 1:1 \ AES-GCM 128 \
-         } / ,
-       / unprotected / {
-         / iv / 5:h'c9cf4df2fe6c632bf7886413'
-       },
-       / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-   c52a357da7a644b8070a151b0',
-       / recipients / [
-         [
-           / protected / h'a1013818' / {
-               \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-             } / ,
-           / unprotected / {
-             / ephemeral / -1:{
-               / kty / 1:2,
-               / crv / -1:1,
-               / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-   bf054e1c7b4d91d6280',
-               / y / -3:true
-             },
-             / kid / 4:'meriadoc.brandybuck@buckland.example'
-           },
-           / ciphertext / h''
-         ]
-       ]
-     ]
-   )
-
-A.3.2.  Direct Plus Key Derivation
-
-   This example uses the following:
-
-   o  CEK: AES-CCM w/ 128-bit key, truncate the tag to 64 bits
-
-   o  Recipient class: Use HKDF on a shared secret with the following
-      implicit fields as part of the context.
-
-      *  salt: "aabbccddeeffgghh"
-
-      *  PartyU identity: "lighting-client"
-
-      *  PartyV identity: "lighting-server"
-
-      *  Supplementary Public Other: "Encryption Example 02"
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 51]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   Size of binary file is 91 bytes
-
-   96(
-     [
-       / protected / h'a1010a' / {
-           \ alg \ 1:10 \ AES-CCM-16-64-128 \
-         } / ,
-       / unprotected / {
-         / iv / 5:h'89f52f65a1c580933b5261a76c'
-       },
-       / ciphertext / h'753548a19b1307084ca7b2056924ed95f2e3b17006dfe93
-   1b687b847',
-       / recipients / [
-         [
-           / protected / h'a10129' / {
-               \ alg \ 1:-10
-             } / ,
-           / unprotected / {
-             / salt / -20:'aabbccddeeffgghh',
-             / kid / 4:'our-secret'
-           },
-           / ciphertext / h''
-         ]
-       ]
-     ]
-   )
-
-A.3.3.  Counter Signature on Encrypted Content
-
-   This example uses the following:
-
-   o  CEK: AES-GCM w/ 128-bit key
-
-   o  Recipient class: ECDH Ephemeral-Static, Curve P-256
-
-   Size of binary file is 326 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 52]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   96(
-     [
-       / protected / h'a10101' / {
-           \ alg \ 1:1 \ AES-GCM 128 \
-         } / ,
-       / unprotected / {
-         / iv / 5:h'c9cf4df2fe6c632bf7886413',
-         / countersign / 7:[
-           / protected / h'a1013823' / {
-               \ alg \ 1:-36
-             } / ,
-           / unprotected / {
-             / kid / 4:'bilbo.baggins@hobbiton.example'
-           },
-           / signature / h'00929663c8789bb28177ae28467e66377da12302d7f9
-   594d2999afa5dfa531294f8896f2b6cdf1740014f4c7f1a358e3a6cf57f4ed6fb02f
-   cf8f7aa989f5dfd07f0700a3a7d8f3c604ba70fa9411bd10c2591b483e1d2c31de00
-   3183e434d8fba18f17a4c7e3dfa003ac1cf3d30d44d2533c4989d3ac38c38b71481c
-   c3430c9d65e7ddff'
-         ]
-       },
-       / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-   c52a357da7a644b8070a151b0',
-       / recipients / [
-         [
-           / protected / h'a1013818' / {
-               \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-             } / ,
-           / unprotected / {
-             / ephemeral / -1:{
-               / kty / 1:2,
-               / crv / -1:1,
-               / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-   bf054e1c7b4d91d6280',
-               / y / -3:true
-             },
-             / kid / 4:'meriadoc.brandybuck@buckland.example'
-           },
-           / ciphertext / h''
-         ]
-       ]
-     ]
-   )
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 53]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-A.3.4.  Encrypted Content with External Data
-
-   This example uses the following:
-
-   o  CEK: AES-GCM w/ 128-bit key
-
-   o  Recipient class: ECDH static-Static, Curve P-256 with AES Key Wrap
-
-   o  Externally Supplied AAD: h'0011bbcc22dd44ee55ff660077'
-
-   Size of binary file is 173 bytes
-
-   96(
-     [
-       / protected / h'a10101' / {
-           \ alg \ 1:1 \ AES-GCM 128 \
-         } / ,
-       / unprotected / {
-         / iv / 5:h'02d1f7e6f26c43d4868d87ce'
-       },
-       / ciphertext / h'64f84d913ba60a76070a9a48f26e97e863e28529d8f5335
-   e5f0165eee976b4a5f6c6f09d',
-       / recipients / [
-         [
-           / protected / h'a101381f' / {
-               \ alg \ 1:-32 \ ECHD-SS+A128KW \
-             } / ,
-           / unprotected / {
-             / static kid / -3:'peregrin.took@tuckborough.example',
-             / kid / 4:'meriadoc.brandybuck@buckland.example',
-             / U nonce / -22:h'0101'
-           },
-           / ciphertext / h'41e0d76f579dbd0d936a662d54d8582037de2e366fd
-   e1c62'
-         ]
-       ]
-     ]
-   )
-
-A.4.  Examples of Encrypted Messages
-
-A.4.1.  Simple Encrypted Message
-
-   This example uses the following:
-
-   o  CEK: AES-CCM w/ 128-bit key and a 64-bit tag
-
-   Size of binary file is 52 bytes
-
-
-
-Schaad                    Expires June 20, 2019                [Page 54]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   16(
-     [
-       / protected / h'a1010a' / {
-           \ alg \ 1:10 \ AES-CCM-16-64-128 \
-         } / ,
-       / unprotected / {
-         / iv / 5:h'89f52f65a1c580933b5261a78c'
-       },
-       / ciphertext / h'5974e1b99a3a4cc09a659aa2e9e7fff161d38ce71cb45ce
-   460ffb569'
-     ]
-   )
-
-A.4.2.  Encrypted Message with a Partial IV
-
-   This example uses the following:
-
-   o  CEK: AES-CCM w/ 128-bit key and a 64-bit tag
-
-   o  Prefix for IV is 89F52F65A1C580933B52
-
-   Size of binary file is 41 bytes
-
-   16(
-     [
-       / protected / h'a1010a' / {
-           \ alg \ 1:10 \ AES-CCM-16-64-128 \
-         } / ,
-       / unprotected / {
-         / partial iv / 6:h'61a7'
-       },
-       / ciphertext / h'252a8911d465c125b6764739700f0141ed09192de139e05
-   3bd09abca'
-     ]
-   )
-
-A.5.  Examples of MACed Messages
-
-A.5.1.  Shared Secret Direct MAC
-
-   This example uses the following:
-
-   o  MAC: AES-CMAC, 256-bit key, truncated to 64 bits
-
-   o  Recipient class: direct shared secret
-
-   Size of binary file is 57 bytes
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 55]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   97(
-     [
-       / protected / h'a1010f' / {
-           \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-         } / ,
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / tag / h'9e1226ba1f81b848',
-       / recipients / [
-         [
-           / protected / h'',
-           / unprotected / {
-             / alg / 1:-6 / direct /,
-             / kid / 4:'our-secret'
-           },
-           / ciphertext / h''
-         ]
-       ]
-     ]
-   )
-
-A.5.2.  ECDH Direct MAC
-
-   This example uses the following:
-
-   o  MAC: HMAC w/SHA-256, 256-bit key
-
-   o  Recipient class: ECDH key agreement, two static keys, HKDF w/
-      context structure
-
-   Size of binary file is 214 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 56]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   97(
-     [
-       / protected / h'a10105' / {
-           \ alg \ 1:5 \ HMAC 256//256 \
-         } / ,
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / tag / h'81a03448acd3d305376eaa11fb3fe416a955be2cbe7ec96f012c99
-   4bc3f16a41',
-       / recipients / [
-         [
-           / protected / h'a101381a' / {
-               \ alg \ 1:-27 \ ECDH-SS + HKDF-256 \
-             } / ,
-           / unprotected / {
-             / static kid / -3:'peregrin.took@tuckborough.example',
-             / kid / 4:'meriadoc.brandybuck@buckland.example',
-             / U nonce / -22:h'4d8553e7e74f3c6a3a9dd3ef286a8195cbf8a23d
-   19558ccfec7d34b824f42d92bd06bd2c7f0271f0214e141fb779ae2856abf585a583
-   68b017e7f2a9e5ce4db5'
-           },
-           / ciphertext / h''
-         ]
-       ]
-     ]
-   )
-
-A.5.3.  Wrapped MAC
-
-   This example uses the following:
-
-   o  MAC: AES-MAC, 128-bit key, truncated to 64 bits
-
-   o  Recipient class: AES Key Wrap w/ a pre-shared 256-bit key
-
-   Size of binary file is 109 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 57]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   97(
-     [
-       / protected / h'a1010e' / {
-           \ alg \ 1:14 \ AES-CBC-MAC-128//64 \
-         } / ,
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / tag / h'36f5afaf0bab5d43',
-       / recipients / [
-         [
-           / protected / h'',
-           / unprotected / {
-             / alg / 1:-5 / A256KW /,
-             / kid / 4:'018c0ae5-4d9b-471b-bfd6-eef314bc7037'
-           },
-           / ciphertext / h'711ab0dc2fc4585dce27effa6781c8093eba906f227
-   b6eb0'
-         ]
-       ]
-     ]
-   )
-
-A.5.4.  Multi-Recipient MACed Message
-
-   This example uses the following:
-
-   o  MAC: HMAC w/ SHA-256, 128-bit key
-
-   o  Recipient class: Uses three different methods
-
-      1.  ECDH Ephemeral-Static, Curve P-521, AES Key Wrap w/ 128-bit
-          key
-
-      2.  AES Key Wrap w/ 256-bit key
-
-   Size of binary file is 309 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 58]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   97(
-     [
-       / protected / h'a10105' / {
-           \ alg \ 1:5 \ HMAC 256//256 \
-         } / ,
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / tag / h'bf48235e809b5c42e995f2b7d5fa13620e7ed834e337f6aa43df16
-   1e49e9323e',
-       / recipients / [
-         [
-           / protected / h'a101381c' / {
-               \ alg \ 1:-29 \ ECHD-ES+A128KW \
-             } / ,
-           / unprotected / {
-             / ephemeral / -1:{
-               / kty / 1:2,
-               / crv / -1:3,
-               / x / -2:h'0043b12669acac3fd27898ffba0bcd2e6c366d53bc4db
-   71f909a759304acfb5e18cdc7ba0b13ff8c7636271a6924b1ac63c02688075b55ef2
-   d613574e7dc242f79c3',
-               / y / -3:true
-             },
-             / kid / 4:'bilbo.baggins@hobbiton.example'
-           },
-           / ciphertext / h'339bc4f79984cdc6b3e6ce5f315a4c7d2b0ac466fce
-   a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
-         ],
-         [
-           / protected / h'',
-           / unprotected / {
-             / alg / 1:-5 / A256KW /,
-             / kid / 4:'018c0ae5-4d9b-471b-bfd6-eef314bc7037'
-           },
-           / ciphertext / h'0b2c7cfce04e98276342d6476a7723c090dfdd15f9a
-   518e7736549e998370695e6d6a83b4ae507bb'
-         ]
-       ]
-     ]
-   )
-
-A.6.  Examples of MAC0 Messages
-
-A.6.1.  Shared Secret Direct MAC
-
-   This example uses the following:
-
-   o  MAC: AES-CMAC, 256-bit key, truncated to 64 bits
-
-
-
-Schaad                    Expires June 20, 2019                [Page 59]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   o  Recipient class: direct shared secret
-
-   Size of binary file is 37 bytes
-
-   17(
-     [
-       / protected / h'a1010f' / {
-           \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-         } / ,
-       / unprotected / {},
-       / payload / 'This is the content.',
-       / tag / h'726043745027214f'
-     ]
-   )
-
-   Note that this example uses the same inputs as Appendix A.5.1.
-
-A.7.  COSE Keys
-
-A.7.1.  Public Keys
-
-   This is an example of a COSE Key Set.  This example includes the
-   public keys for all of the previous examples.
-
-   In order the keys are:
-
-   o  An EC key with a kid of "meriadoc.brandybuck@buckland.example"
-
-   o  An EC key with a kid of "peregrin.took@tuckborough.example"
-
-   o  An EC key with a kid of "bilbo.baggins@hobbiton.example"
-
-   o  An EC key with a kid of "11"
-
-   Size of binary file is 481 bytes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 60]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   [
-     {
-       -1:1,
-       -2:h'65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c0
-   8551d',
-       -3:h'1e52ed75701163f7f9e40ddf9f341b3dc9ba860af7e0ca7ca7e9eecd008
-   4d19c',
-       1:2,
-       2:'meriadoc.brandybuck@buckland.example'
-     },
-     {
-       -1:1,
-       -2:h'bac5b11cad8f99f9c72b05cf4b9e26d244dc189f745228255a219a86d6a
-   09eff',
-       -3:h'20138bf82dc1b6d562be0fa54ab7804a3a64b6d72ccfed6b6fb6ed28bbf
-   c117e',
-       1:2,
-       2:'11'
-     },
-     {
-       -1:3,
-       -2:h'0072992cb3ac08ecf3e5c63dedec0d51a8c1f79ef2f82f94f3c737bf5de
-   7986671eac625fe8257bbd0394644caaa3aaf8f27a4585fbbcad0f2457620085e5c8
-   f42ad',
-       -3:h'01dca6947bce88bc5790485ac97427342bc35f887d86d65a089377e247e
-   60baa55e4e8501e2ada5724ac51d6909008033ebc10ac999b9d7f5cc2519f3fe1ea1
-   d9475',
-       1:2,
-       2:'bilbo.baggins@hobbiton.example'
-     },
-     {
-       -1:1,
-       -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbfbf054e1c7b4d91
-   d6280',
-       -3:h'f01400b089867804b8e9fc96c3932161f1934f4223069170d924b7e03bf
-   822bb',
-       1:2,
-       2:'peregrin.took@tuckborough.example'
-     }
-   ]
-
-A.7.2.  Private Keys
-
-   This is an example of a COSE Key Set.  This example includes the
-   private keys for all of the previous examples.
-
-   In order the keys are:
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 61]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-   o  An EC key with a kid of "meriadoc.brandybuck@buckland.example"
-
-   o  A shared-secret key with a kid of "our-secret"
-
-   o  An EC key with a kid of "peregrin.took@tuckborough.example"
-
-   o  A shared-secret key with a kid of "018c0ae5-4d9b-471b-
-      bfd6-eef314bc7037"
-
-   o  An EC key with a kid of "bilbo.baggins@hobbiton.example"
-
-   o  An EC key with a kid of "11"
-
-   Size of binary file is 816 bytes
-
-   [
-     {
-       1:2,
-       2:'meriadoc.brandybuck@buckland.example',
-       -1:1,
-       -2:h'65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c0
-   8551d',
-       -3:h'1e52ed75701163f7f9e40ddf9f341b3dc9ba860af7e0ca7ca7e9eecd008
-   4d19c',
-       -4:h'aff907c99f9ad3aae6c4cdf21122bce2bd68b5283e6907154ad911840fa
-   208cf'
-     },
-     {
-       1:2,
-       2:'11',
-       -1:1,
-       -2:h'bac5b11cad8f99f9c72b05cf4b9e26d244dc189f745228255a219a86d6a
-   09eff',
-       -3:h'20138bf82dc1b6d562be0fa54ab7804a3a64b6d72ccfed6b6fb6ed28bbf
-   c117e',
-       -4:h'57c92077664146e876760c9520d054aa93c3afb04e306705db609030850
-   7b4d3'
-     },
-     {
-       1:2,
-       2:'bilbo.baggins@hobbiton.example',
-       -1:3,
-       -2:h'0072992cb3ac08ecf3e5c63dedec0d51a8c1f79ef2f82f94f3c737bf5de
-   7986671eac625fe8257bbd0394644caaa3aaf8f27a4585fbbcad0f2457620085e5c8
-   f42ad',
-       -3:h'01dca6947bce88bc5790485ac97427342bc35f887d86d65a089377e247e
-   60baa55e4e8501e2ada5724ac51d6909008033ebc10ac999b9d7f5cc2519f3fe1ea1
-   d9475',
-
-
-
-Schaad                    Expires June 20, 2019                [Page 62]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
-       -4:h'00085138ddabf5ca975f5860f91a08e91d6d5f9a76ad4018766a476680b
-   55cd339e8ab6c72b5facdb2a2a50ac25bd086647dd3e2e6e99e84ca2c3609fdf177f
-   eb26d'
-     },
-     {
-       1:4,
-       2:'our-secret',
-       -1:h'849b57219dae48de646d07dbb533566e976686457c1491be3a76dcea6c4
-   27188'
-     },
-     {
-       1:2,
-       -1:1,
-       2:'peregrin.took@tuckborough.example',
-       -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbfbf054e1c7b4d91
-   d6280',
-       -3:h'f01400b089867804b8e9fc96c3932161f1934f4223069170d924b7e03bf
-   822bb',
-       -4:h'02d1f7e6f26c43d4868d87ceb2353161740aacf1f7163647984b522a848
-   df1c3'
-     },
-     {
-       1:4,
-       2:'our-secret2',
-       -1:h'849b5786457c1491be3a76dcea6c4271'
-     },
-     {
-       1:4,
-       2:'018c0ae5-4d9b-471b-bfd6-eef314bc7037',
-       -1:h'849b57219dae48de646d07dbb533566e976686457c1491be3a76dcea6c4
-   27188'
-     }
-   ]
-
 Acknowledgments
 
    This document is a product of the COSE working group of the IETF.
@@ -3516,20 +2403,18 @@ Acknowledgments
    project in the first place: Richard Barnes, Matt Miller, and Martin
    Thomson.
 
+
+
+Schaad                    Expires July 25, 2019                [Page 43]
+
+Internet-Draft               COSE Algorithms                January 2019
+
+
    The initial version of the specification was based to some degree on
    the outputs of the JOSE and S/MIME working groups.
 
    The following individuals provided input into the final form of the
    document: Carsten Bormann, John Bradley, Brain Campbell, Michael B.
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 63]
-
-Internet-Draft               COSE Algorithms               December 2018
-
-
    Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran
    Selander.
 
@@ -3576,9 +2461,4 @@ Author's Address
 
 
 
-
-
-
-
-
-Schaad                    Expires June 20, 2019                [Page 64]
+Schaad                    Expires July 25, 2019                [Page 44]
