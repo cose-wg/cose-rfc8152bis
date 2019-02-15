@@ -24,7 +24,7 @@ Discussion of this work occurs on the
 ([subscribe](https://www.ietf.org/mailman/listinfo/cose)).  In addition to
 contributions in github, you are encouraged to participate in discussions there.
 
-**Note**: Some working groups adopt a policy whereby substantive discussion of
+All  substantive discussion of
 technical issues needs to occur on the mailing list.
 
 You might also like to familiarize yourself with other
