@@ -283,8 +283,9 @@ ul.toc li {
   <link href="#rfc.toc" rel="Contents">
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Requirements Terminology">
-<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Document Terminology">
-<link href="#rfc.section.1.3" rel="Chapter" title="1.3 CBOR Grammar">
+<link href="#rfc.section.1.2" rel="Chapter" title="1.2 Changes from RFC8152">
+<link href="#rfc.section.1.3" rel="Chapter" title="1.3 Document Terminology">
+<link href="#rfc.section.1.4" rel="Chapter" title="1.4 CBOR Grammar">
 <link href="#rfc.section.2" rel="Chapter" title="2 Signature Algorithms">
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 ECDSA">
 <link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Security Considerations">
@@ -335,12 +336,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.15.4 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.17.2 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Schaad, J." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cose-rfc8152bis-algs-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-21" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-15" />
   <meta name="dct.abstract" content="Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  COSE additionally describes how to represent cryptographic keys using CBOR.  In this specification the conventions for the use of a number of cryptographic algorithms with COSE.  The details of the structure of COSE are defined in .  This document along with  obsoletes RFC8152.  " />
   <meta name="description" content="Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  COSE additionally describes how to represent cryptographic keys using CBOR.  In this specification the conventions for the use of a number of cryptographic algorithms with COSE.  The details of the structure of COSE are defined in .  This document along with  obsoletes RFC8152.  " />
 
@@ -361,14 +362,14 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Obsoletes: 8152 (if approved)</td>
-<td class="right">January 21, 2019</td>
+<td class="right">February 15, 2019</td>
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: July 25, 2019</td>
+<td class="left">Expires: August 19, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -389,7 +390,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 25, 2019.</p>
+<p>This Internet-Draft will expire on August 19, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -403,9 +404,11 @@ ul.toc li {
 </li>
 <ul><li>1.1.   <a href="#rfc.section.1.1">Requirements Terminology</a>
 </li>
-<li>1.2.   <a href="#rfc.section.1.2">Document Terminology</a>
+<li>1.2.   <a href="#rfc.section.1.2">Changes from RFC8152</a>
 </li>
-<li>1.3.   <a href="#rfc.section.1.3">CBOR Grammar</a>
+<li>1.3.   <a href="#rfc.section.1.3">Document Terminology</a>
+</li>
+<li>1.4.   <a href="#rfc.section.1.4">CBOR Grammar</a>
 </li>
 </ul><li>2.   <a href="#rfc.section.2">Signature Algorithms</a>
 </li>
@@ -517,15 +520,18 @@ ul.toc li {
 </h1>
 <p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.  </p>
 <h1 id="rfc.section.1.2">
-<a href="#rfc.section.1.2">1.2.</a> Document Terminology</h1>
-<p id="rfc.section.1.2.p.1">In this document, we use the following terminology: </p>
-<p id="rfc.section.1.2.p.2">Byte is a synonym for octet.</p>
-<p id="rfc.section.1.2.p.3">Constrained Application Protocol (CoAP) is a specialized web transfer protocol for use in constrained systems.  It is defined in <a href="#RFC7252" class="xref">[RFC7252]</a>.  </p>
-<p id="rfc.section.1.2.p.4">Authenticated Encryption (AE) <a href="#RFC5116" class="xref">[RFC5116]</a> algorithms are those encryption algorithms that provide an authentication check of the plain text contents as part of the encryption service.  </p>
-<p id="rfc.section.1.2.p.5">Authenticated Encryption with Authenticated Data (AEAD) <a href="#RFC5116" class="xref">[RFC5116]</a> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </p>
+<a href="#rfc.section.1.2">1.2.</a> Changes from RFC8152</h1>
+<p id="rfc.section.1.2.p.1">TBD </p>
 <h1 id="rfc.section.1.3">
-<a href="#rfc.section.1.3">1.3.</a> CBOR Grammar</h1>
-<p id="rfc.section.1.3.p.1">At the time that <a href="#RFC8152" class="xref">[RFC8152]</a> was initially published, the CBOR Data Definition Language (CDDL) <a href="#I-D.ietf-cbor-cddl" class="xref">[I-D.ietf-cbor-cddl]</a> had not yet been published.  This document uses a variant of CDDL which is described in <a href="#I-D.schaad-cose-rfc8152bis-struct" class="xref">[I-D.schaad-cose-rfc8152bis-struct]</a> </p>
+<a href="#rfc.section.1.3">1.3.</a> Document Terminology</h1>
+<p id="rfc.section.1.3.p.1">In this document, we use the following terminology: </p>
+<p id="rfc.section.1.3.p.2">Byte is a synonym for octet.</p>
+<p id="rfc.section.1.3.p.3">Constrained Application Protocol (CoAP) is a specialized web transfer protocol for use in constrained systems.  It is defined in <a href="#RFC7252" class="xref">[RFC7252]</a>.  </p>
+<p id="rfc.section.1.3.p.4">Authenticated Encryption (AE) <a href="#RFC5116" class="xref">[RFC5116]</a> algorithms are those encryption algorithms that provide an authentication check of the plain text contents as part of the encryption service.  </p>
+<p id="rfc.section.1.3.p.5">Authenticated Encryption with Authenticated Data (AEAD) <a href="#RFC5116" class="xref">[RFC5116]</a> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </p>
+<h1 id="rfc.section.1.4">
+<a href="#rfc.section.1.4">1.4.</a> CBOR Grammar</h1>
+<p id="rfc.section.1.4.p.1">At the time that <a href="#RFC8152" class="xref">[RFC8152]</a> was initially published, the CBOR Data Definition Language (CDDL) <a href="#I-D.ietf-cbor-cddl" class="xref">[I-D.ietf-cbor-cddl]</a> had not yet been published.  This document uses a variant of CDDL which is described in <a href="#I-D.schaad-cose-rfc8152bis-struct" class="xref">[I-D.schaad-cose-rfc8152bis-struct]</a> </p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#SigAlgs" id="SigAlgs">Signature Algorithms</a>
 </h1>
@@ -1947,7 +1953,7 @@ COSE_KDF_Context = [
 <tr>
 <td class="reference"><b id="I-D.ietf-cbor-cddl">[I-D.ietf-cbor-cddl]</b></td>
 <td class="top">
-<a>Birkholz, H.</a>, <a>Vigano, C.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/draft-ietf-cbor-cddl-06">Concise data definition language (CDDL): a notational convention to express CBOR and JSON data structures</a>", Internet-Draft draft-ietf-cbor-cddl-06, November 2018.</td>
+<a>Birkholz, H.</a>, <a>Vigano, C.</a> and <a>C. Bormann</a>, "<a href="https://tools.ietf.org/html/draft-ietf-cbor-cddl-07">Concise data definition language (CDDL): a notational convention to express CBOR and JSON data structures</a>", Internet-Draft draft-ietf-cbor-cddl-07, February 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC4231">[RFC4231]</b></td>
