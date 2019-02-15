@@ -31,7 +31,7 @@
       <t>Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  This specification additionally describes how to represent cryptographic keys using CBOR.  </t>
 
       <t>
-        This document along with <xref target="I-D.schaad-cose-rfc8152bis-algs"/> obsoletes RFC8152.
+        This document along with <xref target="I-D.ietf-cose-rfc8152bis-algs"/> obsoletes RFC8152.
       </t>
     </abstract>
     
@@ -49,7 +49,7 @@
     <section anchor="introduction" title="Introduction"  >
       <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"  />.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC8259"  /> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
 
-      <t>The JOSE working group produced a set of documents <xref target="RFC7515"  /> <xref target="RFC7516"  /> <xref target="RFC7517"  /> <xref target="RFC7518"  /> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.schaad-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
+      <t>The JOSE working group produced a set of documents <xref target="RFC7515"  /> <xref target="RFC7516"  /> <xref target="RFC7517"  /> <xref target="RFC7518"  /> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.ietf-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
 
       <t><list style="symbols">
 <t>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded string.  </t>
@@ -74,7 +74,7 @@
 
       <t>
         This document does not contain the rules and procedures for using specific cryptographic algorithms.
-        Details on specific algorithms can be found in <xref target="I-D.schaad-cose-rfc8152bis-algs"/> and <xref target="RFC8230"/>.
+        Details on specific algorithms can be found in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> and <xref target="RFC8230"/>.
         Details for additional algorithms are expected to be defined in future documents.
       </t>
 
@@ -763,7 +763,7 @@ Enc_structure = [
   The key is determined by the key and algorithm in the recipient structure. 
   The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
   (For direct, the KDF can be thought of as the identity operation.)
-  Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf" format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH" format="counter"/>.--> of <xref target="I-D.schaad-cose-rfc8152bis-algs"/>.
+  Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf" format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH" format="counter"/>.--> of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.
 </t>
 <t hangText="Other:">The key is randomly or pseudorandomly generated.  </t></list> </t>
 
@@ -938,7 +938,7 @@ COSE_KeySet = [+COSE_Key]
 </artwork>
       </figure>
       <section anchor="COSE_KEY_KEYS" title="COSE Key Common Parameters"  >
-        <t>This document defines a set of common parameters for a COSE Key object.  <xref target="table-key-labels"  /> provides a summary of the parameters defined in this section.  There are also parameters that are defined for specific key types.  Key-type-specific parameters can be found in <xref target="I-D.schaad-cose-rfc8152bis-algs"  />.  </t>
+        <t>This document defines a set of common parameters for a COSE Key object.  <xref target="table-key-labels"  /> provides a summary of the parameters defined in this section.  There are also parameters that are defined for specific key types.  Key-type-specific parameters can be found in <xref target="I-D.ietf-cose-rfc8152bis-algs"  />.  </t>
 
  <?rfc compact="no"?>
         <texttable title="Key Map Labels" anchor="table-key-labels" align="center" style="full">
@@ -1098,7 +1098,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
 
 <t>
   The same KDF can be set up to deal with the first two types of secrets in a different way. 
-  The KDF defined in !!! HDKF !!! (section XXXX of <xref target="I-D.schaad-cose-rfc8152bis-algs"/>) is such a function. 
+  The KDF defined in !!! HDKF !!! (section XXXX of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>) is such a function. 
   This is reflected in the set of algorithms defined around the HMAC-based Extract-and-Expand Key Derivation Function (HKDF). 
  </t>
 
@@ -1579,6 +1579,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <!--draft-selander-ace-object-security-06 = Expired. Replaced by draft-ietf-core-object-security-03 = Active, ID Exists-->
 <?rfc include="reference.I-D.ietf-core-object-security"?>
 <?rfc include="reference.RFC.8230"?>
+<?rfc include="reference.RFC.7942"?>
 </references>
 
     <section title="Guidelines for External Data Authentication of Algorithms"  >
