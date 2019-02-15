@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/8",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/8/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/8/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/8/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/8",
+    "id": 410576638,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MjUzMjg4NTYy",
+    "number": 8,
+    "title": "V1 updates",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-02-15T02:24:59Z",
+    "updated_at": "2019-02-15T02:32:22Z",
+    "closed_at": "2019-02-15T02:32:22Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/8",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/8",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/8.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/8.patch"
+    },
+    "body": "The set of updates going into things for the -01 release"
+  },
+  {
     "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/7",
     "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
     "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/7/labels{/name}",
