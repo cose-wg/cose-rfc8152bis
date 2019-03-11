@@ -16,7 +16,7 @@
 <rfc ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-latest" category="std" obsoletes="8152" >
   <front>
     <title abbrev="COSE Structure">CBOR
-    Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE) - Structures and Process</title>
+    CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Structures and Process</title>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -99,7 +99,13 @@
 
       <section title="Changes from RFC8152">
         <t>
-          TBD
+          <list style="symbols">
+            <t> Split the orignal document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</t>
+            <t>Add some text describing why there is no digest structure defined by COSE.</t>
+            
+              
+          </list>
+
         </t>
       </section>
 
@@ -563,10 +569,10 @@ COSE_Sign1 = [
       <section title="Signing and Verification Process" anchor="Sig_structure"  >
         <t>
           In order to create a signature, a well-defined byte string is needed.
-          The Sig_struture is used to create the canonical form. 
+          The Sig_structure is used to create the canonical form. 
           This signing and verification process takes in the body information (COSE_Sign or COSE_Sign1), the signer information (COSE_Signature), and the application data (external source). 
           A Sig_structure is a CBOR array. 
-          The fields of the Sig_struture in order are:
+          The fields of the Sig_structure in order are:
           <list style="numbers">
             <t>
               A text string identifying the context of the signature.  The context string is:
@@ -1444,7 +1450,8 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             </t>
             <t>
               Coverage:
-              The libraries currently do not have full support for counter signatures of either variety.
+              The C version currently does not have full countersign support.
+              THe other two versions do.
               They do have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.
             </t>
             <t>
@@ -1460,6 +1467,31 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           </list>
         </t>
       </section>
+
+      <section title="Java Script Version">
+        <t><list style="none">
+        <t>Implementation Location: https://github.com/erdtman/cose-js</t>
+        <t>Primary Maintainer: Samuel Erdtman</t>
+        <t>Languages: JavaScript</t>
+        <t>Cryptography: TBD</t>
+        <t>Coverage: Full Encrypt, Signature and MAC objects are supported.</t>
+        <t>Testing: Basic testing against the common example library.</t>
+        <t>Licensing: Apache License 2.0</t>
+        </list></t>
+      </section>
+
+      <section title="Python Version">
+        <t><list style="none">
+          <t>Implementation Location: https://github.com/TimothyClaeys/COSE-PYTHON</t>
+          <t>Primary Maintainer: Timothy Claeys</t>
+          <t>Languages: Python</t>
+          <t>Cryptography: pyecdsak, crypto python libraries</t>
+          <t>Coverage: TBD</t>
+          <t>Testing: Basic testing plus running against the common example library.</t>
+          <t>Licensing: BSD 3-Clause License</t>
+        </list>
+        </t>
+      </section>
       
       <section title="COSE Testing Library">
         <t>
@@ -1473,7 +1505,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             </t>
             <t>
               Coverage:  An attempt has been made to have test cases for every message type and algorithm in the document.
-              Currently examples dealing with counter signatures, EdDSA, and ECDH with Curve24459 and Goldilocks are missing.
+              Currently examples dealing with counter signatures, and ECDH with Curve24459 and Goldilocks are missing.
             </t>
             <t>Licensing: Public Domain</t>
           </list>
