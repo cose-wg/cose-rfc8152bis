@@ -4,12 +4,12 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                          February 15, 2019
+Obsoletes: 8152 (if approved)                             March 11, 2019
 Intended status: Standards Track
-Expires: August 19, 2019
+Expires: September 12, 2019
 
 
-   CBOR Object Signing and Encryption (COSE) - Structures and Process
+ CBOR CBOR Object Signing and Encryption (COSE): Structures and Process
                 draft-ietf-cose-rfc8152bis-struct-latest
 
 Abstract
@@ -49,13 +49,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 19, 2019.
+   This Internet-Draft will expire on September 12, 2019.
 
 
 
-Schaad                   Expires August 19, 2019                [Page 1]
+Schaad                 Expires September 12, 2019               [Page 1]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                   Expires August 19, 2019                [Page 2]
+Schaad                 Expires September 12, 2019               [Page 2]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    11. Key Derivation Functions (KDFs) . . . . . . . . . . . . . . .  39
@@ -136,51 +136,53 @@ Internet-Draft               COSE Structure                February 2019
    16. Security Considerations . . . . . . . . . . . . . . . . . . .  50
    17. Implementation Status . . . . . . . . . . . . . . . . . . . .  52
      17.1.  Author's Versions  . . . . . . . . . . . . . . . . . . .  52
-     17.2.  COSE Testing Library . . . . . . . . . . . . . . . . . .  53
+     17.2.  Java Script Version  . . . . . . . . . . . . . . . . . .  53
+     17.3.  Python Version . . . . . . . . . . . . . . . . . . . . .  54
+     17.4.  COSE Testing Library . . . . . . . . . . . . . . . . . .  54
    18. References  . . . . . . . . . . . . . . . . . . . . . . . . .  54
      18.1.  Normative References . . . . . . . . . . . . . . . . . .  54
-     18.2.  Informative References . . . . . . . . . . . . . . . . .  55
+     18.2.  Informative References . . . . . . . . . . . . . . . . .  56
    Appendix A.  Guidelines for External Data Authentication of
-                Algorithms . . . . . . . . . . . . . . . . . . . . .  57
-     A.1.  Algorithm Identification  . . . . . . . . . . . . . . . .  57
-     A.2.  Counter Signature without Headers . . . . . . . . . . . .  60
-   Appendix B.  Two Layers of Recipient Information  . . . . . . . .  61
-   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  63
-     C.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  64
-       C.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  64
-       C.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  65
-       C.1.3.  Counter Signature . . . . . . . . . . . . . . . . . .  66
-       C.1.4.  Signature with Criticality  . . . . . . . . . . . . .  67
-     C.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  68
-       C.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  68
-     C.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  69
-       C.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  69
-       C.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  70
-       C.3.3.  Counter Signature on Encrypted Content  . . . . . . .  71
-       C.3.4.  Encrypted Content with External Data  . . . . . . . .  73
-     C.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  73
-       C.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  73
-       C.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  74
-     C.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  74
+                Algorithms . . . . . . . . . . . . . . . . . . . . .  58
+     A.1.  Algorithm Identification  . . . . . . . . . . . . . . . .  58
+     A.2.  Counter Signature without Headers . . . . . . . . . . . .  61
+   Appendix B.  Two Layers of Recipient Information  . . . . . . . .  62
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  64
+     C.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  65
+       C.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  65
+       C.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  66
+       C.1.3.  Counter Signature . . . . . . . . . . . . . . . . . .  67
+       C.1.4.  Signature with Criticality  . . . . . . . . . . . . .  68
+     C.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  69
+       C.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  69
+     C.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  70
+       C.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  70
+       C.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  71
+       C.3.3.  Counter Signature on Encrypted Content  . . . . . . .  72
+       C.3.4.  Encrypted Content with External Data  . . . . . . . .  74
+     C.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  74
+       C.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  74
 
 
 
-Schaad                   Expires August 19, 2019                [Page 3]
+Schaad                 Expires September 12, 2019               [Page 3]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
-       C.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  74
-       C.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  75
-       C.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  76
-       C.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  77
-     C.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  78
-       C.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  78
-     C.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  79
-       C.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  79
-       C.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  80
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  82
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  83
+       C.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  75
+     C.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  75
+       C.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  75
+       C.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  76
+       C.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  77
+       C.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  78
+     C.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  79
+       C.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  79
+     C.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  80
+       C.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  80
+       C.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  81
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  83
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  84
 
 1.  Introduction
 
@@ -216,15 +218,15 @@ Internet-Draft               COSE Structure                February 2019
       re-examined.  In many cases, different results were decided on as
       the criteria were not always the same.
 
-   This document contains:
 
 
 
-
-Schaad                   Expires August 19, 2019                [Page 4]
+Schaad                 Expires September 12, 2019               [Page 4]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
+
+   This document contains:
 
    o  The description of the structure for the CBOR objects which are
       transmitted over the wire.  Two objects are defined for
@@ -272,15 +274,16 @@ Internet-Draft               COSE Structure                February 2019
       algorithms as enveloped messages for obtaining the MAC
       authentication key.
 
+
+
+
+Schaad                 Expires September 12, 2019               [Page 5]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
    o  Use binary encodings for binary data rather than base64url
       encodings.
-
-
-
-Schaad                   Expires August 19, 2019                [Page 5]
-
-Internet-Draft               COSE Structure                February 2019
-
 
    o  Combine the authentication tag for encryption algorithms with the
       ciphertext.
@@ -290,7 +293,11 @@ Internet-Draft               COSE Structure                February 2019
 
 1.2.  Changes from RFC8152
 
-   TBD
+   o  Split the orignal document into this document and
+      [I-D.ietf-cose-rfc8152bis-algs].
+
+   o  Add some text describing why there is no digest structure defined
+      by COSE.
 
 1.3.  Requirements Terminology
 
@@ -324,19 +331,18 @@ Internet-Draft               COSE Structure                February 2019
 
       int -- an unsigned integer or a negative integer.
 
+
+
+Schaad                 Expires September 12, 2019               [Page 6]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
       nil -- a null value (major type 7, value 22).
 
       nint -- a negative integer (major type 1).
 
       tstr -- a UTF-8 text string (major type 3).
-
-
-
-
-Schaad                   Expires August 19, 2019                [Page 6]
-
-Internet-Draft               COSE Structure                February 2019
-
 
       uint -- an unsigned integer (major type 0).
 
@@ -380,19 +386,18 @@ Internet-Draft               COSE Structure                February 2019
    string.  In COSE, we use strings, negative integers, and unsigned
    integers as map keys.  The integers are used for compactness of
    encoding and easy comparison.  The inclusion of strings allows for an
+
+
+
+Schaad                 Expires September 12, 2019               [Page 7]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
    additional range of short encoded values to be used as well.  Since
    the word "key" is mainly used in its other meaning, as a
    cryptographic key, we use the term "label" for this usage as a map
    key.
-
-
-
-
-
-Schaad                   Expires August 19, 2019                [Page 7]
-
-Internet-Draft               COSE Structure                February 2019
-
 
    The presence of a label in a COSE map that is not a string or an
    integer is an error.  Applications can either fail processing or
@@ -437,18 +442,19 @@ Internet-Draft               COSE Structure                February 2019
 
    3.  The content of the message.  The content is either the plaintext
        or the ciphertext as appropriate.  The content may be detached
+
+
+
+Schaad                 Expires September 12, 2019               [Page 8]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
        (i.e. transported separately from the COSE structure), but the
        location is still used.  The content is wrapped in a bstr when
        present and is a nil value when detached.
 
    Elements after this point are dependent on the specific message type.
-
-
-
-Schaad                   Expires August 19, 2019                [Page 8]
-
-Internet-Draft               COSE Structure                February 2019
-
 
    COSE messages are built using the concept of layers to separate
    different types of cryptographic concepts.  As an example of how this
@@ -495,15 +501,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-
-
-
-
-
-
-Schaad                   Expires August 19, 2019                [Page 9]
+Schaad                 Expires September 12, 2019               [Page 9]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    +-------+---------------+---------------+---------------------------+
@@ -557,9 +557,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 10]
+Schaad                 Expires September 12, 2019              [Page 10]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    COSE_Messages = COSE_Untagged_Message / COSE_Tagged_Message
@@ -613,9 +613,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 11]
+Schaad                 Expires September 12, 2019              [Page 11]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       not be altered in transit.  (Badly behaved intermediates could
@@ -669,9 +669,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 12]
+Schaad                 Expires September 12, 2019              [Page 12]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    Headers = (
@@ -725,9 +725,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 13]
+Schaad                 Expires September 12, 2019              [Page 13]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
          be included as these would be less common parameters that might
@@ -781,9 +781,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 14]
+Schaad                 Expires September 12, 2019              [Page 14]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       can be placed in the unprotected header as modifying the IV will
@@ -837,9 +837,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 15]
+Schaad                 Expires September 12, 2019              [Page 15]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    +-----------+-------+----------------+-------------+----------------+
@@ -893,9 +893,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 16]
+Schaad                 Expires September 12, 2019              [Page 16]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 4.  Signing Objects
@@ -949,9 +949,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 17]
+Schaad                 Expires September 12, 2019              [Page 17]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    COSE_Sign_Tagged = #6.98(COSE_Sign)
@@ -1005,9 +1005,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 18]
+Schaad                 Expires September 12, 2019              [Page 18]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    unprotected:  This is as described in Section 3.
@@ -1061,9 +1061,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 19]
+Schaad                 Expires September 12, 2019              [Page 19]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    COSE_Sign1 = [
@@ -1117,9 +1117,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 20]
+Schaad                 Expires September 12, 2019              [Page 20]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       relative number must be re-encoded to be relative only to the
@@ -1128,11 +1128,11 @@ Internet-Draft               COSE Structure                February 2019
 4.4.  Signing and Verification Process
 
    In order to create a signature, a well-defined byte string is needed.
-   The Sig_struture is used to create the canonical form.  This signing
+   The Sig_structure is used to create the canonical form.  This signing
    and verification process takes in the body information (COSE_Sign or
    COSE_Sign1), the signer information (COSE_Signature), and the
    application data (external source).  A Sig_structure is a CBOR array.
-   The fields of the Sig_struture in order are:
+   The fields of the Sig_structure in order are:
 
    1.  A text string identifying the context of the signature.  The
        context string is:
@@ -1173,9 +1173,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 21]
+Schaad                 Expires September 12, 2019              [Page 21]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    How to compute a signature:
@@ -1229,9 +1229,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 22]
+Schaad                 Expires September 12, 2019              [Page 22]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    An example of a counter signature on a signature can be found in
@@ -1285,9 +1285,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 23]
+Schaad                 Expires September 12, 2019              [Page 23]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    layer.  Two structures are defined: COSE_Encrypt to hold the
@@ -1341,9 +1341,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 24]
+Schaad                 Expires September 12, 2019              [Page 24]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    recipients:  This field contains an array of recipient information
@@ -1397,9 +1397,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 25]
+Schaad                 Expires September 12, 2019              [Page 25]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    be used in order to decrypt the message.  If a key needs to be
@@ -1453,9 +1453,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 26]
+Schaad                 Expires September 12, 2019              [Page 26]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
           "Enc_Recipient" for a recipient encoding to be placed in an
@@ -1509,9 +1509,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 27]
+Schaad                 Expires September 12, 2019              [Page 27]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
           direct, the KDF can be thought of as the identity operation.)
@@ -1565,9 +1565,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 28]
+Schaad                 Expires September 12, 2019              [Page 28]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    2.  Verify that there was no external additional authenticated data
@@ -1621,9 +1621,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 29]
+Schaad                 Expires September 12, 2019              [Page 29]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
           direct, the KDF can be thought of as the identity operation.)
@@ -1677,9 +1677,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 30]
+Schaad                 Expires September 12, 2019              [Page 30]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    structure is identified by the CBOR tag 97.  The CDDL fragment that
@@ -1733,9 +1733,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 31]
+Schaad                 Expires September 12, 2019              [Page 31]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    structure is identified by the CBOR tag 17.  The CDDL fragment that
@@ -1789,9 +1789,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 32]
+Schaad                 Expires September 12, 2019              [Page 32]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    MAC_structure = [
@@ -1845,9 +1845,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 33]
+Schaad                 Expires September 12, 2019              [Page 33]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    Additional parameters defined for specific key types can be found in
@@ -1901,9 +1901,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 34]
+Schaad                 Expires September 12, 2019              [Page 34]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    +---------+-------+----------------+------------+-------------------+
@@ -1957,9 +1957,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 35]
+Schaad                 Expires September 12, 2019              [Page 35]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       key.  This field is intended for matching against a 'kid'
@@ -2013,9 +2013,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 36]
+Schaad                 Expires September 12, 2019              [Page 36]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    +---------+-------+-------------------------------------------------+
@@ -2069,9 +2069,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 37]
+Schaad                 Expires September 12, 2019              [Page 37]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    after a signature has been validated.  Until that point, the part of
@@ -2125,9 +2125,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 38]
+Schaad                 Expires September 12, 2019              [Page 38]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    MAC algorithms are used in the COSE_Mac and COSE_Mac0 structures.
@@ -2181,9 +2181,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 39]
+Schaad                 Expires September 12, 2019              [Page 39]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    poorly with the last type of secret.  Functions like PBES2 [RFC8018]
@@ -2237,9 +2237,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 40]
+Schaad                 Expires September 12, 2019              [Page 40]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 12.2.  Key Wrap
@@ -2293,9 +2293,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 41]
+Schaad                 Expires September 12, 2019              [Page 41]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    o  At a minimum, the 'unprotected' field MUST contain the 'alg'
@@ -2349,9 +2349,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 42]
+Schaad                 Expires September 12, 2019              [Page 42]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 12.5.  Key Agreement with Key Wrap
@@ -2405,9 +2405,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 43]
+Schaad                 Expires September 12, 2019              [Page 43]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 14.  Application Profiling Considerations
@@ -2461,9 +2461,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 44]
+Schaad                 Expires September 12, 2019              [Page 44]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    o  Applications may need to provide some type of negotiation or
@@ -2517,9 +2517,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 45]
+Schaad                 Expires September 12, 2019              [Page 45]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 15.4.  COSE Key Common Parameters Registry
@@ -2573,9 +2573,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 46]
+Schaad                 Expires September 12, 2019              [Page 46]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       *  Macintosh file type code(s): N/A
@@ -2629,9 +2629,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 47]
+Schaad                 Expires September 12, 2019              [Page 47]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       *  Deprecated alias names for this type: N/A
@@ -2685,9 +2685,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 48]
+Schaad                 Expires September 12, 2019              [Page 48]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       *  Magic number(s): N/A
@@ -2741,9 +2741,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 49]
+Schaad                 Expires September 12, 2019              [Page 49]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       to be used outside of closed environments in an interoperable way.
@@ -2797,9 +2797,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 50]
+Schaad                 Expires September 12, 2019              [Page 50]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    The use of ECDH and direct plus KDF (with no key wrap) will not
@@ -2853,9 +2853,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 51]
+Schaad                 Expires September 12, 2019              [Page 51]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    document, there is some type of restriction on the nonce being a
@@ -2909,9 +2909,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 52]
+Schaad                 Expires September 12, 2019              [Page 52]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
       Implementation Location: https://github.com/cose-wg
@@ -2925,8 +2925,8 @@ Internet-Draft               COSE Structure                February 2019
       provide the required cryptography.  The C version uses OPENSSL
       Version 1.0 for the cryptography.
 
-      Coverage: The libraries currently do not have full support for
-      counter signatures of either variety.  They do have support to
+      Coverage: The C version currently does not have full countersign
+      support.  THe other two versions do.  They do have support to
       allow for implicit algorithm support as they allow for the
       application to set attributes that are not to be sent in the
       message.
@@ -2943,7 +2943,52 @@ Internet-Draft               COSE Structure                February 2019
 
       Licensing: Revised BSD License
 
-17.2.  COSE Testing Library
+17.2.  Java Script Version
+
+      Implementation Location: https://github.com/erdtman/cose-js
+
+      Primary Maintainer: Samuel Erdtman
+
+      Languages: JavaScript
+
+      Cryptography: TBD
+
+      Coverage: Full Encrypt, Signature and MAC objects are supported.
+
+      Testing: Basic testing against the common example library.
+
+      Licensing: Apache License 2.0
+
+
+
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 53]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
+17.3.  Python Version
+
+      Implementation Location: https://github.com/TimothyClaeys/COSE-
+      PYTHON
+
+      Primary Maintainer: Timothy Claeys
+
+      Languages: Python
+
+      Cryptography: pyecdsak, crypto python libraries
+
+      Coverage: TBD
+
+      Testing: Basic testing plus running against the common example
+      library.
+
+      Licensing: BSD 3-Clause License
+
+17.4.  COSE Testing Library
 
       Implementation Location: https://github.com/cose-wg/Examples
 
@@ -2956,19 +3001,10 @@ Internet-Draft               COSE Structure                February 2019
 
       Coverage: An attempt has been made to have test cases for every
       message type and algorithm in the document.  Currently examples
-      dealing with counter signatures, EdDSA, and ECDH with Curve24459
-      and Goldilocks are missing.
+      dealing with counter signatures, and ECDH with Curve24459 and
+      Goldilocks are missing.
 
       Licensing: Public Domain
-
-
-
-
-
-Schaad                   Expires August 19, 2019               [Page 53]
-
-Internet-Draft               COSE Structure                February 2019
-
 
 18.  References
 
@@ -2978,6 +3014,17 @@ Internet-Draft               COSE Structure                February 2019
               IANA, "CoAP Content-Formats",
               <https://www.iana.org/assignments/core-parameters/
               core-parameters.xhtml#content-formats>.
+
+
+
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 54]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
    [COSE.Algorithms]
               IANA, "COSE Algorithms",
@@ -3002,8 +3049,8 @@ Internet-Draft               COSE Structure                February 2019
 
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Algorithms for Object Signing and
-              Encryption (COSE)", draft-ietf-cose-rfc8152bis-algs-00
-              (work in progress), January 2019.
+              Encryption (COSE)", draft-ietf-cose-rfc8152bis-algs-01
+              (work in progress), February 2019.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -3019,16 +3066,21 @@ Internet-Draft               COSE Structure                February 2019
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/info/rfc8032>.
 
-
-
-Schaad                   Expires August 19, 2019               [Page 54]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 55]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
 18.2.  Informative References
 
@@ -3041,8 +3093,8 @@ Internet-Draft               COSE Structure                February 2019
    [I-D.ietf-core-object-security]
               Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
-              (OSCORE)", draft-ietf-core-object-security-15 (work in
-              progress), August 2018.
+              (OSCORE)", draft-ietf-core-object-security-16 (work in
+              progress), March 2019.
 
    [PVSig]    Brown, D. and D. Johnson, "Formal Security Proofs for a
               Signature Scheme with Partial Message Recovery",
@@ -3074,18 +3126,17 @@ Internet-Draft               COSE Structure                February 2019
               Specification", RFC 5751, DOI 10.17487/RFC5751, January
               2010, <https://www.rfc-editor.org/info/rfc5751>.
 
-
-
-
-Schaad                   Expires August 19, 2019               [Page 55]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    [RFC5752]  Turner, S. and J. Schaad, "Multiple Signatures in
               Cryptographic Message Syntax (CMS)", RFC 5752,
               DOI 10.17487/RFC5752, January 2010,
               <https://www.rfc-editor.org/info/rfc5752>.
+
+
+
+Schaad                 Expires September 12, 2019              [Page 56]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
    [RFC5990]  Randall, J., Kaliski, B., Brainard, J., and S. Turner,
               "Use of the RSA-KEM Key Transport Algorithm in the
@@ -3129,19 +3180,19 @@ Internet-Draft               COSE Structure                February 2019
               RFC 8018, DOI 10.17487/RFC8018, January 2017,
               <https://www.rfc-editor.org/info/rfc8018>.
 
-
-
-
-
-Schaad                   Expires August 19, 2019               [Page 56]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/info/rfc8126>.
+
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 57]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
    [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
@@ -3186,17 +3237,18 @@ A.1.  Algorithm Identification
    first set of recommendations apply to having an implicit algorithm
    identified for a single layer of a COSE object.  The second set of
    recommendations apply to having multiple implicit algorithms
-
-
-
-Schaad                   Expires August 19, 2019               [Page 57]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    identified for multiple layers of a COSE object.  The third set of
    recommendations apply to having implicit algorithms for multiple COSE
    object constructs.
+
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 58]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
    The key words from [RFC2119] are deliberately not used here.  This
    specification can provide recommendations, but it cannot enforce
@@ -3242,18 +3294,18 @@ Internet-Draft               COSE Structure                February 2019
       keys would normally not be considered to be acceptable.)  An
       example of how this can be done is to tie the context to a
       transaction identifier.  Both would be sent on the original
-
-
-
-Schaad                   Expires August 19, 2019               [Page 58]
-
-Internet-Draft               COSE Structure                February 2019
-
-
       message, but only the transaction identifier would need to be sent
       after that point as the context is tied into the transaction
       identifier.  Another way would be to associate a context with a
       network address.  All messages coming from a single network
+
+
+
+Schaad                 Expires September 12, 2019              [Page 59]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
       address can be assumed to be associated with a specific context.
       (In this case, the address would normally be distributed as part
       of the context.)
@@ -3297,19 +3349,18 @@ Internet-Draft               COSE Structure                February 2019
       algorithm to be used for the secondary layer.  The key for the
       secondary layer is computed as normal from the recipient layer.
 
-
-
-
-
-Schaad                   Expires August 19, 2019               [Page 59]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    The third case is having multiple implicit algorithm identifiers, but
    targeted at potentially unrelated layers or different COSE objects.
    There are a number of different scenarios where this might be
    applicable.  Some of these scenarios are:
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 60]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
    o  Two contexts are distributed as a pair.  Each of the contexts is
       for use with a COSE_Encrypt message.  Each context will consist of
@@ -3354,19 +3405,19 @@ A.2.  Counter Signature without Headers
    message.  This includes not only the algorithm identifier as
    presented above, but also items such as the key identification, which
    is always external to the signature structure.  This means that the
-
-
-
-Schaad                   Expires August 19, 2019               [Page 60]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    entities that are doing the validation of the counter signature are
    required to infer which key is to be used from context rather than
    being explicit.  One way of doing this would be to presume that all
    data coming from a specific port (or to a specific URL) is to be
    validated by a specific key.  (Note that this does not require that
+
+
+
+Schaad                 Expires September 12, 2019              [Page 61]
+
+Internet-Draft               COSE Structure                   March 2019
+
+
    the key identifier be part of the value signed as it does not serve a
    cryptographic purpose.  If the key validates the counter signature,
    then it should be presumed that the entity associated with that key
@@ -3410,18 +3461,18 @@ Appendix B.  Two Layers of Recipient Information
    o  Layer 2: The encryption of a long random secret using an RSA key
       and a key derivation function to convert that secret into the KEK.
 
-
-
-
-Schaad                   Expires August 19, 2019               [Page 61]
-
-Internet-Draft               COSE Structure                February 2019
-
-
    This is an example of what a triple layer message would look like.
    The message has the following layers:
 
    o  Layer 0: Has a content encrypted with AES-GCM using a 128-bit key.
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 62]
+
+Internet-Draft               COSE Structure                   March 2019
+
 
    o  Layer 1: Uses the AES Key Wrap algorithm with a 128-bit key.
 
@@ -3469,9 +3520,14 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 62]
+
+
+
+
+
+Schaad                 Expires September 12, 2019              [Page 63]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    96(
@@ -3525,9 +3581,9 @@ Appendix C.  Examples
 
 
 
-Schaad                   Expires August 19, 2019               [Page 63]
+Schaad                 Expires September 12, 2019              [Page 64]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    A GitHub project has been created at <https://github.com/cose-wg/
@@ -3581,9 +3637,9 @@ C.1.1.  Single Signature
 
 
 
-Schaad                   Expires August 19, 2019               [Page 64]
+Schaad                 Expires September 12, 2019              [Page 65]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    98(
@@ -3637,9 +3693,9 @@ C.1.2.  Multiple Signers
 
 
 
-Schaad                   Expires August 19, 2019               [Page 65]
+Schaad                 Expires September 12, 2019              [Page 66]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    98(
@@ -3693,9 +3749,9 @@ C.1.3.  Counter Signature
 
 
 
-Schaad                   Expires August 19, 2019               [Page 66]
+Schaad                 Expires September 12, 2019              [Page 67]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    98(
@@ -3749,9 +3805,9 @@ C.1.4.  Signature with Criticality
 
 
 
-Schaad                   Expires August 19, 2019               [Page 67]
+Schaad                 Expires September 12, 2019              [Page 68]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    98(
@@ -3805,9 +3861,9 @@ C.2.1.  Single ECDSA Signature
 
 
 
-Schaad                   Expires August 19, 2019               [Page 68]
+Schaad                 Expires September 12, 2019              [Page 69]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    18(
@@ -3861,9 +3917,9 @@ C.3.1.  Direct ECDH
 
 
 
-Schaad                   Expires August 19, 2019               [Page 69]
+Schaad                 Expires September 12, 2019              [Page 70]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    96(
@@ -3917,9 +3973,9 @@ C.3.2.  Direct Plus Key Derivation
 
 
 
-Schaad                   Expires August 19, 2019               [Page 70]
+Schaad                 Expires September 12, 2019              [Page 71]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    Size of binary file is 91 bytes
@@ -3973,9 +4029,9 @@ C.3.3.  Counter Signature on Encrypted Content
 
 
 
-Schaad                   Expires August 19, 2019               [Page 71]
+Schaad                 Expires September 12, 2019              [Page 72]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    96(
@@ -4029,9 +4085,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 72]
+Schaad                 Expires September 12, 2019              [Page 73]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
 C.3.4.  Encrypted Content with External Data
@@ -4085,9 +4141,9 @@ C.4.1.  Simple Encrypted Message
 
 
 
-Schaad                   Expires August 19, 2019               [Page 73]
+Schaad                 Expires September 12, 2019              [Page 74]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    16(
@@ -4141,9 +4197,9 @@ C.5.1.  Shared Secret Direct MAC
 
 
 
-Schaad                   Expires August 19, 2019               [Page 74]
+Schaad                 Expires September 12, 2019              [Page 75]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    97(
@@ -4197,9 +4253,9 @@ C.5.2.  ECDH Direct MAC
 
 
 
-Schaad                   Expires August 19, 2019               [Page 75]
+Schaad                 Expires September 12, 2019              [Page 76]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    97(
@@ -4253,9 +4309,9 @@ C.5.3.  Wrapped MAC
 
 
 
-Schaad                   Expires August 19, 2019               [Page 76]
+Schaad                 Expires September 12, 2019              [Page 77]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    97(
@@ -4309,9 +4365,9 @@ C.5.4.  Multi-Recipient MACed Message
 
 
 
-Schaad                   Expires August 19, 2019               [Page 77]
+Schaad                 Expires September 12, 2019              [Page 78]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    97(
@@ -4365,9 +4421,9 @@ C.6.1.  Shared Secret Direct MAC
 
 
 
-Schaad                   Expires August 19, 2019               [Page 78]
+Schaad                 Expires September 12, 2019              [Page 79]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    o  Recipient class: direct shared secret
@@ -4421,9 +4477,9 @@ C.7.1.  Public Keys
 
 
 
-Schaad                   Expires August 19, 2019               [Page 79]
+Schaad                 Expires September 12, 2019              [Page 80]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    [
@@ -4477,9 +4533,9 @@ C.7.2.  Private Keys
 
 
 
-Schaad                   Expires August 19, 2019               [Page 80]
+Schaad                 Expires September 12, 2019              [Page 81]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    o  An EC key with a kid of "meriadoc.brandybuck@buckland.example"
@@ -4533,9 +4589,9 @@ Internet-Draft               COSE Structure                February 2019
 
 
 
-Schaad                   Expires August 19, 2019               [Page 81]
+Schaad                 Expires September 12, 2019              [Page 82]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
        -4:h'00085138ddabf5ca975f5860f91a08e91d6d5f9a76ad4018766a476680b
@@ -4589,9 +4645,9 @@ Acknowledgments
 
 
 
-Schaad                   Expires August 19, 2019               [Page 82]
+Schaad                 Expires September 12, 2019              [Page 83]
 
-Internet-Draft               COSE Structure                February 2019
+Internet-Draft               COSE Structure                   March 2019
 
 
    Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran
@@ -4645,4 +4701,4 @@ Author's Address
 
 
 
-Schaad                   Expires August 19, 2019               [Page 83]
+Schaad                 Expires September 12, 2019              [Page 84]

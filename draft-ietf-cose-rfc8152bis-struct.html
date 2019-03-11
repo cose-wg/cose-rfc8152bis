@@ -5,7 +5,7 @@
 <head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
 
-  <title>CBOR Object Signing&#160;and&#160;Encryption&#160;(COSE) - Structures and Process</title>
+  <title>CBOR CBOR Object Signing&#160;and&#160;Encryption&#160;(COSE): Structures and Process</title>
 
   
 <style type="text/css">/*<![CDATA[*/
@@ -334,7 +334,9 @@ ul.toc li {
 <link href="#rfc.section.16" rel="Chapter" title="16 Security Considerations">
 <link href="#rfc.section.17" rel="Chapter" title="17 Implementation Status">
 <link href="#rfc.section.17.1" rel="Chapter" title="17.1 Author's Versions">
-<link href="#rfc.section.17.2" rel="Chapter" title="17.2 COSE Testing Library">
+<link href="#rfc.section.17.2" rel="Chapter" title="17.2 Java Script Version">
+<link href="#rfc.section.17.3" rel="Chapter" title="17.3 Python Version">
+<link href="#rfc.section.17.4" rel="Chapter" title="17.4 COSE Testing Library">
 <link href="#rfc.references" rel="Chapter" title="18 References">
 <link href="#rfc.references.1" rel="Chapter" title="18.1 Normative References">
 <link href="#rfc.references.2" rel="Chapter" title="18.2 Informative References">
@@ -372,12 +374,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.17.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.19.1 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Schaad, J." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cose-rfc8152bis-struct-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-15" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-11" />
   <meta name="dct.abstract" content="Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  This specification additionally describes how to represent cryptographic keys using CBOR.  This document along with  obsoletes RFC8152.  " />
   <meta name="description" content="Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  This specification additionally describes how to represent cryptographic keys using CBOR.  This document along with  obsoletes RFC8152.  " />
 
@@ -398,14 +400,14 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Obsoletes: 8152 (if approved)</td>
-<td class="right">February 15, 2019</td>
+<td class="right">March 11, 2019</td>
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: August 19, 2019</td>
+<td class="left">Expires: September 12, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -413,7 +415,7 @@ ul.toc li {
     </tbody>
   </table>
 
-  <p class="title">CBOR Object Signing&#160;and&#160;Encryption&#160;(COSE) - Structures and Process<br />
+  <p class="title">CBOR CBOR Object Signing&#160;and&#160;Encryption&#160;(COSE): Structures and Process<br />
   <span class="filename">draft-ietf-cose-rfc8152bis-struct-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
@@ -425,7 +427,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 19, 2019.</p>
+<p>This Internet-Draft will expire on September 12, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -541,7 +543,11 @@ ul.toc li {
 </li>
 <ul><li>17.1.   <a href="#rfc.section.17.1">Author's Versions</a>
 </li>
-<li>17.2.   <a href="#rfc.section.17.2">COSE Testing Library</a>
+<li>17.2.   <a href="#rfc.section.17.2">Java Script Version</a>
+</li>
+<li>17.3.   <a href="#rfc.section.17.3">Python Version</a>
+</li>
+<li>17.4.   <a href="#rfc.section.17.4">COSE Testing Library</a>
 </li>
 </ul><li>18.   <a href="#rfc.references">References</a>
 </li>
@@ -659,7 +665,14 @@ ul.toc li {
 <p> </p>
 <h1 id="rfc.section.1.2">
 <a href="#rfc.section.1.2">1.2.</a> Changes from RFC8152</h1>
-<p id="rfc.section.1.2.p.1">TBD </p>
+<p></p>
+
+<ul>
+<li>Split the orignal document into this document and <a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">[I-D.ietf-cose-rfc8152bis-algs]</a>.</li>
+<li>Add some text describing why there is no digest structure defined by COSE.</li>
+</ul>
+
+<p> </p>
 <h1 id="rfc.section.1.3">
 <a href="#rfc.section.1.3">1.3.</a> <a href="#requirements-terminology" id="requirements-terminology">Requirements Terminology</a>
 </h1>
@@ -1114,7 +1127,7 @@ COSE_Sign1 = [
 <h1 id="rfc.section.4.4">
 <a href="#rfc.section.4.4">4.4.</a> <a href="#Sig_structure" id="Sig_structure">Signing and Verification Process</a>
 </h1>
-<p id="rfc.section.4.4.p.1">In order to create a signature, a well-defined byte string is needed.  The Sig_struture is used to create the canonical form.  This signing and verification process takes in the body information (COSE_Sign or COSE_Sign1), the signer information (COSE_Signature), and the application data (external source).  A Sig_structure is a CBOR array.  The fields of the Sig_struture in order are: </p>
+<p id="rfc.section.4.4.p.1">In order to create a signature, a well-defined byte string is needed.  The Sig_structure is used to create the canonical form.  This signing and verification process takes in the body information (COSE_Sign or COSE_Sign1), the signer information (COSE_Signature), and the application data (external source).  A Sig_structure is a CBOR array.  The fields of the Sig_structure in order are: </p>
 
 <ol>
 <li>A text string identifying the context of the signature.  The context string is: <ul class="empty">
@@ -2001,21 +2014,49 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <li>Primary Maintainer: Jim Schaad</li>
 <li>Languages: There are three different languages that are currently supported:  Java, C# and C.  </li>
 <li>Cryptography: The Java and C# libraries use Bouncy Castle to provide the required cryptography.  The C version uses OPENSSL Version 1.0 for the cryptography.  </li>
-<li>Coverage: The libraries currently do not have full support for counter signatures of either variety.  They do have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.  </li>
+<li>Coverage: The C version currently does not have full countersign support.  THe other two versions do.  They do have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.  </li>
 <li>Testing: All of the examples in the example library are generated by the C# library and then validated using the Java and C libraries.  All three libraries have tests to allow for the creating of the same messages that are in the example library followed by validating them.  These are not compared against the example library.  The Java and C# libraries have unit testing included.  Not all of the MUST statements in the document have been implemented as part of the libraries.  One such statement is the requirement that unique labels be present.  </li>
 <li>Licensing: Revised BSD License </li>
 </ul>
 
 <p> </p>
 <h1 id="rfc.section.17.2">
-<a href="#rfc.section.17.2">17.2.</a> COSE Testing Library</h1>
+<a href="#rfc.section.17.2">17.2.</a> Java Script Version</h1>
+<p></p>
+
+<ul class="empty">
+<li>Implementation Location: https://github.com/erdtman/cose-js</li>
+<li>Primary Maintainer: Samuel Erdtman</li>
+<li>Languages: JavaScript</li>
+<li>Cryptography: TBD</li>
+<li>Coverage: Full Encrypt, Signature and MAC objects are supported.</li>
+<li>Testing: Basic testing against the common example library.</li>
+<li>Licensing: Apache License 2.0</li>
+</ul>
+<h1 id="rfc.section.17.3">
+<a href="#rfc.section.17.3">17.3.</a> Python Version</h1>
+<p></p>
+
+<ul class="empty">
+<li>Implementation Location: https://github.com/TimothyClaeys/COSE-PYTHON</li>
+<li>Primary Maintainer: Timothy Claeys</li>
+<li>Languages: Python</li>
+<li>Cryptography: pyecdsak, crypto python libraries</li>
+<li>Coverage: TBD</li>
+<li>Testing: Basic testing plus running against the common example library.</li>
+<li>Licensing: BSD 3-Clause License</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.17.4">
+<a href="#rfc.section.17.4">17.4.</a> COSE Testing Library</h1>
 <p></p>
 
 <ul class="empty">
 <li>Implementation Location: https://github.com/cose-wg/Examples</li>
 <li>Primary Maintainer: Jim Schaad</li>
 <li>Description: A set of tests for the COSE library is provided as part of the implementation effort.  Both success and fail tests have been provided.  All of the examples in this document are part of this example set.  </li>
-<li>Coverage:  An attempt has been made to have test cases for every message type and algorithm in the document.  Currently examples dealing with counter signatures, EdDSA, and ECDH with Curve24459 and Goldilocks are missing.  </li>
+<li>Coverage:  An attempt has been made to have test cases for every message type and algorithm in the document.  Currently examples dealing with counter signatures, and ECDH with Curve24459 and Goldilocks are missing.  </li>
 <li>Licensing: Public Domain</li>
 </ul>
 
@@ -2053,7 +2094,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <tr>
 <td class="reference"><b id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</b></td>
 <td class="top">
-<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-00">CBOR Algorithms for Object Signing and Encryption (COSE)</a>", Internet-Draft draft-ietf-cose-rfc8152bis-algs-00, January 2019.</td>
+<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-01">CBOR Algorithms for Object Signing and Encryption (COSE)</a>", Internet-Draft draft-ietf-cose-rfc8152bis-algs-01, February 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -2087,7 +2128,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <tr>
 <td class="reference"><b id="I-D.ietf-core-object-security">[I-D.ietf-core-object-security]</b></td>
 <td class="top">
-<a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-object-security-15">Object Security for Constrained RESTful Environments (OSCORE)</a>", Internet-Draft draft-ietf-core-object-security-15, August 2018.</td>
+<a>Selander, G.</a>, <a>Mattsson, J.</a>, <a>Palombini, F.</a> and <a>L. Seitz</a>, "<a href="https://tools.ietf.org/html/draft-ietf-core-object-security-16">Object Security for Constrained RESTful Environments (OSCORE)</a>", Internet-Draft draft-ietf-core-object-security-16, March 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="PVSig">[PVSig]</b></td>

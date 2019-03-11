@@ -5,7 +5,7 @@
 <head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
 
-  <title>CBOR Algorithms for Object Signing&#160;and&#160;Encryption&#160;(COSE) </title>
+  <title>CBOR Object Signing&#160;and&#160;Encryption&#160;(COSE): Initial Algorithms </title>
 
   
 <style type="text/css">/*<![CDATA[*/
@@ -286,6 +286,7 @@ ul.toc li {
 <link href="#rfc.section.1.2" rel="Chapter" title="1.2 Changes from RFC8152">
 <link href="#rfc.section.1.3" rel="Chapter" title="1.3 Document Terminology">
 <link href="#rfc.section.1.4" rel="Chapter" title="1.4 CBOR Grammar">
+<link href="#rfc.section.1.5" rel="Chapter" title="1.5 Examples">
 <link href="#rfc.section.2" rel="Chapter" title="2 Signature Algorithms">
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 ECDSA">
 <link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Security Considerations">
@@ -307,41 +308,34 @@ ul.toc li {
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 HMAC-Based Extract-and-Expand Key Derivation Function (HKDF)">
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 Context Information Structure">
 <link href="#rfc.section.6" rel="Chapter" title="6 Content Key Distribution Methods">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Direct Key">
-<link href="#rfc.section.6.1.1" rel="Chapter" title="6.1.1 Security Considerations">
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Direct Key with KDF">
-<link href="#rfc.section.6.2.1" rel="Chapter" title="6.2.1 Security Considerations">
-<link href="#rfc.section.6.3" rel="Chapter" title="6.3 AES Key Wrap">
-<link href="#rfc.section.6.3.1" rel="Chapter" title="6.3.1 Security Considerations for AES-KW">
-<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Direct ECDH">
-<link href="#rfc.section.6.4.1" rel="Chapter" title="6.4.1 Security Considerations">
-<link href="#rfc.section.6.5" rel="Chapter" title="6.5 ECDH with Key Wrap">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Direct Encryption">
+<link href="#rfc.section.6.1.1" rel="Chapter" title="6.1.1 Direct Key">
+<link href="#rfc.section.6.1.2" rel="Chapter" title="6.1.2 Direct Key with KDF">
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 AES Key Wrap">
+<link href="#rfc.section.6.2.1" rel="Chapter" title="6.2.1 Security Considerations for AES-KW">
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Direct ECDH">
+<link href="#rfc.section.6.3.1" rel="Chapter" title="6.3.1 Security Considerations">
+<link href="#rfc.section.6.4" rel="Chapter" title="6.4 ECDH with Key Wrap">
 <link href="#rfc.section.7" rel="Chapter" title="7 Key Object Parameters">
 <link href="#rfc.section.7.1" rel="Chapter" title="7.1 Elliptic Curve Keys">
 <link href="#rfc.section.7.1.1" rel="Chapter" title="7.1.1 Double Coordinate Curves">
 <link href="#rfc.section.7.2" rel="Chapter" title="7.2 Octet Key Pair">
 <link href="#rfc.section.7.3" rel="Chapter" title="7.3 Symmetric Keys">
 <link href="#rfc.section.8" rel="Chapter" title="8 IANA Considerations">
-<link href="#rfc.section.8.1" rel="Chapter" title="8.1 COSE Algorithms Registry">
-<link href="#rfc.section.8.2" rel="Chapter" title="8.2 COSE Key Type Parameters Registry">
-<link href="#rfc.section.8.3" rel="Chapter" title="8.3 COSE Key Types Registry">
-<link href="#rfc.section.8.4" rel="Chapter" title="8.4 COSE Elliptic Curves Registry">
-<link href="#rfc.section.8.5" rel="Chapter" title="8.5 Expert Review Instructions">
 <link href="#rfc.section.9" rel="Chapter" title="9 Security Considerations">
 <link href="#rfc.references" rel="Chapter" title="10 References">
 <link href="#rfc.references.1" rel="Chapter" title="10.1 Normative References">
 <link href="#rfc.references.2" rel="Chapter" title="10.2 Informative References">
-<link href="#rfc.appendix.A" rel="Chapter" title="A Examples">
 <link href="#rfc.acknowledgments" rel="Chapter">
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.17.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.19.1 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Schaad, J." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-cose-rfc8152bis-algs-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-15" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-11" />
   <meta name="dct.abstract" content="Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  COSE additionally describes how to represent cryptographic keys using CBOR.  In this specification the conventions for the use of a number of cryptographic algorithms with COSE.  The details of the structure of COSE are defined in .  This document along with  obsoletes RFC8152.  " />
   <meta name="description" content="Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  COSE additionally describes how to represent cryptographic keys using CBOR.  In this specification the conventions for the use of a number of cryptographic algorithms with COSE.  The details of the structure of COSE are defined in .  This document along with  obsoletes RFC8152.  " />
 
@@ -362,14 +356,14 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Obsoletes: 8152 (if approved)</td>
-<td class="right">February 15, 2019</td>
+<td class="right">March 11, 2019</td>
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: August 19, 2019</td>
+<td class="left">Expires: September 12, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -377,20 +371,20 @@ ul.toc li {
     </tbody>
   </table>
 
-  <p class="title">CBOR Algorithms for Object Signing&#160;and&#160;Encryption&#160;(COSE) <br />
+  <p class="title">CBOR Object Signing&#160;and&#160;Encryption&#160;(COSE): Initial Algorithms <br />
   <span class="filename">draft-ietf-cose-rfc8152bis-algs-latest</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.  There is a need for the ability to have basic security services defined for this data format.  This document defines the CBOR Object Signing and Encryption (COSE) protocol.  This specification describes how to create and process signatures, message authentication codes, and encryption using CBOR for serialization.  COSE additionally describes how to represent cryptographic keys using CBOR.  </p>
-<p>In this specification the conventions for the use of a number of cryptographic algorithms with COSE.  The details of the structure of COSE are defined in <a href="#I-D.schaad-cose-rfc8152bis-struct" class="xref">[I-D.schaad-cose-rfc8152bis-struct]</a>.  </p>
-<p>This document along with <a href="#I-D.schaad-cose-rfc8152bis-struct" class="xref">[I-D.schaad-cose-rfc8152bis-struct]</a> obsoletes RFC8152.  </p>
+<p>In this specification the conventions for the use of a number of cryptographic algorithms with COSE.  The details of the structure of COSE are defined in <a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">[I-D.ietf-cose-rfc8152bis-struct]</a>.  </p>
+<p>This document along with <a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">[I-D.ietf-cose-rfc8152bis-struct]</a> obsoletes RFC8152.  </p>
 <h1><a>Contributing to this document</a></h1>
 <p>The source for this draft is being maintained in GitHub.  Suggested changes should be submitted as pull requests  at <span>&lt;</span><a href="https://github.com/cose-wg/cose-rfc8152bis">https://github.com/cose-wg/cose-rfc8152bis</a><span>&gt;</span>.  Instructions are on that page as well.  Editorial changes can be managed in GitHub, but any substantial issues need to be discussed on the COSE mailing list.  </p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 19, 2019.</p>
+<p>This Internet-Draft will expire on September 12, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -409,6 +403,8 @@ ul.toc li {
 <li>1.3.   <a href="#rfc.section.1.3">Document Terminology</a>
 </li>
 <li>1.4.   <a href="#rfc.section.1.4">CBOR Grammar</a>
+</li>
+<li>1.5.   <a href="#rfc.section.1.5">Examples</a>
 </li>
 </ul><li>2.   <a href="#rfc.section.2">Signature Algorithms</a>
 </li>
@@ -452,23 +448,21 @@ ul.toc li {
 </li>
 </ul><li>6.   <a href="#rfc.section.6">Content Key Distribution Methods</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Direct Key</a>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Direct Encryption</a>
 </li>
-<ul><li>6.1.1.   <a href="#rfc.section.6.1.1">Security Considerations</a>
+<ul><li>6.1.1.   <a href="#rfc.section.6.1.1">Direct Key</a>
 </li>
-</ul><li>6.2.   <a href="#rfc.section.6.2">Direct Key with KDF</a>
+<li>6.1.2.   <a href="#rfc.section.6.1.2">Direct Key with KDF</a>
 </li>
-<ul><li>6.2.1.   <a href="#rfc.section.6.2.1">Security Considerations</a>
+</ul><li>6.2.   <a href="#rfc.section.6.2">AES Key Wrap</a>
 </li>
-</ul><li>6.3.   <a href="#rfc.section.6.3">AES Key Wrap</a>
+<ul><li>6.2.1.   <a href="#rfc.section.6.2.1">Security Considerations for AES-KW</a>
 </li>
-<ul><li>6.3.1.   <a href="#rfc.section.6.3.1">Security Considerations for AES-KW</a>
+</ul><li>6.3.   <a href="#rfc.section.6.3">Direct ECDH</a>
 </li>
-</ul><li>6.4.   <a href="#rfc.section.6.4">Direct ECDH</a>
+<ul><li>6.3.1.   <a href="#rfc.section.6.3.1">Security Considerations</a>
 </li>
-<ul><li>6.4.1.   <a href="#rfc.section.6.4.1">Security Considerations</a>
-</li>
-</ul><li>6.5.   <a href="#rfc.section.6.5">ECDH with Key Wrap</a>
+</ul><li>6.4.   <a href="#rfc.section.6.4">ECDH with Key Wrap</a>
 </li>
 </ul><li>7.   <a href="#rfc.section.7">Key Object Parameters</a>
 </li>
@@ -482,17 +476,7 @@ ul.toc li {
 </li>
 </ul><li>8.   <a href="#rfc.section.8">IANA Considerations</a>
 </li>
-<ul><li>8.1.   <a href="#rfc.section.8.1">COSE Algorithms Registry</a>
-</li>
-<li>8.2.   <a href="#rfc.section.8.2">COSE Key Type Parameters Registry</a>
-</li>
-<li>8.3.   <a href="#rfc.section.8.3">COSE Key Types Registry</a>
-</li>
-<li>8.4.   <a href="#rfc.section.8.4">COSE Elliptic Curves Registry</a>
-</li>
-<li>8.5.   <a href="#rfc.section.8.5">Expert Review Instructions</a>
-</li>
-</ul><li>9.   <a href="#rfc.section.9">Security Considerations</a>
+<li>9.   <a href="#rfc.section.9">Security Considerations</a>
 </li>
 <li>10.   <a href="#rfc.references">References</a>
 </li>
@@ -500,9 +484,7 @@ ul.toc li {
 </li>
 <li>10.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
-</ul><li>Appendix A.   <a href="#rfc.appendix.A">Examples</a>
-</li>
-<li><a href="#rfc.acknowledgments">Acknowledgments</a>
+</ul><li><a href="#rfc.acknowledgments">Acknowledgments</a>
 </li>
 <li><a href="#rfc.authors">Author's Address</a>
 </li>
@@ -514,14 +496,18 @@ ul.toc li {
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
 <p id="rfc.section.1.p.1">There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <a href="#RFC7049" class="xref">[RFC7049]</a>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <a href="#RFC8259" class="xref">[RFC8259]</a> by allowing for binary data, among other changes.  CBOR is being adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </p>
-<p id="rfc.section.1.p.2">The core COSE specification consists of two documents.  <a href="#I-D.schaad-cose-rfc8152bis-struct" class="xref">[I-D.schaad-cose-rfc8152bis-struct]</a> contains the serialization structures and the procedures for using the different cryptographic algorithms.  This document provides for an initial set of algorithms that are then use with those structures.  Additional algorithms beyond what are in this document are defined elsewhere.  </p>
+<p id="rfc.section.1.p.2">The core COSE specification consists of two documents.  <a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">[I-D.ietf-cose-rfc8152bis-struct]</a> contains the serialization structures and the procedures for using the different cryptographic algorithms.  This document provides for an initial set of algorithms that are then use with those structures.  Additional algorithms beyond what are in this document are defined elsewhere.  </p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#requirements-terminology" id="requirements-terminology">Requirements Terminology</a>
 </h1>
 <p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.  </p>
 <h1 id="rfc.section.1.2">
 <a href="#rfc.section.1.2">1.2.</a> Changes from RFC8152</h1>
-<p id="rfc.section.1.2.p.1">TBD </p>
+<p></p>
+
+<ul><li>Extract the sections dealing with specific algorithms into this document.  The sections dealing with structure and general processing rules are placed in <a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">[I-D.ietf-cose-rfc8152bis-struct]</a>.  </li></ul>
+
+<p> </p>
 <h1 id="rfc.section.1.3">
 <a href="#rfc.section.1.3">1.3.</a> Document Terminology</h1>
 <p id="rfc.section.1.3.p.1">In this document, we use the following terminology: </p>
@@ -531,11 +517,15 @@ ul.toc li {
 <p id="rfc.section.1.3.p.5">Authenticated Encryption with Authenticated Data (AEAD) <a href="#RFC5116" class="xref">[RFC5116]</a> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </p>
 <h1 id="rfc.section.1.4">
 <a href="#rfc.section.1.4">1.4.</a> CBOR Grammar</h1>
-<p id="rfc.section.1.4.p.1">At the time that <a href="#RFC8152" class="xref">[RFC8152]</a> was initially published, the CBOR Data Definition Language (CDDL) <a href="#I-D.ietf-cbor-cddl" class="xref">[I-D.ietf-cbor-cddl]</a> had not yet been published.  This document uses a variant of CDDL which is described in <a href="#I-D.schaad-cose-rfc8152bis-struct" class="xref">[I-D.schaad-cose-rfc8152bis-struct]</a> </p>
+<p id="rfc.section.1.4.p.1">At the time that <a href="#RFC8152" class="xref">[RFC8152]</a> was initially published, the CBOR Data Definition Language (CDDL) <a href="#I-D.ietf-cbor-cddl" class="xref">[I-D.ietf-cbor-cddl]</a> had not yet been published.  This document uses a variant of CDDL which is described in <a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">[I-D.ietf-cose-rfc8152bis-struct]</a> </p>
+<h1 id="rfc.section.1.5">
+<a href="#rfc.section.1.5">1.5.</a> <a href="#examples" id="examples">Examples</a>
+</h1>
+<p id="rfc.section.1.5.p.1">A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.  Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format.  Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.  If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.  </p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#SigAlgs" id="SigAlgs">Signature Algorithms</a>
 </h1>
-<p id="rfc.section.2.p.1">The document defines signature algorithm identifiers for two signature algorithms.  </p>
+<p><a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</a> contains a generic description of signature algorithms.  The document defines signature algorithm identifiers for two signature algorithms.  </p>
 <h1 id="rfc.section.2.1">
 <a href="#rfc.section.2.1">2.1.</a> <a href="#ECDSA" id="ECDSA">ECDSA</a>
 </h1>
@@ -636,7 +626,7 @@ ul.toc li {
 <p id="rfc.section.2.2.1.p.2">If batch signature verification is performed, a well-seeded cryptographic random number generator is REQUIRED.  Signing and non-batch signature verification are deterministic operations and do not need random numbers of any kind.  </p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> Message Authentication Code (MAC) Algorithms</h1>
-<p id="rfc.section.3.p.1">This section defines the usages for two MAC algorithms.  </p>
+<p><a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</a> contains a generic description of MAC algorithms.  This section defines the conventions for two MAC algorithms.  </p>
 <h1 id="rfc.section.3.1">
 <a href="#rfc.section.3.1">3.1.</a> Hash-Based Message Authentication Codes (HMACs)</h1>
 <p id="rfc.section.3.1.p.1">HMAC <a href="#RFC2104" class="xref">[RFC2104]</a> <a href="#RFC4231" class="xref">[RFC4231]</a> was designed to deal with length extension attacks.  The algorithm was also designed to allow for new hash algorithms to be directly plugged in without changes to the hash function.  The HMAC design process has been shown as solid since, while the security of hash algorithms such as MD5 has decreased over time; the security of HMAC combined with MD5 has not yet been shown to be compromised <a href="#RFC6151" class="xref">[RFC6151]</a>.  </p>
@@ -769,7 +759,7 @@ ul.toc li {
 <p> </p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> Content Encryption Algorithms</h1>
-<p id="rfc.section.4.p.1">This document defines the identifier and usages for three content encryption algorithms.  </p>
+<p><a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</a> contains a generic description of Content Encryption algorithms.  This document defines the identifier and usages for three content encryption algorithms.  </p>
 <h1 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> AES GCM</h1>
 <p id="rfc.section.4.1.p.1">The Galois/Counter Mode (GCM) mode is a generic authenticated encryption block cipher mode defined in <a href="#AES-GCM" class="xref">[AES-GCM]</a>.  The GCM mode is combined with the AES block encryption algorithm to define an AEAD cipher.  </p>
@@ -986,7 +976,7 @@ ul.toc li {
 <p id="rfc.section.4.3.1.p.1">The key and nounce values MUST be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.  </p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> Key Derivation Functions (KDFs)</h1>
-<p id="rfc.section.5.p.1">This document defines a single context structure and a single KDF.  These elements are used for all of the recipient algorithms defined in this document that require a KDF process.  These algorithms are defined in Sections <a href="#direct-kdf" class="xref">6.2</a>, <a href="#ECDH" class="xref">6.4</a>, and <a href="#ECDH-wrap" class="xref">6.5</a>.  </p>
+<p><a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</a> contains a generic description of Key Derivation Functions.  This document defines a single context structure and a single KDF.  These elements are used for all of the recipient algorithms defined in this document that require a KDF process.  These algorithms are defined in Sections <a href="#direct-kdf" class="xref">6.1.2</a>, <a href="#ECDH" class="xref">6.3</a>, and <a href="#ECDH-wrap" class="xref">6.4</a>.  </p>
 <h1 id="rfc.section.5.1">
 <a href="#rfc.section.5.1">5.1.</a> <a href="#HKDF" id="HKDF">HMAC-Based Extract-and-Expand Key Derivation Function (HKDF)</a>
 </h1>
@@ -1183,11 +1173,14 @@ COSE_KDF_Context = [
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#key-management-algs" id="key-management-algs">Content Key Distribution Methods</a>
 </h1>
-<p id="rfc.section.6.p.1">This document defines the identifiers and usage for a number of content key distribution methods.  </p>
+<p><a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</a> contains a generic description of content key distribution methods.  This document defines the identifiers and usage for a number of content key distribution methods.  </p>
 <h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> Direct Key</h1>
-<p id="rfc.section.6.1.p.1">This recipient algorithm is the simplest; the identified key is directly used as the key for the next layer down in the message.  There are no algorithm parameters defined for this algorithm.  The algorithm identifier value is assigned  in <a href="#table-direct" class="xref">Table 11</a>.  </p>
-<p id="rfc.section.6.1.p.2">When this algorithm is used, the protected field MUST be zero length.  The key type MUST be 'Symmetric'.  </p>
+<a href="#rfc.section.6.1">6.1.</a> Direct Encryption</h1>
+<p id="rfc.section.6.1.p.1">Direct encryption algorithm is defined in <a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</a>.  Information about how to fill in the COSE_Recipient structure are detailed there.  </p>
+<h1 id="rfc.section.6.1.1">
+<a href="#rfc.section.6.1.1">6.1.1.</a> Direct Key</h1>
+<p id="rfc.section.6.1.1.p.1">This recipient algorithm is the simplest; the identified key is directly used as the key for the next layer down in the message.  There are no algorithm parameters defined for this algorithm.  The algorithm identifier value is assigned  in <a href="#table-direct" class="xref">Table 11</a>.  </p>
+<p id="rfc.section.6.1.1.p.2">When this algorithm is used, the protected field MUST be zero length.  The key type MUST be 'Symmetric'.  </p>
 <div id="rfc.table.11"></div>
 <div id="table-direct"></div>
 <table cellpadding="3" cellspacing="0" class="tt full center">
@@ -1203,9 +1196,9 @@ COSE_KDF_Context = [
 <td class="left">Direct use of CEK</td>
 </tr></tbody>
 </table>
-<h1 id="rfc.section.6.1.1">
-<a href="#rfc.section.6.1.1">6.1.1.</a> Security Considerations</h1>
-<p id="rfc.section.6.1.1.p.1">This recipient algorithm has several potential problems that need to be considered: </p>
+<h1 id="rfc.section.6.1.1.1">
+<a href="#rfc.section.6.1.1.1">6.1.1.1.</a> Security Considerations</h1>
+<p id="rfc.section.6.1.1.1.p.1">This recipient algorithm has several potential problems that need to be considered: </p>
 
 <ul>
 <li>These keys need to have some method to be regularly updated over time.  All of the content encryption algorithms specified in this document have limits on how many times a key can be used without significant loss of security.  </li>
@@ -1214,15 +1207,15 @@ COSE_KDF_Context = [
 </ul>
 
 <p> </p>
-<h1 id="rfc.section.6.2">
-<a href="#rfc.section.6.2">6.2.</a> <a href="#direct-kdf" id="direct-kdf">Direct Key with KDF</a>
+<h1 id="rfc.section.6.1.2">
+<a href="#rfc.section.6.1.2">6.1.2.</a> <a href="#direct-kdf" id="direct-kdf">Direct Key with KDF</a>
 </h1>
-<p id="rfc.section.6.2.p.1">These recipient algorithms take a common shared secret between the two parties and applies the HKDF function (<a href="#HKDF" class="xref">Section 5.1</a>), using the context structure defined in <a href="#context" class="xref">Section 5.2</a> to transform the shared secret into the CEK.  The 'protected' field can be of non-zero length.  Either the 'salt' parameter of HKDF or the 'PartyU nonce' parameter of the context structure MUST be present.  The salt/nonce parameter can be generated either randomly or deterministically.  The requirement is that it be a unique value for the shared secret in question.  </p>
-<p id="rfc.section.6.2.p.2">If the salt/nonce value is generated randomly, then it is suggested that the length of the random value be the same length as the hash function underlying HKDF.  While there is no way to guarantee that it will be unique, there is a high probability that it will be unique.  If the salt/nonce value is generated deterministically, it can be guaranteed to be unique, and thus there is no length requirement.  </p>
-<p id="rfc.section.6.2.p.3">A new IV must be used for each message if the same key is used.  The IV can be modified in a predictable manner, a random manner, or an unpredictable manner (i.e., encrypting a counter).  </p>
-<p id="rfc.section.6.2.p.4">The IV used for a key can also be generated from the same HKDF functionality as the key is generated.  If HKDF is used for generating the IV, the algorithm identifier is set to "IV-GENERATION".  </p>
-<p id="rfc.section.6.2.p.5">When these algorithms are used, the key type MUST be 'symmetric'.  </p>
-<p id="rfc.section.6.2.p.6">The set of algorithms defined in this document can be found in <a href="#table-direct-kdf" class="xref">Table 12</a>.  </p>
+<p id="rfc.section.6.1.2.p.1">These recipient algorithms take a common shared secret between the two parties and applies the HKDF function (<a href="#HKDF" class="xref">Section 5.1</a>), using the context structure defined in <a href="#context" class="xref">Section 5.2</a> to transform the shared secret into the CEK.  The 'protected' field can be of non-zero length.  Either the 'salt' parameter of HKDF or the 'PartyU nonce' parameter of the context structure MUST be present.  The salt/nonce parameter can be generated either randomly or deterministically.  The requirement is that it be a unique value for the shared secret in question.  </p>
+<p id="rfc.section.6.1.2.p.2">If the salt/nonce value is generated randomly, then it is suggested that the length of the random value be the same length as the hash function underlying HKDF.  While there is no way to guarantee that it will be unique, there is a high probability that it will be unique.  If the salt/nonce value is generated deterministically, it can be guaranteed to be unique, and thus there is no length requirement.  </p>
+<p id="rfc.section.6.1.2.p.3">A new IV must be used for each message if the same key is used.  The IV can be modified in a predictable manner, a random manner, or an unpredictable manner (i.e., encrypting a counter).  </p>
+<p id="rfc.section.6.1.2.p.4">The IV used for a key can also be generated from the same HKDF functionality as the key is generated.  If HKDF is used for generating the IV, the algorithm identifier is set to "IV-GENERATION".  </p>
+<p id="rfc.section.6.1.2.p.5">When these algorithms are used, the key type MUST be 'symmetric'.  </p>
+<p id="rfc.section.6.1.2.p.6">The set of algorithms defined in this document can be found in <a href="#table-direct-kdf" class="xref">Table 12</a>.  </p>
 <div id="rfc.table.12"></div>
 <div id="table-direct-kdf"></div>
 <table cellpadding="3" cellspacing="0" class="tt full center">
@@ -1260,7 +1253,7 @@ COSE_KDF_Context = [
 </tr>
 </tbody>
 </table>
-<p id="rfc.section.6.2.p.7">When using a COSE key for this algorithm, the following checks are made: </p>
+<p id="rfc.section.6.1.2.p.7">When using a COSE key for this algorithm, the following checks are made: </p>
 
 <ul>
 <li>The 'kty' field MUST be present, and it MUST be 'Symmetric'.</li>
@@ -1269,16 +1262,16 @@ COSE_KDF_Context = [
 </ul>
 
 <p> </p>
-<h1 id="rfc.section.6.2.1">
-<a href="#rfc.section.6.2.1">6.2.1.</a> Security Considerations</h1>
-<p id="rfc.section.6.2.1.p.1">The shared secret needs to have some method to be regularly updated over time.  The shared secret forms the basis of trust.  Although not used directly, it should still be subject to scheduled rotation.  </p>
-<p id="rfc.section.6.2.1.p.2">While these methods do not provide for perfect forward secrecy, as the same shared secret is used for all of the keys generated, if the key for any single message is discovered, only the message (or series of messages) using that derived key are compromised.  A new key derivation step will generate a new key that requires the same amount of work to get the key.  </p>
-<h1 id="rfc.section.6.3">
-<a href="#rfc.section.6.3">6.3.</a> <a href="#key_wrap_algs" id="key_wrap_algs">AES Key Wrap</a>
+<h1 id="rfc.section.6.1.2.1">
+<a href="#rfc.section.6.1.2.1">6.1.2.1.</a> Security Considerations</h1>
+<p id="rfc.section.6.1.2.1.p.1">The shared secret needs to have some method to be regularly updated over time.  The shared secret forms the basis of trust.  Although not used directly, it should still be subject to scheduled rotation.  </p>
+<p id="rfc.section.6.1.2.1.p.2">While these methods do not provide for perfect forward secrecy, as the same shared secret is used for all of the keys generated, if the key for any single message is discovered, only the message (or series of messages) using that derived key are compromised.  A new key derivation step will generate a new key that requires the same amount of work to get the key.  </p>
+<h1 id="rfc.section.6.2">
+<a href="#rfc.section.6.2">6.2.</a> <a href="#key_wrap_algs" id="key_wrap_algs">AES Key Wrap</a>
 </h1>
-<p id="rfc.section.6.3.p.1">The AES Key Wrap algorithm is defined in <a href="#RFC3394" class="xref">[RFC3394]</a>.  This algorithm uses an AES key to wrap a value that is a multiple of 64 bits.  As such, it can be used to wrap a key for any of the content encryption algorithms defined in this document. The algorithm requires a single fixed parameter, the initial value.  This is fixed to the value specified in Section 2.2.3.1 of  <a href="#RFC3394" class="xref">[RFC3394]</a>.  There are no public parameters that vary on a per-invocation basis.  The protected header field MUST be empty.  </p>
-<p id="rfc.section.6.3.p.2">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.  </p>
-<p id="rfc.section.6.3.p.3">When using a COSE key for this algorithm, the following checks are made: </p>
+<p id="rfc.section.6.2.p.1">The AES Key Wrap algorithm is defined in <a href="#RFC3394" class="xref">[RFC3394]</a>.  This algorithm uses an AES key to wrap a value that is a multiple of 64 bits.  As such, it can be used to wrap a key for any of the content encryption algorithms defined in this document. The algorithm requires a single fixed parameter, the initial value.  This is fixed to the value specified in Section 2.2.3.1 of  <a href="#RFC3394" class="xref">[RFC3394]</a>.  There are no public parameters that vary on a per-invocation basis.  The protected header field MUST be empty.  </p>
+<p id="rfc.section.6.2.p.2">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.  </p>
+<p id="rfc.section.6.2.p.3">When using a COSE key for this algorithm, the following checks are made: </p>
 
 <ul>
 <li>The 'kty' field MUST be present, and it MUST be 'Symmetric'.</li>
@@ -1319,14 +1312,14 @@ COSE_KDF_Context = [
 </tr>
 </tbody>
 </table>
-<h1 id="rfc.section.6.3.1">
-<a href="#rfc.section.6.3.1">6.3.1.</a> Security Considerations for AES-KW</h1>
-<p id="rfc.section.6.3.1.p.1">The shared secret needs to have some method to be regularly updated over time.  The shared secret is the basis of trust.  </p>
-<h1 id="rfc.section.6.4">
-<a href="#rfc.section.6.4">6.4.</a> <a href="#ECDH" id="ECDH">Direct ECDH</a>
+<h1 id="rfc.section.6.2.1">
+<a href="#rfc.section.6.2.1">6.2.1.</a> Security Considerations for AES-KW</h1>
+<p id="rfc.section.6.2.1.p.1">The shared secret needs to have some method to be regularly updated over time.  The shared secret is the basis of trust.  </p>
+<h1 id="rfc.section.6.3">
+<a href="#rfc.section.6.3">6.3.</a> <a href="#ECDH" id="ECDH">Direct ECDH</a>
 </h1>
-<p id="rfc.section.6.4.p.1">The mathematics for ECDH can be found in <a href="#RFC6090" class="xref">[RFC6090]</a>.  In this document, the algorithm is extended to be used with the two curves defined in <a href="#RFC7748" class="xref">[RFC7748]</a>.  </p>
-<p id="rfc.section.6.4.p.2">ECDH is parameterized by the following: </p>
+<p id="rfc.section.6.3.p.1">The mathematics for ECDH can be found in <a href="#RFC6090" class="xref">[RFC6090]</a>.  In this document, the algorithm is extended to be used with the two curves defined in <a href="#RFC7748" class="xref">[RFC7748]</a>.  </p>
+<p id="rfc.section.6.3.p.2">ECDH is parameterized by the following: </p>
 
 <ul>
 <li>Curve Type/Curve: The curve selected controls not only the size of the shared secret, but the mathematics for computing the shared secret.  The curve selected also controls how a point in the curve is represented and what happens for the identity points on the curve.  In this specification, we allow for a number of different curves to be used.  A set of curves are defined in <a href="#table-ec-curves" class="xref">Table 18</a>.  <br> The math used to obtain the computed secret is based on the curve selected and not on the ECDH algorithm.  For this reason, a new algorithm does not need to be defined for each of the curves.  </li>
@@ -1337,7 +1330,7 @@ COSE_KDF_Context = [
 </ul>
 
 <p> </p>
-<p id="rfc.section.6.4.p.3">The set of direct ECDH algorithms defined in this document are found in <a href="#table-ecdh-es-table" class="xref">Table 14</a>.  </p>
+<p id="rfc.section.6.3.p.3">The set of direct ECDH algorithms defined in this document are found in <a href="#table-ecdh-es-table" class="xref">Table 14</a>.  </p>
 <div id="rfc.table.14"></div>
 <div id="table-ecdh-es-table"></div>
 <table cellpadding="3" cellspacing="0" class="tt full center">
@@ -1420,8 +1413,8 @@ COSE_KDF_Context = [
 </tr>
 </tbody>
 </table>
-<p id="rfc.section.6.4.p.4">This document defines these algorithms to be used with the curves P-256, P-384, P-521, X25519, and X448.  Implementations MUST verify that the key type and curve are correct.  Different curves are restricted to different key types.  Implementations MUST verify that the curve and algorithm are appropriate for the entities involved.  </p>
-<p id="rfc.section.6.4.p.5">When using a COSE key for this algorithm, the following checks are made: </p>
+<p id="rfc.section.6.3.p.4">This document defines these algorithms to be used with the curves P-256, P-384, P-521, X25519, and X448.  Implementations MUST verify that the key type and curve are correct.  Different curves are restricted to different key types.  Implementations MUST verify that the curve and algorithm are appropriate for the entities involved.  </p>
+<p id="rfc.section.6.3.p.5">When using a COSE key for this algorithm, the following checks are made: </p>
 
 <ul>
 <li>The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.</li>
@@ -1431,18 +1424,18 @@ COSE_KDF_Context = [
 </ul>
 
 <p> </p>
-<h1 id="rfc.section.6.4.1">
-<a href="#rfc.section.6.4.1">6.4.1.</a> Security Considerations</h1>
-<p id="rfc.section.6.4.1.p.1">There is a method of checking that points provided from external entities are valid.  For the 'EC2' key format, this can be done by checking that the x and y values form a point on the curve.  For the 'OKP' format, there is no simple way to do point validation.  </p>
-<p id="rfc.section.6.4.1.p.2">Consideration was given to requiring that the public keys of both entities be provided as part of the key derivation process (as recommended in Section 6.1 of <a href="#RFC7748" class="xref">[RFC7748]</a>). This was not done as COSE is used in a store and forward format rather than in online key exchange.  In order for this to be a problem, either the receiver public key has to be chosen maliciously or the sender has to be malicious.  In either case, all security evaporates anyway.  </p>
-<p id="rfc.section.6.4.1.p.3">A proof of possession of the private key associated with the public key is recommended when a key is moved from untrusted to trusted (either by the end user or by the entity that is responsible for making trust statements on keys). </p>
-<h1 id="rfc.section.6.5">
-<a href="#rfc.section.6.5">6.5.</a> <a href="#ECDH-wrap" id="ECDH-wrap">ECDH with Key Wrap</a>
+<h1 id="rfc.section.6.3.1">
+<a href="#rfc.section.6.3.1">6.3.1.</a> Security Considerations</h1>
+<p id="rfc.section.6.3.1.p.1">There is a method of checking that points provided from external entities are valid.  For the 'EC2' key format, this can be done by checking that the x and y values form a point on the curve.  For the 'OKP' format, there is no simple way to do point validation.  </p>
+<p id="rfc.section.6.3.1.p.2">Consideration was given to requiring that the public keys of both entities be provided as part of the key derivation process (as recommended in Section 6.1 of <a href="#RFC7748" class="xref">[RFC7748]</a>). This was not done as COSE is used in a store and forward format rather than in online key exchange.  In order for this to be a problem, either the receiver public key has to be chosen maliciously or the sender has to be malicious.  In either case, all security evaporates anyway.  </p>
+<p id="rfc.section.6.3.1.p.3">A proof of possession of the private key associated with the public key is recommended when a key is moved from untrusted to trusted (either by the end user or by the entity that is responsible for making trust statements on keys). </p>
+<h1 id="rfc.section.6.4">
+<a href="#rfc.section.6.4">6.4.</a> <a href="#ECDH-wrap" id="ECDH-wrap">ECDH with Key Wrap</a>
 </h1>
-<p id="rfc.section.6.5.p.1">These algorithms are defined in <a href="#table-ecdh-es-table-wrap" class="xref">Table 16</a>.  </p>
-<p id="rfc.section.6.5.p.2">ECDH with Key Agreement is parameterized by the same parameters as for ECDH; see <a href="#ECDH" class="xref">Section 6.4</a>, with the following modifications: </p>
+<p id="rfc.section.6.4.p.1">These algorithms are defined in <a href="#table-ecdh-es-table-wrap" class="xref">Table 16</a>.  </p>
+<p id="rfc.section.6.4.p.2">ECDH with Key Agreement is parameterized by the same parameters as for ECDH; see <a href="#ECDH" class="xref">Section 6.3</a>, with the following modifications: </p>
 
-<ul><li>Key Wrap Algorithm: Any of the key wrap algorithms defined in <a href="#key_wrap_algs" class="xref">Section 6.3</a> are supported.  The size of the key used for the key wrap algorithm is fed into the KDF.  The set of identifiers are found in <a href="#table-ecdh-es-table-wrap" class="xref">Table 16</a>.  </li></ul>
+<ul><li>Key Wrap Algorithm: Any of the key wrap algorithms defined in <a href="#key_wrap_algs" class="xref">Section 6.2</a> are supported.  The size of the key used for the key wrap algorithm is fed into the KDF.  The set of identifiers are found in <a href="#table-ecdh-es-table-wrap" class="xref">Table 16</a>.  </li></ul>
 
 <p> </p>
 <div id="rfc.table.16"></div>
@@ -1508,7 +1501,7 @@ COSE_KDF_Context = [
 </tr>
 </tbody>
 </table>
-<p id="rfc.section.6.5.p.3">When using a COSE key for this algorithm, the following checks are made: </p>
+<p id="rfc.section.6.4.p.3">When using a COSE key for this algorithm, the following checks are made: </p>
 
 <ul>
 <li>The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.</li>
@@ -1709,7 +1702,7 @@ COSE_KDF_Context = [
 <td class="left">1</td>
 <td class="left">-1</td>
 <td class="left">int / tstr</td>
-<td class="left">EC identifier - Taken from the "COSE Key Common Parameters" registry</td>
+<td class="left">EC identifier - Taken from the "COSE Elliptic Curves" registry</td>
 </tr>
 <tr>
 <td class="left">x</td>
@@ -1761,73 +1754,7 @@ COSE_KDF_Context = [
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<h1 id="rfc.section.8.1">
-<a href="#rfc.section.8.1">8.1.</a> <a href="#cose-algorithm-registry" id="cose-algorithm-registry">COSE Algorithms Registry</a>
-</h1>
-<p id="rfc.section.8.1.p.1">IANA created and populated the "COSE Algorithms" registry as part of processing processing <a href="#RFC8152" class="xref">[RFC8152]</a>.  IANA is requested to update the for individual algorithms from <a href="#RFC8152" class="xref">[RFC8152]</a> to this document.  </p>
-<p id="rfc.section.8.1.p.2">This document does not modify the guidance for designated experts.  </p>
-<h1 id="rfc.section.8.2">
-<a href="#rfc.section.8.2">8.2.</a> <a href="#cose-key-parameter-registry" id="cose-key-parameter-registry">COSE Key Type Parameters Registry</a>
-</h1>
-<p id="rfc.section.8.2.p.1">IANA has created a new registry titled "COSE Key Type Parameters".  The registry has been created to use the "Expert Review Required" registration procedure.  Expert review guidelines are provided in <a href="#review" class="xref">Section 8.5</a>.  </p>
-<p id="rfc.section.8.2.p.2">The columns of the table are: </p>
-<p></p>
-
-<dl>
-<dt>Key Type:</dt>
-<dd style="margin-left: 8">This field contains a descriptive string of a key type.  This should be a value that is in the "COSE Key Common Parameters" registry and is placed in the 'kty' field of a COSE Key structure.  </dd>
-<dt>Name:</dt>
-<dd style="margin-left: 8">This is a descriptive name that enables easier reference to the item.  It is not used in the encoding.  </dd>
-<dt>Label:</dt>
-<dd style="margin-left: 8">The label is to be unique for every value of key type.  The range of values is from -65536 to -1.  Labels are expected to be reused for different keys.  </dd>
-<dt>CBOR Type:</dt>
-<dd style="margin-left: 8">This field contains the CBOR type for the field.  </dd>
-<dt>Description:</dt>
-<dd style="margin-left: 8">This field contains a brief description for the field.  </dd>
-<dt>Reference:</dt>
-<dd style="margin-left: 8">This contains a pointer to the public specification for the field if one exists.  </dd>
-</dl>
-
-<p> </p>
-<p id="rfc.section.8.2.p.4">This registry has been initially populated by the values in Tables <a href="#table-ec2-keys" class="xref">19</a>, <a href="#table-ec1-keys" class="xref">20</a>, and <a href="#table-symmetric-keys" class="xref">21</a>.  All of the entries in the "References" column of this registry point to this document. </p>
-<h1 id="rfc.section.8.3">
-<a href="#rfc.section.8.3">8.3.</a> <a href="#cose-key-type-registry" id="cose-key-type-registry">COSE Key Types Registry</a>
-</h1>
-<p id="rfc.section.8.3.p.1">IANA has created a new registry titled "COSE Key Types".  The registry has been created to use the "Expert Review Required" registration procedure.  Expert review guidelines are provided in <a href="#review" class="xref">Section 8.5</a>.  </p>
-<p id="rfc.section.8.3.p.2">The columns of this table are: </p>
-
-<dl>
-<dt>Name:</dt>
-<dd style="margin-left: 8">This is a descriptive name that enables easier reference to the item.  The name MUST be unique.  It is not used in the encoding.  </dd>
-<dt>Value:</dt>
-<dd style="margin-left: 8">This is the value used to identify the curve.  These values MUST be unique.  The value can be a positive integer, a negative integer, or a string.  </dd>
-<dt>Description:</dt>
-<dd style="margin-left: 8">This field contains a brief description of the curve.  </dd>
-<dt>References:</dt>
-<dd style="margin-left: 8">This contains a pointer to the public specification for the curve if one exists.  </dd>
-</dl>
-
-<p> </p>
-<p id="rfc.section.8.3.p.3">This registry has been initially populated by the values in <a href="#table_key_types" class="xref">Table 17</a>.  The specification column for all of these entries will be this document.  </p>
-<h1 id="rfc.section.8.4">
-<a href="#rfc.section.8.4">8.4.</a> <a href="#cose-curve-registry" id="cose-curve-registry">COSE Elliptic Curves Registry</a>
-</h1>
-<p id="rfc.section.8.4.p.1">IANA created and populated the "COSE Elliptic Curves" registry as part of processing <a href="#RFC8152" class="xref">[RFC8152]</a>.  IANA is requested to change the reference from <a href="#RFC8152" class="xref">[RFC8152]</a> to this document for all values in the registry.  </p>
-<p id="rfc.section.8.4.p.2">This document does not change the guidance for Designated Experts.  </p>
-<h1 id="rfc.section.8.5">
-<a href="#rfc.section.8.5">8.5.</a> <a href="#review" id="review">Expert Review Instructions</a>
-</h1>
-<p id="rfc.section.8.5.p.1">All of the IANA registries established in this document are defined as expert review.  This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.  </p>
-<p id="rfc.section.8.5.p.2">Expert reviewers should take into consideration the following points: </p>
-
-<ul>
-<li>Point squatting should be discouraged.  Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.  The zones tagged as private use are intended for testing purposes and closed environments; code points in other ranges should not be assigned for testing.  </li>
-<li>Specifications are required for the standards track range of point assignment.  Specifications should exist for specification required ranges, but early assignment before a specification is available is considered to be permissible.  Specifications are needed for the first-come, first-serve range if they are expected to be used outside of closed environments in an interoperable way.  When specifications are not provided, the description provided needs to have sufficient information to identify what the point is being used for.  </li>
-<li>Experts should take into account the expected usage of fields when approving point assignment.  The fact that there is a range for standards track documents does not mean that a standards track document cannot have points assigned outside of that range.  The length of the encoded value should be weighed against how many code points of that length are left, the size of device it will be used on, and the number of code points left that encode to that size. </li>
-<li>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </li>
-</ul>
-
-<p> </p>
+<p id="rfc.section.8.p.1">There are no IANA actions.  </p>
 <h1 id="rfc.section.9">
 <a href="#rfc.section.9">9.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
@@ -1872,9 +1799,9 @@ COSE_KDF_Context = [
 <a>National Institute of Standards and Technology</a>, "<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">Digital Signature Standard (DSS)</a>", FIPS PUB 186-4, DOI 10.6028/NIST.FIPS.186-4, July 2013.</td>
 </tr>
 <tr>
-<td class="reference"><b id="I-D.schaad-cose-rfc8152bis-struct">[I-D.schaad-cose-rfc8152bis-struct]</b></td>
+<td class="reference"><b id="I-D.ietf-cose-rfc8152bis-struct">[I-D.ietf-cose-rfc8152bis-struct]</b></td>
 <td class="top">
-<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/draft-schaad-cose-rfc8152bis-struct-01">CBOR Object Signing and Encryption (COSE) - Structures and Process</a>", Internet-Draft draft-schaad-cose-rfc8152bis-struct-01, December 2018.</td>
+<a>Schaad, J.</a>, "<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-01">CBOR Object Signing and Encryption (COSE) - Structures and Process</a>", Internet-Draft draft-ietf-cose-rfc8152bis-struct-01, February 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="MAC">[MAC]</b></td>
@@ -2011,15 +1938,11 @@ COSE_KDF_Context = [
 <a title="U.S. National Institute of Standards and Technology">Barker, E.</a>, <a title="U.S. National Institute of Standards and Technology">Chen, L.</a>, <a title="U.S. National Institute of Standards and Technology">Roginsky, A.</a> and <a title="Orion Security Solutions, Inc.">M. Smid</a>, "<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf">Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography</a>", NIST Special Publication 800-56A, Revision 2, DOI 10.6028/NIST.SP.800-56Ar2, May 2013.</td>
 </tr>
 </tbody></table>
-<h1 id="rfc.appendix.A">
-<a href="#rfc.appendix.A">Appendix A.</a> <a href="#examples" id="examples">Examples</a>
-</h1>
-<p id="rfc.section.A.p.1">A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.  Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format.  Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.  If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.  </p>
 <h1 id="rfc.acknowledgments"><a href="#rfc.acknowledgments">Acknowledgments</a></h1>
-<p id="rfc.section.B.p.1">This document is a product of the COSE working group of the IETF.  </p>
-<p id="rfc.section.B.p.2">The following individuals are to blame for getting me started on this project in the first place: Richard Barnes, Matt Miller, and Martin Thomson.  </p>
-<p id="rfc.section.B.p.3">The initial version of the specification was based to some degree on the outputs of the JOSE and S&#8203;/&#8203;MIME working groups.  </p>
-<p id="rfc.section.B.p.4">The following individuals provided input into the final form of the document: Carsten Bormann, John Bradley, Brain Campbell, Michael B. Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran Selander.  </p>
+<p id="rfc.section.A.p.1">This document is a product of the COSE working group of the IETF.  </p>
+<p id="rfc.section.A.p.2">The following individuals are to blame for getting me started on this project in the first place: Richard Barnes, Matt Miller, and Martin Thomson.  </p>
+<p id="rfc.section.A.p.3">The initial version of the specification was based to some degree on the outputs of the JOSE and S&#8203;/&#8203;MIME working groups.  </p>
+<p id="rfc.section.A.p.4">The following individuals provided input into the final form of the document: Carsten Bormann, John Bradley, Brain Campbell, Michael B. Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran Selander.  </p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
