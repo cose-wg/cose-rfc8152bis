@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/9",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/9/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/9/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/9/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/9",
+    "id": 419630688,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MjYwMDkzOTY1",
+    "number": 9,
+    "title": "Version 02",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-03-11T18:54:41Z",
+    "updated_at": "2019-03-11T18:57:15Z",
+    "closed_at": "2019-03-11T18:57:09Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/9",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/9",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/9.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/9.patch"
+    },
+    "body": "All of the updates for releasing -02 versions of the documents."
+  },
+  {
     "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/8",
     "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
     "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/8/labels{/name}",
@@ -43,7 +97,7 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2019-02-15T02:24:59Z",
-    "updated_at": "2019-02-15T02:32:22Z",
+    "updated_at": "2019-02-15T02:38:35Z",
     "closed_at": "2019-02-15T02:32:22Z",
     "author_association": "CONTRIBUTOR",
     "pull_request": {
@@ -149,17 +203,17 @@
         "default": false
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2018-12-22T05:55:13Z",
-    "updated_at": "2018-12-22T05:55:19Z",
-    "closed_at": null,
+    "updated_at": "2019-02-15T02:41:07Z",
+    "closed_at": "2019-02-15T02:41:07Z",
     "author_association": "CONTRIBUTOR",
     "body": "COSE_Sign0 is only mentioned once in the document, but COSE_Sign1 appears many times. "
   },
@@ -204,17 +258,17 @@
         "default": false
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2018-12-22T05:53:53Z",
-    "updated_at": "2018-12-22T05:53:53Z",
-    "closed_at": null,
+    "updated_at": "2019-02-15T02:41:19Z",
+    "closed_at": "2019-02-15T02:41:19Z",
     "author_association": "CONTRIBUTOR",
     "body": "kty in section 7.1 points to key common parameters and not to the key type registry."
   },
@@ -259,17 +313,17 @@
         "default": false
       }
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2018-12-22T05:53:02Z",
-    "updated_at": "2018-12-22T05:53:02Z",
-    "closed_at": null,
+    "updated_at": "2019-02-15T02:41:30Z",
+    "closed_at": "2019-02-15T02:41:30Z",
     "author_association": "CONTRIBUTOR",
     "body": "The restriction applies to the encoding of the COSE_KDF_Context, \r\n      Sig_structure, the Enc_structure, and the MAC_structure."
   },
