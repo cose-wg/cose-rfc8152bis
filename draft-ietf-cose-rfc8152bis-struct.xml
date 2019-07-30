@@ -2,6 +2,9 @@
 <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC8152 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8152.xml">
+<!ENTITY HkdfSection "5.1">
+<!ENTITY SectionDirectKdf "6.1.2">
+<!ENTITY SectionECDH "6.3">
 ]>
 
 <!--  <!ENTITY cose-alg SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.schaad-cose-rfc8152bis-algs.xml"> -->
@@ -15,7 +18,7 @@
 
 <rfc ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-latest" category="std" obsoletes="8152" >
   <front>
-    <title abbrev="COSE Structure">CBOR
+    <title abbrev="COSE Structure">
     CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Structures and Process</title>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
@@ -102,7 +105,7 @@
           <list style="symbols">
             <t> Split the orignal document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</t>
             <t>Add some text describing why there is no digest structure defined by COSE.</t>
-            
+            <t>Rearrange the text around counter signatures and define a CBOR Tag for a standalong countersignature.</t>
               
           </list>
 
@@ -160,8 +163,7 @@
 start = COSE_Messages / COSE_Key / COSE_KeySet / Internal_Types
 
 ; This is defined to make the tool quieter:
-Internal_Types = Sig_structure / Enc_structure / MAC_structure /
-        COSE_KDF_Context
+Internal_Types = Sig_structure / Enc_structure / MAC_structure
 </artwork>
         </figure>
         <t>The non-terminal Internal_Types is defined for dealing with the automated validation tools used during the writing of this document.  It references those non-terminals that are used for security computations but are not emitted for transport.  </t>
@@ -251,6 +253,10 @@ values = any
         <c>cose-mac0</c>
         <c>COSE_Mac0</c>
         <c>COSE Mac w/o Recipients Object</c>
+        <c>TBD0</c>
+        <c>cose-countersign</c>
+        <c>COSE_Signature</c>
+        <c>COSE standalone counter signature</c>
       </texttable>
 
         <texttable anchor="CoAP_content_type" title="CoAP Content-Formats for COSE" align="center" style="full">
@@ -299,11 +305,11 @@ COSE_Messages = COSE_Untagged_Message / COSE_Tagged_Message
       
 COSE_Untagged_Message = COSE_Sign / COSE_Sign1 /
     COSE_Encrypt / COSE_Encrypt0 /
-    COSE_Mac / COSE_Mac0
+    COSE_Mac / COSE_Mac0 / COSE_Countersignature
 
 COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
     COSE_Encrypt_Tagged / COSE_Encrypt0_Tagged /
-    COSE_Mac_Tagged / COSE_Mac0_Tagged
+    COSE_Mac_Tagged / COSE_Mac0_Tagged / COSE_Countersignature_Tagged
 </artwork>
       </figure>
 
@@ -333,7 +339,10 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
         Only parameters that deal with the current layer are to be placed at that layer.  As an example of this, the parameter 'content type' describes the content of the message being carried in the message.  As such, this parameter is placed only in the content layer and is not placed in the recipient or signature layers.  In principle, one should be able to process any given layer without reference to any other layer.  With the exception of the COSE_Sign structure, the only data that needs to cross layers is the cryptographic key.
       </t>
 
-      <t>The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<xref target="cose-header-key-table"  />).  Some common parameters are defined in the next section, but a number of parameters are defined throughout this document.  </t>
+      <t>
+        The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<xref target="cose-header-key-table"  />).
+        Some common parameters are defined in the next section.
+      </t>
 
       <t>Labels in each of the maps MUST be unique.  When processing messages, if a label appears multiple times, the message MUST be rejected as malformed.  Applications SHOULD verify that the same label does not occur in both the protected and unprotected headers.  If the message is not rejected as malformed, attributes MUST be obtained from the protected bucket before they are obtained from the unprotected bucket.  </t>
 
@@ -364,7 +373,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
 <vspace blankLines="0"/> Not all labels need to be included in the 'crit' parameter.  The rules for deciding which header labels are placed in the array are: <list style="symbols">
 
-<t>Integer labels in the range of 0 to 8 SHOULD be omitted.</t>
+<t>Integer labels in the range of 0 to 7 SHOULD be omitted.</t>
 
 <t>Integer labels in the range -1 to -128 can be omitted as they are algorithm dependent.  If an application can correctly process an algorithm, it can be assumed that it will correctly process all of the common parameters associated with that algorithm.  Integer labels in the range -129 to -65536 SHOULD be included as these would be less common parameters that might not be generally supported.  </t>
 
@@ -387,7 +396,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
 <t>XOR the padded Partial IV with the context IV.</t></list> </t>
 
-<t hangText="counter signature:">This parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on computing counter signatures are found in <xref target="counter_signature"  />.  </t>
+<t hangText="counter signature:">This parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on counter signatures are found in <xref target="counter_signature"  />.  </t>
 </list> </t>
        
         <texttable anchor="Header-Table" title="Common Header Parameters" align="center" style="full">
@@ -580,11 +589,12 @@ COSE_Sign1 = [
                 <t>&quot;Signature&quot; for signatures using the COSE_Signature structure.</t>
                 <t>&quot;Signature1&quot; for signatures using the COSE_Sign1 structure.</t>
                 <t>&quot;CounterSignature&quot; for signatures used as counter signature attributes.</t>
+                <t>&quot;CounterSignature0&quot; for signatures used as CounterSignature0 attributes.</t>
               </list>
             </t>
             <t>The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  </t>
 
-            <t>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  This field is omitted for the COSE_Sign1 signature structure.  </t>
+            <t>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  This field is omitted for the COSE_Sign1 signature structure and CounterSignature0 attributes.  </t>
             <t>The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length binary string.  (See <xref target="Extern_AAD"  /> for application guidance on constructing this field.) </t>
             <t>The payload to be signed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </t>
           </list>
@@ -619,21 +629,101 @@ Sig_structure = [
   In addition to performing the signature verification, the application performs the appropriate checks to ensure that the key is correctly paired with the signing identity and that the signing identity is authorized before performing actions.
 </t>
       </section>
-      
-      <section anchor="counter_signature" title="Computing Counter Signatures"  >
+    </section>
+
+    <section title="Counter Signatures" anchor="counter_signature">
+      <t>
+        COSE supports two different forms for counter signatures.
+        Full countersignatures use the structure COSE_Countersign.
+        This is same structure as COSE_Signature and thus it can have protected attributes, chained countersignatures and information about identifying the key.
+        Abbreviated countersignatures use the structure COSE_Countersign1.
+        This structure only contains the signature value and nothing else.
+        The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.
+      </t>
+
+      <t>
+        COSE was designed for uniformity in how the data strutures are specified.
+        One result of this is that for COSE one can expand the concept of countersignatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
+        When creating a countersignature, one needs to be clear about the security properties that result.
+        When done on a COSE_Signature, the normal countersignature semantics are preserved.  That is the countersignature makes a statement about the existance of a signature and, when used as a timestamp, a time point at which the signature exists.
+        When done on a COSE_Mac or a COSE_Mac0, one effectively upgrades the MAC operation to a sginature operation.
+        When done on a COSE_Encrypt or COSE_Encrypt0, the existance of the encrypted data is attested to.
+        It should be noted that there is a big difference between attesting to the enrypted data as oppose to attesting to the unencrypted data.
+        If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
+        It is always possible to construct cases where the decryption is successful, while providing completely different answers by using a different key.
+        This situation is not detectable by a countersignature on the encrypted data.
+      </t>
+
+      <section title="Full Countersignatures">
         <t>
-          Counter signatures provide a method of associating a different signature generated by different signers with some piece of content. 
-          This is normally used to provide a signature on a signature allowing for a proof that a signature existed at a given time (e.g., a Timestamp).
-          In this document, we allow for counter signatures to exist in a greater number of environments. 
-          As an example, it is possible to place a counter signature in the unprotected attributes of a COSE_Encrypt object. 
-          This would allow for an intermediary to either verify that the encrypted byte string has not been modified, without being able to decrypt it, or assert that an encrypted byte string either existed at a given time or passed through it in terms of routing (e.g., a proxy signature).
+          The COSE_Countersignature structure allows for the same set of capabilities of a COSE_Signature.
+          This means that all of the capabilities of a signature are duplicated with this structure.
+          Specifically, the countersigner does not need to be related to the producer of what is being counter signed as key and algorithm identification can be placed in the countersignature attributes.
+          This also means that the countersignature can itself be countersigned.
+          This is a feature required by protocols such as long-term archiving services.
+          More information on how this is used can be found in the evidence record syntax described in <xref target="RFC4998"/>.
         </t>
 
-        <t>An example of a counter signature on a signature can be found in <xref target="Appendix_B_1_3"  />.  An example of a counter signature in an encryption object can be found in <xref target="Appendix_B_3_3"  />.  </t>
-        <t>The creation and validation of counter signatures over the different items relies on the fact that the objects have the same structure.  The elements are a set of protected attributes, a set of unprotected attributes, and a body, in that order.  This means that the Sig_structure can be used in a uniform manner to get the byte string for processing a signature.  If the counter signature is going to be computed over a COSE_Encrypt structure, the body_protected and payload items can be mapped into the Sig_structure in the same manner as from the COSE_Sign structure.  </t>
+        <t>
+          The full countersignature structure can be encoded as either a tagged or untagged depending on the context it is used in.  A tagged COSE_Countersign steruture is identified byt the CBOR tag TBD0.  The CDDL fragment for full countersignatures is:
+        </t>
+        
+        <figure align="left">
+          <artwork type="CDDL" xml:space="preserve" align="left">
+COSE_CounterSignature_Tagged = #6.98(COSE_CounterSignature)
+COSE_CounterSignature = COSE_Signature            
+</artwork>
+        </figure>
 
-        <t>It should be noted that only a signature algorithm with appendix (see <xref target="SigAlgs"  />) can be used for counter signatures.  This is because the body should be able to be processed without having to evaluate the counter signature, and this is not possible for signature schemes with message recovery.  </t>
+        <t>
+          The details of the fields of a countersignature can be found in <xref target="full-signature"/>.
+          The process of creating and validating abbreviated countersignatures is defined in <xref target="Sig_structure"/>.
+        </t>
+        
+<t>          
+          An example of a counter signature on a signature can be found in <xref target="Appendix_B_1_3"  />. 
+          An example of a counter signature in an encryption object can be found in <xref target="Appendix_B_3_3"  />. 
+        </t>
+
+        <t>
+          It should be noted that only a signature algorithm with appendix (see <xref target="SigAlgs"  />) can be used for counter signatures. 
+          This is because the body should be able to be processed without having to evaluate the counter signature, and this is not possible for signature schemes with message recovery. 
+        </t>
+
       </section>
+
+      <section title="Abbreviated Countersignatures" >
+        <t>
+          Abbreviated countersignatures were designed primarily to deal with the problem of having group encrypted messaging, but still needing to know who orginated the message.
+          The object was to keep the countersignature as small as possible while still providing the needed security.
+          For abbreviated countersignatures, there is no provision for any protected attributes related to the signing operation.
+          Instead, the context that was used to describe the encryption processing is also assumed to describe the context that was used to create the countersignature.
+        </t>
+
+        <t>
+          The byte string representing the signature value is placed in the CounterSignature0 attribute.
+          This attribute is then encoded as an unprotected header.
+          The attribute is defined below.
+        </t>
+        
+        <t>
+          The process of creating and validating abbreviated countersignatures is defined in <xref target="Sig_structure"/>.
+        </t>
+        
+        <texttable anchor="CounterSign0" title="Header Parameter for CounterSignature0" align="center" style="full">
+          <ttcol align="left">Name</ttcol>
+          <ttcol align="left">Label</ttcol>
+          <ttcol align="left">Value Type</ttcol>
+          <ttcol align="left">Value</ttcol>
+          <ttcol align="left">Description</ttcol>
+          <c>CounterSignature0</c>
+          <c>9</c>
+          <c>bstr</c>
+          <c/>
+          <c>Abbreviated Countersignature</c>
+        </texttable>
+      </section>
+      
     </section>
     
     <section anchor="encryption-object" title="Encryption Objects"  >
@@ -769,7 +859,7 @@ Enc_structure = [
   The key is determined by the key and algorithm in the recipient structure. 
   The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
   (For direct, the KDF can be thought of as the identity operation.)
-  Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf" format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH" format="counter"/>.--> of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.
+  Examples of these algorithms are found in Sections &SectionDirectKdf; and &SectionECDH; of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.
 </t>
 <t hangText="Other:">The key is randomly or pseudorandomly generated.  </t></list> </t>
 
@@ -796,7 +886,9 @@ Enc_structure = [
 <t>Determine the encryption key.  This step is dependent on the class of recipient algorithm being used.  For: <list style="hanging">
 <t hangText="No Recipients:">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<xref target="KeyTransport"  />), key wrap keys (<xref target="key_wrap_algs"  />), or pre-shared secrets.  </t>
 
-<t hangText="Direct Encryption and Direct Key Agreement:">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.) Examples of these algorithms are found in Sections !!!DIRECT-KDF!!! <!--<xref target="direct-kdf"  format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH"  format="counter"/>-->.  </t>
+<t hangText="Direct Encryption and Direct Key Agreement:">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
+Examples of these algorithms are found in Sections &SectionDirectKdf; and &SectionECDH; of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.
+</t>
 
 <t hangText="Other:">The key is randomly generated.  </t></list> </t>
 <t>Call the encryption algorithm with K (the encryption key to use) and P (the plaintext).  Place the returned ciphertext into the 'ciphertext' field of the structure.  </t>
@@ -807,7 +899,9 @@ Enc_structure = [
 <t>Verify that there was no external additional authenticated data supplied for this operation.  </t><t>Determine the decryption key.  This step is dependent on the class of recipient algorithm being used.  For: <list style="hanging">
 <t hangText="No Recipients:">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<xref target="KeyTransport"  />), key wrap keys (<xref target="key_wrap_algs"  />), or pre-shared secrets.  </t>
 
-<t hangText="Direct Encryption and Direct Key Agreement:">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.) Examples of these algorithms are found in Sections !!! DIRECT-KDF !!! <!--<xref target="direct-kdf"  format="counter"/>--> and !!! ECDH !!! <!--<xref target="ECDH"  format="counter"/>-->.  </t>
+<t hangText="Direct Encryption and Direct Key Agreement:">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
+Examples of these algorithms are found in Sections &SectionDirectKdf; and &SectionECDH; of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.
+</t>
 <t hangText="Other:">The key is determined by decoding and decrypting one of the recipient structures.  </t></list> </t>
 
 <t>Call the decryption algorithm with K (the decryption key to use) and C (the ciphertext).  </t></list> </t>
@@ -1104,7 +1198,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
 
 <t>
   The same KDF can be set up to deal with the first two types of secrets in a different way. 
-  The KDF defined in !!! HDKF !!! (section XXXX of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>) is such a function. 
+  The KDF defined in section &HkdfSection; of <xref target="I-D.ietf-cose-rfc8152bis-algs"/> is such a function. 
   This is reflected in the set of algorithms defined around the HMAC-based Extract-and-Expand Key Derivation Function (HKDF). 
  </t>
 
@@ -1200,13 +1294,25 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       </section>
     </section>
       
-<section anchor="CBOR-Canonical" title="CBOR Encoder Restrictions"  >
+    <section anchor="CBOR-Canonical" title="CBOR Encoding Restrictions"  >
       <t>There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
       <t><list style="symbols">
-<t>The restriction applies to the encoding of the COSE_KDF_Context, the Sig_structure, the Enc_structure, and the MAC_structure.  </t>
+        <t>
+          The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.
+        </t>
 
-<t>The rules for "Canonical CBOR" (Section 3.9 of RFC 7049) MUST be used in these locations.  The main rule that needs to be enforced is that all lengths in these structures MUST be encoded such that they are using definite lengths, and the minimum length encoding is used.  </t>
-<t>Applications MUST NOT generate messages with the same label used twice as a key in a single map.  Applications MUST NOT parse and process messages with the same label used twice as a key in a single map.  Applications can enforce the parse and process requirement by using parsers that will fail the parse step or by using parsers that will pass all keys to the application, and the application can perform the check for duplicate keys.  </t></list> </t>
+        <t>
+          Encoding MUST be done using definite lengths and the length of the  MUST be the minimum possible length.
+          This means that the integer 1 is encoded as "0x01" and not "0x1801".
+        </t>
+
+        <t>
+          Applications MUST NOT generate messages with the same label used twice as a key in a single map. 
+          Applications MUST NOT parse and process messages with the same label used twice as a key in a single map. 
+          Applications can enforce the parse and process requirement by using parsers that will fail the parse step or by using parsers that will pass all keys to the application, and the application can perform the check for duplicate keys. 
+        </t>
+      </list>
+      </t>
     </section>
     <section title="Application Profiling Considerations"  >
       <t>This document is designed to provide a set of security services, but not impose algorithm implementation requirements for specific usage.  The interoperability requirements are provided for how each of the individual services are used and how the algorithms are to be used for interoperability.  The requirements about which algorithms and which services are needed are deferred to each application.  </t>
@@ -1245,6 +1351,16 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <t>
           IANA assigned tags in the "CBOR Tags" registry as part of processing <xref target="RFC8152"/>.
           IANA is requested to update the references from <xref target="RFC8152"/> to this document.
+        </t>
+
+        <t>
+          IANA is requested to register a new tag for the CounterSignature type.
+          <list style="none">
+            <t>Tag: TBD0</t>
+            <t>Data Item: COSE_Signature</t>
+            <t>Semantics: COSE standalone counter signature</t>
+            <t>Reference: [[this document]]</t>
+          </list>
         </t>
       </section>
  
@@ -1293,10 +1409,11 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           <t><list style="empty">
 <t>Type name: application</t><t>Subtype name: cose</t>
 <t>Required parameters: N/A</t>
-<t>Optional parameters: cose-type</t><t>Encoding considerations: binary</t>
+<t>Optional parameters: cose-type</t>
+<t>Encoding considerations: binary</t>
 <t>Security considerations: See the Security Considerations section of [[This Document]].</t>
 <t>Interoperability considerations: N/A</t>
-<t>Published specification: RFC 8152</t>
+<t>Published specification: [[this document]]</t>
 <t>Applications that use this media type: IoT applications sending security content over HTTP(S) transports.</t>
 <t>Fragment identifier considerations: N/A</t>
 <t>Additional information: <list style="symbols">
@@ -1320,7 +1437,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <t>Encoding considerations: binary</t>
 <t>Security considerations: See the Security Considerations section of [[This Document]].</t>
 <t>Interoperability considerations: N/A</t>
-<t>Published specification: RFC 8152</t>
+<t>Published specification: [[this document]]</t>
 <t>Applications that use this media type: Distribution of COSE based keys for IoT applications.</t>
 <t>Fragment identifier considerations: N/A</t>
 <t>Additional information: <list style="symbols">
@@ -1341,7 +1458,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <t>Encoding considerations: binary</t>
 <t>Security considerations: See the Security Considerations section of [[This Document]].</t>
 <t>Interoperability considerations: N/A</t>
-<t>Published specification: RFC 8152</t>
+<t>Published specification: [[this document]]</t>
 <t>Applications that use this media type: Distribution of COSE based keys for IoT applications.</t>
 <t>Fragment identifier considerations: N/A</t>
 <t>Additional information: <list style="symbols">
@@ -1365,6 +1482,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </t>
         
       </section>
+      <!--
       <section title="Expert Review Instructions" anchor="review"  >
         <t>All of the IANA registries established in this document are defined as expert review.  This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.  </t>
         <t>Expert reviewers should take into consideration the following points: <list style="symbols">
@@ -1376,7 +1494,8 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <t>Experts should take into account the expected usage of fields when approving point assignment.  The fact that there is a range for standards track documents does not mean that a standards track document cannot have points assigned outside of that range.  The length of the encoded value should be weighed against how many code points of that length are left, the size of device it will be used on, and the number of code points left that encode to that size. </t>
 
 <t>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </t></list> </t>
-      </section>
+</section>
+-->
     </section>
     
     <section anchor="security-considerations" title="Security Considerations"  >
@@ -1612,18 +1731,29 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <?rfc include="reference.I-D.ietf-core-object-security"?>
 <?rfc include="reference.RFC.8230"?>
 <?rfc include="reference.RFC.7942"?>
+<?rfc include="reference.RFC.4998"?>
 </references>
 
-    <section title="Guidelines for External Data Authentication of Algorithms"  >
-      <t>A portion of the working group has expressed a strong desire to relax the rule that the algorithm identifier be required to appear in each level of a COSE object.  There are two basic reasons that have been advanced to support this position.  First, the resulting message will be smaller if the algorithm identifier is omitted from the most common messages in a CoAP environment.  Second, there is a potential bug that will arise if full checking is not done correctly between the different places that an algorithm identifier could be placed (the message itself, an application statement, the key structure that the sender possesses, and the key structure the recipient possesses).  </t>
+<section title="Guidelines for External Data Authentication of Algorithms"  >
+  <t>
+    During development of COSE, the requirement that the algorithm identifier be located in the protected attributes was relaxed from a must to a should.
+    There were two basic reasons that have been advanced to support this position. 
+    First, the resulting message will be smaller if the algorithm identifier is omitted from the most common messages in a CoAP environment. 
+    Second, there is a potential bug that will arise if full checking is not done correctly between the different places that an algorithm identifier could be placed (the message itself, an application statement, the key structure that the sender possesses, and the key structure the recipient possesses). 
+  </t>
 
-      <t>This appendix lays out how such a change can be made and the details that an application needs to specify in order to use this option.  Two different sets of details are specified: those needed to omit an algorithm identifier and those needed to use a variant on the counter signature attribute that contains no attributes about itself.  </t>
+  <t>
+    This appendix lays out how such a change can be made and the details that an application needs to specify in order to use this option. 
+    Two different sets of details are specified: those needed to omit an algorithm identifier and those needed to use a variant on the counter signature attribute that contains no attributes about itself. 
+  </t>
 
-      <section title="Algorithm Identification"  >
-        <t>In this section, three sets of recommendations are laid out.  The first set of recommendations apply to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations apply to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations apply to having implicit algorithms for multiple COSE object constructs.  </t>
-        <t>The key words from <xref target="RFC2119"/> are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.  </t>
-        <t>This set of recommendations applies to the case where an application is distributing a fixed algorithm along with the key information for use in a single COSE object.  This normally applies to the smallest of the COSE objects, specifically COSE_Sign1, COSE_Mac0, and COSE_Encrypt0, but could apply to the other structures as well.  </t>
-        <t>The following items should be taken into account: <list style="symbols">
+  <t>Three sets of recommendations are laid out.  The first set of recommendations apply to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations apply to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations apply to having implicit algorithms for multiple COSE object constructs.  </t>
+  
+  <t>The key words from <xref target="RFC2119"/> are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.  </t>
+  
+  <t>This set of recommendations applies to the case where an application is distributing a fixed algorithm along with the key information for use in a single COSE object.  This normally applies to the smallest of the COSE objects, specifically COSE_Sign1, COSE_Mac0, and COSE_Encrypt0, but could apply to the other structures as well.  </t>
+  
+  <t>The following items should be taken into account: <list style="symbols">
 
 <t>Applications need to list the set of COSE structures that implicit algorithms are to be used in.  Applications need to require that the receipt of an explicit algorithm identifier in one of these structures will lead to the message being rejected.  This requirement is stated so that there will never be a case where there is any ambiguity about the question of which algorithm should be used, the implicit or the explicit one.  This applies even if the transported algorithm identifier is a protected attribute.  This applies even if the transported algorithm is the same as the implicit algorithm.  </t>
 
@@ -1650,24 +1780,6 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <t>For these cases, the following additional items need to be considered: <list style="symbols"><t>Applications need to ensure that the multiple contexts stay associated.  If one of the contexts is invalidated for any reason, all of the contexts associated with it should also be invalidated.  </t></list> </t>
       </section>
 
-      <section title="Counter Signature without Headers"  >
-        <t>There is a group of people who want to have a counter signature parameter that is directly tied to the value being signed, and thus the authenticated and unauthenticated buckets can be removed from the message being sent.  The focus on this is an even smaller size, as all of the information on the process of creating the counter signature is implicit rather than being explicitly carried in the message.  This includes not only the algorithm identifier as presented above, but also items such as the key identification, which is always external to the signature structure.  This means that the entities that are doing the validation of the counter signature are required to infer which key is to be used from context rather than being explicit.  One way of doing this would be to presume that all data coming from a specific port (or to a specific URL) is to be validated by a specific key.  (Note that this does not require that the key identifier be part of the value signed as it does not serve a cryptographic purpose.  If the key validates the counter signature, then it should be presumed that the entity associated with that key produced the signature.) </t>
-
-        <t>When computing the signature for the bare counter signature header, the same Sig_structure defined in <xref target="Sig_structure"  /> is used.  The sign_protected field is omitted, as there is no protected header field in this counter signature header.  The value of "CounterSignature0" is placed in the context field of the Sig_stucture.  </t>
-        <texttable anchor="CounterSign0" title="Header Parameter for CounterSignature0" align="center" style="full">
-          <ttcol align="left">Name</ttcol>
-          <ttcol align="left">Label</ttcol>
-          <ttcol align="left">Value Type</ttcol>
-          <ttcol align="left">Value</ttcol>
-          <ttcol align="left">Description</ttcol>
-          <c>CounterSignature0</c>
-          <c>9</c>
-          <c>bstr</c>
-          <c/>
-          <c>Counter signature with implied signer and headers</c>
-        </texttable>
-      </section>
-    </section>
     <section anchor="three-layer" title="Two Layers of Recipient Information"  >
 <t>All of the currently defined recipient algorithm classes only use two layers of the COSE_Encrypt structure.  The first layer is the message content, and the second layer is the content key encryption.  However, if one uses a recipient algorithm such as the RSA Key Encapsulation Mechanism (RSA-KEM) (see Appendix A of RSA-KEM <xref target="RFC5990"  />), then it makes sense to have three layers of the COSE_Encrypt structure.  </t>
 
