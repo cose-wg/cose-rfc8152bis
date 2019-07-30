@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='US-ASCII'?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC8152 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8152.xml">
+<!ENTITY SigSection "Section 9">
+<!ENTITY MacSection "Section 10">
+<!ENTITY ContentSection "Section 11">
+<!ENTITY KDFSection "Section 12">
+<!ENTITY CKeyDistributeSection "Section 13">
+<!ENTITY DirectDistribute "Section 13.1">
 ]>  
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
@@ -115,7 +121,7 @@
       <section anchor="examples" title="Examples"  >
 
         <t>
-          A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well. 
+          A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains a set of testing examples as well. 
           Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format. 
           Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file. 
           If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file. 
@@ -126,7 +132,7 @@
     
     <section title="Signature Algorithms" anchor="SigAlgs"  >
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of signature algorithms.
+        <xref target="I-D.ietf-cose-rfc8152bis-struct">&SigSection; of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of signature algorithms.
         The document defines signature algorithm identifiers for two signature algorithms.
       </t>
       
@@ -156,7 +162,13 @@
 
         <t>In order to promote interoperability, it is suggested that SHA-256 be used only with curve P-256, SHA-384 be used only with curve P-384, and SHA-512 be used with curve P-521.  This is aligned with the recommendation in Section 4 of <xref target="RFC5480"  />.  </t>
 
-        <t>The signature algorithm results in a pair of integers (R, S).  These integers will be the same length as the length of the key used for the signature process.  The signature is encoded by converting the integers into byte strings of the same length as the key size.  The length is rounded up to the nearest byte and is left padded with zero bits to get to the correct length.  The two integers are then concatenated together to form a byte string that is the resulting signature.  </t>
+        <t>
+          The signature algorithm results in a pair of integers (R, S).
+          These integers will be the same length as the length of the key used for the signature process.
+          The signature is encoded by converting the integers into bit strings of the same length as the key size.
+          The length is rounded up to the nearest byte and is left padded with zero bits to get to the correct length.
+          The two integers are then concatenated together to form a byte string that is the resulting signature.
+        </t>
 
         <t>
           Using the function defined in <xref target="RFC8017"  />, the signature is: 
@@ -212,7 +224,7 @@
 
     <section title="Message Authentication Code (MAC) Algorithms"  >
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of MAC algorithms.
+        <xref target="I-D.ietf-cose-rfc8152bis-struct">&MacSection; of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of MAC algorithms.
         This section defines the conventions for two MAC algorithms.
       </t>
       
@@ -310,7 +322,7 @@
     
     <section title="Content Encryption Algorithms"  >
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Content Encryption algorithms.
+        <xref target="I-D.ietf-cose-rfc8152bis-struct">&ContentSection; of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Content Encryption algorithms.
         This document defines the identifier and usages for three content encryption algorithms.
       </t>
 
@@ -355,7 +367,7 @@
 
         <t>The following values are used for L: <list style="hanging">
 
-<t hangText="16 bits (2):">This limits messages to 2^16 bytes (64 KiB) in length.  This is sufficiently long for messages in the constrained world.  The nonce length is 13 bytes allowing for 2^(13*8) possible values of the nonce without repeating.  </t>
+<t hangText="16 bits (2):">This limits messages to 2^16 bytes (64 KiB) in length.  This is sufficiently long for messages in the constrained world.  The nonce length is 13 bytes allowing for 2^104 possible values of the nonce without repeating.  </t>
 
 <t hangText="64 bits (8):">This limits messages to 2^64 bytes in length.  The nonce length is 7 bytes allowing for 2^56 possible values of the nonce without repeating.  </t></list> </t>
         <t>The following values are used for M: <list style="hanging">
@@ -461,7 +473,7 @@
     </section>
     <section title="Key Derivation Functions (KDFs)"  >
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Key Derivation Functions.
+        <xref target="I-D.ietf-cose-rfc8152bis-struct">&KDFSection; of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Key Derivation Functions.
         This document defines a single context structure and a single KDF. 
         These elements are used for all of the recipient algorithms defined in this document that require a KDF process. 
         These algorithms are defined in Sections <xref target="direct-kdf"  format="counter"/>, <xref target="ECDH"  format="counter"/>, and <xref target="ECDH-wrap"  format="counter"/>. 
@@ -619,13 +631,13 @@ COSE_KDF_Context = [
     
     <section title="Content Key Distribution Methods" anchor="key-management-algs"  >
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of content key distribution methods.
+        <xref target="I-D.ietf-cose-rfc8152bis-struct">&CKeyDistributeSection; of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of content key distribution methods.
         This document defines the identifiers and usage for a number of content key distribution methods.
       </t>
 
       <section title="Direct Encryption">
         <t>
-          Direct encryption algorithm is defined in <xref target="I-D.ietf-cose-rfc8152bis-struct">Section X.X of [I-D.ietf-cose-rfc8152bis-struct]</xref>.
+          Direct encryption algorithm is defined in <xref target="I-D.ietf-cose-rfc8152bis-struct">&DirectDistribute; of [I-D.ietf-cose-rfc8152bis-struct]</xref>.
           Information about how to fill in the COSE_Recipient structure are detailed there.
         </t>
         
@@ -752,11 +764,18 @@ COSE_KDF_Context = [
         <t>Computed Secret to Shared Secret: Once the computed secret is known, the resulting value needs to be converted to a byte string to run the KDF.  The x-coordinate is used for all of the curves defined in this document.  For curves X25519 and X448, the resulting value is used directly as it is a byte string of a known length.  For the P-256, P-384, and P-521 curves, the x-coordinate is run through the I2OSP function defined in <xref target="RFC8017"  />, using the same computation for n as is defined in <xref target="ECDSA"  />.  </t>
 
         <t>Ephemeral-Static or Static-Static: The key agreement process may be done using either a static or an ephemeral key for the sender's side.  When using ephemeral keys, the sender MUST generate a new ephemeral key for every key agreement operation.  The ephemeral key is placed in the 'ephemeral key' parameter and MUST be present for all algorithm identifiers that use ephemeral keys.  When using static keys, the sender MUST either generate a new random value or create a unique value. 
-        For the KDFs used, this means either the 'salt' parameter for HKDF (<xref target="HKDF_Alg_Params"  />) or the 'PartyU nonce' parameter for the context structure (<xref target="KDF_Context_Alg_Params"  />) MUST be present (both can be present if desired). The value in the parameter MUST be unique for the pair of keys being used.  It is acceptable to use a global counter that is incremented for every static-static operation and use the resulting value.  When using static keys, the static key should be identified to the recipient.  The static key can be identified either by providing the key ('static key') or by providing a key identifier for the static key ('static key id').  Both of these parameters are defined in <xref target="table-ecdh-es-parameter-table"  />.  </t>
+        For the KDFs used, this means either the 'salt' parameter for HKDF (<xref target="HKDF_Alg_Params"  />) or the 'PartyU nonce' parameter for the context structure (<xref target="KDF_Context_Alg_Params"  />) MUST be present (both can be present if desired). The value in the parameter MUST be unique for the pair of keys being used.  It is acceptable to use a global counter that is incremented for every static-static operation and use the resulting value.  When using static keys, the static key should be identified to the recipient.  The static key can be identified either by providing the key ('static key') or by providing a key identifier for the static key ('static key id').  Both of these parameters are defined in <xref target="table-ecdh-es-parameter-table"  />.
+        </t>
 
         <t>Key Derivation Algorithm: The result of an ECDH key agreement process does not provide a uniformly random secret.  As such, it needs to be run through a KDF in order to produce a usable key.  Processing the secret through a KDF also allows for the introduction of context material: how the key is going to be used and one-time material for static-static key agreement.  All of the algorithms defined in this document use one of the HKDF algorithms defined in <xref target="HKDF"  /> with the context structure defined in <xref target="context"  />.  </t>
 
         <t>Key Wrap Algorithm: No key wrap algorithm is used.  This is represented in <xref target="table-ecdh-es-table"  /> as 'none'.  The key size for the context structure is the content layer encryption algorithm size.  </t></list> </t>
+        <t>
+          COSE does not have an Ephemeral-Ephemeral version defined.
+          The reason for this is that COSE is not an an online protocol by itself and thus does not have a method to establish ephemeral secrets on both sides.
+          The expectation is that a protocol would establish the secrets for both sides, and then they would be used as static-static for the purposes of COSE, or that the protocol would generate a shared secret and a direct encryption would be used.
+        </t>
+        
         <t>The set of direct ECDH algorithms defined in this document are found in <xref target="table-ecdh-es-table"  />.  </t>
         <texttable title="ECDH Algorithm Values" anchor="table-ecdh-es-table" suppress-title="false" align="center" style="full">
           <ttcol align="left" width="9em">Name</ttcol>
@@ -1038,9 +1057,31 @@ COSE_KDF_Context = [
       </section>
     </section>
 
+    <section anchor="CBOR-Canonical" title="CBOR Encoding Restrictions"  >
+      <t>There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
+      <t><list style="symbols">
+        <t>
+          The restriction applies to the encoding of the COSE_KDF_Context.
+        </t>
+
+        <t>
+          Encoding MUST be done using definite lengths and the length of the  MUST be the minimum possible length.
+          This means that the integer 1 is encoded as "0x01" and not "0x1801".
+        </t>
+
+        <t>
+          Applications MUST NOT generate messages with the same label used twice as a key in a single map. 
+          Applications MUST NOT parse and process messages with the same label used twice as a key in a single map. 
+          Applications can enforce the parse and process requirement by using parsers that will fail the parse step or by using parsers that will pass all keys to the application, and the application can perform the check for duplicate keys. 
+        </t>
+      </list>
+      </t>
+    </section>
+
     <section anchor="iana-considerations" title="IANA Considerations"  >
       <t>
         There are no IANA actions.
+        The required actions are in <xref target="I-D.ietf-cose-rfc8152bis-struct"/>.
       </t>
     </section>
     
