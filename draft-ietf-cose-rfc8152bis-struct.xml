@@ -105,7 +105,7 @@
           <list style="symbols">
             <t> Split the orignal document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</t>
             <t>Add some text describing why there is no digest structure defined by COSE.</t>
-            <t>Rearrange the text around counter signatures and define a CBOR Tag for a standalong countersignature.</t>
+            <t>Rearrange the text around counter signatures and define a CBOR Tag for a standalone countersignature.</t>
               
           </list>
 
@@ -123,13 +123,13 @@
         <t>
           There was not a standard CBOR grammar available when COSE was originally written.
           For that reason the CBOR structures defined here are described in prose.
-          Since that time CBOR Data Definition Language (CDDL) <xref target="I-D.ietf-cbor-cddl"/> has been published as an RFC.
+          Since that time CBOR Data Definition Language (CDDL) <xref target="RFC8610"/> has been published as an RFC.
           The CBOR grammar presented in this document is compatible with CDDL.
         </t>
 
         <t>
           The document was developed by first working on the grammar and then developing the prose to go with it.
-          An artifact of this is that the prose was written using the primitive type strings defined by CBOR Data Definition Language (CDDL) <xref target="I-D.ietf-cbor-cddl"  />.
+          An artifact of this is that the prose was written using the primitive type strings defined by CBOR Data Definition Language (CDDL) <xref target="RFC8610"  />.
           In this specification, the following primitive types are used:
           
  <list style="empty">
@@ -193,6 +193,12 @@ values = any
         <t>Authenticated Encryption (AE) <xref target="RFC5116"  /> algorithms are those encryption algorithms that provide an authentication check of the contents algorithm with the encryption service.  </t>
 
         <t>Authenticated Encryption with Authenticated Data (AEAD) <xref target="RFC5116"  /> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
+        <t>
+          Context is used throughout the document to represent information that is not part of the COSE message.
+          Information which is part of the context can come from several different sources including:
+          Protocol interactions, associated key structures and program configuration.
+          Context should generally be included in the cryptographic configuration, for more details see <xref target="Extern_AAD"/>.
+        </t>
       </section>
     </section>
     
@@ -267,35 +273,35 @@ values = any
           <c>application/cose; cose-type="cose-sign"</c>
           <c/>
           <c>98</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose; cose-type="cose-sign1"</c>
           <c/>
           <c>18</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose; cose-type="cose-encrypt"</c>
           <c/>
           <c>96</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose; cose-type="cose-encrypt0"</c>
           <c/>
           <c>16</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose; cose-type="cose-mac"</c>
           <c/>
           <c>97</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose; cose-type="cose-mac0"</c>
           <c/>
           <c>17</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose-key</c>
           <c/>
           <c>101</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
           <c>application/cose-key-set</c>
           <c/>
           <c>102</c>
-          <c>[RFC8152]</c>
+          <c>[[THIS DOCUMENT]]</c>
         </texttable>
 
       <t>The following CDDL fragment identifies all of the top messages defined in this document.  Separate non-terminals are defined for the tagged and the untagged versions of the messages.  </t>
@@ -603,7 +609,8 @@ COSE_Sign1 = [
         <figure align="left">
           <artwork type="CDDL" xml:space="preserve" align="left">
 Sig_structure = [
-    context : "Signature" / "Signature1" / "CounterSignature",
+    context : "Signature" / "Signature1" / "CounterSignature" /
+              "CounterSignature0",
     body_protected : empty_or_serialized_map,
     ? sign_protected : empty_or_serialized_map,
     external_aad : bstr,
@@ -648,7 +655,7 @@ Sig_structure = [
         When done on a COSE_Signature, the normal countersignature semantics are preserved.  That is the countersignature makes a statement about the existance of a signature and, when used as a timestamp, a time point at which the signature exists.
         When done on a COSE_Mac or a COSE_Mac0, one effectively upgrades the MAC operation to a sginature operation.
         When done on a COSE_Encrypt or COSE_Encrypt0, the existance of the encrypted data is attested to.
-        It should be noted that there is a big difference between attesting to the enrypted data as oppose to attesting to the unencrypted data.
+        It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
         If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
         It is always possible to construct cases where the decryption is successful, while providing completely different answers by using a different key.
         This situation is not detectable by a countersignature on the encrypted data.
@@ -694,10 +701,10 @@ COSE_CounterSignature = COSE_Signature
 
       <section title="Abbreviated Countersignatures" >
         <t>
-          Abbreviated countersignatures were designed primarily to deal with the problem of having group encrypted messaging, but still needing to know who orginated the message.
+          Abbreviated countersignatures were designed primarily to deal with the problem of having group encrypted messaging, but still needing to know who originated the message.
           The object was to keep the countersignature as small as possible while still providing the needed security.
           For abbreviated countersignatures, there is no provision for any protected attributes related to the signing operation.
-          Instead, the context that was used to describe the encryption processing is also assumed to describe the context that was used to create the countersignature.
+          Instead, the parameters for computing or verifying the abbreviated countersignature are inferred from the same context used to describe the encryption, signature, or MAC processing.
         </t>
 
         <t>
@@ -786,13 +793,33 @@ COSE_recipient = [
 </artwork>
         </figure>
         <section anchor="key-management-methods" title="Content Key Distribution Methods"  >
-          <t>An encrypted message consists of an encrypted content and an encrypted CEK for one or more recipients.  The CEK is encrypted for each recipient, using a key specific to that recipient.  The details of this encryption depend on which class the recipient algorithm falls into.  Specific details on each of the classes can be found in <xref target="key-management-algs"  />.  A short summary of the five content key distribution methods is: 
-<list style="hanging">
-<t hangText="direct:">The CEK is the same as the identified previously distributed symmetric key or is derived from a previously distributed secret.  No CEK is transported in the message.  </t>
-
-<t hangText="symmetric key-encryption keys (KEK):">The CEK is encrypted using a previously distributed symmetric KEK.  Also known as key wrap.</t>
-<t hangText="key agreement:">The recipient's public key and a sender's private key are used to generate a pairwise secret, a Key Derivation Function (KDF) is applied to derive a key, and then the CEK is either the derived key or encrypted by the derived key.</t>
-<t hangText="key transport:">The CEK is encrypted with the recipient's public key. No key transport algorithms are defined in this document.</t><t hangText="passwords:">The CEK is encrypted in a KEK that is derived from a password. No password algorithms are defined in this document.</t></list> </t>
+          <t>
+            An encrypted message consists of an encrypted content and an encrypted CEK for one or more recipients. 
+            The CEK is encrypted for each recipient, using a key specific to that recipient.
+            The details of this encryption depend on which class the recipient algorithm falls into. 
+            Specific details on each of the classes can be found in <xref target="key-management-algs"  />. 
+            A short summary of the five content key distribution methods is: 
+            <list style="hanging">
+              <t hangText="direct:">
+                The CEK is the same as the identified previously distributed symmetric key or is derived from a previously distributed secret. 
+                No CEK is transported in the message.
+              </t>
+              <t hangText="symmetric key-encryption keys (KEK):">
+                The CEK is encrypted using a previously distributed symmetric KEK. 
+                Also known as key wrap.
+              </t>
+              <t hangText="key agreement:">
+                The recipient's public key and a sender's private key are used to generate a pairwise secret, a Key Derivation Function (KDF) is applied to derive a key, and then the CEK is either the derived key or encrypted by the derived key.
+              </t>
+              <t hangText="key transport:">
+                The CEK is encrypted with the recipient's public key.
+              </t>
+              <t hangText="passwords:">
+                The CEK is encrypted in a KEK that is derived from a password.
+                As of when this document was published, no password algorithms have been defined.
+              </t>
+            </list>
+          </t>
         </section>
       </section>
       <section title="Single Recipient Encrypted" anchor="EnvelopedData0"  >
@@ -1130,6 +1157,13 @@ COSE_KeySet = [+COSE_Key]
       </section>
     </section>
 
+    <section title="Taxonomy of Algorithms used by COSE">
+
+      <t>
+        In this section, a taxonomy of the different algorithm types that can be used in COSE is laid out.
+        This taxonomy should not be considered to be exhaustive as there are new algorithm structures that could be found or are not known to the author.
+      </t>
+      
     <section title="Signature Algorithms" anchor="SigAlgs">
       <t>There are two signature algorithm schemes.  The first is signature with appendix.  In this scheme, the message content is processed and a signature is produced; the signature is called the appendix.  This is the scheme used by algorithms such as ECDSA and the RSA Probabilistic Signature Scheme (RSASSA-PSS).  (In fact, the SSA in RSASSA-PSS stands for Signature Scheme with Appendix.) </t>
       <t>The signature functions for this scheme are: </t>
@@ -1166,7 +1200,10 @@ tag = MAC_Create(message content, key)
 valid = MAC_Verify(message content, key, tag)
 </artwork>
       </figure>
-      <t>MAC algorithms can be based on either a block cipher algorithm (i.e., AES-MAC) or a hash algorithm (i.e., a Hash-based Message Authentication Code (HMAC)).  This document defines a MAC algorithm using each of these constructions.  </t>
+      <t>
+        MAC algorithms can be based on either a block cipher algorithm (i.e., AES-MAC) or a hash algorithm (i.e., a Hash-based Message Authentication Code (HMAC)).
+        <xref target="I-D.ietf-cose-rfc8152bis-algs"/> defines a MAC algorithm using each of these constructions.
+      </t>
       <t>MAC algorithms are used in the COSE_Mac and COSE_Mac0 structures.  </t>
     </section>
 
@@ -1293,6 +1330,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <t>A parameter identifying the recipient's key SHOULD be present.  A parameter identifying the sender's key SHOULD be present.  </t></list> </t>
       </section>
     </section>
+  </section>
       
     <section anchor="CBOR-Canonical" title="CBOR Encoding Restrictions"  >
       <t>There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
@@ -1302,7 +1340,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </t>
 
         <t>
-          Encoding MUST be done using definite lengths and the length of the  MUST be the minimum possible length.
+          Encoding MUST be done using definite lengths and values MUST be the minimum possible length.
           This means that the integer 1 is encoded as "0x01" and not "0x1801".
         </t>
 
@@ -1318,7 +1356,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <t>This document is designed to provide a set of security services, but not impose algorithm implementation requirements for specific usage.  The interoperability requirements are provided for how each of the individual services are used and how the algorithms are to be used for interoperability.  The requirements about which algorithms and which services are needed are deferred to each application.  </t>
 
       <t>
-        An example of a profile can be found in <xref target="I-D.ietf-core-object-security"  /> where a profiles was developed for carrying content in combination with CoAP headers. 
+        An example of a profile can be found in <xref target="I-D.ietf-core-object-security"  /> where one was developed for carrying content in combination with CoAP headers. 
       </t>
 
       <t>It is intended that a profile of this document be created that defines the interoperability requirements for that specific application.  This section provides a set of guidelines and topics that need to be considered when profiling this document.  <list style="symbols"><t>Applications need to determine the set of messages defined in this document that they will be using.  The set of messages corresponds fairly directly to the set of security services that are needed and to the security levels needed.  </t>
@@ -1501,10 +1539,13 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     <section anchor="security-considerations" title="Security Considerations"  >
       <t>There are a number of security considerations that need to be taken into account by implementers of this specification.  The security considerations that are specific to an individual algorithm are placed next to the description of the algorithm.  While some considerations have been highlighted here, additional considerations may be found in the documents listed in the references.  </t>
 
-      <t>Implementations need to protect the private key material for any individuals.  There are some cases in this document that need to be highlighted on this issue.  <list style="symbols">
-<t>Using the same key for two different algorithms can leak information about the key.  It is therefore recommended that keys be restricted to a single algorithm.  </t>
-<t>Use of 'direct' as a recipient algorithm combined with a second recipient algorithm exposes the direct key to the second recipient.  </t>
-<t>Several of the algorithms in this document have limits on the number of times that a key can be used without leaking information about the key.  </t></list> </t>
+      <t>Implementations need to protect the private key material for any individuals.  There are some cases that need to be highlighted on this issue.
+      <list style="symbols">
+        <t>Using the same key for two different algorithms can leak information about the key.  It is therefore recommended that keys be restricted to a single algorithm.  </t>
+        <t>Use of 'direct' as a recipient algorithm combined with a second recipient algorithm exposes the direct key to the second recipient.  </t>
+        <t>Several of the algorithms in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> have limits on the number of times that a key can be used without leaking information about the key.</t>
+      </list>
+      </t>
 
       <t>The use of ECDH and direct plus KDF (with no key wrap) will not directly lead to the private key being leaked; the one way function of the KDF will prevent that.  There is, however, a different issue that needs to be addressed.  Having two recipients requires that the CEK be shared between two recipients.  The second recipient therefore has a CEK that was derived from material that can be used for the weak proof of origin.  The second recipient could create a message using the same CEK and send it to the first recipient; the first recipient would, for either static-static ECDH or direct plus KDF, make an assumption that the CEK could be used for proof of origin even though it is from the wrong entity.  If the key wrap step is added, then no proof of origin is implied and this is not an issue.  </t>
 
@@ -1520,9 +1561,9 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <t>Is the request something that is reasonable, given the current state of the application?</t>
 <t>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' parameter)?</t></list> </t>
 
-      <t>There are a large number of algorithms presented in this document that use nonce values.  For all of the nonces defined in this document, there is some type of restriction on the nonce being a unique value either for a key or for some other conditions.  In all of these cases, there is no known requirement on the nonce being both unique and unpredictable; under these circumstances, it's reasonable to use a counter for creation of the nonce.  In cases where one wants the pattern of the nonce to be unpredictable as well as unique, one can use a key created for that purpose and encrypt the counter to produce the nonce value.  </t>
+      <t>There are a large number of algorithms presented in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> that use nonce values.  Nonces generally have some type of restriction on their values. Generally a nonce needs to be a unique value either for a key or for some other conditions.  In all of these cases, there is no known requirement on the nonce being both unique and unpredictable; under these circumstances, it's reasonable to use a counter for creation of the nonce.  In cases where one wants the pattern of the nonce to be unpredictable as well as unique, one can use a key created for that purpose and encrypt the counter to produce the nonce value.  </t>
 
-      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different strings (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in this document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
+      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different strings (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
     </section>
     
     <section title="Implementation Status">
@@ -1570,7 +1611,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             <t>
               Coverage:
               The C version currently does not have full countersign support.
-              THe other two versions do.
+              The other two versions do.
               They do have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.
             </t>
             <t>
@@ -1587,7 +1628,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </t>
       </section>
 
-      <section title="Java Script Version">
+      <section title="JavaScript Version">
         <t><list style="none">
         <t>Implementation Location: https://github.com/erdtman/cose-js</t>
         <t>Primary Maintainer: Samuel Erdtman</t>
@@ -1684,7 +1725,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       
       &RFC8152;
 <!--draft-greevenbosch-appsawg-cbor-cddl-10; Active - AD is watching-->
-      <?rfc include="reference.I-D.ietf-cbor-cddl"?>
+      <?rfc include="reference.RFC.8610"?>
 
 <!--draft-moriarty-pkcs5-v2dot1-04; Pub'd as RFC 8018-->
 
@@ -1757,7 +1798,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 
 <t>Applications need to list the set of COSE structures that implicit algorithms are to be used in.  Applications need to require that the receipt of an explicit algorithm identifier in one of these structures will lead to the message being rejected.  This requirement is stated so that there will never be a case where there is any ambiguity about the question of which algorithm should be used, the implicit or the explicit one.  This applies even if the transported algorithm identifier is a protected attribute.  This applies even if the transported algorithm is the same as the implicit algorithm.  </t>
 
-<t>Applications need to define the set of information that is to be considered to be part of a context when omitting algorithm identifiers.  At a minimum, this would be the key identifier (if needed), the key, the algorithm, and the COSE structure it is used with.  Applications should restrict the use of a single key to a single algorithm.  As noted for some of the algorithms in this document, the use of the same key in different related algorithms can lead to leakage of information about the key, leakage about the data or the ability to perform forgeries.  </t>
+<t>Applications need to define the set of information that is to be considered to be part of a context when omitting algorithm identifiers.  At a minimum, this would be the key identifier (if needed), the key, the algorithm, and the COSE structure it is used with.  Applications should restrict the use of a single key to a single algorithm.  As noted for some of the algorithms in <xref target="I-D.ietf-cose-rfc8152bis-algs"/>, the use of the same key in different related algorithms can lead to leakage of information about the key, leakage about the data or the ability to perform forgeries.  </t>
 
 <t>In many cases, applications that make the algorithm identifier implicit will also want to make the context identifier implicit for the same reason.  That is, omitting the context identifier will decrease the message size (potentially significantly depending on the length of the identifier).  Applications that do this will need to describe the circumstances where the context identifier is to be omitted and how the context identifier is to be inferred in these cases.  (An exhaustive search over all of the keys would normally not be considered to be acceptable.) An example of how this can be done is to tie the context to a transaction identifier.  Both would be sent on the original message, but only the transaction identifier would need to be sent after that point as the context is tied into the transaction identifier.  Another way would be to associate a context with a network address.  All messages coming from a single network address can be assumed to be associated with a specific context.  (In this case, the address would normally be distributed as part of the context.) </t>
 
@@ -1838,7 +1879,7 @@ e9b8a55a600b21233e86e68',
 </artwork></figure> </section>
     <section anchor="examples" title="Examples"  >
 
-      <t>This appendix includes a set of examples that show the different features and message types that have been defined in this document.  To make the examples easier to read, they are presented using the extended CBOR diagnostic notation (defined in <xref target="I-D.ietf-cbor-cddl"  />) rather than as a binary dump.  </t>
+      <t>This appendix includes a set of examples that show the different features and message types that have been defined in this document.  To make the examples easier to read, they are presented using the extended CBOR diagnostic notation (defined in <xref target="RFC8610"  />) rather than as a binary dump.  </t>
 
       <t>A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.  Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format.  Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.  If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.  </t>
 
