@@ -108,12 +108,12 @@
           Authenticated Encryption (AE) <xref target="RFC5116"  /> algorithms are those encryption algorithms that provide an authentication check of the plain text contents as part of the encryption service.
         </t>
 
-        <t>Authenticated Encryption with Authenticated Data (AEAD) <xref target="RFC5116"  /> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
+        <t>Authenticated Encryption with Associated Data (AEAD) <xref target="RFC5116"  /> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
       </section>
 
       <section title="CBOR Grammar">
         <t>
-          At the time that <xref target="RFC8152"/> was initially published, the CBOR Data Definition Language (CDDL) <xref target="I-D.ietf-cbor-cddl"/> had not yet been published.
+          At the time that <xref target="RFC8152"/> was initially published, the CBOR Data Definition Language (CDDL) <xref target="RFC8610"/> had not yet been published.
           This document uses a variant of CDDL which is described in <xref target="I-D.ietf-cose-rfc8152bis-struct"/>
         </t>
       </section>
@@ -1178,8 +1178,7 @@ COSE_KDF_Context = [
 
     <references title="Informative References">
 
-      <!--draft-greevenbosch-appsawg-cbor-cddl-10; Active - AD is watching-->
-      <?rfc include="reference.I-D.ietf-cbor-cddl"?>
+      <?rfc include="reference.RFC.8610"?>
 
 <!--
 <?rfc include="reference.RFC.8018"?>
@@ -1241,27 +1240,6 @@ COSE_KDF_Context = [
 </reference>
 -->
 
-<!--
-<reference anchor='OSCOAP'>
-<front>
-<title>Object Security of CoAP (OSCOAP)</title>
-<author initials='G' surname='Selander' fullname='Goeran Selander'>
-    <organization />
-</author>
-<author initials='J' surname='Mattsson' fullname='John Mattsson'>
-    <organization />
-</author>
-<author initials='F' surname='Palombini' fullname='Francesca Palombini'>
-    <organization />
-</author>
-<author initials='L' surname='Seitz' fullname='Ludwig Seitz'>
-    <organization />
-</author>
-<date month='May' year='2017' />
-</front>
-<seriesInfo name='Work in Progress,' value='draft-ietf-core-object-security-03' />
-</reference>
--->
 </references>
 
  
