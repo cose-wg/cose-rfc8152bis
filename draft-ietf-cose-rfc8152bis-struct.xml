@@ -270,7 +270,7 @@ values = any
         <c>COSE Mac w/o Recipients Object</c>
         <c>TBD0</c>
         <c>cose-countersign</c>
-        <c>COSE_Signature</c>
+        <c>COSE_Countersignature</c>
         <c>COSE standalone counter signature</c>
       </texttable>
 
@@ -662,7 +662,11 @@ array to avoid confusion.
    Need to think about how to adjust the text to deal with all of the different ways to put the signature someplace.
 -->
 
-<t>Place the resulting signature value in the 'signature' field of the array.  </t></list> </t>
+<t>
+  Place the resulting signature value in the correct location.
+  This is the 'signature' field of the COSE_Signature, COSE_Sign1 or COSE_Countersignature structures.
+  This is the value of the Countersignature0 attribute.
+        </t></list> </t>
 
         <t>The steps for verifying a signature are:
  <list style="numbers">
@@ -1728,15 +1732,13 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <date/></front>
 </reference>
 
-<!-- M00BUG - wrong fragment -->
-<reference anchor="COSE.KeyParameters" quote-title="true" target="https://www.iana.org/assignments/cose/cose.xhtml#algorithms"><front>
+<reference anchor="COSE.KeyParameters" quote-title="true" target="https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters"><front>
 <title>COSE Key Parameters</title>
 <author><organization>IANA</organization></author>
 <date/></front>
 </reference>
 
-<!-- M00BUG - wrong fragment -->
-<reference anchor="COSE.KeyTypes" quote-title="true" target="https://www.iana.org/assignments/cose/cose.xhtml#algorithms"><front>
+<reference anchor="COSE.KeyTypes" quote-title="true" target="https://www.iana.org/assignments/cose/cose.xhtml#key-type"><front>
 <title>COSE Key Types</title>
 <author><organization>IANA</organization></author>
 <date/></front>
