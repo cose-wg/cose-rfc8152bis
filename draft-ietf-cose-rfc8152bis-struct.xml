@@ -148,7 +148,7 @@
 
         <t>
           Two of the constraints defined by CDDL are also used in this document.  These are:
-          <list sytle="empty">
+          <list style="empty">
             <t>type1 .cbor type2 -- indicates that the contents of type1, usually bstr, contains a value of type2.</t>
             <t>type1 .size integer -- indicates that the contents of type1 is integer bytes long</t>
           </list>
