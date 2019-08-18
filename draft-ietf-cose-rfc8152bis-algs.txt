@@ -4,9 +4,9 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                             March 11, 2019
+Obsoletes: 8152 (if approved)                            August 18, 2019
 Intended status: Standards Track
-Expires: September 12, 2019
+Expires: February 19, 2020
 
 
      CBOR Object Signing and Encryption (COSE): Initial Algorithms
@@ -53,15 +53,15 @@ Status of This Memo
 
 
 
-Schaad                 Expires September 12, 2019               [Page 1]
+Schaad                  Expires February 19, 2020               [Page 1]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 12, 2019.
+   This Internet-Draft will expire on February 19, 2020.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                 Expires September 12, 2019               [Page 2]
+Schaad                  Expires February 19, 2020               [Page 2]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
      5.2.  Context Information Structure . . . . . . . . . . . . . .  19
@@ -129,11 +129,12 @@ Internet-Draft               COSE Algorithms                  March 2019
        7.1.1.  Double Coordinate Curves  . . . . . . . . . . . . . .  34
      7.2.  Octet Key Pair  . . . . . . . . . . . . . . . . . . . . .  35
      7.3.  Symmetric Keys  . . . . . . . . . . . . . . . . . . . . .  36
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  36
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  37
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  39
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  39
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  40
+   8.  CBOR Encoding Restrictions  . . . . . . . . . . . . . . . . .  36
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  37
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  39
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  39
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  41
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  42
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  42
 
@@ -164,10 +165,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-
-Schaad                 Expires September 12, 2019               [Page 3]
+Schaad                  Expires February 19, 2020               [Page 3]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
 1.1.  Requirements Terminology
@@ -197,7 +197,7 @@ Internet-Draft               COSE Algorithms                  March 2019
    encryption algorithms that provide an authentication check of the
    plain text contents as part of the encryption service.
 
-   Authenticated Encryption with Authenticated Data (AEAD) [RFC5116]
+   Authenticated Encryption with Associated Data (AEAD) [RFC5116]
    algorithms provide the same content authentication service as AE
    algorithms, but they additionally provide for authentication of non-
    encrypted data as well.
@@ -205,35 +205,34 @@ Internet-Draft               COSE Algorithms                  March 2019
 1.4.  CBOR Grammar
 
    At the time that [RFC8152] was initially published, the CBOR Data
-   Definition Language (CDDL) [I-D.ietf-cbor-cddl] had not yet been
-   published.  This document uses a variant of CDDL which is described
-   in [I-D.ietf-cose-rfc8152bis-struct]
+   Definition Language (CDDL) [RFC8610] had not yet been published.
+   This document uses a variant of CDDL which is described in
+   [I-D.ietf-cose-rfc8152bis-struct]
 
 1.5.  Examples
 
    A GitHub project has been created at <https://github.com/cose-wg/
-   Examples> that contains not only the examples presented in this
-   document, but a more complete set of testing examples as well.  Each
+   Examples> that contains a set of testing examples as well.  Each
    example is found in a JSON file that contains the inputs used to
    create the example, some of the intermediate values that can be used
    in debugging the example and the output of the example presented in
    both a hex and a CBOR diagnostic notation format.  Some of the
-
-
-
-Schaad                 Expires September 12, 2019               [Page 4]
-
-Internet-Draft               COSE Algorithms                  March 2019
-
-
    examples at the site are designed failure testing cases; these are
+
+
+
+Schaad                  Expires February 19, 2020               [Page 4]
+
+Internet-Draft               COSE Algorithms                 August 2019
+
+
    clearly marked as such in the JSON file.  If errors in the examples
    in this document are found, the examples on GitHub will be updated,
    and a note to that effect will be placed in the JSON file.
 
 2.  Signature Algorithms
 
-   Section X.X of [I-D.ietf-cose-rfc8152bis-struct]
+   Section 9.1 of [I-D.ietf-cose-rfc8152bis-struct]
    [I-D.ietf-cose-rfc8152bis-struct] contains a generic description of
    signature algorithms.  The document defines signature algorithm
    identifiers for two signature algorithms.
@@ -277,9 +276,10 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019               [Page 5]
+
+Schaad                  Expires February 19, 2020               [Page 5]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    In order to promote interoperability, it is suggested that SHA-256 be
@@ -290,7 +290,7 @@ Internet-Draft               COSE Algorithms                  March 2019
    The signature algorithm results in a pair of integers (R, S).  These
    integers will be the same length as the length of the key used for
    the signature process.  The signature is encoded by converting the
-   integers into byte strings of the same length as the key size.  The
+   integers into bit strings of the same length as the key size.  The
    length is rounded up to the nearest byte and is left padded with zero
    bits to get to the correct length.  The two integers are then
    concatenated together to form a byte string that is the resulting
@@ -333,9 +333,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019               [Page 6]
+Schaad                  Expires February 19, 2020               [Page 6]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    o  Changing the curve used to validate the signature: If one changes
@@ -389,9 +389,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019               [Page 7]
+Schaad                  Expires February 19, 2020               [Page 7]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
                       +-------+-------+-------------+
@@ -434,7 +434,7 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 3.  Message Authentication Code (MAC) Algorithms
 
-   Section X.X of [I-D.ietf-cose-rfc8152bis-struct]
+   Section 9.2 of [I-D.ietf-cose-rfc8152bis-struct]
    [I-D.ietf-cose-rfc8152bis-struct] contains a generic description of
    MAC algorithms.  This section defines the conventions for two MAC
    algorithms.
@@ -445,9 +445,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019               [Page 8]
+Schaad                  Expires February 19, 2020               [Page 8]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
 3.1.  Hash-Based Message Authentication Codes (HMACs)
@@ -501,9 +501,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019               [Page 9]
+Schaad                  Expires February 19, 2020               [Page 9]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    o  The 'kty' field MUST be present, and it MUST be 'Symmetric'.
@@ -557,9 +557,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 10]
+Schaad                  Expires February 19, 2020              [Page 10]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    +-------------+-------+----------+----------+-----------------------+
@@ -613,9 +613,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 11]
+Schaad                  Expires February 19, 2020              [Page 11]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    o  Cipher Block Chaining (CBC) mode, if the same key is used for both
@@ -627,7 +627,7 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 4.  Content Encryption Algorithms
 
-   Section X.X of [I-D.ietf-cose-rfc8152bis-struct]
+   Section 9.3 of [I-D.ietf-cose-rfc8152bis-struct]
    [I-D.ietf-cose-rfc8152bis-struct] contains a generic description of
    Content Encryption algorithms.  This document defines the identifier
    and usages for three content encryption algorithms.
@@ -669,9 +669,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 12]
+Schaad                  Expires February 19, 2020              [Page 12]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    o  If the 'alg' field is present, it MUST match the AES-GCM algorithm
@@ -725,9 +725,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 13]
+Schaad                  Expires February 19, 2020              [Page 13]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    convention of using bit counts so that it is easier to compare the
@@ -745,8 +745,8 @@ Internet-Draft               COSE Algorithms                  March 2019
 
    16 bits (2):  This limits messages to 2^16 bytes (64 KiB) in length.
       This is sufficiently long for messages in the constrained world.
-      The nonce length is 13 bytes allowing for 2^(13*8) possible values
-      of the nonce without repeating.
+      The nonce length is 13 bytes allowing for 2^104 possible values of
+      the nonce without repeating.
 
    64 bits (8):  This limits messages to 2^64 bytes in length.  The
       nonce length is 7 bytes allowing for 2^56 possible values of the
@@ -781,9 +781,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 14]
+Schaad                  Expires February 19, 2020              [Page 14]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    +--------------------+-------+----+-----+-----+---------------------+
@@ -837,9 +837,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 15]
+Schaad                  Expires February 19, 2020              [Page 15]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    o  If the 'key_ops' field is present, it MUST include 'encrypt' or
@@ -893,9 +893,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 16]
+Schaad                  Expires February 19, 2020              [Page 16]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    +-------------------+-------+---------------------------------------+
@@ -934,7 +934,7 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 5.  Key Derivation Functions (KDFs)
 
-   Section X.X of [I-D.ietf-cose-rfc8152bis-struct]
+   Section 9.4 of [I-D.ietf-cose-rfc8152bis-struct]
    [I-D.ietf-cose-rfc8152bis-struct] contains a generic description of
    Key Derivation Functions.  This document defines a single context
    structure and a single KDF.  These elements are used for all of the
@@ -949,9 +949,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 17]
+Schaad                  Expires February 19, 2020              [Page 17]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
 5.1.  HMAC-Based Extract-and-Expand Key Derivation Function (HKDF)
@@ -1005,9 +1005,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 18]
+Schaad                  Expires February 19, 2020              [Page 18]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    +---------------+-----------------+---------------------------------+
@@ -1061,9 +1061,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 19]
+Schaad                  Expires February 19, 2020              [Page 19]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    application protocol defines differently, we assign PartyU to the
@@ -1117,9 +1117,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 20]
+Schaad                  Expires February 19, 2020              [Page 20]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    |          |       |      | SS+HKDF-256, ECDH-        |             |
@@ -1173,9 +1173,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 21]
+Schaad                  Expires February 19, 2020              [Page 21]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    |          |       |      | direct+HKDF-AES-128,      | provided    |
@@ -1229,9 +1229,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 22]
+Schaad                  Expires February 19, 2020              [Page 22]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
          information is carried in the message, applications SHOULD have
@@ -1285,9 +1285,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 23]
+Schaad                  Expires February 19, 2020              [Page 23]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
       information would be a preexisting shared secret.  (This could,
@@ -1320,7 +1320,7 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 6.  Content Key Distribution Methods
 
-   Section X.X of [I-D.ietf-cose-rfc8152bis-struct]
+   Section 9.5 of [I-D.ietf-cose-rfc8152bis-struct]
    [I-D.ietf-cose-rfc8152bis-struct] contains a generic description of
    content key distribution methods.  This document defines the
    identifiers and usage for a number of content key distribution
@@ -1328,7 +1328,7 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 6.1.  Direct Encryption
 
-   Direct encryption algorithm is defined in Section X.X of [I-D.ietf-
+   Direct encryption algorithm is defined in Section 9.5.1 of [I-D.ietf-
    cose-rfc8152bis-struct] [I-D.ietf-cose-rfc8152bis-struct].
    Information about how to fill in the COSE_Recipient structure are
    detailed there.
@@ -1341,9 +1341,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 24]
+Schaad                  Expires February 19, 2020              [Page 24]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    There are no algorithm parameters defined for this algorithm.  The
@@ -1397,9 +1397,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 25]
+Schaad                  Expires February 19, 2020              [Page 25]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    function underlying HKDF.  While there is no way to guarantee that it
@@ -1453,9 +1453,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 26]
+Schaad                  Expires February 19, 2020              [Page 26]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
 6.1.2.1.  Security Considerations
@@ -1509,9 +1509,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 27]
+Schaad                  Expires February 19, 2020              [Page 27]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
         +--------+-------+----------+-----------------------------+
@@ -1565,9 +1565,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 28]
+Schaad                  Expires February 19, 2020              [Page 28]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
       static keys, the sender MUST either generate a new random value or
@@ -1597,6 +1597,14 @@ Internet-Draft               COSE Algorithms                  March 2019
       represented in Table 14 as 'none'.  The key size for the context
       structure is the content layer encryption algorithm size.
 
+   COSE does not have an Ephemeral-Ephemeral version defined.  The
+   reason for this is that COSE is not an an online protocol by itself
+   and thus does not have a method to establish ephemeral secrets on
+   both sides.  The expectation is that a protocol would establish the
+   secrets for both sides, and then they would be used as static-static
+   for the purposes of COSE, or that the protocol would generate a
+   shared secret and a direct encryption would be used.
+
    The set of direct ECDH algorithms defined in this document are found
    in Table 14.
 
@@ -1613,17 +1621,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-
-
-
-
-
-
-
-
-Schaad                 Expires September 12, 2019              [Page 29]
+Schaad                  Expires February 19, 2020              [Page 29]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    +-----------+-------+---------+------------+--------+---------------+
@@ -1677,9 +1677,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 30]
+Schaad                  Expires February 19, 2020              [Page 30]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    that the key type and curve are correct.  Different curves are
@@ -1733,9 +1733,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 31]
+Schaad                  Expires February 19, 2020              [Page 31]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
       wrap algorithm is fed into the KDF.  The set of identifiers are
@@ -1789,9 +1789,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 32]
+Schaad                  Expires February 19, 2020              [Page 32]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    o  The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.
@@ -1845,9 +1845,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 33]
+Schaad                  Expires February 19, 2020              [Page 33]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    only the x-coordinate as the y-coordinate is either to be recomputed
@@ -1901,9 +1901,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 34]
+Schaad                  Expires February 19, 2020              [Page 34]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
         Octet-String Conversion function of [SEC1].  If the sign bit is
@@ -1957,9 +1957,9 @@ Internet-Draft               COSE Algorithms                  March 2019
 
 
 
-Schaad                 Expires September 12, 2019              [Page 35]
+Schaad                  Expires February 19, 2020              [Page 35]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
    For public keys, it is REQUIRED that 'crv' and 'x' be present in the
@@ -2004,21 +2004,40 @@ Internet-Draft               COSE Algorithms                  March 2019
 
                     Table 21: Symmetric Key Parameters
 
-8.  IANA Considerations
+8.  CBOR Encoding Restrictions
 
-   There are no IANA actions.
+   There has been an attempt to limit the number of places where the
+   document needs to impose restrictions on how the CBOR Encoder needs
+   to work.  We have managed to narrow it down to the following
+   restrictions:
 
 
 
-
-
-
-Schaad                 Expires September 12, 2019              [Page 36]
+Schaad                  Expires February 19, 2020              [Page 36]
 
-Internet-Draft               COSE Algorithms                  March 2019
+Internet-Draft               COSE Algorithms                 August 2019
 
 
-9.  Security Considerations
+   o  The restriction applies to the encoding of the COSE_KDF_Context.
+
+   o  Encoding MUST be done using definite lengths and the length of the
+      MUST be the minimum possible length.  This means that the integer
+      1 is encoded as "0x01" and not "0x1801".
+
+   o  Applications MUST NOT generate messages with the same label used
+      twice as a key in a single map.  Applications MUST NOT parse and
+      process messages with the same label used twice as a key in a
+      single map.  Applications can enforce the parse and process
+      requirement by using parsers that will fail the parse step or by
+      using parsers that will pass all keys to the application, and the
+      application can perform the check for duplicate keys.
+
+9.  IANA Considerations
+
+   There are no IANA actions.  The required actions are in
+   [I-D.ietf-cose-rfc8152bis-struct].
+
+10.  Security Considerations
 
    There are a number of security considerations that need to be taken
    into account by implementers of this specification.  The security
@@ -2047,6 +2066,14 @@ Internet-Draft               COSE Algorithms                  March 2019
    directly lead to the private key being leaked; the one way function
    of the KDF will prevent that.  There is, however, a different issue
    that needs to be addressed.  Having two recipients requires that the
+
+
+
+Schaad                  Expires February 19, 2020              [Page 37]
+
+Internet-Draft               COSE Algorithms                 August 2019
+
+
    CEK be shared between two recipients.  The second recipient therefore
    has a CEK that was derived from material that can be used for the
    weak proof of origin.  The second recipient could create a message
@@ -2066,14 +2093,6 @@ Internet-Draft               COSE Algorithms                  March 2019
    of algorithm in any distribution of key material and strictly enforce
    the matching of algorithms in the key structure to algorithms in the
    message structure.  In addition to checking that algorithms are
-
-
-
-Schaad                 Expires September 12, 2019              [Page 37]
-
-Internet-Draft               COSE Algorithms                  March 2019
-
-
    correct, the key form needs to be checked as well.  Do not use an
    'EC2' key where an 'OKP' key is expected.
 
@@ -2103,6 +2122,14 @@ Internet-Draft               COSE Algorithms                  March 2019
    unique value either for a key or for some other conditions.  In all
    of these cases, there is no known requirement on the nonce being both
    unique and unpredictable; under these circumstances, it's reasonable
+
+
+
+Schaad                  Expires February 19, 2020              [Page 38]
+
+Internet-Draft               COSE Algorithms                 August 2019
+
+
    to use a counter for creation of the nonce.  In cases where one wants
    the pattern of the nonce to be unpredictable as well as unique, one
    can use a key created for that purpose and encrypt the counter to
@@ -2119,20 +2146,9 @@ Internet-Draft               COSE Algorithms                  March 2019
    in order to prevent or discourage such analysis.  (For example, the
    strings could be defined as 'YES' and 'NO '.)
 
+11.  References
 
-
-
-
-
-
-Schaad                 Expires September 12, 2019              [Page 38]
-
-Internet-Draft               COSE Algorithms                  March 2019
-
-
-10.  References
-
-10.1.  Normative References
+11.1.  Normative References
 
    [AES-GCM]  National Institute of Standards and Technology,
               "Recommendation for Block Cipher Modes of Operation:
@@ -2148,9 +2164,9 @@ Internet-Draft               COSE Algorithms                  March 2019
               NIST.FIPS.186-4.pdf>.
 
    [I-D.ietf-cose-rfc8152bis-struct]
-              Schaad, J., "CBOR Object Signing and Encryption (COSE) -
+              Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", draft-ietf-cose-rfc8152bis-
-              struct-01 (work in progress), February 2019.
+              struct-03 (work in progress), June 2019.
 
    [MAC]      National Institute of Standards and Technology, "Computer
               Data Authentication", FIPS PUB 113, May 1985,
@@ -2161,6 +2177,14 @@ Internet-Draft               COSE Algorithms                  March 2019
               Hashing for Message Authentication", RFC 2104,
               DOI 10.17487/RFC2104, February 1997,
               <https://www.rfc-editor.org/info/rfc2104>.
+
+
+
+
+Schaad                  Expires February 19, 2020              [Page 39]
+
+Internet-Draft               COSE Algorithms                 August 2019
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -2174,17 +2198,6 @@ Internet-Draft               COSE Algorithms                  March 2019
    [RFC3610]  Whiting, D., Housley, R., and N. Ferguson, "Counter with
               CBC-MAC (CCM)", RFC 3610, DOI 10.17487/RFC3610, September
               2003, <https://www.rfc-editor.org/info/rfc3610>.
-
-
-
-
-
-
-
-Schaad                 Expires September 12, 2019              [Page 39]
-
-Internet-Draft               COSE Algorithms                  March 2019
-
 
    [RFC5869]  Krawczyk, H. and P. Eronen, "HMAC-based Extract-and-Expand
               Key Derivation Function (HKDF)", RFC 5869,
@@ -2222,25 +2235,18 @@ Internet-Draft               COSE Algorithms                  March 2019
               Protocols", RFC 8439, DOI 10.17487/RFC8439, June 2018,
               <https://www.rfc-editor.org/info/rfc8439>.
 
+
+
+Schaad                  Expires February 19, 2020              [Page 40]
+
+Internet-Draft               COSE Algorithms                 August 2019
+
+
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               Standards for Efficient Cryptography, Version 2.0, May
               2009, <http://www.secg.org/sec1-v2.pdf>.
 
-10.2.  Informative References
-
-   [I-D.ietf-cbor-cddl]
-              Birkholz, H., Vigano, C., and C. Bormann, "Concise data
-              definition language (CDDL): a notational convention to
-              express CBOR and JSON data structures", draft-ietf-cbor-
-              cddl-07 (work in progress), February 2019.
-
-
-
-
-Schaad                 Expires September 12, 2019              [Page 40]
-
-Internet-Draft               COSE Algorithms                  March 2019
-
+11.2.  Informative References
 
    [RFC4231]  Nystrom, M., "Identifiers and Test Vectors for HMAC-SHA-
               224, HMAC-SHA-256, HMAC-SHA-384, and HMAC-SHA-512",
@@ -2283,20 +2289,25 @@ Internet-Draft               COSE Algorithms                  March 2019
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
               <https://www.rfc-editor.org/info/rfc8152>.
 
+
+
+
+
+Schaad                  Expires February 19, 2020              [Page 41]
+
+Internet-Draft               COSE Algorithms                 August 2019
+
+
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
-
-
-
-
-
-Schaad                 Expires September 12, 2019              [Page 41]
-
-Internet-Draft               COSE Algorithms                  March 2019
-
+   [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
+              Definition Language (CDDL): A Notational Convention to
+              Express Concise Binary Object Representation (CBOR) and
+              JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
+              June 2019, <https://www.rfc-editor.org/info/rfc8610>.
 
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., and M. Smid,
@@ -2338,15 +2349,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Schaad                 Expires September 12, 2019              [Page 42]
+Schaad                  Expires February 19, 2020              [Page 42]
