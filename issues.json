@@ -1,6 +1,114 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/16",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/16/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/16/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/16/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/16",
+    "id": 492426653,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzE2NjAxNjIz",
+    "number": 16,
+    "title": "Wglc 2",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-09-11T19:32:35Z",
+    "updated_at": "2019-09-11T19:34:44Z",
+    "closed_at": "2019-09-11T19:34:39Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/16",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/16",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/16.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/16.patch"
+    },
+    "body": "Deal with the second round of WGLC comments\r\nDo some v3 vocabulary cleanup"
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/15",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/15/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/15/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/15/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/15",
+    "id": 482039053,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzA4Mzk1MTA5",
+    "number": 15,
+    "title": "V2v3 2",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-08-18T21:27:19Z",
+    "updated_at": "2019-08-18T21:32:06Z",
+    "closed_at": "2019-08-18T21:31:50Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/15",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/15",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/15.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/15.patch"
+    },
+    "body": "Upgrade the algs document from v2 to v3."
+  },
+  {
     "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/14",
     "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
     "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/14/labels{/name}",
@@ -142,17 +250,17 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2019-06-12T09:46:05Z",
-    "updated_at": "2019-06-12T09:46:05Z",
-    "closed_at": null,
+    "updated_at": "2019-09-11T19:32:53Z",
+    "closed_at": "2019-09-11T19:32:53Z",
     "author_association": "NONE",
     "body": "Both documents refer to AEAD as \"Authenticated Encryption with Authenticated Data\" and refers to RFC5116. But RFC5116 defines AEAD as \"Authenticated Encryption with Associated Data\".\r\n\r\n"
   },
