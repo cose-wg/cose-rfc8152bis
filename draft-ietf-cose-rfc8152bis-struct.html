@@ -294,11 +294,11 @@ ul.toc li {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">COSE Structure</td>
-<td class="right">August 2019</td>
+<td class="right">September 2019</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schaad</td>
-<td class="center">Expires 19 February 2020</td>
+<td class="center">Expires 14 March 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -313,12 +313,12 @@ ul.toc li {
 <a href="https://www.rfc-editor.org/info/rfc8152.txt" class="eref">8152</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2019-08-18" class="published">18 August 2019</time>
+<time datetime="2019-09-11" class="published">11 September 2019</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-02-19">19 February 2020</time></dd>
+<dd class="expires"><time datetime="2020-03-14">14 March 2020</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -371,7 +371,7 @@ ul.toc li {
         material or to cite them other than as "work in progress."
         <a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 February 2020.
+        This Internet-Draft will expire on 14 March 2020.
         <a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -871,15 +871,15 @@ ul.toc li {
   The CDDL grammar is informational; the prose description is normative.
 <a href="#section-1.4-8" class="pilcrow">¶</a></p>
 <p id="section-1.4-9">The collected CDDL can be extracted from the XML version of this document via the following XPath expression below.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) <a href="#section-1.4-9" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-XPATH" id="section-1.4-10">
-<pre>
-//artwork[@type='CDDL']/text()
+<div id="section-1.4-10">
+<pre class="sourcecode lang-XPATH">
+//sourcecode[@type='CDDL']/text()
 </pre>
 <a href="#section-1.4-10" class="pilcrow">¶</a>
 </div>
 <p id="section-1.4-11">CDDL expects the initial non-terminal symbol to be the first symbol in the file.  For this reason, the first fragment of CDDL is presented here.  <a href="#section-1.4-11" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-1.4-12">
-<pre>
+<div id="section-1.4-12">
+<pre class="sourcecode lang-CDDL">
 start = COSE_Messages / COSE_Key / COSE_KeySet / Internal_Types
 
 ; This is defined to make the tool quieter:
@@ -901,8 +901,8 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they MUST NOT create messages with incorrect labels. 
         <a href="#section-1.5-2" class="pilcrow">¶</a></p>
 <p id="section-1.5-3">A CDDL grammar fragment defines the non-terminal 'label', as in the previous paragraph, and 'values', which permits any value to be used.  <a href="#section-1.5-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-1.5-4">
-<pre>
+<div id="section-1.5-4">
+<pre class="sourcecode lang-CDDL">
 label = int / tstr
 values = any
 </pre>
@@ -1096,8 +1096,8 @@ values = any
       </table>
 </div>
 <p id="section-2-9">The following CDDL fragment identifies all of the top messages defined in this document.  Separate non-terminals are defined for the tagged and the untagged versions of the messages.  <a href="#section-2-9" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-2-10">
-<pre>
+<div id="section-2-10">
+<pre class="sourcecode lang-CDDL">
 COSE_Messages = COSE_Untagged_Message / COSE_Tagged_Message
       
 COSE_Untagged_Message = COSE_Sign / COSE_Sign1 /
@@ -1149,8 +1149,8 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
       <a href="#section-3-6" class="pilcrow">¶</a></p>
 <p id="section-3-7">Labels in each of the maps MUST be unique.  When processing messages, if a label appears multiple times, the message MUST be rejected as malformed.  Applications SHOULD verify that the same label does not occur in both the protected and unprotected headers.  If the message is not rejected as malformed, attributes MUST be obtained from the protected bucket before they are obtained from the unprotected bucket.  <a href="#section-3-7" class="pilcrow">¶</a></p>
 <p id="section-3-8">The following CDDL fragment represents the two header buckets.  A group "Headers" is defined in CDDL that represents the two buckets in which attributes are placed.  This group is used to provide these two fields consistently in all locations.  A type is also defined that represents the map of common headers.  <a href="#section-3-8" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-3-9">
-<pre>
+<div id="section-3-9">
+<pre class="sourcecode lang-CDDL">
 Headers = (
     protected : empty_or_serialized_map,
     unprotected : header_map
@@ -1300,8 +1300,8 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
         </table>
 </div>
 <p id="section-3.1-5">The CDDL fragment that represents the set of headers defined in this section is given below.  Each of the headers is tagged as optional because they do not need to be in every map; headers required in specific maps are discussed above.  <a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-3.1-6">
-<pre>
+<div id="section-3.1-6">
+<pre class="sourcecode lang-CDDL">
 Generic_Headers = (
     ? 1 =&gt; int / tstr,  ; algorithm identifier
     ? 2 =&gt; [+label],    ; criticality
@@ -1340,8 +1340,8 @@ Generic_Headers = (
 <p id="section-4.1-4">
 For example, the COSE_Sign structure might include signatures generated with the Edwards-curve Digital Signature Algorithm (EdDSA) <span>[<a href="#RFC8032" class="xref">RFC8032</a>]</span> and with the Elliptic Curve Digital Signature Algorithm (ECDSA) <span>[<a href="#DSS" class="xref">DSS</a>]</span>.  This allows recipients to verify the signature associated with one algorithm or the other. More-detailed information on multiple signature evaluations can be found in <span>[<a href="#RFC5752" class="xref">RFC5752</a>]</span>.  <a href="#section-4.1-4" class="pilcrow">¶</a></p>
 <p id="section-4.1-5">The signature structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Sign structure is identified by the CBOR tag 98.  The CDDL fragment that represents this is: <a href="#section-4.1-5" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-4.1-6">
-<pre>
+<div id="section-4.1-6">
+<pre class="sourcecode lang-CDDL">
 COSE_Sign_Tagged = #6.98(COSE_Sign)
 </pre>
 <a href="#section-4.1-6" class="pilcrow">¶</a>
@@ -1365,8 +1365,8 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
           <dd id="section-4.1-9.8">This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.  </dd>
         </dl>
 <p id="section-4.1-10">The CDDL fragment that represents the above text for COSE_Sign follows.  <a href="#section-4.1-10" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-4.1-11">
-<pre>
+<div id="section-4.1-11">
+<pre class="sourcecode lang-CDDL">
 COSE_Sign = [
     Headers,
     payload : bstr / nil,
@@ -1386,8 +1386,8 @@ COSE_Sign = [
           <dd id="section-4.1-13.6">This field contains the computed signature value.  The type of the field is a bstr.  Algorithms MUST specify padding if the signature value is not a multiple of 8 bits.  </dd>
         </dl>
 <p id="section-4.1-14">The CDDL fragment that represents the above text for COSE_Signature follows.  <a href="#section-4.1-14" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-4.1-15">
-<pre>
+<div id="section-4.1-15">
+<pre class="sourcecode lang-CDDL">
 COSE_Signature =  [
     Headers,      
     signature : bstr
@@ -1403,8 +1403,8 @@ COSE_Signature =  [
         </h3>
 <p id="section-4.2-1">The COSE_Sign1 signature structure is used when only one signature is going to be placed on a message.  The parameters dealing with the content and the signature are placed in the same pair of buckets rather than having the separation of COSE_Sign.  <a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">The structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Sign1 structure is identified by the CBOR tag 18.  The CDDL fragment that represents this is: <a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-4.2-3">
-<pre>
+<div id="section-4.2-3">
+<pre class="sourcecode lang-CDDL">
 COSE_Sign1_Tagged = #6.18(COSE_Sign1)
 </pre>
 <a href="#section-4.2-3" class="pilcrow">¶</a>
@@ -1423,8 +1423,8 @@ COSE_Sign1_Tagged = #6.18(COSE_Sign1)
           <dd id="section-4.2-6.8">This field contains the computed signature value.  The type of the field is a bstr.  </dd>
         </dl>
 <p id="section-4.2-7">The CDDL fragment that represents the above text for COSE_Sign1 follows.  <a href="#section-4.2-7" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-4.2-8">
-<pre>
+<div id="section-4.2-8">
+<pre class="sourcecode lang-CDDL">
 COSE_Sign1 = [
     Headers,
     payload : bstr / nil,
@@ -1509,8 +1509,8 @@ COSE_Sign1 = [
 </li>
         </ol>
 <p id="section-4.4-3">The CDDL fragment that describes the above text is:  <a href="#section-4.4-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-4.4-4">
-<pre>
+<div id="section-4.4-4">
+<pre class="sourcecode lang-CDDL">
 Sig_structure = [
     context : "Signature" / "Signature1" / "CounterSignature" /
               "CounterSignature0",
@@ -1573,7 +1573,7 @@ Sig_structure = [
         One result of this is that for COSE one can expand the concept of countersignatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
         When creating a countersignature, one needs to be clear about the security properties that result.
         When done on a COSE_Signature, the normal countersignature semantics are preserved.  That is the countersignature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
-        When done on a COSE_Mac or a COSE_Mac0, one effectively upgrades the MAC operation to a sginature operation.
+        When done on a COSE_Mac or a COSE_Mac0, one effectively upgrades the MAC operation to a signature operation.
         When done on a COSE_Encrypt or COSE_Encrypt0, the existence of the encrypted data is attested to.
         It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
         If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
@@ -1595,8 +1595,8 @@ Sig_structure = [
 <p id="section-5.1-2">
           The full countersignature structure can be encoded as either a tagged or untagged depending on the context it is used in.  A tagged COSE_Countersign structure is identified by the CBOR tag TBD0.  The CDDL fragment for full countersignatures is:
         <a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-5.1-3">
-<pre>
+<div id="section-5.1-3">
+<pre class="sourcecode lang-CDDL">
 COSE_CounterSignature_Tagged = #6.98(COSE_CounterSignature)
 COSE_CounterSignature = COSE_Signature            
 </pre>
@@ -1687,8 +1687,8 @@ COSE_CounterSignature = COSE_Signature
           Examples of encrypted messages can be found in <a href="#EnvelopedExamples" class="xref">Section c.3</a>.
         <a href="#section-6.1-2" class="pilcrow">¶</a></p>
 <p id="section-6.1-3">The COSE_Encrypt structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Encrypt structure is identified by the CBOR tag 96.  The CDDL fragment that represents this is: <a href="#section-6.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-6.1-4">
-<pre>
+<div id="section-6.1-4">
+<pre class="sourcecode lang-CDDL">
 COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
 </pre>
 <a href="#section-6.1-4" class="pilcrow">¶</a>
@@ -1706,8 +1706,8 @@ COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
           <dd id="section-6.1-6.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient.  </dd>
         </dl>
 <p id="section-6.1-7">The CDDL fragment that corresponds to the above text is: <a href="#section-6.1-7" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-6.1-8">
-<pre>
+<div id="section-6.1-8">
+<pre class="sourcecode lang-CDDL">
 COSE_Encrypt = [
     Headers,
     ciphertext : bstr / nil,
@@ -1729,8 +1729,8 @@ COSE_Encrypt = [
           <dd id="section-6.1-10.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient (an example of this can be found in <a href="#three-layer" class="xref">Appendix B</a>). If there are no recipient information structures, this element is absent.  </dd>
         </dl>
 <p id="section-6.1-11">The CDDL fragment that corresponds to the above text for COSE_recipient is: <a href="#section-6.1-11" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-6.1-12">
-<pre>
+<div id="section-6.1-12">
+<pre class="sourcecode lang-CDDL">
 COSE_recipient = [    
     Headers,
     ciphertext : bstr / nil,
@@ -1788,8 +1788,8 @@ COSE_recipient = [
 <p id="section-6.2-1">The COSE_Encrypt0 encrypted structure does not have the ability to specify recipients of the message.  The structure assumes that the recipient of the object will already know the identity of the key to be used in order to decrypt the message.  If a key needs to be identified to the recipient, the enveloped structure ought to be used.  <a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">Examples of encrypted messages can be found in <a href="#EnvelopedExamples" class="xref">Section c.3</a>.  <a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2-3">The COSE_Encrypt0 structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Encrypt0 structure is identified by the CBOR tag 16.  The CDDL fragment that represents this is: <a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-6.2-4">
-<pre>
+<div id="section-6.2-4">
+<pre class="sourcecode lang-CDDL">
 COSE_Encrypt0_Tagged = #6.16(COSE_Encrypt0)
 </pre>
 <a href="#section-6.2-4" class="pilcrow">¶</a>
@@ -1805,8 +1805,8 @@ COSE_Encrypt0_Tagged = #6.16(COSE_Encrypt0)
           <dd id="section-6.2-6.6">This is as described in <a href="#EnvelopedData" class="xref">Section 6.1</a>.</dd>
         </dl>
 <p id="section-6.2-7">The CDDL fragment for COSE_Encrypt0 that corresponds to the above text is: <a href="#section-6.2-7" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-6.2-8">
-<pre>
+<div id="section-6.2-8">
+<pre class="sourcecode lang-CDDL">
 COSE_Encrypt0 = [
     Headers,
     ciphertext : bstr / nil,
@@ -1846,8 +1846,8 @@ COSE_Encrypt0 = [
 </li>
         </ol>
 <p id="section-6.3-3">The CDDL fragment that describes the above text is: <a href="#section-6.3-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-6.3-4">
-<pre>
+<div id="section-6.3-4">
+<pre class="sourcecode lang-CDDL">
 Enc_structure = [
     context : "Encrypt" / "Encrypt0" / "Enc_Recipient" /
         "Mac_Recipient" / "Rec_Recipient",
@@ -1978,7 +1978,13 @@ Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a hr
       <h2 id="name-mac-objects">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-mac-objects" class="section-name selfRef">MAC Objects</a>
       </h2>
-<p id="section-7-1">COSE supports two different MAC structures.  COSE_MAC0 is used when a recipient structure is not needed because the key to be used is implicitly known.  COSE_MAC is used for all other cases.  These include a requirement for multiple recipients, the key being unknown, and a recipient algorithm of other than direct.  <a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">
+        COSE supports two different MAC structures.
+        COSE_MAC0 is used when a recipient structure is not needed because the key to be used is implicitly known.
+        
+        COSE_MAC is used for all other cases.
+        These include a requirement for multiple recipients, the key being unknown, or a recipient algorithm of other than direct.
+      <a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">In this section, we describe the structure and methods to be used when doing MAC authentication in COSE.  This document allows for the use of all of the same classes of recipient algorithms as are allowed for encryption.  <a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">When using MAC operations, there are two modes in which they can be used.  The first is just a check that the content has not been changed since the MAC was computed.  Any class of recipient algorithm can be used for this purpose.  The second mode is to both check that the content has not been changed since the MAC was computed and to use the recipient algorithm to verify who sent it.  The classes of recipient algorithms that support this are those that use a pre-shared secret or do static-static (SS) key agreement (without the key wrap step).  In both of these cases, the entity that created and sent the message MAC can be validated.  (This knowledge of the sender assumes that there are only two parties involved and that you did not send the message to yourself.) The origination property can be obtained with both of the MAC message structures.  <a href="#section-7-3" class="pilcrow">¶</a></p>
 <div id="Mac_n">
@@ -1988,8 +1994,8 @@ Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a hr
         </h3>
 <p id="section-7.1-1">The multiple recipient MACed message uses two structures: the COSE_Mac structure defined in this section for carrying the body and the COSE_recipient structure (<a href="#EnvelopedData" class="xref">Section 6.1</a>) to hold the key used for the MAC computation.  Examples of MACed messages can be found in <a href="#MacExamples" class="xref">Section c.5</a>.  <a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">The MAC structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Mac structure is identified by the CBOR tag 97.  The CDDL fragment that represents this is: <a href="#section-7.1-2" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-7.1-3">
-<pre>
+<div id="section-7.1-3">
+<pre class="sourcecode lang-CDDL">
 COSE_Mac_Tagged = #6.97(COSE_Mac)
 </pre>
 <a href="#section-7.1-3" class="pilcrow">¶</a>
@@ -2009,8 +2015,8 @@ COSE_Mac_Tagged = #6.97(COSE_Mac)
           <dd id="section-7.1-5.10">This is as described in <a href="#EnvelopedData" class="xref">Section 6.1</a>.  </dd>
         </dl>
 <p id="section-7.1-6">The CDDL fragment that represents the above text for COSE_Mac follows.  <a href="#section-7.1-6" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-7.1-7">
-<pre>
+<div id="section-7.1-7">
+<pre class="sourcecode lang-CDDL">
 COSE_Mac = [
    Headers,
    payload : bstr / nil,
@@ -2029,8 +2035,8 @@ COSE_Mac = [
 <p id="section-7.2-1">In this section, we describe the structure and methods to be used when doing MAC authentication for those cases where the recipient is implicitly known.  <a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">The MACed message uses the COSE_Mac0 structure defined in this section for carrying the body.  Examples of MACed messages with an implicit key can be found in <a href="#Mac0Examples" class="xref">Section c.6</a>.  <a href="#section-7.2-2" class="pilcrow">¶</a></p>
 <p id="section-7.2-3">The MAC structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Mac0 structure is identified by the CBOR tag 17.  The CDDL fragment that represents this is: <a href="#section-7.2-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-7.2-4">
-<pre>
+<div id="section-7.2-4">
+<pre class="sourcecode lang-CDDL">
 COSE_Mac0_Tagged = #6.17(COSE_Mac0)
 </pre>
 <a href="#section-7.2-4" class="pilcrow">¶</a>
@@ -2048,8 +2054,8 @@ COSE_Mac0_Tagged = #6.17(COSE_Mac0)
           <dd id="section-7.2-6.8">This field contains the MAC value.</dd>
         </dl>
 <p id="section-7.2-7">The CDDL fragment that corresponds to the above text is: <a href="#section-7.2-7" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-7.2-8">
-<pre>
+<div id="section-7.2-8">
+<pre class="sourcecode lang-CDDL">
 COSE_Mac0 = [
    Headers,
    payload : bstr / nil,
@@ -2076,8 +2082,8 @@ COSE_Mac0 = [
 </li>
         </ol>
 <p id="section-7.3-3">The CDDL fragment that corresponds to the above text is: <a href="#section-7.3-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-7.3-4">
-<pre>
+<div id="section-7.3-4">
+<pre class="sourcecode lang-CDDL">
 MAC_structure = [
      context : "MAC" / "MAC0",
      protected : empty_or_serialized_map,
@@ -2136,8 +2142,8 @@ MAC_structure = [
 <p id="section-8-3">Each element in a COSE Key Set MUST be processed independently.  If one element in a COSE Key Set is either malformed or uses a key that is not understood by an application, that key is ignored and the other keys are processed normally.  <a href="#section-8-3" class="pilcrow">¶</a></p>
 <p id="section-8-4">The element "kty" is a required element in a COSE_Key map.  <a href="#section-8-4" class="pilcrow">¶</a></p>
 <p id="section-8-5">The CDDL grammar describing COSE_Key and COSE_KeySet is: <a href="#section-8-5" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CDDL" id="section-8-6">
-<pre>
+<div id="section-8-6">
+<pre class="sourcecode lang-CDDL">
 COSE_Key = {
     1 =&gt; tstr / int,          ; kty
     ? 2 =&gt; bstr,              ; kid
@@ -2445,7 +2451,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
 </li>
             <li id="section-9.5.2-3.2">
               The 'recipients' field is normally absent, but can be used.
-              Applications MUST deal with a recipient field being present that has an unsupported algorthms, not being able to decrypt that recipient is an acceptable way of dealing with it. 
+              Applications MUST deal with a recipient field being present that has an unsupported algorithm, not being able to decrypt that recipient is an acceptable way of dealing with it. 
               Failing to process the message is not an acceptable way of dealing with it. 
             <a href="#section-9.5.2-3.2" class="pilcrow">¶</a>
 </li>
@@ -2867,7 +2873,14 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </li>
       </ul>
 <p id="section-13-4">The use of ECDH and direct plus KDF (with no key wrap) will not directly lead to the private key being leaked; the one way function of the KDF will prevent that.  There is, however, a different issue that needs to be addressed.  Having two recipients requires that the CEK be shared between two recipients.  The second recipient therefore has a CEK that was derived from material that can be used for the weak proof of origin.  The second recipient could create a message using the same CEK and send it to the first recipient; the first recipient would, for either static-static ECDH or direct plus KDF, make an assumption that the CEK could be used for proof of origin even though it is from the wrong entity.  If the key wrap step is added, then no proof of origin is implied and this is not an issue.  <a href="#section-13-4" class="pilcrow">¶</a></p>
-<p id="section-13-5">Although it has been mentioned before, the use of a single key for multiple algorithms has been demonstrated in some cases to leak information about a key, provide the opportunity for attackers to forge integrity tags, or gain information about encrypted content.  Binding a key to a single algorithm prevents these problems.  Key creators and key consumers are strongly encouraged not only to create new keys for each different algorithm, but to include that selection of algorithm in any distribution of key material and strictly enforce the matching of algorithms in the key structure to algorithms in the message structure.  In addition to checking that algorithms are correct, the key form needs to be checked as well.  Do not use an 'EC2' key where an 'OKP' key is expected.  <a href="#section-13-5" class="pilcrow">¶</a></p>
+<p id="section-13-5">
+            
+        Although it has been mentioned before, the use of a single key for multiple algorithms has been demonstrated in some cases to leak information about that key, provide the opportunity for attackers to forge integrity tags, or gain information about encrypted content.
+        Binding a key to a single algorithm prevents these problems.
+        Key creators and key consumers are strongly encouraged not only to create new keys for each different algorithm, but to include that selection of algorithm in any distribution of key material and strictly enforce the matching of algorithms in the key structure to algorithms in the message structure.
+        In addition to checking that algorithms are correct, the key form needs to be checked as well.
+        Do not use an 'EC2' key where an 'OKP' key is expected.
+      <a href="#section-13-5" class="pilcrow">¶</a></p>
 <p id="section-13-6">Before using a key for transmission, or before acting on information received, a trust decision on a key needs to be made.  Is the data or action something that the entity associated with the key has a right to see or a right to request? A number of factors are associated with this trust decision.  Some of the ones that are highlighted here are:
       <a href="#section-13-6" class="pilcrow">¶</a></p>
 <ul>
@@ -3033,19 +3046,19 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dl class="references">
 <dt id="COAP.Formats">[COAP.Formats]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"CoAP Content-Formats"</span>, <time datetime="2019-08">August 2019</time>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"CoAP Content-Formats"</span>, <time datetime="2019-09">September 2019</time>
           <span>, &lt;<a href="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats</a>&gt;</span>. </dd>
 <dt id="COSE.Algorithms">[COSE.Algorithms]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Algorithms"</span>, <time datetime="2019-08">August 2019</time>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Algorithms"</span>, <time datetime="2019-09">September 2019</time>
           <span>, &lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#algorithms">https://www.iana.org/assignments/cose/cose.xhtml#algorithms</a>&gt;</span>. </dd>
 <dt id="COSE.KeyParameters">[COSE.KeyParameters]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Parameters"</span>, <time datetime="2019-08">August 2019</time>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Parameters"</span>, <time datetime="2019-09">September 2019</time>
           <span>, &lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters">https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters</a>&gt;</span>. </dd>
 <dt id="COSE.KeyTypes">[COSE.KeyTypes]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Types"</span>, <time datetime="2019-08">August 2019</time>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Types"</span>, <time datetime="2019-09">September 2019</time>
           <span>, &lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type">https://www.iana.org/assignments/cose/cose.xhtml#key-type</a>&gt;</span>. </dd>
 <dt id="DSS">[DSS]</dt>
         <dd>
@@ -3053,8 +3066,8 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           <span>, &lt;<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf</a>&gt;</span>. </dd>
 <dt id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</dt>
         <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="seriesInfo">Internet-Draft draft-ietf-cose-rfc8152bis-algs-03</span>, <time datetime="2019-06-10">10 June 2019</time>
-            <span>, &lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-algs-03">https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-algs-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="seriesInfo">Internet-Draft draft-ietf-cose-rfc8152bis-algs-04</span>, <time datetime="2019-08-18">18 August 2019</time>
+            <span>, &lt;<a href="https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-algs-04">https://www.ietf.org/archive/id/draft-ietf-cose-rfc8152bis-algs-04</a>&gt;</span>. </dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03">March 1997</time>
@@ -3226,7 +3239,11 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </li>
         <li id="section-appendix.a-12.2">Two contexts are distributed as a pair.  The first context is used for encryption of the message, and the second context is used to place a counter signature on the message.  The intention is that the second context can be distributed to other entities independently of the first context.  This allows these entities to validate that the message came from an individual without being able to decrypt the message and see the content.  <a href="#section-appendix.a-12.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-appendix.a-12.3">Two contexts are distributed as a pair.  The first context contains a key for dealing with MACed messages, and the second context contains a key for dealing with encrypted messages.  This allows for a unified distribution of keys to participants for different types of messages that have different keys, but where the keys may be used in a coordinated manner.  <a href="#section-appendix.a-12.3" class="pilcrow">¶</a>
+        <li id="section-appendix.a-12.3">
+          Two contexts are distributed as a pair.
+          The first context contains a key for dealing with MACed messages, and the second context contains a different key for dealing with encrypted messages.
+          This allows for a unified distribution of keys to participants for different types of messages that have different keys, but where the keys may be used in a coordinated manner.
+        <a href="#section-appendix.a-12.3" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-appendix.a-13">For these cases, the following additional items need to be considered:
@@ -3264,8 +3281,8 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       </ul>
 <p id="section-appendix.b-6"> In effect, this example is a decomposed version of using the ECDH‑ES+A128KW algorithm.  <a href="#section-appendix.b-6" class="pilcrow">¶</a></p>
 <p id="section-appendix.b-7">Size of binary file is 183 bytes<a href="#section-appendix.b-7" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-appendix.b-8">
-<pre>
+<div id="section-appendix.b-8">
+<pre class="sourcecode lang-CBORdiag">
 96(
   [
     / protected / h'a10101' / {
@@ -3317,21 +3334,26 @@ e9b8a55a600b21233e86e68',
 <a href="#section-appendix.c" class="section-number selfRef">Appendix C. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
 <p id="section-appendix.c-1">This appendix includes a set of examples that show the different features and message types that have been defined in this document.  To make the examples easier to read, they are presented using the extended CBOR diagnostic notation (defined in <span>[<a href="#RFC8610" class="xref">RFC8610</a>]</span>) rather than as a binary dump.  <a href="#section-appendix.c-1" class="pilcrow">¶</a></p>
-<p id="section-appendix.c-2">A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.  Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format.  Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.  If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.  <a href="#section-appendix.c-2" class="pilcrow">¶</a></p>
+<p id="section-appendix.c-2">
+        A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.
+        Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented both as a hex dump and in CBOR diagnostic notation format.
+        Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.
+        If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.
+      <a href="#section-appendix.c-2" class="pilcrow">¶</a></p>
 <p id="section-appendix.c-3">As noted, the examples are presented using the CBOR's diagnostic notation.  A Ruby-based tool exists that can convert between the diagnostic notation and binary.  This tool can be installed with the command line: <a href="#section-appendix.c-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft" id="section-appendix.c-4">
-<pre>gem install cbor-diag</pre>
+<div id="section-appendix.c-4">
+<pre class="sourcecode">gem install cbor-diag</pre>
 <a href="#section-appendix.c-4" class="pilcrow">¶</a>
 </div>
 <p id="section-appendix.c-5">The diagnostic notation can be converted into binary files using the following command line: <a href="#section-appendix.c-5" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft" id="section-appendix.c-6">
-<pre>diag2cbor.rb &lt; inputfile &gt; outputfile
+<div id="section-appendix.c-6">
+<pre class="sourcecode">diag2cbor.rb &lt; inputfile &gt; outputfile
 </pre>
 <a href="#section-appendix.c-6" class="pilcrow">¶</a>
 </div>
-<p id="section-appendix.c-7">The examples can be extracted from the XML version of this document via an XPath expression as all of the artwork is tagged with the attribute type='CBORdiag'.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) <a href="#section-appendix.c-7" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-XPATH" id="section-appendix.c-8">
-<pre>//artwork[@type='CDDL']/text()</pre>
+<p id="section-appendix.c-7">The examples can be extracted from the XML version of this document via an XPath expression as all of the sourcecode is tagged with the attribute type='CBORdiag'.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) <a href="#section-appendix.c-7" class="pilcrow">¶</a></p>
+<div id="section-appendix.c-8">
+<pre class="sourcecode lang-XPATH">//sourcecode[@type='CDDL']/text()</pre>
 <a href="#section-appendix.c-8" class="pilcrow">¶</a>
 </div>
 <div id="SignedExamples">
@@ -3351,8 +3373,8 @@ e9b8a55a600b21233e86e68',
 </li>
           </ul>
 <p id="section-c.1.1-3">Size of binary file is 103 bytes<a href="#section-c.1.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.1.1-4">
-<pre>
+<div id="section-c.1.1-4">
+<pre class="sourcecode lang-CBORdiag">
 98(
   [
     / protected / h'', 
@@ -3393,8 +3415,8 @@ e9b8a55a600b21233e86e68',
 </li>
           </ul>
 <p id="section-c.1.2-3">Size of binary file is 277 bytes<a href="#section-c.1.2-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.1.2-4">
-<pre>
+<div id="section-c.1.2-4">
+<pre class="sourcecode lang-CBORdiag">
 98(
   [
     / protected / h'', 
@@ -3447,8 +3469,8 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 </li>
           </ul>
 <p id="section-c.1.3-3">Size of binary file is 180 bytes<a href="#section-c.1.3-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.1.3-4">
-<pre>
+<div id="section-c.1.3-4">
+<pre class="sourcecode lang-CBORdiag">
 98(
   [
     / protected / h'', 
@@ -3500,8 +3522,8 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 </li>
           </ul>
 <p id="section-c.1.4-3">Size of binary file is 125 bytes<a href="#section-c.1.4-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.1.4-4">
-<pre>
+<div id="section-c.1.4-4">
+<pre class="sourcecode lang-CBORdiag">
 98(
   [
     / protected / h'a2687265736572766564f40281687265736572766564' / 
@@ -3551,8 +3573,8 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 </li>
           </ul>
 <p id="section-c.2.1-3">Size of binary file is 98 bytes<a href="#section-c.2.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.2.1-4">
-<pre>
+<div id="section-c.2.1-4">
+<pre class="sourcecode lang-CBORdiag">
 18(
   [
     / protected / h'a10126' / {
@@ -3592,8 +3614,8 @@ a4c345cacb36'
 </li>
           </ul>
 <p id="section-c.3.1-3">Size of binary file is 151 bytes<a href="#section-c.3.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.3.1-4">
-<pre>
+<div id="section-c.3.1-4">
+<pre class="sourcecode lang-CBORdiag">
 96(
   [
     / protected / h'a10101' / {
@@ -3655,8 +3677,8 @@ bf054e1c7b4d91d6280',
 </li>
           </ul>
 <p id="section-c.3.2-3">Size of binary file is 91 bytes<a href="#section-c.3.2-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.3.2-4">
-<pre>
+<div id="section-c.3.2-4">
+<pre class="sourcecode lang-CBORdiag">
 96(
   [
     / protected / h'a1010a' / {
@@ -3700,8 +3722,8 @@ bf054e1c7b4d91d6280',
 </li>
           </ul>
 <p id="section-c.3.3-3">Size of binary file is 326 bytes<a href="#section-c.3.3-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.3.3-4">
-<pre>
+<div id="section-c.3.3-4">
+<pre class="sourcecode lang-CBORdiag">
 96(
   [
     / protected / h'a10101' / {
@@ -3766,8 +3788,8 @@ bf054e1c7b4d91d6280',
 </li>
           </ul>
 <p id="section-c.3.4-3">Size of binary file is 173 bytes<a href="#section-c.3.4-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.3.4-4">
-<pre>
+<div id="section-c.3.4-4">
+<pre class="sourcecode lang-CBORdiag">
 96(
   [
     / protected / h'a10101' / {
@@ -3818,8 +3840,8 @@ e1c62'
 </li>
           </ul>
 <p id="section-c.4.1-3">Size of binary file is 52 bytes<a href="#section-c.4.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.4.1-4">
-<pre>
+<div id="section-c.4.1-4">
+<pre class="sourcecode lang-CBORdiag">
 16(
   [
     / protected / h'a1010a' / {
@@ -3851,8 +3873,8 @@ e1c62'
 </li>
           </ul>
 <p id="section-c.4.2-3">Size of binary file is 41 bytes<a href="#section-c.4.2-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.4.2-4">
-<pre>
+<div id="section-c.4.2-4">
+<pre class="sourcecode lang-CBORdiag">
 16(
   [
     / protected / h'a1010a' / {
@@ -3891,8 +3913,8 @@ e1c62'
 </li>
           </ul>
 <p id="section-c.5.1-3">Size of binary file is 57 bytes<a href="#section-c.5.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.5.1-4">
-<pre>
+<div id="section-c.5.1-4">
+<pre class="sourcecode lang-CBORdiag">
 97(
   [
     / protected / h'a1010f' / {
@@ -3932,8 +3954,8 @@ e1c62'
 </li>
           </ul>
 <p id="section-c.5.2-3">Size of binary file is 214 bytes<a href="#section-c.5.2-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.5.2-4">
-<pre>
+<div id="section-c.5.2-4">
+<pre class="sourcecode lang-CBORdiag">
 97(
   [
     / protected / h'a10105' / {
@@ -3979,8 +4001,8 @@ e1c62'
 </li>
           </ul>
 <p id="section-c.5.3-3">Size of binary file is 109 bytes<a href="#section-c.5.3-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.5.3-4">
-<pre>
+<div id="section-c.5.3-4">
+<pre class="sourcecode lang-CBORdiag">
 97(
   [
     / protected / h'a1010e' / {
@@ -4029,8 +4051,8 @@ b6eb0'
 </li>
           </ul>
 <p id="section-c.5.4-3">Size of binary file is 309 bytes<a href="#section-c.5.4-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.5.4-4">
-<pre>
+<div id="section-c.5.4-4">
+<pre class="sourcecode lang-CBORdiag">
 97(
   [
     / protected / h'a10105' / {
@@ -4097,8 +4119,8 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 </li>
           </ul>
 <p id="section-c.6.1-3">Size of binary file is 37 bytes<a href="#section-c.6.1-3" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.6.1-4">
-<pre>
+<div id="section-c.6.1-4">
+<pre class="sourcecode lang-CBORdiag">
 17(
   [
     / protected / h'a1010f' / {
@@ -4140,8 +4162,8 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
 </li>
           </ul>
 <p id="section-c.7.1-4">Size of binary file is 481 bytes<a href="#section-c.7.1-4" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.7.1-5">
-<pre>
+<div id="section-c.7.1-5">
+<pre class="sourcecode lang-CBORdiag">
 [
   {
     -1:1, 
@@ -4208,8 +4230,8 @@ d6280',
 </li>
           </ul>
 <p id="section-c.7.2-4">Size of binary file is 816 bytes<a href="#section-c.7.2-4" class="pilcrow">¶</a></p>
-<div class="artwork art-text alignLeft art-CBORdiag" id="section-c.7.2-5">
-<pre>
+<div id="section-c.7.2-5">
+<pre class="sourcecode lang-CBORdiag">
 [
   {
     1:2, 
