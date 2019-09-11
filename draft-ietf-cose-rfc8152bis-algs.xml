@@ -13,7 +13,7 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-latest" obsoletes="8152" submissionType="IETF" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-latest" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Algorithms">
@@ -72,7 +72,7 @@
       <t>
         The core COSE specification consists of two documents.
         <xref target="I-D.ietf-cose-rfc8152bis-struct"/> contains the serialization structures and the procedures for using the different cryptographic algorithms.
-        This document provides for an initial set of algorithms that are then use with those structures.
+        This document provides an initial set of algorithms for use with those structures.
         Additional algorithms beyond what are in this document are defined elsewhere.
       </t>
       <section anchor="requirements-terminology">
@@ -132,7 +132,7 @@
 
       <name>Signature Algorithms</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.1 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of signature algorithms.
+        <relref section="&SigSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of signature algorithms.
         The document defines signature algorithm identifiers for two signature algorithms.
       </t>
       <section anchor="ECDSA">
@@ -274,14 +274,14 @@
 
       <name>Message Authentication Code (MAC) Algorithms</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.2 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of MAC algorithms.
+        <relref section="&MacSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of MAC algorithms.
         This section defines the conventions for two MAC algorithms.
       </t>
       <section>
 
         <name>Hash-Based Message Authentication Codes (HMACs)</name>
         <t>HMAC <xref target="RFC2104"/> <xref target="RFC4231"/> was designed to deal with length extension attacks.  The algorithm was also designed to allow for new hash algorithms to be directly plugged in without changes to the hash function.  The HMAC design process has been shown as solid since, while the security of hash algorithms such as MD5 has decreased over time; the security of HMAC combined with MD5 has not yet been shown to be compromised <xref target="RFC6151"/>.  </t>
-        <t>The HMAC algorithm is parameterized by an inner and outer padding, a hash function (h), and an authentication tag value length.  For this specification, the inner and outer padding are fixed to the values set in <xref target="RFC2104"/>.  The length of the authentication tag corresponds to the difficulty of producing a forgery.  For use in constrained environments, we define one HMAC algorithms that is truncated.  There are currently no known issues with truncation; however, the security strength of the message tag is correspondingly reduced in strength.  When truncating, the leftmost tag length bits are kept and transmitted.  </t>
+        <t>The HMAC algorithm is parameterized by an inner and outer padding, a hash function (h), and an authentication tag value length.  For this specification, the inner and outer padding are fixed to the values set in <xref target="RFC2104"/>.  The length of the authentication tag corresponds to the difficulty of producing a forgery.  For use in constrained environments, we define one HMAC algorithm that is truncated.  There are currently no known issues with truncation; however, the security strength of the message tag is correspondingly reduced in strength.  When truncating, the leftmost tag length bits are kept and transmitted.  </t>
         <t>The algorithms defined in this document can be found in <xref target="x-table-hmac"/>.  </t>
         <table anchor="x-table-hmac" align="center">
 
@@ -433,7 +433,7 @@
 
       <name>Content Encryption Algorithms</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.3 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Content Encryption algorithms.
+        <relref section="&ContentSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of Content Encryption algorithms.
         This document defines the identifier and usages for three content encryption algorithms.
       </t>
       <section>
@@ -677,7 +677,7 @@
         <section>
 
           <name>Security Considerations</name>
-          <t>The key and nounce values MUST be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.  </t>
+          <t>The key and nonce values MUST be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.  </t>
         </section>
       </section>
     </section>
@@ -685,7 +685,7 @@
 
       <name>Key Derivation Functions (KDFs)</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.4 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Key Derivation Functions.
+        <relref section="&KDFSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of Key Derivation Functions.
         This document defines a single context structure and a single KDF. 
         These elements are used for all of the recipient algorithms defined in this document that require a KDF process. 
         These algorithms are defined in Sections <xref target="direct-kdf" format="counter"/>, <xref target="ECDH" format="counter"/>, and <xref target="ECDH-wrap" format="counter"/>. 
@@ -701,7 +701,7 @@
 
           <li>secret -- a shared value that is secret.  Secrets may be either previously shared or derived from operations like a Diffie-Hellman (DH) key agreement.  </li>
 
-          <li>salt -- an optional value that is used to change the generation process.  The salt value can be either public or private.  If the salt is public and carried in the message, then the 'salt' algorithm header parameter defined in <xref target="HKDF_Alg_Params"/> is used.  While <xref target="RFC5869"/> suggests that the length of the salt be the same as the length of the underlying hash value, any amount of salt will improve the security as different key values will be generated.  This parameter is protected by being included in the key computation and does not need to be separately authenticated.  The salt value does not need to be unique for every message sent.  </li>
+          <li>salt -- an optional value that is used to change the generation process.  The salt value can be either public or private.  If the salt is public and carried in the message, then the 'salt' algorithm header parameter defined in <xref target="HKDF_Alg_Params"/> is used.  While <xref target="RFC5869"/> suggests that the length of the salt be the same as the length of the underlying hash value, any positive salt length will improve the security as different key values will be generated.  This parameter is protected by being included in the key computation and does not need to be separately authenticated.  The salt value does not need to be unique for every message sent.  </li>
 
           <li>length -- the number of bytes of output that need to be generated.  </li>
 
@@ -846,12 +846,19 @@
 
         <dl newline="false">
           <dt>AlgorithmID:</dt>
+          <dd>
+            This field indicates the algorithm for which the key material will be used.
+            This normally is either a key wrap algorithm identifier or a content encryption algorithm identifier.
+            The values are from the "COSE Algorithms" registry.
+            This field is required to be present.
+            The field exists in the context information so that a different key is generated for each algorithm even of all of the other context information is the same.
+            In practice, this means if algorithm A is broken and thus finding the key is relatively easy, the key derived for algorithm B will not be the same as the key derived for algorithm A.
+          </dd>
 
-          <dd>This field indicates the algorithm for which the key material will be used.  This normally is either a key wrap algorithm identifier or a content encryption algorithm identifier.  The values are from the "COSE Algorithms" registry.  This field is required to be present.  The field exists in the context information so that if the same environment is used for different algorithms, then completely different keys will be generated for each of those algorithms.  This practice means if algorithm A is broken and thus is easier to find, the key derived for algorithm B will not be the same as the key derived for algorithm A. </dd>
           <dt>PartyUInfo:</dt>
 
           <dd>
-            <t>This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented.  The elements of the PartyUInfo array are: 
+            <t>This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented below.  The elements of the PartyUInfo array are: 
 
             </t>
 
@@ -935,14 +942,14 @@ COSE_KDF_Context = [
 
       <name>Content Key Distribution Methods</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.5 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of content key distribution methods.
+        <relref section="&CKeyDistributeSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of content key distribution methods.
         This document defines the identifiers and usage for a number of content key distribution methods.
       </t>
       <section>
 
         <name>Direct Encryption</name>
         <t>
-          Direct encryption algorithm is defined in <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.5.1 of [I-D.ietf-cose-rfc8152bis-struct]</xref>.
+          Direct encryption algorithm is defined in <relref section="&DirectDistribute;" target="I-D.ietf-cose-rfc8152bis-struct"/>.
           Information about how to fill in the COSE_Recipient structure are detailed there.
         </t>
         <section>
@@ -1144,7 +1151,7 @@ COSE_KDF_Context = [
         </ul>
         <t>
           COSE does not have an Ephemeral-Ephemeral version defined.
-          The reason for this is that COSE is not an an online protocol by itself and thus does not have a method to establish ephemeral secrets on both sides.
+          The reason for this is that COSE is not an online protocol by itself and thus does not have a method to establish ephemeral secrets on both sides.
           The expectation is that a protocol would establish the secrets for both sides, and then they would be used as static-static for the purposes of COSE, or that the protocol would generate a shared secret and a direct encryption would be used.
         </t>
         <t>The set of direct ECDH algorithms defined in this document are found in <xref target="x-table-ecdh-es-table"/>.  </t>
