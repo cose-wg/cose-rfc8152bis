@@ -13,7 +13,7 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-06" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-latest" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Algorithms">
