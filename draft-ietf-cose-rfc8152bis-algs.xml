@@ -1616,6 +1616,89 @@ COSE_KDF_Context = [
         </table>
       </section>
     </section>
+
+    <section anchor="COSE-Capabilities">
+      <name>COSE Capabilities</name>
+      <t>
+        There are some situations that have been identified where identification of capabilities of an algorithm need to be specified.
+        One example of this is in <xref target="I-D.ietf-core-oscore-groupcomm"/> where the capabilities of the counter signature algorithm are mixed into the traffic key derivation process.
+        This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <xref target="RFC8551" section="2.5.2"/>.
+        The concept is being pulled forward and defined now for COSE.
+      </t>
+      <t>
+        Two different types of capabilities are defined:  Capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list capabilities is immutable.
+        As a general rule, the capabilities are going to correspond to algorithm or key fields, but they do not need to do so.
+        An example of this is the HSS-LMS key capabilities defined below where the hash algorithm used is included.
+      </t>
+      <t>
+        The capability structure is an array of values, the order being dependent on the specific algorithm or key.
+        For an algorithm, the first element should always be a key type value, but the items that are specific to a key should not be included in the algorithm capabilities.
+        This means that if one wishes to enumerate all of the capabilities for a device which implements ECDH, it requires multiple pairs of capability structures (algorithm, key) to deal with the different key types and curves that are supported.
+        For a key, the first element should also be a key type value, while this means that this value will be duplicated if both an algorithm and key capability are used, the key type is needed in order to understand the rest of the values.
+      </t>
+
+      <section>
+        <name>Assignments for Existing Key Types</name>
+        <t>
+          There are a number of pre-existing key types, the following deals with creating the capability definition for those structures:
+        </t>
+        <ul>
+          <li>
+            <t>OKP, EC2: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value,</li>
+              <li>One curve for that key type.</li>
+            </ul>
+          </li>
+          <li>
+            <t>RSA: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value.</li>
+            </ul>
+          </li>
+          <li>
+            <t>Symmetric: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value.</li>
+            </ul>
+          </li>
+          <li>
+            <t>HSS-LMS: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value,</li>
+              <li>Algorithm identifier for the underlying hash function.</li>
+            </ul>
+          </li>
+        </ul>
+        
+      </section>
+
+      <section>
+        <name>Assignments for Existing Algorithms</name>
+        <t>
+          For the current set of algorithms in the registry, those in this document as well as those in <xref target="RFC8230"/> and <xref target="I-D.ietf-cose-hash-sig"/>, the capabilities is set to the single entry of the key type that will be accepted.
+          It is expected other algorithms will have no items or multiple items.
+        </t>
+
+        <!--
+        <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Capabilities</th>
+          </tr>
+          <tr>
+            
+          </tr>
+        </thead>
+        </table>
+        -->
+      </section>
+        
+    </section>
+
+    
     <section anchor="CBOR-Canonical">
 
       <name>CBOR Encoding Restrictions</name>
@@ -1639,13 +1722,67 @@ COSE_KDF_Context = [
         </li>
       </ul>
     </section>
+
+
+    
     <section anchor="iana-considerations">
 
       <name>IANA Considerations</name>
+      <section>
+        <name>Changes to "COSE Key Types" registry.</name>
       <t>
-        There are no IANA actions.
-        The required actions are in <xref target="I-D.ietf-cose-rfc8152bis-struct"/>.
+        IANA is requested to create a new column in the "COSE Key Types" registry.
+        The new column is to be labeled "Capabilities".
+        The new column is to be populated according the the entries in <xref target="initial-kty-caps"/>.
       </t>
+      
+        <table anchor="initial-kty-caps">
+          <name>Key Type Capabilities</name>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+              <th>Capabilities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>OKP</td>
+              <td>kty, crv</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>EC2</td>
+              <td>kty, crv</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>RSA</td>
+              <td>kty</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Symmetric</td>
+              <td>kty</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>HSS-LMS</td>
+              <td>kty, hash algorithm</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <name>Changes to "COSE Algorithms" registry</name>
+        <t>
+          IANA is requested to create a new column in the "COSE Algorithms" registry.
+          The new column is to be labeled "Capabilities".
+          The new column is populated with "kty" for all current, non-provisional, registrations.
+          It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted at the time of final registration.
+        </t>
+      </section>
     </section>
     <section anchor="security-considerations">
 
@@ -1747,21 +1884,6 @@ COSE_KDF_Context = [
       <references>
         <name>Informative References</name>
         <xi:include href="reference.RFC.8610.xml"/>
-        <!--
-<?rfc include="reference.RFC.8018"?>
-<?rfc include="reference.RFC.2633" ?>
-<?rfc include="reference.RFC.4262" ?>
-<?rfc include="reference.RFC.4949" ?>
-<?rfc include="reference.RFC.5652" ?>
-<?rfc include="reference.RFC.5751" ?>
-<?rfc include="reference.RFC.5752" ?>
-<?rfc include="reference.RFC.5990" ?>
-<?rfc include="reference.RFC.6838" ?>
-<?rfc include="reference.RFC.7515" ?>
-<?rfc include="reference.RFC.7516" ?>
-<?rfc include="reference.RFC.7517" ?>
-<?rfc include="reference.RFC.8126" ?>
-        -->
         <xi:include href="reference.RFC.4231.xml"/>
         <xi:include href="reference.RFC.4493.xml"/>
         <xi:include href="reference.RFC.5116.xml"/>
@@ -1772,6 +1894,10 @@ COSE_KDF_Context = [
         <xi:include href="reference.RFC.7518.xml"/>
         <xi:include href="reference.RFC.8017.xml"/>
         <xi:include href="reference.RFC.8152.xml"/>
+        <xi:include href="reference.RFC.8551.xml"/>
+        <xi:include href="reference.RFC.8230.xml"/>
+        <xi:include href="reference.I-D.ietf-core-oscore-groupcomm.xml"/>
+        <xi:include href="reference.I-D.ietf-cose-hash-sig.xml"/>
         <reference anchor="SP800-56A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf">
           <front>
             <title>Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography</title>
@@ -1792,25 +1918,6 @@ COSE_KDF_Context = [
             <date year="2013" month="May"/>
           </front>
         </reference>
-        <!--
-<reference anchor="PVSig" quote-title="true">
-<front>
-<title>Formal Security Proofs for a Signature Scheme with Partial Message Recovery</title>
-<author initials="D." surname="Brown"/>
-<author initials="D." surname="Johnson"/>
-<date year="2000" month="June"/></front>
-<seriesInfo name="DOI" value="10.1007/3-540-45353-9_11"/>
-<seriesInfo name="LNCS" value="Volume 2020"/>
-</reference>
--->
-        <!--
-<reference anchor="W3C.WebCrypto" quote-title="true" target="https://www.w3.org/TR/WebCryptoAPI/"><front>
-<title>Web Cryptography API</title>
-<author initials="M." surname="Watson"/>
-<date year="2017" month="January"/></front>
-<seriesInfo name='W3C' value='Recommendation' />
-</reference>
--->
       </references>
     </references>
     <section numbered="false">
