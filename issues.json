@@ -1,6 +1,108 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/18",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/18/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/18/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/18/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/18",
+    "id": 517446352,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MzM2NTE0ODYx",
+    "number": 18,
+    "title": "Deal with the addition of capabilities",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-11-04T22:42:19Z",
+    "updated_at": "2019-11-13T21:51:33Z",
+    "closed_at": "2019-11-13T21:51:01Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/18",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/18",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/18.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/18.patch"
+    },
+    "body": "Add capabilities per chairs"
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/17",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/17/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/17/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/17/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/issues/17",
+    "id": 506094689,
+    "node_id": "MDU6SXNzdWU1MDYwOTQ2ODk=",
+    "number": 17,
+    "title": "\"header\", \"parameter\" or \"header parameter\"",
+    "user": {
+      "login": "laurencelundblade",
+      "id": 7951515,
+      "node_id": "MDQ6VXNlcjc5NTE1MTU=",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7951515?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/laurencelundblade",
+      "html_url": "https://github.com/laurencelundblade",
+      "followers_url": "https://api.github.com/users/laurencelundblade/followers",
+      "following_url": "https://api.github.com/users/laurencelundblade/following{/other_user}",
+      "gists_url": "https://api.github.com/users/laurencelundblade/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/laurencelundblade/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/laurencelundblade/subscriptions",
+      "organizations_url": "https://api.github.com/users/laurencelundblade/orgs",
+      "repos_url": "https://api.github.com/users/laurencelundblade/repos",
+      "events_url": "https://api.github.com/users/laurencelundblade/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/laurencelundblade/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-10-11T23:23:06Z",
+    "updated_at": "2019-10-11T23:33:21Z",
+    "closed_at": null,
+    "author_association": "NONE",
+    "body": "Is a kid, iv, content type... a \"header\", a \"parameter\" or a \"header parameter\"?\r\n\r\nThe textual description of each refers to them as \"parameters\" -- \"This parameter is used to indicate...\"\r\n\r\nThe summarizing table 2 calls them \"header parameters\". \r\n\r\nThe paragraph on CDDL and the CDDL refers them as \"headers\".\r\n\r\nI was theorizing that protected and unprotected are headers and kid, iv... are parameters or header parameters, but that isn't consistent with the text.\r\n\r\nNo ambiguity when implementing, but a little confusing to read.\r\n\r\nIf the official name is \"header parameter\" and \"parameter\" is the short name, then the main divergence is the CDDL and CDDL-related text. If the CDDL and CDDL-related text where changed to  use \"header parameter\" it seems like all would be consistent.\r\n"
+  },
+  {
     "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/16",
     "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
     "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/16/labels{/name}",
