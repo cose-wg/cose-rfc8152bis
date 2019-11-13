@@ -13,7 +13,7 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-latest" obsoletes="8152" submissionType="IETF" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-latest" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Algorithms">
@@ -72,7 +72,7 @@
       <t>
         The core COSE specification consists of two documents.
         <xref target="I-D.ietf-cose-rfc8152bis-struct"/> contains the serialization structures and the procedures for using the different cryptographic algorithms.
-        This document provides for an initial set of algorithms that are then use with those structures.
+        This document provides an initial set of algorithms for use with those structures.
         Additional algorithms beyond what are in this document are defined elsewhere.
       </t>
       <section anchor="requirements-terminology">
@@ -132,7 +132,7 @@
 
       <name>Signature Algorithms</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.1 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of signature algorithms.
+        <relref section="&SigSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of signature algorithms.
         The document defines signature algorithm identifiers for two signature algorithms.
       </t>
       <section anchor="ECDSA">
@@ -274,14 +274,14 @@
 
       <name>Message Authentication Code (MAC) Algorithms</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.2 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of MAC algorithms.
+        <relref section="&MacSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of MAC algorithms.
         This section defines the conventions for two MAC algorithms.
       </t>
       <section>
 
         <name>Hash-Based Message Authentication Codes (HMACs)</name>
         <t>HMAC <xref target="RFC2104"/> <xref target="RFC4231"/> was designed to deal with length extension attacks.  The algorithm was also designed to allow for new hash algorithms to be directly plugged in without changes to the hash function.  The HMAC design process has been shown as solid since, while the security of hash algorithms such as MD5 has decreased over time; the security of HMAC combined with MD5 has not yet been shown to be compromised <xref target="RFC6151"/>.  </t>
-        <t>The HMAC algorithm is parameterized by an inner and outer padding, a hash function (h), and an authentication tag value length.  For this specification, the inner and outer padding are fixed to the values set in <xref target="RFC2104"/>.  The length of the authentication tag corresponds to the difficulty of producing a forgery.  For use in constrained environments, we define one HMAC algorithms that is truncated.  There are currently no known issues with truncation; however, the security strength of the message tag is correspondingly reduced in strength.  When truncating, the leftmost tag length bits are kept and transmitted.  </t>
+        <t>The HMAC algorithm is parameterized by an inner and outer padding, a hash function (h), and an authentication tag value length.  For this specification, the inner and outer padding are fixed to the values set in <xref target="RFC2104"/>.  The length of the authentication tag corresponds to the difficulty of producing a forgery.  For use in constrained environments, we define one HMAC algorithm that is truncated.  There are currently no known issues with truncation; however, the security strength of the message tag is correspondingly reduced in strength.  When truncating, the leftmost tag length bits are kept and transmitted.  </t>
         <t>The algorithms defined in this document can be found in <xref target="x-table-hmac"/>.  </t>
         <table anchor="x-table-hmac" align="center">
 
@@ -433,7 +433,7 @@
 
       <name>Content Encryption Algorithms</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.3 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Content Encryption algorithms.
+        <relref section="&ContentSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of Content Encryption algorithms.
         This document defines the identifier and usages for three content encryption algorithms.
       </t>
       <section>
@@ -677,7 +677,7 @@
         <section>
 
           <name>Security Considerations</name>
-          <t>The key and nounce values MUST be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.  </t>
+          <t>The key and nonce values MUST be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.  </t>
         </section>
       </section>
     </section>
@@ -685,7 +685,7 @@
 
       <name>Key Derivation Functions (KDFs)</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.4 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of Key Derivation Functions.
+        <relref section="&KDFSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of Key Derivation Functions.
         This document defines a single context structure and a single KDF. 
         These elements are used for all of the recipient algorithms defined in this document that require a KDF process. 
         These algorithms are defined in Sections <xref target="direct-kdf" format="counter"/>, <xref target="ECDH" format="counter"/>, and <xref target="ECDH-wrap" format="counter"/>. 
@@ -701,7 +701,7 @@
 
           <li>secret -- a shared value that is secret.  Secrets may be either previously shared or derived from operations like a Diffie-Hellman (DH) key agreement.  </li>
 
-          <li>salt -- an optional value that is used to change the generation process.  The salt value can be either public or private.  If the salt is public and carried in the message, then the 'salt' algorithm header parameter defined in <xref target="HKDF_Alg_Params"/> is used.  While <xref target="RFC5869"/> suggests that the length of the salt be the same as the length of the underlying hash value, any amount of salt will improve the security as different key values will be generated.  This parameter is protected by being included in the key computation and does not need to be separately authenticated.  The salt value does not need to be unique for every message sent.  </li>
+          <li>salt -- an optional value that is used to change the generation process.  The salt value can be either public or private.  If the salt is public and carried in the message, then the 'salt' algorithm header parameter defined in <xref target="HKDF_Alg_Params"/> is used.  While <xref target="RFC5869"/> suggests that the length of the salt be the same as the length of the underlying hash value, any positive salt length will improve the security as different key values will be generated.  This parameter is protected by being included in the key computation and does not need to be separately authenticated.  The salt value does not need to be unique for every message sent.  </li>
 
           <li>length -- the number of bytes of output that need to be generated.  </li>
 
@@ -846,12 +846,19 @@
 
         <dl newline="false">
           <dt>AlgorithmID:</dt>
+          <dd>
+            This field indicates the algorithm for which the key material will be used.
+            This normally is either a key wrap algorithm identifier or a content encryption algorithm identifier.
+            The values are from the "COSE Algorithms" registry.
+            This field is required to be present.
+            The field exists in the context information so that a different key is generated for each algorithm even of all of the other context information is the same.
+            In practice, this means if algorithm A is broken and thus finding the key is relatively easy, the key derived for algorithm B will not be the same as the key derived for algorithm A.
+          </dd>
 
-          <dd>This field indicates the algorithm for which the key material will be used.  This normally is either a key wrap algorithm identifier or a content encryption algorithm identifier.  The values are from the "COSE Algorithms" registry.  This field is required to be present.  The field exists in the context information so that if the same environment is used for different algorithms, then completely different keys will be generated for each of those algorithms.  This practice means if algorithm A is broken and thus is easier to find, the key derived for algorithm B will not be the same as the key derived for algorithm A. </dd>
           <dt>PartyUInfo:</dt>
 
           <dd>
-            <t>This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented.  The elements of the PartyUInfo array are: 
+            <t>This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented below.  The elements of the PartyUInfo array are: 
 
             </t>
 
@@ -935,14 +942,14 @@ COSE_KDF_Context = [
 
       <name>Content Key Distribution Methods</name>
       <t>
-        <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.5 of [I-D.ietf-cose-rfc8152bis-struct]</xref> contains a generic description of content key distribution methods.
+        <relref section="&CKeyDistributeSection;" target="I-D.ietf-cose-rfc8152bis-struct"/> contains a generic description of content key distribution methods.
         This document defines the identifiers and usage for a number of content key distribution methods.
       </t>
       <section>
 
         <name>Direct Encryption</name>
         <t>
-          Direct encryption algorithm is defined in <xref target="I-D.ietf-cose-rfc8152bis-struct">Section 9.5.1 of [I-D.ietf-cose-rfc8152bis-struct]</xref>.
+          Direct encryption algorithm is defined in <relref section="&DirectDistribute;" target="I-D.ietf-cose-rfc8152bis-struct"/>.
           Information about how to fill in the COSE_Recipient structure are detailed there.
         </t>
         <section>
@@ -1144,7 +1151,7 @@ COSE_KDF_Context = [
         </ul>
         <t>
           COSE does not have an Ephemeral-Ephemeral version defined.
-          The reason for this is that COSE is not an an online protocol by itself and thus does not have a method to establish ephemeral secrets on both sides.
+          The reason for this is that COSE is not an online protocol by itself and thus does not have a method to establish ephemeral secrets on both sides.
           The expectation is that a protocol would establish the secrets for both sides, and then they would be used as static-static for the purposes of COSE, or that the protocol would generate a shared secret and a direct encryption would be used.
         </t>
         <t>The set of direct ECDH algorithms defined in this document are found in <xref target="x-table-ecdh-es-table"/>.  </t>
@@ -1609,6 +1616,89 @@ COSE_KDF_Context = [
         </table>
       </section>
     </section>
+
+    <section anchor="COSE-Capabilities">
+      <name>COSE Capabilities</name>
+      <t>
+        There are some situations that have been identified where identification of capabilities of an algorithm need to be specified.
+        One example of this is in <xref target="I-D.ietf-core-oscore-groupcomm"/> where the capabilities of the counter signature algorithm are mixed into the traffic key derivation process.
+        This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <xref target="RFC8551" section="2.5.2"/>.
+        The concept is being pulled forward and defined now for COSE.
+      </t>
+      <t>
+        Two different types of capabilities are defined:  Capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list capabilities is immutable.
+        As a general rule, the capabilities are going to correspond to algorithm or key fields, but they do not need to do so.
+        An example of this is the HSS-LMS key capabilities defined below where the hash algorithm used is included.
+      </t>
+      <t>
+        The capability structure is an array of values, the order being dependent on the specific algorithm or key.
+        For an algorithm, the first element should always be a key type value, but the items that are specific to a key should not be included in the algorithm capabilities.
+        This means that if one wishes to enumerate all of the capabilities for a device which implements ECDH, it requires multiple pairs of capability structures (algorithm, key) to deal with the different key types and curves that are supported.
+        For a key, the first element should also be a key type value, while this means that this value will be duplicated if both an algorithm and key capability are used, the key type is needed in order to understand the rest of the values.
+      </t>
+
+      <section>
+        <name>Assignments for Existing Key Types</name>
+        <t>
+          There are a number of pre-existing key types, the following deals with creating the capability definition for those structures:
+        </t>
+        <ul>
+          <li>
+            <t>OKP, EC2: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value,</li>
+              <li>One curve for that key type.</li>
+            </ul>
+          </li>
+          <li>
+            <t>RSA: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value.</li>
+            </ul>
+          </li>
+          <li>
+            <t>Symmetric: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value.</li>
+            </ul>
+          </li>
+          <li>
+            <t>HSS-LMS: The list of capabilities is:</t>
+            <ul>
+              <li>The key type value,</li>
+              <li>Algorithm identifier for the underlying hash function.</li>
+            </ul>
+          </li>
+        </ul>
+        
+      </section>
+
+      <section>
+        <name>Assignments for Existing Algorithms</name>
+        <t>
+          For the current set of algorithms in the registry, those in this document as well as those in <xref target="RFC8230"/> and <xref target="I-D.ietf-cose-hash-sig"/>, the capabilities is set to the single entry of the key type that will be accepted.
+          It is expected other algorithms will have no items or multiple items.
+        </t>
+
+        <!--
+        <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Value</th>
+            <th>Capabilities</th>
+          </tr>
+          <tr>
+            
+          </tr>
+        </thead>
+        </table>
+        -->
+      </section>
+        
+    </section>
+
+    
     <section anchor="CBOR-Canonical">
 
       <name>CBOR Encoding Restrictions</name>
@@ -1632,13 +1722,67 @@ COSE_KDF_Context = [
         </li>
       </ul>
     </section>
+
+
+    
     <section anchor="iana-considerations">
 
       <name>IANA Considerations</name>
+      <section>
+        <name>Changes to "COSE Key Types" registry.</name>
       <t>
-        There are no IANA actions.
-        The required actions are in <xref target="I-D.ietf-cose-rfc8152bis-struct"/>.
+        IANA is requested to create a new column in the "COSE Key Types" registry.
+        The new column is to be labeled "Capabilities".
+        The new column is to be populated according the the entries in <xref target="initial-kty-caps"/>.
       </t>
+      
+        <table anchor="initial-kty-caps">
+          <name>Key Type Capabilities</name>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Value</th>
+              <th>Capabilities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>OKP</td>
+              <td>kty, crv</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>EC2</td>
+              <td>kty, crv</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>RSA</td>
+              <td>kty</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Symmetric</td>
+              <td>kty</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>HSS-LMS</td>
+              <td>kty, hash algorithm</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <name>Changes to "COSE Algorithms" registry</name>
+        <t>
+          IANA is requested to create a new column in the "COSE Algorithms" registry.
+          The new column is to be labeled "Capabilities".
+          The new column is populated with "kty" for all current, non-provisional, registrations.
+          It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted at the time of final registration.
+        </t>
+      </section>
     </section>
     <section anchor="security-considerations">
 
@@ -1740,21 +1884,6 @@ COSE_KDF_Context = [
       <references>
         <name>Informative References</name>
         <xi:include href="reference.RFC.8610.xml"/>
-        <!--
-<?rfc include="reference.RFC.8018"?>
-<?rfc include="reference.RFC.2633" ?>
-<?rfc include="reference.RFC.4262" ?>
-<?rfc include="reference.RFC.4949" ?>
-<?rfc include="reference.RFC.5652" ?>
-<?rfc include="reference.RFC.5751" ?>
-<?rfc include="reference.RFC.5752" ?>
-<?rfc include="reference.RFC.5990" ?>
-<?rfc include="reference.RFC.6838" ?>
-<?rfc include="reference.RFC.7515" ?>
-<?rfc include="reference.RFC.7516" ?>
-<?rfc include="reference.RFC.7517" ?>
-<?rfc include="reference.RFC.8126" ?>
-        -->
         <xi:include href="reference.RFC.4231.xml"/>
         <xi:include href="reference.RFC.4493.xml"/>
         <xi:include href="reference.RFC.5116.xml"/>
@@ -1765,6 +1894,10 @@ COSE_KDF_Context = [
         <xi:include href="reference.RFC.7518.xml"/>
         <xi:include href="reference.RFC.8017.xml"/>
         <xi:include href="reference.RFC.8152.xml"/>
+        <xi:include href="reference.RFC.8551.xml"/>
+        <xi:include href="reference.RFC.8230.xml"/>
+        <xi:include href="reference.I-D.ietf-core-oscore-groupcomm.xml"/>
+        <xi:include href="reference.I-D.ietf-cose-hash-sig.xml"/>
         <reference anchor="SP800-56A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf">
           <front>
             <title>Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography</title>
@@ -1785,25 +1918,6 @@ COSE_KDF_Context = [
             <date year="2013" month="May"/>
           </front>
         </reference>
-        <!--
-<reference anchor="PVSig" quote-title="true">
-<front>
-<title>Formal Security Proofs for a Signature Scheme with Partial Message Recovery</title>
-<author initials="D." surname="Brown"/>
-<author initials="D." surname="Johnson"/>
-<date year="2000" month="June"/></front>
-<seriesInfo name="DOI" value="10.1007/3-540-45353-9_11"/>
-<seriesInfo name="LNCS" value="Volume 2020"/>
-</reference>
--->
-        <!--
-<reference anchor="W3C.WebCrypto" quote-title="true" target="https://www.w3.org/TR/WebCryptoAPI/"><front>
-<title>Web Cryptography API</title>
-<author initials="M." surname="Watson"/>
-<date year="2017" month="January"/></front>
-<seriesInfo name='W3C' value='Recommendation' />
-</reference>
--->
       </references>
     </references>
     <section numbered="false">
