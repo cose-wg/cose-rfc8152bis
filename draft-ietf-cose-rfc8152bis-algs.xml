@@ -1632,7 +1632,8 @@ COSE_KDF_Context = [
 
       <t>
         Two different types of capabilities are defined:  Capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list capabilities is immutable.
-        As a general rule, the capabilities are going to correspond to algorithm or key fields, but they do not need to do so.
+        If it is later found that a new capability is needed for a key type or an algorithm, it will require that a new code point be assigned to deal with that.
+        As a general rule, the capabilities are going to map to algorithm specific header paraemters or key parameters, but they do not need to do so.
         An example of this is the HSS-LMS key capabilities defined below where the hash algorithm used is included.
       </t>
       <t>
@@ -1681,8 +1682,8 @@ COSE_KDF_Context = [
       <section>
         <name>Assignments for Existing Algorithms</name>
         <t>
-          For the current set of algorithms in the registry, those in this document as well as those in <xref target="RFC8230"/> and <xref target="I-D.ietf-cose-hash-sig"/>, the capabilities is set to the single entry of the key type that will be accepted.
-          It is expected other algorithms could have zero, one, multiple items.
+          For the current set of algorithms in the registry, those in this document as well as those in <xref target="RFC8230"/> and <xref target="I-D.ietf-cose-hash-sig"/>, the capabilities is set to the single entry of the key type (from the "COSE Key Types" Registry) that will be accepted.
+          It is expected future registered algorithms could have zero, one, multiple items.
         </t>
 
       </section>
@@ -1691,21 +1692,22 @@ COSE_KDF_Context = [
         <name>Examples</name>
         <t>
           In this section a trio of examples are provided.
-          In all three cases the pair of capabilities is always provided as the algoirthm and then the key capabilities.
+          In all three cases the pair of capabilities is always provided as the algorithm and then the key capabilities.
+          For simplicitys sake, a CBOR sequence <xref target="I-D.ietf-cbor-sequence"/> is used for the two arrays.
         </t>
 
         <artwork>![CDATA[
 ECDSA with SHA-512 and a P-256 curve:
 
-0x8102820201             / [2][2, 1] /
+0x8102820201             / [2],[2, 1] /
 
 ECDH-ES + A256KW with a P-256 curve:
 
-0x8102820201            / [2][2, 1] /
+0x8102820201            / [2],[2, 1] /
 
 ECDH-ES + A256KW with an X25519 curve:
 
-0x8101820104           / [1][1, 4] /
+0x8101820104           / [1],[1, 4] /
 
         </artwork>
         
@@ -1919,6 +1921,7 @@ ECDH-ES + A256KW with an X25519 curve:
         <xi:include href="reference.RFC.8230.xml"/>
         <xi:include href="reference.I-D.ietf-core-oscore-groupcomm.xml"/>
         <xi:include href="reference.I-D.ietf-cose-hash-sig.xml"/>
+        <xi:include href="reference.I-D.ietf-cbor-sequence.xml"/>
         <reference anchor="SP800-56A" target="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf">
           <front>
             <title>Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography</title>
