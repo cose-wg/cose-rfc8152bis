@@ -1625,6 +1625,11 @@ COSE_KDF_Context = [
         This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <xref target="RFC8551" section="2.5.2"/>.
         The concept is being pulled forward and defined now for COSE.
       </t>
+
+      <t>
+        There is a presumption in the way that this is laid out is that the algorithm identifier itself is not needed to be a part of this as it is specified in a different location.
+      </t>
+
       <t>
         Two different types of capabilities are defined:  Capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list capabilities is immutable.
         As a general rule, the capabilities are going to correspond to algorithm or key fields, but they do not need to do so.
@@ -1646,27 +1651,27 @@ COSE_KDF_Context = [
           <li>
             <t>OKP, EC2: The list of capabilities is:</t>
             <ul>
-              <li>The key type value,</li>
-              <li>One curve for that key type.</li>
+              <li>The key type value.  (1 for OKP or 2 for EC2.)</li>
+              <li>One curve for that key type from the "COSE Elliptic Curve" registry.</li>
             </ul>
           </li>
           <li>
             <t>RSA: The list of capabilities is:</t>
             <ul>
-              <li>The key type value.</li>
+              <li>The key type value (3).</li>
             </ul>
           </li>
           <li>
             <t>Symmetric: The list of capabilities is:</t>
             <ul>
-              <li>The key type value.</li>
+              <li>The key type value (4).</li>
             </ul>
           </li>
           <li>
             <t>HSS-LMS: The list of capabilities is:</t>
             <ul>
-              <li>The key type value,</li>
-              <li>Algorithm identifier for the underlying hash function.</li>
+              <li>The key type value (5),</li>
+              <li>Algorithm identifier for the underlying hash function from the "COSE Algorithms" registry.</li>
             </ul>
           </li>
         </ul>
@@ -1677,23 +1682,33 @@ COSE_KDF_Context = [
         <name>Assignments for Existing Algorithms</name>
         <t>
           For the current set of algorithms in the registry, those in this document as well as those in <xref target="RFC8230"/> and <xref target="I-D.ietf-cose-hash-sig"/>, the capabilities is set to the single entry of the key type that will be accepted.
-          It is expected other algorithms will have no items or multiple items.
+          It is expected other algorithms could have zero, one, multiple items.
         </t>
 
-        <!--
-        <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-            <th>Capabilities</th>
-          </tr>
-          <tr>
-            
-          </tr>
-        </thead>
-        </table>
-        -->
+      </section>
+
+      <section>
+        <name>Examples</name>
+        <t>
+          In this section a trio of examples are provided.
+          In all three cases the pair of capabilities is always provided as the algoirthm and then the key capabilities.
+        </t>
+
+        <artwork>![CDATA[
+ECDSA with SHA-512 and a P-256 curve:
+
+0x8102820201             / [2][2, 1] /
+
+ECDH-ES + A256KW with a P-256 curve:
+
+0x8102820201            / [2][2, 1] /
+
+ECDH-ES + A256KW with an X25519 curve:
+
+0x8101820104           / [1][1, 4] /
+
+        </artwork>
+        
       </section>
         
     </section>
@@ -1749,27 +1764,27 @@ COSE_KDF_Context = [
             <tr>
               <td>1</td>
               <td>OKP</td>
-              <td>kty, crv</td>
+              <td>kty(1), crv</td>
             </tr>
             <tr>
               <td>2</td>
               <td>EC2</td>
-              <td>kty, crv</td>
+              <td>kty(2), crv</td>
             </tr>
             <tr>
               <td>3</td>
               <td>RSA</td>
-              <td>kty</td>
+              <td>kty(3)</td>
             </tr>
             <tr>
               <td>4</td>
               <td>Symmetric</td>
-              <td>kty</td>
+              <td>kty(4)</td>
             </tr>
             <tr>
               <td>5</td>
               <td>HSS-LMS</td>
-              <td>kty, hash algorithm</td>
+              <td>kty(5), hash algorithm</td>
             </tr>
           </tbody>
         </table>
@@ -1781,6 +1796,12 @@ COSE_KDF_Context = [
           The new column is to be labeled "Capabilities".
           The new column is populated with "kty" for all current, non-provisional, registrations.
           It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted at the time of final registration.
+        </t>
+
+        <t>
+          IANA is requested to update the reference column in the "COSE Algorithms" registry to include [[This Document]] as a reference for all rows where it is not already present.
+          Note to IANA:  There is an action in <xref target="I-D.ietf-cose-rfc8152bis-struct"/> which also modifies data in the reference column.
+          That action should be applied first.
         </t>
       </section>
     </section>

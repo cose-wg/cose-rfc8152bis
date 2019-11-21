@@ -98,7 +98,7 @@
         <name>Design Changes from JOSE</name>
         <ul>
           <li>Define a single top message structure so that encrypted, signed, and MACed messages can easily be identified and still have a consistent view.  </li>
-          <li>Signed messages distinguish between the protected and unprotected parameters that relate to the content from those that relate to the signature. </li>
+          <li>Signed messages distinguish between the protected and unprotected header parameters that relate to the content from those that relate to the signature. </li>
           <li>MACed messages are separated from signed messages.  </li>
           <li>MACed messages have the ability to use the same set of recipient algorithms as enveloped messages for obtaining the MAC authentication key.  </li>
           <li>Use binary encodings for binary data rather than base64url encodings.  </li>
@@ -214,7 +214,7 @@ values = any
           Context is used throughout the document to represent information that is not part of the COSE message.
           Information which is part of the context can come from several different sources including:
           Protocol interactions, associated key structures and program configuration.
-          The context to use can be implicit, identified using the 'kid context' header field defined in <xref target="RFC8613"/>, or identified by a protocol specific identifier.
+          The context to use can be implicit, identified using the 'kid context' header parameter defined in <xref target="RFC8613"/>, or identified by a protocol specific identifier.
           Context should generally be included in the cryptographic configuration, for more details see <xref target="Extern_AAD"/>.
         </t>
       </section>
@@ -408,14 +408,14 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
         <dd>Contains parameters about the current layer that are not cryptographically protected.  </dd>
       </dl>
       <t>
-        Only parameters that deal with the current layer are to be placed at that layer.  As an example of this, the parameter 'content type' describes the content of the message being carried in the message.  As such, this parameter is placed only in the content layer and is not placed in the recipient or signature layers.  In principle, one should be able to process any given layer without reference to any other layer.  With the exception of the COSE_Sign structure, the only data that needs to cross layers is the cryptographic key.
+        Only header parameters that deal with the current layer are to be placed at that layer.  As an example of this, the header parameter 'content type' describes the content of the message being carried in the message.  As such, this header parameter is placed only in the content layer and is not placed in the recipient or signature layers.  In principle, one should be able to process any given layer without reference to any other layer.  With the exception of the COSE_Sign structure, the only data that needs to cross layers is the cryptographic key.
       </t>
       <t>
-        The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<xref target="cose-header-key-table"/>).
-        Some common parameters are defined in the next section.
+        The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The header parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<xref target="cose-header-key-table"/>).
+        Some common header parameters are defined in the next section.
       </t>
-      <t>Labels in each of the maps MUST be unique.  When processing messages, if a label appears multiple times, the message MUST be rejected as malformed.  Applications SHOULD verify that the same label does not occur in both the protected and unprotected headers.  If the message is not rejected as malformed, attributes MUST be obtained from the protected bucket before they are obtained from the unprotected bucket.  </t>
-      <t>The following CDDL fragment represents the two header buckets.  A group "Headers" is defined in CDDL that represents the two buckets in which attributes are placed.  This group is used to provide these two fields consistently in all locations.  A type is also defined that represents the map of common headers.  </t>
+      <t>Labels in each of the maps MUST be unique.  When processing messages, if a label appears multiple times, the message MUST be rejected as malformed.  Applications SHOULD verify that the same label does not occur in both the protected and unprotected header parameters.  If the message is not rejected as malformed, attributes MUST be obtained from the protected bucket before they are obtained from the unprotected bucket.  </t>
+      <t>The following CDDL fragment represents the two header parameter buckets.  A group "Headers" is defined in CDDL that represents the two buckets in which attributes are placed.  This group is used to provide these two fields consistently in all locations.  A type is also defined that represents the map of common header parameters.  </t>
       <sourcecode type="CDDL"><![CDATA[
 Headers = (
     protected : empty_or_serialized_map,
@@ -431,49 +431,49 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
 ]]></sourcecode>
       <section anchor="cose-headers">
-        <name>Common COSE Headers Parameters</name>
-        <t>This section defines a set of common header parameters.  A summary of these parameters can be found in <xref target="Header-Table"/>.  This table should be consulted to determine the value of label and the type of the value.  </t>
+        <name>Common COSE Header Parameters</name>
+        <t>This section defines a set of common header parameters.  A summary of these header parameters can be found in <xref target="Header-Table"/>.  This table should be consulted to determine the value of label and the type of the value.  </t>
         <t>The set of header parameters defined in this section are: </t>
         <dl newline="false">
           <dt>alg:</dt>
-          <dd> This parameter is used to indicate the algorithm used for the security processing.  This parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign1, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the parameter in the protected header bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <xref target="COSE.Algorithms"/>).  </dd>
+          <dd> This header parameter is used to indicate the algorithm used for the security processing.  This header parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign1, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header parameter in the protected header parameter bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <xref target="COSE.Algorithms"/>).  </dd>
           <dt>crit:</dt>
           <dd>
             <t>
-          The parameter is used to indicate which protected header labels an application that is processing a message is required to understand. 
-          Parameters defined in this document do not need to be included as they should be understood by all implementations.
-          When present, this parameter MUST be placed in the protected header bucket.
+          This header parameter is used to indicate which protected header parameters an application that is processing a message is required to understand. 
+          Header arameters defined in this document do not need to be included as they should be understood by all implementations.
+          When present, this the 'crit' header parameter MUST be placed in the protected header parameter bucket.
           The array MUST have at least one value in it.  
 
             </t>
             <t>
-          Not all labels need to be included in the 'crit' parameter.
-          The rules for deciding which header labels are placed in the array are:
+          Not all header parameter labels need to be included in the 'crit' header parameter.
+          The rules for deciding which header parameters are placed in the array are:
             </t>
             <ul>
               <li>Integer labels in the range of 0 to 7 SHOULD be omitted.</li>
-              <li>Integer labels in the range -1 to -128 can be omitted as they are algorithm dependent.  If an application can correctly process an algorithm, it can be assumed that it will correctly process all of the common parameters associated with that algorithm.  Integer labels in the range -129 to -65536 SHOULD be included as these would be less common parameters that might not be generally supported.  </li>
-              <li>Labels for parameters required for an application MAY be omitted.  Applications should have a statement if the label can be omitted.  </li>
+              <li>Integer labels in the range -1 to -128 can be omitted as they are algorithm dependent.  If an application can correctly process an algorithm, it can be assumed that it will correctly process all of the common header parameters associated with that algorithm.  Integer labels in the range -129 to -65536 SHOULD be included as these would be less common header parameters that might not be generally supported.  </li>
+              <li>Labels for header parameters required for an application MAY be omitted.  Applications should have a statement if the label can be omitted.  </li>
             </ul>
             <t>
 
-          The header parameter values indicated by 'crit' can be processed by either the security library code or an application using a security library; the only requirement is that the parameter is processed.  If the 'crit' value list includes a value for which the parameter is not in the protected bucket, this is a fatal error in processing the message.
+          The header parameters indicated by 'crit' can be processed by either the security library code or an application using a security library; the only requirement is that the header parameter is processed.  If the 'crit' value list includes a label for which the header parameter is not in the protected headers bucket, this is a fatal error in processing the message.
             </t>
           </dd>
           <dt>content type:</dt>
-          <dd>This parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <xref target="COAP.Formats"/>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <xref target="RFC6838"/>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications SHOULD provide this parameter if the content structure is potentially ambiguous.  </dd>
+          <dd>This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <xref target="COAP.Formats"/>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <xref target="RFC6838"/>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications SHOULD provide this header parameter if the content structure is potentially ambiguous.  </dd>
           <dt>kid:</dt>
-          <dd>This parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications MUST NOT assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected headers bucket.  </dd>
+          <dd>This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications MUST NOT assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected headers bucket.  </dd>
           <dt>IV:</dt>
-          <dd>This parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected header as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.  </dd>
+          <dd>This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected header bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.  </dd>
           <dt>Partial IV:</dt>
           <dd>
             <t>
-  This parameter holds a part of the IV value. 
+  This header parameter holds a part of the IV value. 
   When using the COSE_Encrypt0 structure, a portion of the IV can be part of the context associated with the key (Context IV) while a portion can be changed with each message (Parital IV). 
   This field is used to carry a value that causes the IV to be changed for each message. 
-  The Parital IV can be placed in the unprotected header as modifying the value will cause the decryption to yield plaintext that is readily detectable as garbled. 
-  The 'Initialization Vector' and 'Partial Initialization Vector' parameters MUST NOT both be present in the same security layer.
+  The Parital IV can be placed in the unprotected header bucket as modifying the value will cause the decryption to yield plaintext that is readily detectable as garbled. 
+  The 'Initialization Vector' and 'Partial Initialization Vector' header parameters MUST NOT both be present in the same security layer.
 
             </t>
             <t>
@@ -483,9 +483,11 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
               <li>Left-pad the Partial IV with zeros to the length of IV.</li>
               <li>XOR the padded Partial IV with the context IV.</li>
             </ol>
+
+
           </dd>
           <dt>counter signature:</dt>
-          <dd>This parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on counter signatures are found in <xref target="counter_signature"/>.  </dd>
+          <dd>This header parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature header parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on counter signatures are found in <xref target="counter_signature"/>.  </dd>
         </dl>
         <table anchor="Header-Table" align="center">
           <name>Common Header Parameters</name>
@@ -511,7 +513,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
               <td>2</td>
               <td>[+ label]</td>
               <td>COSE Header Parameters registry</td>
-              <td>Critical headers to be understood</td>
+              <td>Critical header parameters to be understood</td>
             </tr>
             <tr>
               <td>content type</td>
@@ -550,7 +552,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
             </tr>
           </tbody>
         </table>
-        <t>The CDDL fragment that represents the set of headers defined in this section is given below.  Each of the headers is tagged as optional because they do not need to be in every map; headers required in specific maps are discussed above.  </t>
+        <t>The CDDL fragment that represents the set of header parameters defined in this section is given below.  Each of the header parameters is tagged as optional because they do not need to be in every map; header parameters required in specific maps are discussed above.  </t>
         <sourcecode type="CDDL"><![CDATA[
 Generic_Headers = (
     ? 1 => int / tstr,  ; algorithm identifier
@@ -569,7 +571,7 @@ Generic_Headers = (
       <t>COSE supports two different signature structures.  COSE_Sign allows for one or more signatures to be applied to the same content. COSE_Sign1 is restricted to a single signer.  The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.  </t>
       <section anchor="full-signature">
         <name>Signing with One or More Signers</name>
-        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Parameters relating to the content and parameters relating to the signature are carried along with the signature itself.  These parameters may be authenticated by the signature, or just present.  An example of a parameter about the content is the content type.  Examples of parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
+        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These headeres parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of a header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
         <t>RFC 5652 indicates that:
 
         </t>
@@ -628,7 +630,7 @@ COSE_Signature =  [
       </section>
       <section>
         <name>Signing with One Signer</name>
-        <t>The COSE_Sign1 signature structure is used when only one signature is going to be placed on a message.  The parameters dealing with the content and the signature are placed in the same pair of buckets rather than having the separation of COSE_Sign.  </t>
+        <t>The COSE_Sign1 signature structure is used when only one signature is going to be placed on a message.  The header parameters dealing with the content and the signature are placed in the same pair of buckets rather than having the separation of COSE_Sign.  </t>
         <t>The structure can be encoded as either tagged or untagged depending on the context it will be used in.  A tagged COSE_Sign1 structure is identified by the CBOR tag 18.  The CDDL fragment that represents this is: </t>
         <sourcecode type="CDDL"><![CDATA[
 COSE_Sign1_Tagged = #6.18(COSE_Sign1)
@@ -820,7 +822,7 @@ COSE_CounterSignature = COSE_Signature
         </t>
         <t>
           The byte string representing the signature value is placed in the CounterSignature0 attribute.
-          This attribute is then encoded as an unprotected header.
+          This attribute is then encoded as an unprotected header parameter.
           The attribute is defined below.
         </t>
         <t>
@@ -859,7 +861,7 @@ COSE_CounterSignature = COSE_Signature
       </t>
       <section anchor="EnvelopedData">
         <name>Enveloped COSE Structure</name>
-        <t>The enveloped structure allows for one or more recipients of a message.  There are provisions for parameters about the content and parameters about the recipient information to be carried in the message.  The protected parameters associated with the content are authenticated by the content encryption algorithm.  The protected parameters associated with the recipient are authenticated by the recipient algorithm (when the algorithm supports it).  Examples of parameters about the content are the type of the content and the content encryption algorithm.  Examples of parameters about the recipient are the recipient's key identifier and the recipient's encryption algorithm.  </t>
+        <t>The enveloped structure allows for one or more recipients of a message.  There are provisions for header parameters about the content and header parameters about the recipient information to be carried in the message.  The protected header parameters associated with the content are authenticated by the content encryption algorithm.  The protected header parameters associated with the recipient are authenticated by the recipient algorithm (when the algorithm supports it).  Examples of header parameters about the content are the type of the content and the content encryption algorithm.  Examples of header parameters about the recipient are the recipient's key identifier and the recipient's encryption algorithm.  </t>
         <t>
           The same techniques and nearly the same structure is used for encrypting both the plaintext and the keys. 
           This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"/> and "JSON Web Encryption (JWE)" <xref target="RFC7516"/> where different structures are used for the content layer and for the recipient layer. 
@@ -1460,8 +1462,8 @@ valid, message content = Decrypt(ciphertext, key, additional data)
           <t>The COSE_Recipient structure for the recipient is organized as follows: </t>
             <ul>
               <li>The 'protected' field MUST be a zero-length item unless it is used in the computation of the content key.  </li>
-              <li>The 'alg' parameter MUST be present.  </li>
-              <li>A parameter identifying the shared secret SHOULD be present.  </li>
+              <li>The 'alg' header parameter MUST be present.  </li>
+              <li>A header parameter identifying the shared secret SHOULD be present.  </li>
               <li>The 'ciphertext' field MUST be a zero-length item.  </li>
               <li>The 'recipients' field MUST be absent.  </li>
           </ul>
@@ -1479,7 +1481,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
             </li>
               <li>The plaintext to be encrypted is the key from next layer down (usually the content layer). 
             </li>
-              <li>At a minimum, the 'unprotected' field MUST contain the 'alg' parameter and SHOULD contain a parameter identifying the shared secret.  </li>
+              <li>At a minimum, the 'unprotected' field MUST contain the 'alg' header parameter and SHOULD contain a header parameter identifying the shared secret.  </li>
           </ul>
         </section>
         <section anchor="KeyTransport">
@@ -1493,7 +1495,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
             <ul>
               <li>The 'protected' field MUST be absent.  </li>
               <li>The plaintext to be encrypted is the key from the next layer down (usually the content layer).  </li>
-              <li>At a minimum, the 'unprotected' field MUST contain the 'alg' parameter and SHOULD contain a parameter identifying the asymmetric key.  </li>
+              <li>At a minimum, the 'unprotected' field MUST contain the 'alg' header parameter and SHOULD contain a parameter identifying the asymmetric key.  </li>
           </ul>
         </section>
         <section>
@@ -1512,7 +1514,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
           <t>When direct key agreement mode is used, there MUST be only one recipient in the message.  This method creates the key directly, and that makes it difficult to mix with additional recipients.  If multiple recipients are needed, then the version with key wrap needs to be used.  </t>
           <t>The COSE_Encrypt structure for the recipient is organized as follows: </t>
             <ul>
-              <li>At a minimum, headers  MUST contain the 'alg' parameter and SHOULD contain a parameter identifying the recipient's asymmetric key.  </li>
+              <li>At a minimum, headers  MUST contain the 'alg' header parameter and SHOULD contain a header parameter identifying the recipient's asymmetric key.  </li>
               <li>The headers SHOULD identify the sender's key for the static-static versions and MUST contain the sender's ephemeral key for the ephemeral-static versions.  </li>
           </ul>
         </section>
@@ -1526,8 +1528,8 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             <ul>
               <li>The 'protected' field is fed into the KDF context structure.  </li>
               <li>The plaintext to be encrypted is the key from the next layer down (usually the content layer).  </li>
-              <li>The 'alg' parameter MUST be present in the layer.  </li>
-              <li>A parameter identifying the recipient's key SHOULD be present.  A parameter identifying the sender's key SHOULD be present.  </li>
+              <li>The 'alg' header parameter MUST be present in the layer.  </li>
+              <li>A header parameter identifying the recipient's key SHOULD be present.  A header parameter identifying the sender's key SHOULD be present.  </li>
           </ul>
         </section>
       </section>
@@ -1561,10 +1563,10 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <ul>
         <li>Applications need to determine the set of messages defined in this document that they will be using.  The set of messages corresponds fairly directly to the set of security services that are needed and to the security levels needed.  </li>
         <li>
-        Applications may define new header parameters for a specific purpose. 
+        Applications may define new header header parameters for a specific purpose. 
         Applications will often times select specific header parameters to use or not to use. 
-        For example, an application would normally state a preference for using either the IV or the Partial IV parameter. 
-        If the Partial IV parameter is specified, then the application also needs to define how the fixed portion of the IV is determined. 
+        For example, an application would normally state a preference for using either the IV or the Partial IV header parameter. 
+        If the Partial IV header parameter is specified, then the application also needs to define how the fixed portion of the IV is determined. 
       </li>
         <li>When applications use externally defined authenticated data, they need to define how that data is encoded.  This document assumes that the data will be provided as a byte string.  More information can be found in <xref target="Extern_AAD"/>.  </li>
         <li>Applications need to determine the set of security algorithms that are to be used.  When selecting the algorithms to be used as the mandatory-to-implement set, consideration should be given to choosing different types of algorithms when two are chosen for a specific purpose.  An example of this would be choosing HMAC-SHA512 and AES-CMAC as different MAC algorithms; the construction is vastly different between these two algorithms.  This means that a weakening of one algorithm would be unlikely to lead to a weakening of the other algorithms.  Of course, these algorithms do not provide the same level of security and thus may not be comparable for the desired security functionality.  </li>
@@ -1787,7 +1789,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>Is the cryptographic algorithm acceptable in the current context?</li>
         <li>Have the restrictions associated with the key, such as algorithm or freshness, been checked and are they correct?</li>
         <li>Is the request something that is reasonable, given the current state of the application?</li>
-        <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' parameter)?</li>
+        <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?</li>
       </ul>
       <t>There are a large number of algorithms presented in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> that use nonce values.  Nonces generally have some type of restriction on their values. Generally a nonce needs to be a unique value either for a key or for some other conditions.  In all of these cases, there is no known requirement on the nonce being both unique and unpredictable; under these circumstances, it's reasonable to use a counter for creation of the nonce.  In cases where one wants the pattern of the nonce to be unpredictable as well as unique, one can use a key created for that purpose and encrypt the counter to produce the nonce value.  </t>
       <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different strings (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
@@ -2206,7 +2208,7 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
           </t>
             <ul>
               <li>Signature Algorithm: ECDSA w/ SHA-256, Curve P-256</li>
-              <li>The same parameters are used for both the signature and the counter signature.</li>
+              <li>The same header parameters are used for both the signature and the counter signature.</li>
           </ul>
           <t>Size of binary file is 180 bytes</t>
           <sourcecode type="CBORdiag"><![CDATA[
