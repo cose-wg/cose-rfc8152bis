@@ -89,10 +89,28 @@
         One feature that is present in CMS <xref target="RFC5652"/> that is not present in this standard is a digest structure.
         This omission is deliberate.
         It is better for the structure to be defined in each document as different protocols will want to include a different set of fields as part of the structure.
-        While an algorithm identifier and the digesst value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
-        Applications may additionally want to define additional data fields as part of the stucture.
+        While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
+        Applications may additionally want to define additional data fields as part of the structure.
         A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application specific.
       </t>
+
+      <section anchor="requirements-terminology">
+        <name>Requirements Terminology</name>
+
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
+        </t>
+      </section>
+
+      <section>
+        <name>Changes from RFC8152</name>
+        <ul>
+          <li> Split the orignal document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</li>
+          <li>Add some text describing why there is no digest structure defined by COSE.</li>
+          <li>Rearrange the text around counter signatures and define a CBOR Tag for a standalone countersignature.</li>
+          <li>Text clarifications and changes in terminology.</li>
+        </ul>
+      </section>
 
       <section anchor="design-changes-from-jose">
         <name>Design Changes from JOSE</name>
@@ -107,28 +125,12 @@
         </ul>
       </section>
 
-      <section>
-        <name>Changes from RFC8152</name>
-        <ul>
-          <li> Split the orignal document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</li>
-          <li>Add some text describing why there is no digest structure defined by COSE.</li>
-          <li>Rearrange the text around counter signatures and define a CBOR Tag for a standalone countersignature.</li>
-        </ul>
-      </section>
-
-      <section anchor="requirements-terminology">
-        <name>Requirements Terminology</name>
-
-        <t>
-          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
-        </t>
-      </section>
 
       <section anchor="cbor-grammar">
         <name>CBOR Grammar</name>
         <t>
           There was not a standard CBOR grammar available when COSE was originally written.
-          For that reason the CBOR structures defined here are described in prose.
+          For that reason the CBOR data objectd defined here are described in prose.
           Since that time CBOR Data Definition Language (CDDL) <xref target="RFC8610"/> has been published as an RFC.
           The CBOR grammar presented in this document is compatible with CDDL.
         </t>
@@ -186,12 +188,13 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
 ]]></sourcecode>
         <t>The non-terminal Internal_Types is defined for dealing with the automated validation tools used during the writing of this document.  It references those non-terminals that are used for security computations but are not emitted for transport.  </t>
       </section>
+
       <section anchor="label">
         <name>CBOR-Related Terminology</name>
         <t>In JSON, maps are called objects and only have one kind of map key: a string.  In COSE, we use strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
         <t>
-          The presence of a label in a COSE map that is not a string or an integer is an error. 
+          The presence of a label in a CBOR map that is not a string or an integer is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they MUST NOT create messages with incorrect labels. 
         </t>
 
@@ -217,6 +220,7 @@ values = any
           The context to use can be implicit, identified using the 'kid context' header parameter defined in <xref target="RFC8613"/>, or identified by a protocol specific identifier.
           Context should generally be included in the cryptographic configuration, for more details see <xref target="Extern_AAD"/>.
         </t>
+        <t>The term 'byte string' is used for sequences of bytes, while the term 'string' is used for sequences of characters.</t>
       </section>
     </section>
 
@@ -228,8 +232,8 @@ values = any
         The first three elements of the array always contain the same information:
       </t>
       <ol type="1">
-        <li>The set of protected header parameters wrapped in a bstr.</li>
-        <li>The set of unprotected header parameters as a map.</li>
+        <li>The protected header parameters encoded and wrapped in a bstr.</li>
+        <li>The unprotected header parameters as a map.</li>
         <li>
             The content of the message. 
             The content is either the plaintext or the ciphertext as appropriate. 
@@ -597,7 +601,7 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
             <t>This field contains the serialized content to be signed.  If the payload is not present in the message, the application is required to supply the payload separately.  The payload is wrapped in a bstr to ensure that it is transported without changes.  If the payload is transported separately ("detached content"), then a nil CBOR object is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.
 
             </t>
-            <t> Note: When a signature with a message recovery algorithm is used (<xref target="SigAlgs"/>), the maximum number of bytes that can be recovered is the length of the payload.  The size of the payload is reduced by the number of bytes that will be recovered.  If all of the bytes of the payload are consumed, then the payload is encoded as a zero-length binary string rather than as being absent.  </t>
+            <t> Note: When a signature with a message recovery algorithm is used (<xref target="SigAlgs"/>), the maximum number of bytes that can be recovered is the length of the payload.  The size of the payload is reduced by the number of bytes that will be recovered.  If all of the bytes of the payload are consumed, then the payload is encoded as a zero-length byte string rather than as being absent.  </t>
           </dd>
           <dt>signatures:</dt>
           <dd>This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.  </dd>
@@ -699,7 +703,7 @@ COSE_Sign1 = [
         <ol type="1">
           <li>
             <t>
-              A text string identifying the context of the signature.  The context string is:
+              A context string identifying the context of the signature.  The context string is:
             </t>
             <ul empty="true">
               <li>"Signature" for signatures using the COSE_Signature structure.</li>
@@ -710,7 +714,7 @@ COSE_Sign1 = [
           </li>
           <li>The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  </li>
           <li>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  This field is omitted for the COSE_Sign1 signature structure and CounterSignature0 attributes.  </li>
-          <li>The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length binary string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
+          <li>The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
           <li>The payload to be signed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </li>
         </ol>
         <t>The CDDL fragment that describes the above text is:  </t>
@@ -751,7 +755,7 @@ array to avoid confusion.
         <t>The steps for verifying a signature are:
         </t>
         <ol type="1">
-          <li>Create a Sig_structure object and populate it with the appropriate fields.  </li>
+          <li>Create a Sig_structure and populate it with the appropriate fields.  </li>
           <li>Create the value ToBeSigned by encoding the Sig_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"/>.  </li>
           <li>Call the signature verification algorithm passing in K (the key to verify with), alg (the algorithm used sign with), ToBeSigned (the value to sign), and sig (the signature to be verified).  </li>
         </ol>
@@ -981,7 +985,7 @@ COSE_Encrypt0 = [
         </t>
         <ol type="1">
           <li>
-            <t>A text string identifying the context of the authenticated data structure.  The context string is:
+            <t>A context string identifying the context of the authenticated data structure.  The context string is:
             </t>
             <ul empty="true">
               <li>"Encrypt0" for the content encryption of a COSE_Encrypt0 data structure.</li>
@@ -1177,9 +1181,9 @@ COSE_Mac0 = [
         <t>In order to get a consistent encoding of the data to be authenticated, the MAC_structure is used to have a canonical form.  The MAC_structure is a CBOR array.  The fields of the MAC_structure in order are:
         </t>
         <ol type="1">
-          <li>A text string that identifies the structure that is being encoded.  This string is "MAC" for the COSE_Mac structure.  This string is "MAC0" for the COSE_Mac0 structure.  </li>
+          <li>A context string that identifies the structure that is being encoded.  This context string is "MAC" for the COSE_Mac structure.  This context string is "MAC0" for the COSE_Mac0 structure.  </li>
           <li>The protected attributes from the COSE_MAC structure.  If there are no protected attributes, a zero-length bstr is used.  </li>
-          <li>The protected attributes from the application encoded as a bstr type.  If this field is not supplied, it defaults to a zero-length binary string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
+          <li>The protected attributes from the application encoded as a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
           <li>The payload to be MACed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </li>
         </ol>
         <t>The CDDL fragment that corresponds to the above text is: </t>
@@ -1209,7 +1213,7 @@ MAC_structure = [
          
         </t>
         <ol type="1">
-          <li>Create a MAC_structure object and populate it with the appropriate fields.  </li>
+          <li>Create a MAC_structure and populate it with the appropriate fields.  </li>
           <li>Create the value ToBeMaced by encoding the MAC_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"/>.  </li>
           <li>
               For COSE_Mac structures, obtain the cryptographic key from one of the recipients of the message.
@@ -1221,7 +1225,7 @@ MAC_structure = [
     </section>
     <section anchor="key-structure">
       <name>Key Objects</name>
-      <t>A COSE Key structure is built on a CBOR map object.  The set of common parameters that can appear in a COSE Key can be found in the IANA "COSE Key Common Parameters" registry (<xref target="cose-key-map-registry"/>).  Additional parameters defined for specific key types can be found in the IANA "COSE Key Type Parameters" registry (<xref target="COSE.KeyParameters"/>).  </t>
+      <t>A COSE Key structure is built on a CBOR map.  The set of common parameters that can appear in a COSE Key can be found in the IANA "COSE Key Common Parameters" registry (<xref target="cose-key-map-registry"/>).  Additional parameters defined for specific key types can be found in the IANA "COSE Key Type Parameters" registry (<xref target="COSE.KeyParameters"/>).  </t>
       <t>A COSE Key Set uses a CBOR array object as its underlying type.  The values of the array elements are COSE Keys.  A COSE Key Set MUST have at least one element in the array.  Examples of COSE Key Sets can be found in <xref target="COSE_KEYS"/>.  </t>
       <t>Each element in a COSE Key Set MUST be processed independently.  If one element in a COSE Key Set is either malformed or uses a key that is not understood by an application, that key is ignored and the other keys are processed normally.  </t>
       <t>The element "kty" is a required element in a COSE_Key map.  </t>
@@ -1296,7 +1300,7 @@ COSE_KeySet = [+COSE_Key]
           <dt>alg:</dt>
           <dd>This parameter is used to restrict the algorithm that is used with the key.  If this parameter is present in the key structure, the application MUST verify that this algorithm matches the algorithm for which the key is being used.  If the algorithms do not match, then this key object MUST NOT be used to perform the cryptographic operation.  Note that the same key can be in a different key structure with a different or no algorithm specified; however, this is considered to be a poor security practice.  </dd>
           <dt>kid:</dt>
-          <dd>This parameter is used to give an identifier for a key.  The identifier is not structured and can be anything from a user-provided string to a value computed on the public portion of the key.  This field is intended for matching against a 'kid' parameter in a message in order to filter down the set of keys that need to be checked.  </dd>
+          <dd>This parameter is used to give an identifier for a key.  The identifier is not structured and can be anything from a user-provided byte string to a value computed on the public portion of the key.  This field is intended for matching against a 'kid' parameter in a message in order to filter down the set of keys that need to be checked.  </dd>
           <dt>key_ops:</dt>
           <dd>This parameter is defined to restrict the set of operations that a key is to be used for.  The value of the field is an array of values from <xref target="x-table-key-ops"/>.  Algorithms define the values of key ops that are permitted to appear and are required for specific operations.  The set of values matches that in <xref target="RFC7517"/> and <xref target="W3C.WebCrypto"/>.  </dd>
           <dt>Base IV:</dt>
@@ -1382,6 +1386,12 @@ COSE_KeySet = [+COSE_Key]
       </t>
       <section anchor="SigAlgs">
         <name>Signature Algorithms</name>
+        <t>
+          Signature algorithms provide data origination and data integrity services.
+          Data origination provides the ability to infer who originated the data based on who signed the data.
+          Data integrity provides the ability to verify that the data has not been modified since it was signed.
+        </t>
+        
         <t>There are two signature algorithm schemes.  The first is signature with appendix.  In this scheme, the message content is processed and a signature is produced; the signature is called the appendix.  This is the scheme used by algorithms such as ECDSA and the RSA Probabilistic Signature Scheme (RSASSA-PSS).  (In fact, the SSA in RSASSA-PSS stands for Signature Scheme with Appendix.) </t>
         <t>The signature functions for this scheme are: </t>
         <artwork type=""><![CDATA[
@@ -1792,7 +1802,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?</li>
       </ul>
       <t>There are a large number of algorithms presented in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> that use nonce values.  Nonces generally have some type of restriction on their values. Generally a nonce needs to be a unique value either for a key or for some other conditions.  In all of these cases, there is no known requirement on the nonce being both unique and unpredictable; under these circumstances, it's reasonable to use a counter for creation of the nonce.  In cases where one wants the pattern of the nonce to be unpredictable as well as unique, one can use a key created for that purpose and encrypt the counter to produce the nonce value.  </t>
-      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different strings (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
+      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
     </section>
     <section removeInRFC="true">
       <name>Implementation Status</name>
