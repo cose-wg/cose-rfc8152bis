@@ -463,7 +463,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
           The header parameters indicated by 'crit' can be processed by either the security library code or an application using a security library; the only requirement is that the header parameter is processed.  If the 'crit' value list includes a label for which the header parameter is not in the protected header parameters bucket, this is a fatal error in processing the message.
             </t>
-u          </dd>
+          </dd>
           <dt>content type:</dt>
           <dd>This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <xref target="COAP.Formats"/>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <xref target="RFC6838"/>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications SHOULD provide this header parameter if the content structure is potentially ambiguous.  </dd>
           <dt>kid:</dt>
@@ -472,7 +472,7 @@ u          </dd>
           <dd>This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.  </dd>
           <dt>Partial IV:</dt>
           <dd>
-o            <t>
+            <t>
   This header parameter holds a part of the IV value. 
   When using the COSE_Encrypt0 structure, a portion of the IV can be part of the context associated with the key (Context IV) while a portion can be changed with each message (Partial IV). 
   This field is used to carry a value that causes the IV to be changed for each message. 
