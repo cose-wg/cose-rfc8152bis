@@ -4,9 +4,9 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                           13 November 2019
+Obsoletes: 8152 (if approved)                               7 March 2020
 Intended status: Standards Track                                        
-Expires: 16 May 2020
+Expires: 8 September 2020
 
 
    CBOR Object Signing and Encryption (COSE): Structures and Process
@@ -53,16 +53,16 @@ Status of This Memo
 
 
 
-Schaad                     Expires 16 May 2020                  [Page 1]
+Schaad                  Expires 8 September 2020                [Page 1]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
-   This Internet-Draft will expire on 16 May 2020.
+   This Internet-Draft will expire on 8 September 2020.
 
 Copyright Notice
 
-   Copyright (c) 2019 IETF Trust and the persons identified as the
+   Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -77,15 +77,15 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
-     1.1.  Design Changes from JOSE  . . . . . . . . . . . . . . . .   5
-     1.2.  Changes from RFC8152  . . . . . . . . . . . . . . . . . .   6
-     1.3.  Requirements Terminology  . . . . . . . . . . . . . . . .   6
+     1.1.  Requirements Terminology  . . . . . . . . . . . . . . . .   5
+     1.2.  Changes from RFC8152  . . . . . . . . . . . . . . . . . .   5
+     1.3.  Design Changes from JOSE  . . . . . . . . . . . . . . . .   6
      1.4.  CBOR Grammar  . . . . . . . . . . . . . . . . . . . . . .   6
      1.5.  CBOR-Related Terminology  . . . . . . . . . . . . . . . .   8
      1.6.  Document Terminology  . . . . . . . . . . . . . . . . . .   8
    2.  Basic COSE Structure  . . . . . . . . . . . . . . . . . . . .   9
    3.  Header Parameters . . . . . . . . . . . . . . . . . . . . . .  13
-     3.1.  Common COSE Headers Parameters  . . . . . . . . . . . . .  14
+     3.1.  Common COSE Header Parameters . . . . . . . . . . . . . .  15
    4.  Signing Objects . . . . . . . . . . . . . . . . . . . . . . .  18
      4.1.  Signing with One or More Signers  . . . . . . . . . . . .  18
      4.2.  Signing with One Signer . . . . . . . . . . . . . . . . .  20
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                     Expires 16 May 2020                  [Page 2]
+Schaad                  Expires 8 September 2020                [Page 2]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    9.  Taxonomy of Algorithms used by COSE . . . . . . . . . . . . .  39
@@ -119,7 +119,7 @@ Internet-Draft               COSE Structure                November 2019
      9.2.  Message Authentication Code (MAC) Algorithms  . . . . . .  41
      9.3.  Content Encryption Algorithms . . . . . . . . . . . . . .  41
      9.4.  Key Derivation Functions (KDFs) . . . . . . . . . . . . .  42
-     9.5.  Content Key Distribution Methods  . . . . . . . . . . . .  42
+     9.5.  Content Key Distribution Methods  . . . . . . . . . . . .  43
        9.5.1.  Direct Encryption . . . . . . . . . . . . . . . . . .  43
        9.5.2.  Key Wrap  . . . . . . . . . . . . . . . . . . . . . .  43
        9.5.3.  Key Transport . . . . . . . . . . . . . . . . . . . .  44
@@ -127,7 +127,7 @@ Internet-Draft               COSE Structure                November 2019
        9.5.5.  Key Agreement with Key Wrap . . . . . . . . . . . . .  45
    10. CBOR Encoding Restrictions  . . . . . . . . . . . . . . . . .  46
    11. Application Profiling Considerations  . . . . . . . . . . . .  46
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  47
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  48
      12.1.  CBOR Tag Assignment  . . . . . . . . . . . . . . . . . .  48
      12.2.  COSE Header Parameters Registry  . . . . . . . . . . . .  48
      12.3.  COSE Header Algorithm Parameters Registry  . . . . . . .  48
@@ -149,41 +149,41 @@ Internet-Draft               COSE Structure                November 2019
            Algorithms  . . . . . . . . . . . . . . . . . . . . . . .  60
    Appendix B.  Two Layers of Recipient Information  . . . . . . . .  63
    Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  65
-     C.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  65
-       C.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  65
-       C.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  66
-       C.1.3.  Counter Signature . . . . . . . . . . . . . . . . . .  67
-       C.1.4.  Signature with Criticality  . . . . . . . . . . . . .  68
-     C.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  69
-       C.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  69
-     C.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  70
-       C.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  70
-       C.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  71
-       C.3.3.  Counter Signature on Encrypted Content  . . . . . . .  72
-       C.3.4.  Encrypted Content with External Data  . . . . . . . .  73
-     C.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  74
+     C.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  66
+       C.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  66
+       C.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  67
+       C.1.3.  Counter Signature . . . . . . . . . . . . . . . . . .  68
+       C.1.4.  Signature with Criticality  . . . . . . . . . . . . .  69
+     C.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  70
+       C.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  70
+     C.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  71
+       C.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  71
+       C.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  72
+       C.3.3.  Counter Signature on Encrypted Content  . . . . . . .  73
+       C.3.4.  Encrypted Content with External Data  . . . . . . . .  74
+     C.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  75
 
 
 
-Schaad                     Expires 16 May 2020                  [Page 3]
+Schaad                  Expires 8 September 2020                [Page 3]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
-       C.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  74
-       C.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  75
-     C.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  75
-       C.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  75
-       C.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  76
-       C.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  77
-       C.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  78
-     C.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  79
-       C.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  79
-     C.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  80
-       C.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  80
-       C.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  81
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  83
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  84
+       C.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  75
+       C.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  76
+     C.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  76
+       C.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  76
+       C.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  77
+       C.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  78
+       C.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  79
+     C.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  80
+       C.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  80
+     C.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  81
+       C.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  81
+       C.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  82
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  84
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  85
 
 1.  Introduction
 
@@ -212,7 +212,7 @@ Internet-Draft               COSE Structure                November 2019
    *  CBOR has capabilities that are not present in JSON and are
       appropriate to use.  One example of this is the fact that CBOR has
       a method of encoding binary directly without first converting it
-      into a base64-encoded string.
+      into a base64-encoded text string.
 
    *  COSE is not a direct copy of the JOSE specification.  In the
       process of creating COSE, decisions that were made for JOSE were
@@ -221,9 +221,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                  [Page 4]
+Schaad                  Expires 8 September 2020                [Page 4]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    This document contains:
@@ -250,37 +250,58 @@ Internet-Draft               COSE Structure                November 2019
    this standard is a digest structure.  This omission is deliberate.
    It is better for the structure to be defined in each document as
    different protocols will want to include a different set of fields as
-   part of the structure.  While an algorithm identifier and the digesst
+   part of the structure.  While an algorithm identifier and the digest
    value are going to be common to all applications, the two values may
    not always be adjacent as the algorithm could be defined once with
    multiple values.  Applications may additionally want to define
-   additional data fields as part of the stucture.  A common structure
+   additional data fields as part of the structure.  A common structure
    is going to include a URI or other pointer to where the data that is
    being hashed is kept, allowing this to be application specific.
 
-1.1.  Design Changes from JOSE
+1.1.  Requirements Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+1.2.  Changes from RFC8152
+
+   *  Split the original document into this document and
+      [I-D.ietf-cose-rfc8152bis-algs].
+
+   *  Add some text describing why there is no digest structure defined
+      by COSE.
+
+
+
+
+Schaad                  Expires 8 September 2020                [Page 5]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
+   *  Rearrange the text around counter signatures and define a CBOR Tag
+      for a standalone countersignature.
+
+   *  Text clarifications and changes in terminology.
+
+1.3.  Design Changes from JOSE
 
    *  Define a single top message structure so that encrypted, signed,
       and MACed messages can easily be identified and still have a
       consistent view.
 
    *  Signed messages distinguish between the protected and unprotected
-      parameters that relate to the content from those that relate to
-      the signature.
+      header parameters that relate to the content from those that
+      relate to the signature.
 
    *  MACed messages are separated from signed messages.
 
    *  MACed messages have the ability to use the same set of recipient
       algorithms as enveloped messages for obtaining the MAC
       authentication key.
-
-
-
-
-Schaad                     Expires 16 May 2020                  [Page 5]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    *  Use binary encodings for binary data rather than base64url
       encodings.
@@ -291,30 +312,11 @@ Internet-Draft               COSE Structure                November 2019
    *  The set of cryptographic algorithms has been expanded in some
       directions and trimmed in others.
 
-1.2.  Changes from RFC8152
-
-   *  Split the orignal document into this document and
-      [I-D.ietf-cose-rfc8152bis-algs].
-
-   *  Add some text describing why there is no digest structure defined
-      by COSE.
-
-   *  Rearrange the text around counter signatures and define a CBOR Tag
-      for a standalone countersignature.
-
-1.3.  Requirements Terminology
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
-
 1.4.  CBOR Grammar
 
    There was not a standard CBOR grammar available when COSE was
-   originally written.  For that reason the CBOR structures defined here
-   are described in prose.  Since that time CBOR Data Definition
+   originally written.  For that reason the CBOR data objects defined
+   here are described in prose.  Since that time CBOR Data Definition
    Language (CDDL) [RFC8610] has been published as an RFC.  The CBOR
    grammar presented in this document is compatible with CDDL.
 
@@ -327,16 +329,17 @@ Internet-Draft               COSE Structure                November 2019
       any -- non-specific value that permits all CBOR values to be
       placed here.
 
+
+
+
+
+Schaad                  Expires 8 September 2020                [Page 6]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
       bool -- a boolean value (true: major type 7, value 21; false:
       major type 7, value 20).
-
-
-
-
-Schaad                     Expires 16 May 2020                  [Page 6]
-
-Internet-Draft               COSE Structure                November 2019
-
 
       bstr -- byte string (major type 2).
 
@@ -382,17 +385,19 @@ Internet-Draft               COSE Structure                November 2019
    in the file.  For this reason, the first fragment of CDDL is
    presented here.
 
+
+
+
+
+Schaad                  Expires 8 September 2020                [Page 7]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    start = COSE_Messages / COSE_Key / COSE_KeySet / Internal_Types
 
    ; This is defined to make the tool quieter:
    Internal_Types = Sig_structure / Enc_structure / MAC_structure
-
-
-
-Schaad                     Expires 16 May 2020                  [Page 7]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    The non-terminal Internal_Types is defined for dealing with the
    automated validation tools used during the writing of this document.
@@ -402,15 +407,15 @@ Internet-Draft               COSE Structure                November 2019
 1.5.  CBOR-Related Terminology
 
    In JSON, maps are called objects and only have one kind of map key: a
-   string.  In COSE, we use strings, negative integers, and unsigned
-   integers as map keys.  The integers are used for compactness of
-   encoding and easy comparison.  The inclusion of strings allows for an
-   additional range of short encoded values to be used as well.  Since
-   the word "key" is mainly used in its other meaning, as a
+   text string.  In COSE, we use text strings, negative integers, and
+   unsigned integers as map keys.  The integers are used for compactness
+   of encoding and easy comparison.  The inclusion of text strings
+   allows for an additional range of short encoded values to be used as
+   well.  Since the word "key" is mainly used in its other meaning, as a
    cryptographic key, we use the term "label" for this usage as a map
    key.
 
-   The presence of a label in a COSE map that is not a string or an
+   The presence of a label in a CBOR map that is not a text string or an
    integer is an error.  Applications can either fail processing or
    process messages by ignoring incorrect labels; however, they MUST NOT
    create messages with incorrect labels.
@@ -436,25 +441,29 @@ Internet-Draft               COSE Structure                November 2019
 
    Authenticated Encryption with Associated Data (AEAD) [RFC5116]
    algorithms provide the same content authentication service as AE
+
+
+
+
+Schaad                  Expires 8 September 2020                [Page 8]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    algorithms, but they additionally provide for authentication of non-
    encrypted data as well.
 
    Context is used throughout the document to represent information that
    is not part of the COSE message.  Information which is part of the
    context can come from several different sources including: Protocol
-
-
-
-Schaad                     Expires 16 May 2020                  [Page 8]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    interactions, associated key structures and program configuration.
    The context to use can be implicit, identified using the 'kid
-   context' header field defined in [RFC8613], or identified by a
+   context' header parameter defined in [RFC8613], or identified by a
    protocol specific identifier.  Context should generally be included
    in the cryptographic configuration, for more details see Section 4.3.
+
+   The term 'byte string' is used for sequences of bytes, while the term
+   'text string' is used for sequences of characters.
 
 2.  Basic COSE Structure
 
@@ -464,9 +473,9 @@ Internet-Draft               COSE Structure                November 2019
    CBOR array type.  The first three elements of the array always
    contain the same information:
 
-   1.  The set of protected header parameters wrapped in a bstr.
+   1.  The protected header parameters encoded and wrapped in a bstr.
 
-   2.  The set of unprotected header parameters as a map.
+   2.  The unprotected header parameters as a map.
 
    3.  The content of the message.  The content is either the plaintext
        or the ciphertext as appropriate.  The content may be detached
@@ -490,6 +499,13 @@ Internet-Draft               COSE Structure                November 2019
    Identification of which type of message has been presented is done by
    the following methods:
 
+
+
+Schaad                  Expires 8 September 2020                [Page 9]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    1.  The specific message type is known from the context.  This may be
        defined by a marker in the containing structure or by
        restrictions specified by the application protocol.
@@ -497,15 +513,6 @@ Internet-Draft               COSE Structure                November 2019
    2.  The message type is identified by a CBOR tag.  Messages with a
        CBOR tag are known in this specification as tagged messages,
        while those without the CBOR tag are known as untagged messages.
-
-
-
-
-Schaad                     Expires 16 May 2020                  [Page 9]
-
-Internet-Draft               COSE Structure                November 2019
-
-
        This document defines a CBOR tag for each of the message
        structures.  These tags can be found in Table 1.
 
@@ -550,16 +557,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-
-
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 10]
+Schaad                  Expires 8 September 2020               [Page 10]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
      +------+------------------+-----------------------+-------------+
@@ -613,9 +613,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 11]
+Schaad                  Expires 8 September 2020               [Page 11]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
         +---------------------------+----------+-----+------------+
@@ -669,9 +669,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 12]
+Schaad                  Expires 8 September 2020               [Page 12]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
 3.  Header Parameters
@@ -690,10 +690,10 @@ Internet-Draft               COSE Structure                November 2019
    Both buckets are implemented as CBOR maps.  The map key is a 'label'
    (Section 1.5).  The value portion is dependent on the definition for
    the label.  Both maps use the same set of label/value pairs.  The
-   integer and string values for labels have been divided into several
-   sections including a standard range, a private range, and a range
-   that is dependent on the algorithm selected.  The defined labels can
-   be found in the "COSE Header Parameters" IANA registry
+   integer and text string values for labels have been divided into
+   several sections including a standard range, a private range, and a
+   range that is dependent on the algorithm selected.  The defined
+   labels can be found in the "COSE Header Parameters" IANA registry
    (Section 12.2).
 
    The two buckets are:
@@ -725,41 +725,42 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 13]
+Schaad                  Expires 8 September 2020               [Page 13]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
-   Only parameters that deal with the current layer are to be placed at
-   that layer.  As an example of this, the parameter 'content type'
-   describes the content of the message being carried in the message.
-   As such, this parameter is placed only in the content layer and is
-   not placed in the recipient or signature layers.  In principle, one
-   should be able to process any given layer without reference to any
-   other layer.  With the exception of the COSE_Sign structure, the only
-   data that needs to cross layers is the cryptographic key.
+   Only header parameters that deal with the current layer are to be
+   placed at that layer.  As an example of this, the header parameter
+   'content type' describes the content of the message being carried in
+   the message.  As such, this header parameter is placed only in the
+   content layer and is not placed in the recipient or signature layers.
+   In principle, one should be able to process any given layer without
+   reference to any other layer.  With the exception of the COSE_Sign
+   structure, the only data that needs to cross layers is the
+   cryptographic key.
 
    The buckets are present in all of the security objects defined in
    this document.  The fields in order are the 'protected' bucket (as a
    CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map'
-   type).  The presence of both buckets is required.  The parameters
-   that go into the buckets come from the IANA "COSE Header Parameters"
-   registry (Section 12.2).  Some common parameters are defined in the
-   next section.
+   type).  The presence of both buckets is required.  The header
+   parameters that go into the buckets come from the IANA "COSE Header
+   Parameters" registry (Section 12.2).  Some common header parameters
+   are defined in the next section.
 
    Labels in each of the maps MUST be unique.  When processing messages,
    if a label appears multiple times, the message MUST be rejected as
    malformed.  Applications SHOULD verify that the same label does not
-   occur in both the protected and unprotected headers.  If the message
-   is not rejected as malformed, attributes MUST be obtained from the
-   protected bucket before they are obtained from the unprotected
-   bucket.
+   occur in both the protected and unprotected header parameters.  If
+   the message is not rejected as malformed, attributes MUST be obtained
+   from the protected bucket before they are obtained from the
+   unprotected bucket.
 
-   The following CDDL fragment represents the two header buckets.  A
-   group "Headers" is defined in CDDL that represents the two buckets in
-   which attributes are placed.  This group is used to provide these two
-   fields consistently in all locations.  A type is also defined that
-   represents the map of common headers.
+   The following CDDL fragment represents the two header parameter
+   buckets.  A group "Headers" is defined in CDDL that represents the
+   two buckets in which attributes are placed.  This group is used to
+   provide these two fields consistently in all locations.  A type is
+   also defined that represents the map of common header parameters.
 
    Headers = (
        protected : empty_or_serialized_map,
@@ -773,131 +774,140 @@ Internet-Draft               COSE Structure                November 2019
 
    empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
-3.1.  Common COSE Headers Parameters
+
+
+
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 14]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
+3.1.  Common COSE Header Parameters
 
    This section defines a set of common header parameters.  A summary of
-   these parameters can be found in Table 3.  This table should be
-   consulted to determine the value of label and the type of the value.
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 14]
-
-Internet-Draft               COSE Structure                November 2019
-
+   these header parameters can be found in Table 3.  This table should
+   be consulted to determine the value of label and the type of the
+   value.
 
    The set of header parameters defined in this section are:
 
-   alg:  This parameter is used to indicate the algorithm used for the
-      security processing.  This parameter MUST be authenticated where
-      the ability to do so exists.  This support is provided by AEAD
-      algorithms or construction (COSE_Sign, COSE_Sign1, COSE_Mac, and
-      COSE_Mac0).  This authentication can be done either by placing the
-      parameter in the protected header bucket or as part of the
-      externally supplied data.  The value is taken from the "COSE
-      Algorithms" registry (see [COSE.Algorithms]).
+   alg:  This header parameter is used to indicate the algorithm used
+      for the security processing.  This header parameter MUST be
+      authenticated where the ability to do so exists.  This support is
+      provided by AEAD algorithms or construction (COSE_Sign,
+      COSE_Sign1, COSE_Mac, and COSE_Mac0).  This authentication can be
+      done either by placing the header parameter in the protected
+      header parameter bucket or as part of the externally supplied
+      data.  The value is taken from the "COSE Algorithms" registry (see
+      [COSE.Algorithms]).
 
-   crit:  The parameter is used to indicate which protected header
-      labels an application that is processing a message is required to
-      understand.  Parameters defined in this document do not need to be
-      included as they should be understood by all implementations.
-      When present, this parameter MUST be placed in the protected
-      header bucket.  The array MUST have at least one value in it.
+   crit:  This header parameter is used to indicate which protected
+      header parameters an application that is processing a message is
+      required to understand.  Header parameters defined in this
+      document do not need to be included as they should be understood
+      by all implementations.  When present, this the 'crit' header
+      parameter MUST be placed in the protected header parameter bucket.
+      The array MUST have at least one value in it.
 
-      Not all labels need to be included in the 'crit' parameter.  The
-      rules for deciding which header labels are placed in the array
-      are:
+      Not all header parameter labels need to be included in the 'crit'
+      header parameter.  The rules for deciding which header parameters
+      are placed in the array are:
 
       *  Integer labels in the range of 0 to 7 SHOULD be omitted.
 
       *  Integer labels in the range -1 to -128 can be omitted as they
          are algorithm dependent.  If an application can correctly
          process an algorithm, it can be assumed that it will correctly
-         process all of the common parameters associated with that
-         algorithm.  Integer labels in the range -129 to -65536 SHOULD
-         be included as these would be less common parameters that might
-         not be generally supported.
+         process all of the common header parameters associated with
+         that algorithm.  Integer labels in the range -129 to -65536
+         SHOULD be included as these would be less common header
+         parameters that might not be generally supported.
 
-      *  Labels for parameters required for an application MAY be
+      *  Labels for header parameters required for an application MAY be
          omitted.  Applications should have a statement if the label can
          be omitted.
 
-      The header parameter values indicated by 'crit' can be processed
-      by either the security library code or an application using a
-      security library; the only requirement is that the parameter is
-      processed.  If the 'crit' value list includes a value for which
-      the parameter is not in the protected bucket, this is a fatal
-      error in processing the message.
-
-   content type:  This parameter is used to indicate the content type of
-      the data in the payload or ciphertext fields.  Integers are from
-      the "CoAP Content-Formats" IANA registry table [COAP.Formats].
-      Text values following the syntax of "<type-name>/<subtype-name>"
-      where <type-name> and <subtype-name> are defined in Section 4.2 of
+      The header parameters indicated by 'crit' can be processed by
+      either the security library code or an application using a
+      security library; the only requirement is that the header
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 15]
+Schaad                  Expires 8 September 2020               [Page 15]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
-      [RFC6838].  Leading and trailing whitespace is also omitted.
-      Textual content values along with parameters and subparameters can
-      be located using the IANA "Media Types" registry.  Applications
-      SHOULD provide this parameter if the content structure is
-      potentially ambiguous.
+      parameter is processed.  If the 'crit' value list includes a label
+      for which the header parameter is not in the protected header
+      parameters bucket, this is a fatal error in processing the
+      message.
 
-   kid:  This parameter identifies one piece of data that can be used as
-      input to find the needed cryptographic key.  The value of this
-      parameter can be matched against the 'kid' member in a COSE_Key
-      structure.  Other methods of key distribution can define an
-      equivalent field to be matched.  Applications MUST NOT assume that
-      'kid' values are unique.  There may be more than one key with the
-      same 'kid' value, so all of the keys associated with this 'kid'
-      may need to be checked.  The internal structure of 'kid' values is
-      not defined and cannot be relied on by applications.  Key
-      identifier values are hints about which key to use.  This is not a
-      security-critical field.  For this reason, it can be placed in the
-      unprotected headers bucket.
+   content type:  This header parameter is used to indicate the content
+      type of the data in the payload or ciphertext fields.  Integers
+      are from the "CoAP Content-Formats" IANA registry table
+      [COAP.Formats].  Text values following the syntax of "<type-
+      name>/<subtype-name>" where <type-name> and <subtype-name> are
+      defined in Section 4.2 of [RFC6838].  Leading and trailing
+      whitespace is also omitted.  Textual content values along with
+      parameters and subparameters can be located using the IANA "Media
+      Types" registry.  Applications SHOULD provide this header
+      parameter if the content structure is potentially ambiguous.
 
-   IV:  This parameter holds the Initialization Vector (IV) value.  For
-      some symmetric encryption algorithms, this may be referred to as a
-      nonce.  The IV can be placed in the unprotected header as
-      modifying the IV will cause the decryption to yield plaintext that
-      is readily detectable as garbled.
+   kid:  This header parameter identifies one piece of data that can be
+      used as input to find the needed cryptographic key.  The value of
+      this header parameter can be matched against the 'kid' member in a
+      COSE_Key structure.  Other methods of key distribution can define
+      an equivalent field to be matched.  Applications MUST NOT assume
+      that 'kid' values are unique.  There may be more than one key with
+      the same 'kid' value, so all of the keys associated with this
+      'kid' may need to be checked.  The internal structure of 'kid'
+      values is not defined and cannot be relied on by applications.
+      Key identifier values are hints about which key to use.  This is
+      not a security-critical field.  For this reason, it can be placed
+      in the unprotected header parameters bucket.
 
-   Partial IV:  This parameter holds a part of the IV value.  When using
-      the COSE_Encrypt0 structure, a portion of the IV can be part of
-      the context associated with the key (Context IV) while a portion
-      can be changed with each message (Parital IV).  This field is used
-      to carry a value that causes the IV to be changed for each
-      message.  The Parital IV can be placed in the unprotected header
+   IV:  This header parameter holds the Initialization Vector (IV)
+      value.  For some symmetric encryption algorithms, this may be
+      referred to as a nonce.  The IV can be placed in the unprotected
+      bucket as modifying the IV will cause the decryption to yield
+      plaintext that is readily detectable as garbled.
+
+   Partial IV:  This header parameter holds a part of the IV value.
+      When using the COSE_Encrypt0 structure, a portion of the IV can be
+      part of the context associated with the key (Context IV) while a
+      portion can be changed with each message (Partial IV).  This field
+      is used to carry a value that causes the IV to be changed for each
+      message.  The Partial IV can be placed in the unprotected bucket
       as modifying the value will cause the decryption to yield
       plaintext that is readily detectable as garbled.  The
-      'Initialization Vector' and 'Partial Initialization Vector'
+      'Initialization Vector' and 'Partial Initialization Vector' header
       parameters MUST NOT both be present in the same security layer.
 
       The message IV is generated by the following steps:
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 16]
+
+Internet-Draft               COSE Structure                   March 2020
+
 
       1.  Left-pad the Partial IV with zeros to the length of IV.
 
       2.  XOR the padded Partial IV with the context IV.
 
-   counter signature:  This parameter holds one or more counter
+   counter signature:  This header parameter holds one or more counter
       signature values.  Counter signatures provide a method of having a
-      second party sign some data.  The counter signature parameter can
-      occur as an unprotected attribute in any of the following
-      structures: COSE_Sign1, COSE_Signature, COSE_Encrypt,
+      second party sign some data.  The counter signature header
+      parameter can occur as an unprotected attribute in any of the
+      following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt,
       COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 16]
-
-Internet-Draft               COSE Structure                November 2019
-
-
       structures all have the same beginning elements, so that a
       consistent calculation of the counter signature can be computed.
       Details on counter signatures are found in Section 5.
@@ -908,9 +918,9 @@ Internet-Draft               COSE Structure                November 2019
    | alg     | 1   | int / tstr     | COSE Algorithms | Cryptographic  |
    |         |     |                | registry        |algorithm to use|
    +---------+-----+----------------+-----------------+----------------+
-   | crit    | 2   | [+ label]      | COSE Header     |Critical headers|
-   |         |     |                | Parameters      |to be understood|
-   |         |     |                | registry        |                |
+   | crit    | 2   | [+ label]      | COSE Header     |Critical header |
+   |         |     |                | Parameters      |parameters to be|
+   |         |     |                | registry        | understood     |
    +---------+-----+----------------+-----------------+----------------+
    | content | 3   | tstr / uint    | CoAP Content-   |Content type of |
    | type    |     |                |Formats or Media | the payload    |
@@ -933,26 +943,19 @@ Internet-Draft               COSE Structure                November 2019
 
                      Table 3: Common Header Parameters
 
-   The CDDL fragment that represents the set of headers defined in this
-   section is given below.  Each of the headers is tagged as optional
-   because they do not need to be in every map; headers required in
-   specific maps are discussed above.
+   The CDDL fragment that represents the set of header parameters
+   defined in this section is given below.  Each of the header
+   parameters is tagged as optional because they do not need to be in
 
 
 
-
-
-
-
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 17]
+Schaad                  Expires 8 September 2020               [Page 17]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
+
+   every map; header parameters required in specific maps are discussed
+   above.
 
    Generic_Headers = (
        ? 1 => int / tstr,  ; algorithm identifier
@@ -976,13 +979,13 @@ Internet-Draft               COSE Structure                November 2019
 4.1.  Signing with One or More Signers
 
    The COSE_Sign structure allows for one or more signatures to be
-   applied to a message payload.  Parameters relating to the content and
-   parameters relating to the signature are carried along with the
-   signature itself.  These parameters may be authenticated by the
-   signature, or just present.  An example of a parameter about the
-   content is the content type.  Examples of parameters about the
-   signature would be the algorithm and key used to create the signature
-   and counter signatures.
+   applied to a message payload.  Header parameters relating to the
+   content and header parameters relating to the signature are carried
+   along with the signature itself.  These header parameters may be
+   authenticated by the signature, or just present.  An example of
+   header a parameter about the content is the content type.  Examples
+   of a header parameters about the signature would be the algorithm and
+   key used to create the signature and counter signatures.
 
    RFC 5652 indicates that:
 
@@ -999,17 +1002,17 @@ Internet-Draft               COSE Structure                November 2019
    |  of recipients is the primary reason that signers choose to include
    |  more than one signature.
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 18]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    For example, the COSE_Sign structure might include signatures
    generated with the Edwards-curve Digital Signature Algorithm (EdDSA)
    [RFC8032] and with the Elliptic Curve Digital Signature Algorithm
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 18]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    (ECDSA) [DSS].  This allows recipients to verify the signature
    associated with one algorithm or the other.  More-detailed
    information on multiple signature evaluations can be found in
@@ -1050,21 +1053,21 @@ Internet-Draft               COSE Structure                November 2019
       is the length of the payload.  The size of the payload is reduced
       by the number of bytes that will be recovered.  If all of the
       bytes of the payload are consumed, then the payload is encoded as
-      a zero-length binary string rather than as being absent.
+      a zero-length byte string rather than as being absent.
 
    signatures:  This field is an array of signatures.  Each signature is
       represented as a COSE_Signature structure.
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 19]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    The CDDL fragment that represents the above text for COSE_Sign
    follows.
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 19]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    COSE_Sign = [
        Headers,
@@ -1094,8 +1097,8 @@ Internet-Draft               COSE Structure                November 2019
 4.2.  Signing with One Signer
 
    The COSE_Sign1 signature structure is used when only one signature is
-   going to be placed on a message.  The parameters dealing with the
-   content and the signature are placed in the same pair of buckets
+   going to be placed on a message.  The header parameters dealing with
+   the content and the signature are placed in the same pair of buckets
    rather than having the separation of COSE_Sign.
 
    The structure can be encoded as either tagged or untagged depending
@@ -1110,17 +1113,19 @@ Internet-Draft               COSE Structure                November 2019
    structure.  Examples of COSE_Sign1 messages can be found in
    Appendix C.2.
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 20]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    The COSE_Sign1 structure is a CBOR array.  The fields of the array in
    order are:
 
    protected:  This is as described in Section 3.
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 20]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    unprotected:  This is as described in Section 3.
 
@@ -1146,13 +1151,13 @@ Internet-Draft               COSE Structure                November 2019
    supporting this can be seen by looking at the CoAP message structure
    [RFC7252], where the facility exists for options to be carried before
    the payload.  Examples of data that can be placed in this location
-   would be the CoAP code or CoAP options.  If the data is in the header
-   section, then it is available for proxies to help in performing its
-   operations.  For example, the Accept Option can be used by a proxy to
-   determine if an appropriate value is in the proxy's cache.  But the
-   sender can cause a failure at the server if a proxy, or an attacker,
-   changes the set of accept values by including the field in the
-   application supplied data.
+   would be the CoAP code or CoAP options.  If the data is in the
+   headers of the CoAP message, then it is available for proxies to help
+   in performing its operations.  For example, the Accept Option can be
+   used by a proxy to determine if an appropriate value is in the
+   proxy's cache.  But the sender can cause a failure at the server if a
+   proxy, or an attacker, changes the set of accept values by including
+   the field in the application supplied data.
 
    This document describes the process for using a byte array of
    externally supplied authenticated data; the method of constructing
@@ -1163,20 +1168,20 @@ Internet-Draft               COSE Structure                November 2019
 
    *  If multiple items are included, applications need to ensure that
       the same byte string cannot produced if there are different
-      inputs.  This would occur by appending the strings 'AB' and 'CDE'
-      or by appending the strings 'ABC' and 'DE'.  This is usually
-      addressed by making fields a fixed width and/or encoding the
-      length of the field as part of the output.  Using options from
+      inputs.  This would occur by appending the text strings 'AB' and
+      'CDE' or by appending the text strings 'ABC' and 'DE'.  This is
+
+
+
+Schaad                  Expires 8 September 2020               [Page 21]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
+      usually addressed by making fields a fixed width and/or encoding
+      the length of the field as part of the output.  Using options from
       CoAP [RFC7252] as an example, these fields use a TLV structure so
       they can be concatenated without any problems.
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 21]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    *  If multiple items are included, an order for the items needs to be
       defined.  Using options from CoAP as an example, an application
@@ -1200,8 +1205,8 @@ Internet-Draft               COSE Structure                November 2019
    application data (external source).  A Sig_structure is a CBOR array.
    The fields of the Sig_structure in order are:
 
-   1.  A text string identifying the context of the signature.  The
-       context string is:
+   1.  A context text string identifying the context of the signature.
+       The context text string is:
 
           "Signature" for signatures using the COSE_Signature structure.
 
@@ -1222,17 +1227,17 @@ Internet-Draft               COSE Structure                November 2019
        length zero is used.  This field is omitted for the COSE_Sign1
        signature structure and CounterSignature0 attributes.
 
+
+
+Schaad                  Expires 8 September 2020               [Page 22]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    4.  The protected attributes from the application encoded in a bstr
        type.  If this field is not supplied, it defaults to a zero-
-       length binary string.  (See Section 4.3 for application guidance
-       on constructing this field.)
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 22]
-
-Internet-Draft               COSE Structure                November 2019
-
+       length byte string.  (See Section 4.3 for application guidance on
+       constructing this field.)
 
    5.  The payload to be signed encoded in a bstr type.  The payload is
        placed here independent of how it is transported.
@@ -1267,8 +1272,8 @@ Internet-Draft               COSE Structure                November 2019
 
    The steps for verifying a signature are:
 
-   1.  Create a Sig_structure object and populate it with the
-       appropriate fields.
+   1.  Create a Sig_structure and populate it with the appropriate
+       fields.
 
    2.  Create the value ToBeSigned by encoding the Sig_structure to a
        byte string, using the encoding described in Section 10.
@@ -1277,18 +1282,18 @@ Internet-Draft               COSE Structure                November 2019
        to verify with), alg (the algorithm used sign with), ToBeSigned
        (the value to sign), and sig (the signature to be verified).
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 23]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    In addition to performing the signature verification, the application
    performs the appropriate checks to ensure that the key is correctly
    paired with the signing identity and that the signing identity is
    authorized before performing actions.
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 23]
-
-Internet-Draft               COSE Structure                November 2019
-
 
 5.  Counter Signatures
 
@@ -1303,7 +1308,7 @@ Internet-Draft               COSE Structure                November 2019
    which structure is being used, the converted structure will fail
    signature validation.
 
-   COSE was designed for uniformity in how the data strutures are
+   COSE was designed for uniformity in how the data structures are
    specified.  One result of this is that for COSE one can expand the
    concept of countersignatures beyond just the idea of signing a
    signature to being able to sign most of the structures without having
@@ -1333,18 +1338,17 @@ Internet-Draft               COSE Structure                November 2019
    producer of what is being counter signed as key and algorithm
    identification can be placed in the countersignature attributes.
    This also means that the countersignature can itself be
+
+
+
+Schaad                  Expires 8 September 2020               [Page 24]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    countersigned.  This is a feature required by protocols such as long-
    term archiving services.  More information on how this is used can be
    found in the evidence record syntax described in [RFC4998].
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 24]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    The full countersignature structure can be encoded as either a tagged
    or untagged depending on the context it is used in.  A tagged
@@ -1382,7 +1386,7 @@ Internet-Draft               COSE Structure                November 2019
 
    The byte string representing the signature value is placed in the
    CounterSignature0 attribute.  This attribute is then encoded as an
-   unprotected header.  The attribute is defined below.
+   unprotected header parameter.  The attribute is defined below.
 
    The process of creating and validating abbreviated countersignatures
    is defined in Section 4.4.
@@ -1393,13 +1397,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 25]
+Schaad                  Expires 8 September 2020               [Page 25]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    +-------------------+-------+------------+-------+------------------+
@@ -1424,16 +1424,16 @@ Internet-Draft               COSE Structure                November 2019
 6.1.  Enveloped COSE Structure
 
    The enveloped structure allows for one or more recipients of a
-   message.  There are provisions for parameters about the content and
-   parameters about the recipient information to be carried in the
-   message.  The protected parameters associated with the content are
-   authenticated by the content encryption algorithm.  The protected
-   parameters associated with the recipient are authenticated by the
-   recipient algorithm (when the algorithm supports it).  Examples of
-   parameters about the content are the type of the content and the
-   content encryption algorithm.  Examples of parameters about the
-   recipient are the recipient's key identifier and the recipient's
-   encryption algorithm.
+   message.  There are provisions for header parameters about the
+   content and header parameters about the recipient information to be
+   carried in the message.  The protected header parameters associated
+   with the content are authenticated by the content encryption
+   algorithm.  The protected header parameters associated with the
+   recipient are authenticated by the recipient algorithm (when the
+   algorithm supports it).  Examples of header parameters about the
+   content are the type of the content and the content encryption
+   algorithm.  Examples of header parameters about the recipient are the
+   recipient's key identifier and the recipient's encryption algorithm.
 
    The same techniques and nearly the same structure is used for
    encrypting both the plaintext and the keys.  This is different from
@@ -1453,9 +1453,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 26]
+Schaad                  Expires 8 September 2020               [Page 26]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
@@ -1509,9 +1509,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 27]
+Schaad                  Expires 8 September 2020               [Page 27]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    COSE_recipient = [
@@ -1565,9 +1565,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 28]
+Schaad                  Expires 8 September 2020               [Page 28]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    COSE_Encrypt0 structure is identified by the CBOR tag 16.  The CDDL
@@ -1600,8 +1600,8 @@ Internet-Draft               COSE Structure                November 2019
    Enc_structure.  The Enc_structure is a CBOR array.  The fields of the
    Enc_structure in order are:
 
-   1.  A text string identifying the context of the authenticated data
-       structure.  The context string is:
+   1.  A context text string identifying the context of the
+       authenticated data structure.  The context text string is:
 
           "Encrypt0" for the content encryption of a COSE_Encrypt0 data
           structure.
@@ -1621,9 +1621,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 29]
+Schaad                  Expires 8 September 2020               [Page 29]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    2.  The protected attributes from the body structure encoded in a
@@ -1669,7 +1669,7 @@ Internet-Draft               COSE Structure                November 2019
           Examples of these algorithms are found in Sections 6.1.2 and
           6.3 of [I-D.ietf-cose-rfc8152bis-algs].
 
-       Other:  The key is randomly or pseudorandomly generated.
+       Other:  The key is randomly or pseudo-randomly generated.
 
    4.  Call the encryption algorithm with K (the encryption key), P (the
        plaintext), and AAD.  Place the returned ciphertext into the
@@ -1677,9 +1677,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 30]
+Schaad                  Expires 8 September 2020               [Page 30]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    5.  For recipients of the message, recursively perform the encryption
@@ -1733,9 +1733,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 31]
+Schaad                  Expires 8 September 2020               [Page 31]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
        Direct Encryption and Direct Key Agreement:  The key is
@@ -1789,9 +1789,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 32]
+Schaad                  Expires 8 September 2020               [Page 32]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
 7.  MAC Objects
@@ -1845,9 +1845,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 33]
+Schaad                  Expires 8 September 2020               [Page 33]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    payload:  This field contains the serialized content to be MACed.  If
@@ -1901,9 +1901,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 34]
+Schaad                  Expires 8 September 2020               [Page 34]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    tag:  This field contains the MAC value.
@@ -1923,17 +1923,18 @@ Internet-Draft               COSE Structure                November 2019
    The MAC_structure is a CBOR array.  The fields of the MAC_structure
    in order are:
 
-   1.  A text string that identifies the structure that is being
-       encoded.  This string is "MAC" for the COSE_Mac structure.  This
-       string is "MAC0" for the COSE_Mac0 structure.
+   1.  A context text string that identifies the structure that is being
+       encoded.  This context text string is "MAC" for the COSE_Mac
+       structure.  This context text string is "MAC0" for the COSE_Mac0
+       structure.
 
    2.  The protected attributes from the COSE_MAC structure.  If there
        are no protected attributes, a zero-length bstr is used.
 
    3.  The protected attributes from the application encoded as a bstr
        type.  If this field is not supplied, it defaults to a zero-
-       length binary string.  (See Section 4.3 for application guidance
-       on constructing this field.)
+       length byte string.  (See Section 4.3 for application guidance on
+       constructing this field.)
 
    4.  The payload to be MACed encoded in a bstr type.  The payload is
        placed here independent of how it is transported.
@@ -1952,15 +1953,17 @@ Internet-Draft               COSE Structure                November 2019
    1.  Create a MAC_structure and populate it with the appropriate
        fields.
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 35]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    2.  Create the value ToBeMaced by encoding the MAC_structure to a
        byte string, using the encoding described in Section 10.
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 35]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    3.  Call the MAC creation algorithm passing in K (the key to use),
        alg (the algorithm to MAC with), and ToBeMaced (the value to
@@ -1974,8 +1977,8 @@ Internet-Draft               COSE Structure                November 2019
 
    The steps to verify a MAC are:
 
-   1.  Create a MAC_structure object and populate it with the
-       appropriate fields.
+   1.  Create a MAC_structure and populate it with the appropriate
+       fields.
 
    2.  Create the value ToBeMaced by encoding the MAC_structure to a
        byte string, using the encoding described in Section 10.
@@ -1992,11 +1995,11 @@ Internet-Draft               COSE Structure                November 2019
 
 8.  Key Objects
 
-   A COSE Key structure is built on a CBOR map object.  The set of
-   common parameters that can appear in a COSE Key can be found in the
-   IANA "COSE Key Common Parameters" registry (Section 12.4).
-   Additional parameters defined for specific key types can be found in
-   the IANA "COSE Key Type Parameters" registry ([COSE.KeyParameters]).
+   A COSE Key structure is built on a CBOR map.  The set of common
+   parameters that can appear in a COSE Key can be found in the IANA
+   "COSE Key Common Parameters" registry (Section 12.4).  Additional
+   parameters defined for specific key types can be found in the IANA
+   "COSE Key Type Parameters" registry ([COSE.KeyParameters]).
 
    A COSE Key Set uses a CBOR array object as its underlying type.  The
    values of the array elements are COSE Keys.  A COSE Key Set MUST have
@@ -2008,15 +2011,14 @@ Internet-Draft               COSE Structure                November 2019
    is not understood by an application, that key is ignored and the
    other keys are processed normally.
 
-   The element "kty" is a required element in a COSE_Key map.
 
 
-
-
-Schaad                     Expires 16 May 2020                 [Page 36]
+Schaad                  Expires 8 September 2020               [Page 36]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
+
+   The element "kty" is a required element in a COSE_Key map.
 
    The CDDL grammar describing COSE_Key and COSE_KeySet is:
 
@@ -2067,11 +2069,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-
-
-Schaad                     Expires 16 May 2020                 [Page 37]
+Schaad                  Expires 8 September 2020               [Page 37]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    kty:  This parameter is used to identify the family of keys for this
@@ -2094,8 +2094,8 @@ Internet-Draft               COSE Structure                November 2019
 
    kid:  This parameter is used to give an identifier for a key.  The
       identifier is not structured and can be anything from a user-
-      provided string to a value computed on the public portion of the
-      key.  This field is intended for matching against a 'kid'
+      provided byte string to a value computed on the public portion of
+      the key.  This field is intended for matching against a 'kid'
       parameter in a message in order to filter down the set of keys
       that need to be checked.
 
@@ -2125,9 +2125,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 38]
+Schaad                  Expires 8 September 2020               [Page 38]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
       method of dividing the IV space up between the senders.  This
@@ -2181,12 +2181,18 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 39]
+Schaad                  Expires 8 September 2020               [Page 39]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
 9.1.  Signature Algorithms
+
+   Signature algorithms provide data origination and data integrity
+   services.  Data origination provides the ability to infer who
+   originated the data based on who signed the data.  Data integrity
+   provides the ability to verify that the data has not been modified
+   since it was signed.
 
    There are two signature algorithm schemes.  The first is signature
    with appendix.  In this scheme, the message content is processed and
@@ -2229,19 +2235,17 @@ Internet-Draft               COSE Structure                November 2019
 
    valid, message content = Verification(message sent, key, signature)
 
+
+
+Schaad                  Expires 8 September 2020               [Page 40]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    Signature algorithms are used with the COSE_Signature and COSE_Sign1
    structures.  At this time, only signatures with appendixes are
    defined for use with COSE; however, considerable interest has been
    expressed in using a signature with message recovery algorithm due to
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 40]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    the effective size reduction that is possible.  Implementations will
    need to keep this in mind for later possible integration.
 
@@ -2287,16 +2291,16 @@ Internet-Draft               COSE Structure                November 2019
    sake, the authentication code will normally be defined as being
    appended to the ciphertext stream.  The encryption functions are:
 
+
+
+Schaad                  Expires 8 September 2020               [Page 41]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    ciphertext = Encrypt(message content, key, additional data)
 
    valid, message content = Decrypt(ciphertext, key, additional data)
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 41]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    Most AEAD algorithms are logically defined as returning the message
    content only if the decryption is valid.  Many but not all
@@ -2336,6 +2340,20 @@ Internet-Draft               COSE Structure                November 2019
    context-based keying material is considered to be a good security
    practice.
 
+
+
+
+
+
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 42]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
 9.5.  Content Key Distribution Methods
 
    Content key distribution methods (recipient algorithms) can be
@@ -2345,14 +2363,6 @@ Internet-Draft               COSE Structure                November 2019
    classes used here are the same as those defined in [RFC7516].  Other
    specifications use different terms for the recipient algorithm
    classes or do not support some of the recipient algorithm classes.
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 42]
-
-Internet-Draft               COSE Structure                November 2019
-
 
 9.5.1.  Direct Encryption
 
@@ -2367,9 +2377,10 @@ Internet-Draft               COSE Structure                November 2019
    *  The 'protected' field MUST be a zero-length item unless it is used
       in the computation of the content key.
 
-   *  The 'alg' parameter MUST be present.
+   *  The 'alg' header parameter MUST be present.
 
-   *  A parameter identifying the shared secret SHOULD be present.
+   *  A header parameter identifying the shared secret SHOULD be
+      present.
 
    *  The 'ciphertext' field MUST be a zero-length item.
 
@@ -2390,6 +2401,15 @@ Internet-Draft               COSE Structure                November 2019
 
    The COSE_Encrypt structure for the recipient is organized as follows:
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 43]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    *  The 'protected' field MUST be absent if the key wrap algorithm is
       an AE algorithm.
 
@@ -2402,17 +2422,9 @@ Internet-Draft               COSE Structure                November 2019
    *  The plaintext to be encrypted is the key from next layer down
       (usually the content layer).
 
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 43]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    *  At a minimum, the 'unprotected' field MUST contain the 'alg'
-      parameter and SHOULD contain a parameter identifying the shared
-      secret.
+      header parameter and SHOULD contain a header parameter identifying
+      the shared secret.
 
 9.5.3.  Key Transport
 
@@ -2431,7 +2443,7 @@ Internet-Draft               COSE Structure                November 2019
       (usually the content layer).
 
    *  At a minimum, the 'unprotected' field MUST contain the 'alg'
-      parameter and SHOULD contain a parameter identifying the
+      header parameter and SHOULD contain a parameter identifying the
       asymmetric key.
 
 9.5.4.  Direct Key Agreement
@@ -2446,6 +2458,14 @@ Internet-Draft               COSE Structure                November 2019
    other variants exist.  Since COSE is designed for a store and forward
    environment rather than an online environment, many of the DH
    variants cannot be used as the receiver of the message cannot provide
+
+
+
+Schaad                  Expires 8 September 2020               [Page 44]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    any dynamic key material.  One side effect of this is that perfect
    forward secrecy (see [RFC4949]) is not achievable.  A static key will
    always be used for the receiver of the COSE object.
@@ -2456,15 +2476,6 @@ Internet-Draft               COSE Structure                November 2019
       a one-time DH key and uses a static key for the recipient.  The
       use of the ephemeral sender key means that no additional random
       input is needed as this is randomly generated for each message.
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 44]
-
-Internet-Draft               COSE Structure                November 2019
-
 
       Static-Static (SS) DH: where a static key is used for both the
       sender and the recipient.  The use of static keys allows for the
@@ -2481,8 +2492,9 @@ Internet-Draft               COSE Structure                November 2019
 
    The COSE_Encrypt structure for the recipient is organized as follows:
 
-   *  At a minimum, headers MUST contain the 'alg' parameter and SHOULD
-      contain a parameter identifying the recipient's asymmetric key.
+   *  At a minimum, headers MUST contain the 'alg' header parameter and
+      SHOULD contain a header parameter identifying the recipient's
+      asymmetric key.
 
    *  The headers SHOULD identify the sender's key for the static-static
       versions and MUST contain the sender's ephemeral key for the
@@ -2501,26 +2513,23 @@ Internet-Draft               COSE Structure                November 2019
 
    *  The 'protected' field is fed into the KDF context structure.
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 45]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    *  The plaintext to be encrypted is the key from the next layer down
       (usually the content layer).
 
-   *  The 'alg' parameter MUST be present in the layer.
+   *  The 'alg' header parameter MUST be present in the layer.
 
-   *  A parameter identifying the recipient's key SHOULD be present.  A
-      parameter identifying the sender's key SHOULD be present.
-
-
-
-
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 45]
-
-Internet-Draft               COSE Structure                November 2019
-
+   *  A header parameter identifying the recipient's key SHOULD be
+      present.  A header parameter identifying the sender's key SHOULD
+      be present.
 
 10.  CBOR Encoding Restrictions
 
@@ -2561,6 +2570,14 @@ Internet-Draft               COSE Structure                November 2019
    application.  This section provides a set of guidelines and topics
    that need to be considered when profiling this document.
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 46]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    *  Applications need to determine the set of messages defined in this
       document that they will be using.  The set of messages corresponds
       fairly directly to the set of security services that are needed
@@ -2570,17 +2587,9 @@ Internet-Draft               COSE Structure                November 2019
       purpose.  Applications will often times select specific header
       parameters to use or not to use.  For example, an application
       would normally state a preference for using either the IV or the
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 46]
-
-Internet-Draft               COSE Structure                November 2019
-
-
-      Partial IV parameter.  If the Partial IV parameter is specified,
-      then the application also needs to define how the fixed portion of
-      the IV is determined.
+      Partial IV header parameter.  If the Partial IV header parameter
+      is specified, then the application also needs to define how the
+      fixed portion of the IV is determined.
 
    *  When applications use externally defined authenticated data, they
       need to define how that data is encoded.  This document assumes
@@ -2601,8 +2610,8 @@ Internet-Draft               COSE Structure                November 2019
 
    *  Applications may need to provide some type of negotiation or
       discovery method if multiple algorithms or message structures are
-      permitted.  The method can be as simple as requiring
-      preconfiguration of the set of algorithms to providing a discovery
+      permitted.  The method can be as simple as requiring pre-
+      configuration of the set of algorithms to providing a discovery
       method built into the protocol.  S/MIME provided a number of
       different ways to approach the problem that applications could
       follow:
@@ -2616,23 +2625,20 @@ Internet-Draft               COSE Structure                November 2019
          over time [RFC2633] [RFC5751] (note that [RFC2633] has been
          obsoleted by [RFC5751]).
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 47]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
 12.  IANA Considerations
 
-   The registeries and registrations listed below were created during
+   The registries and registrations listed below were created during
    processing of RFC 8152 [RFC8152].  The only known action at this time
    is to update the references.
-
-
-
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 47]
-
-Internet-Draft               COSE Structure                November 2019
-
 
 12.1.  CBOR Tag Assignment
 
@@ -2677,18 +2683,16 @@ Internet-Draft               COSE Structure                November 2019
    of the processing of [RFC8152].  The registry has been created to use
    the "Expert Review Required" registration procedure [RFC8126].
 
+
+
+Schaad                  Expires 8 September 2020               [Page 48]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    IANA is requested to update the reference for entries in the table
    from [RFC8152] to this document.  This document does not update the
    expert review guidelines provided in [RFC8152].
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 48]
-
-Internet-Draft               COSE Structure                November 2019
-
 
 12.5.  Media Type Registrations
 
@@ -2735,16 +2739,16 @@ Internet-Draft               COSE Structure                November 2019
 
       Intended usage: COMMON
 
+
+
+Schaad                  Expires 8 September 2020               [Page 49]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
       Restrictions on usage: N/A
 
       Author: Jim Schaad, ietf@augustcellars.com
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 49]
-
-Internet-Draft               COSE Structure                November 2019
-
 
       Change Controller: IESG
 
@@ -2791,16 +2795,15 @@ Internet-Draft               COSE Structure                November 2019
 
       -  Macintosh file type code(s): N/A
 
+
+
+Schaad                  Expires 8 September 2020               [Page 50]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
       Person & email address to contact for further information:
       iesg@ietf.org
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 50]
-
-Internet-Draft               COSE Structure                November 2019
-
 
       Intended usage: COMMON
 
@@ -2846,17 +2849,19 @@ Internet-Draft               COSE Structure                November 2019
 
       -  Macintosh file type code(s): N/A
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 51]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
       Person & email address to contact for further information:
       iesg@ietf.org
 
       Intended usage: COMMON
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 51]
-
-Internet-Draft               COSE Structure                November 2019
-
 
       Restrictions on usage: N/A
 
@@ -2901,19 +2906,19 @@ Internet-Draft               COSE Structure                November 2019
    directly lead to the private key being leaked; the one way function
    of the KDF will prevent that.  There is, however, a different issue
    that needs to be addressed.  Having two recipients requires that the
+
+
+
+Schaad                  Expires 8 September 2020               [Page 52]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    CEK be shared between two recipients.  The second recipient therefore
    has a CEK that was derived from material that can be used for the
    weak proof of origin.  The second recipient could create a message
    using the same CEK and send it to the first recipient; the first
    recipient would, for either static-static ECDH or direct plus KDF,
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 52]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    make an assumption that the CEK could be used for proof of origin
    even though it is from the wrong entity.  If the key wrap step is
    added, then no proof of origin is implied and this is not an issue.
@@ -2949,38 +2954,39 @@ Internet-Draft               COSE Structure                November 2019
       state of the application?
 
    *  Have any security considerations that are part of the message been
-      enforced (as specified by the application or 'crit' parameter)?
+      enforced (as specified by the application or 'crit' header
+      parameter)?
 
    There are a large number of algorithms presented in
    [I-D.ietf-cose-rfc8152bis-algs] that use nonce values.  Nonces
    generally have some type of restriction on their values.  Generally a
    nonce needs to be a unique value either for a key or for some other
    conditions.  In all of these cases, there is no known requirement on
+
+
+
+Schaad                  Expires 8 September 2020               [Page 53]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    the nonce being both unique and unpredictable; under these
    circumstances, it's reasonable to use a counter for creation of the
    nonce.  In cases where one wants the pattern of the nonce to be
    unpredictable as well as unique, one can use a key created for that
    purpose and encrypt the counter to produce the nonce value.
 
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 53]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    One area that has been starting to get exposure is doing traffic
    analysis of encrypted messages based on the length of the message.
    This specification does not provide for a uniform method of providing
    padding as part of the message structure.  An observer can
-   distinguish between two different strings (for example, 'YES' and
+   distinguish between two different messages (for example, 'YES' and
    'NO') based on the length for all of the content encryption
    algorithms that are defined in [I-D.ietf-cose-rfc8152bis-algs]
    document.  This means that it is up to the applications to document
    how content padding is to be done in order to prevent or discourage
-   such analysis.  (For example, the strings could be defined as 'YES'
-   and 'NO '.)
+   such analysis.  (For example, the text strings could be defined as
+   'YES' and 'NO '.)
 
 14.  Implementation Status
 
@@ -3013,18 +3019,16 @@ Internet-Draft               COSE Structure                November 2019
    included in the document and to validate the structures and
    methodology used in the design of COSE.
 
+
+
+Schaad                  Expires 8 September 2020               [Page 54]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    *  Implementation Location: https://github.com/cose-wg
 
    *  Primary Maintainer: Jim Schaad
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 54]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    *  Languages: There are three different languages that are currently
       supported: Java, C# and C.
@@ -3069,18 +3073,19 @@ Internet-Draft               COSE Structure                November 2019
 
 14.3.  Python Version
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 55]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    *  Implementation Location: https://github.com/TimothyClaeys/COSE-
       PYTHON
 
    *  Primary Maintainer: Timothy Claeys
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 55]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    *  Languages: Python
 
@@ -3116,30 +3121,30 @@ Internet-Draft               COSE Structure                November 2019
 15.1.  Normative References
 
    [COAP.Formats]
-              IANA, "CoAP Content-Formats", November 2019,
+              IANA, "CoAP Content-Formats",
               <https://www.iana.org/assignments/core-parameters/core-
               parameters.xhtml#content-formats>.
 
    [COSE.Algorithms]
-              IANA, "COSE Algorithms", November 2019,
+              IANA, "COSE Algorithms",
               <https://www.iana.org/assignments/cose/
               cose.xhtml#algorithms>.
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 56]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    [COSE.KeyParameters]
-              IANA, "COSE Key Parameters", November 2019,
+              IANA, "COSE Key Parameters",
               <https://www.iana.org/assignments/cose/cose.xhtml#key-
               common-parameters>.
 
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 56]
-
-Internet-Draft               COSE Structure                November 2019
-
-
    [COSE.KeyTypes]
-              IANA, "COSE Key Types", November 2019,
+              IANA, "COSE Key Types",
               <https://www.iana.org/assignments/cose/cose.xhtml#key-
               type>.
 
@@ -3170,9 +3175,9 @@ Internet-Draft               COSE Structure                November 2019
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-algs-05, 11 September 2019,
+              draft-ietf-cose-rfc8152bis-algs-06, 4 November 2019,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              algs-05>.
+              algs-06>.
 
 15.2.  Informative References
 
@@ -3180,19 +3185,20 @@ Internet-Draft               COSE Structure                November 2019
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
               <https://www.rfc-editor.org/info/rfc8152>.
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 57]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
               Express Concise Binary Object Representation (CBOR) and
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/info/rfc8610>.
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 57]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    [RFC8018]  Moriarty, K., Ed., Kaliski, B., and A. Rusch, "PKCS #5:
               Password-Based Cryptography Specification Version 2.1",
@@ -3236,19 +3242,18 @@ Internet-Draft               COSE Structure                November 2019
               DOI 10.17487/RFC5990, September 2010,
               <https://www.rfc-editor.org/info/rfc5990>.
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 58]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
               Specifications and Registration Procedures", BCP 13,
               RFC 6838, DOI 10.17487/RFC6838, January 2013,
               <https://www.rfc-editor.org/info/rfc6838>.
-
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 58]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
@@ -3292,20 +3297,20 @@ Internet-Draft               COSE Structure                November 2019
 
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 59]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/info/rfc8613>.
 
    [RFC8230]  Jones, M., "Using RSA Algorithms with CBOR Object Signing
               and Encryption (COSE) Messages", RFC 8230,
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 59]
-
-Internet-Draft               COSE Structure                November 2019
-
-
               DOI 10.17487/RFC8230, September 2017,
               <https://www.rfc-editor.org/info/rfc8230>.
 
@@ -3348,19 +3353,20 @@ Appendix A.  Guidelines for External Data Authentication of Algorithms
    specification can provide recommendations, but it cannot enforce
    them.
 
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 60]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    This set of recommendations applies to the case where an application
    is distributing a fixed algorithm along with the key information for
    use in a single COSE object.  This normally applies to the smallest
    of the COSE objects, specifically COSE_Sign1, COSE_Mac0, and
    COSE_Encrypt0, but could apply to the other structures as well.
-
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 60]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    The following items should be taken into account:
 
@@ -3405,19 +3411,18 @@ Internet-Draft               COSE Structure                November 2019
       (In this case, the address would normally be distributed as part
       of the context.)
 
+
+
+Schaad                  Expires 8 September 2020               [Page 61]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    *  Applications cannot rely on key identifiers being unique unless
       they take significant efforts to ensure that they are computed in
       such a way as to create this guarantee.  Even when an application
       does this, the uniqueness might be violated if the application is
       run in different contexts (i.e., with a different context
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 61]
-
-Internet-Draft               COSE Structure                November 2019
-
-
       provider) or if the system combines the security contexts from
       different applications together into a single store.
 
@@ -3461,18 +3466,19 @@ Internet-Draft               COSE Structure                November 2019
       for use with a COSE_Encrypt message.  Each context will consist of
       distinct secret keys and IVs and potentially even different
       algorithms.  One context is for sending messages from party A to
+
+
+
+Schaad                  Expires 8 September 2020               [Page 62]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
       party B, and the second context is for sending messages from party
       B to party A.  This means that there is no chance for a reflection
       attack to occur as each party uses different secret keys to send
       its messages; a message that is reflected back to it would fail to
       decrypt.
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 62]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    *  Two contexts are distributed as a pair.  The first context is used
       for encryption of the message, and the second context is used to
@@ -3516,19 +3522,20 @@ Appendix B.  Two Layers of Recipient Information
    *  Layer 2: The encryption of a long random secret using an RSA key
       and a key derivation function to convert that secret into the KEK.
 
+
+
+
+Schaad                  Expires 8 September 2020               [Page 63]
+
+Internet-Draft               COSE Structure                   March 2020
+
+
    This is an example of what a triple layer message would look like.
    The message has the following layers:
 
    *  Layer 0: Has a content encrypted with AES-GCM using a 128-bit key.
 
    *  Layer 1: Uses the AES Key Wrap algorithm with a 128-bit key.
-
-
-
-Schaad                     Expires 16 May 2020                 [Page 63]
-
-Internet-Draft               COSE Structure                November 2019
-
 
    *  Layer 2: Uses ECDH Ephemeral-Static direct to generate the layer 1
       key.
@@ -3537,6 +3544,47 @@ Internet-Draft               COSE Structure                November 2019
    ECDH-ES+A128KW algorithm.
 
    Size of binary file is 183 bytes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 64]
+
+Internet-Draft               COSE Structure                   March 2020
+
 
    96(
      [
@@ -3579,13 +3627,6 @@ Internet-Draft               COSE Structure                November 2019
      ]
    )
 
-
-
-Schaad                     Expires 16 May 2020                 [Page 64]
-
-Internet-Draft               COSE Structure                November 2019
-
-
 Appendix C.  Examples
 
    This appendix includes a set of examples that show the different
@@ -3593,6 +3634,13 @@ Appendix C.  Examples
    To make the examples easier to read, they are presented using the
    extended CBOR diagnostic notation (defined in [RFC8610]) rather than
    as a binary dump.
+
+
+
+Schaad                  Expires 8 September 2020               [Page 65]
+
+Internet-Draft               COSE Structure                   March 2020
+
 
    A GitHub project has been created at <https://github.com/cose-wg/
    Examples> that contains not only the examples presented in this
@@ -3637,9 +3685,17 @@ C.1.1.  Single Signature
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 65]
+
+
+
+
+
+
+
+
+Schaad                  Expires 8 September 2020               [Page 66]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    98(
@@ -3693,9 +3749,9 @@ C.1.2.  Multiple Signers
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 66]
+Schaad                  Expires 8 September 2020               [Page 67]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    98(
@@ -3738,7 +3794,7 @@ C.1.3.  Counter Signature
 
    *  Signature Algorithm: ECDSA w/ SHA-256, Curve P-256
 
-   *  The same parameters are used for both the signature and the
+   *  The same header parameters are used for both the signature and the
       counter signature.
 
    Size of binary file is 180 bytes
@@ -3749,9 +3805,9 @@ C.1.3.  Counter Signature
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 67]
+Schaad                  Expires 8 September 2020               [Page 68]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    98(
@@ -3805,9 +3861,9 @@ C.1.4.  Signature with Criticality
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 68]
+Schaad                  Expires 8 September 2020               [Page 69]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    98(
@@ -3861,9 +3917,9 @@ C.2.1.  Single ECDSA Signature
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 69]
+Schaad                  Expires 8 September 2020               [Page 70]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    18(
@@ -3917,9 +3973,9 @@ C.3.1.  Direct ECDH
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 70]
+Schaad                  Expires 8 September 2020               [Page 71]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    96(
@@ -3973,9 +4029,9 @@ C.3.2.  Direct Plus Key Derivation
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 71]
+Schaad                  Expires 8 September 2020               [Page 72]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    Size of binary file is 91 bytes
@@ -4029,9 +4085,9 @@ C.3.3.  Counter Signature on Encrypted Content
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 72]
+Schaad                  Expires 8 September 2020               [Page 73]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    96(
@@ -4085,9 +4141,9 @@ C.3.4.  Encrypted Content with External Data
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 73]
+Schaad                  Expires 8 September 2020               [Page 74]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    *  CEK: AES-GCM w/ 128-bit key
@@ -4141,9 +4197,9 @@ C.4.1.  Simple Encrypted Message
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 74]
+Schaad                  Expires 8 September 2020               [Page 75]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    16(
@@ -4197,9 +4253,9 @@ C.5.1.  Shared Secret Direct MAC
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 75]
+Schaad                  Expires 8 September 2020               [Page 76]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    97(
@@ -4253,9 +4309,9 @@ C.5.2.  ECDH Direct MAC
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 76]
+Schaad                  Expires 8 September 2020               [Page 77]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    97(
@@ -4309,9 +4365,9 @@ C.5.3.  Wrapped MAC
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 77]
+Schaad                  Expires 8 September 2020               [Page 78]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    97(
@@ -4365,9 +4421,9 @@ C.5.4.  Multi-Recipient MACed Message
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 78]
+Schaad                  Expires 8 September 2020               [Page 79]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    97(
@@ -4421,9 +4477,9 @@ C.6.1.  Shared Secret Direct MAC
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 79]
+Schaad                  Expires 8 September 2020               [Page 80]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    *  Recipient class: direct shared secret
@@ -4477,9 +4533,9 @@ C.7.1.  Public Keys
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 80]
+Schaad                  Expires 8 September 2020               [Page 81]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    [
@@ -4533,9 +4589,9 @@ C.7.2.  Private Keys
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 81]
+Schaad                  Expires 8 September 2020               [Page 82]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    *  An EC key with a kid of "meriadoc.brandybuck@buckland.example"
@@ -4589,9 +4645,9 @@ Internet-Draft               COSE Structure                November 2019
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 82]
+Schaad                  Expires 8 September 2020               [Page 83]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
        -4:h'00085138ddabf5ca975f5860f91a08e91d6d5f9a76ad4018766a476680b
@@ -4645,9 +4701,9 @@ Acknowledgments
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 83]
+Schaad                  Expires 8 September 2020               [Page 84]
 
-Internet-Draft               COSE Structure                November 2019
+Internet-Draft               COSE Structure                   March 2020
 
 
    Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran
@@ -4701,4 +4757,4 @@ Author's Address
 
 
 
-Schaad                     Expires 16 May 2020                 [Page 84]
+Schaad                  Expires 8 September 2020               [Page 85]
