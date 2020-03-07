@@ -109,6 +109,7 @@
           Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are those encryption algorithms that provide an authentication check of the plain text contents as part of the encryption service.
         </t>
         <t>Authenticated Encryption with Associated Data (AEAD) <xref target="RFC5116"/> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
+        <t>The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.</t>
       </section>
       <section>
 
@@ -1538,7 +1539,7 @@ COSE_KDF_Context = [
           <dd>This contains an identifier of the curve to be used with the key. The curves defined in this document for this key type can be found in <xref target="x-table-ec-curves"/>.  Other curves may be registered in the future and private curves can be used as well.  </dd>
           <dt>x:</dt>
 
-          <dd>This contains the x-coordinate for the EC point.  The byte string represents a little-endian encoding of x.  </dd>
+          <dd>This contains the public key.  The byte string contains the public key as defined by the algorithm. (For X25591, internally it is a little-endian integer.) </dd>
           <dt>d:</dt>
 
           <dd>This contains the private key.  </dd>
@@ -1569,7 +1570,7 @@ COSE_KDF_Context = [
               <td>1</td>
               <td>-2</td>
               <td>bstr</td>
-              <td>x-coordinate</td>
+              <td>Public Key</td>
             </tr>
             <tr>
               <td>d</td>
@@ -1636,7 +1637,7 @@ COSE_KDF_Context = [
       <t>
         Two different types of capabilities are defined:  Capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list capabilities is immutable.
         If it is later found that a new capability is needed for a key type or an algorithm, it will require that a new code point be assigned to deal with that.
-        As a general rule, the capabilities are going to map to algorithm specific header paraemters or key parameters, but they do not need to do so.
+        As a general rule, the capabilities are going to map to algorithm specific header parameters or key parameters, but they do not need to do so.
         An example of this is the HSS-LMS key capabilities defined below where the hash algorithm used is included.
       </t>
       <t>
@@ -1696,10 +1697,10 @@ COSE_KDF_Context = [
         <t>
           In this section a trio of examples are provided.
           In all three cases the pair of capabilities is always provided as the algorithm and then the key capabilities.
-          For simplicitys sake, a CBOR sequence <xref target="I-D.ietf-cbor-sequence"/> is used for the two arrays.
+          For simplicity's sake, a CBOR sequence <xref target="I-D.ietf-cbor-sequence"/> is used for the two arrays.
         </t>
 
-        <artwork>![CDATA[
+        <artwork>
 ECDSA with SHA-512 and a P-256 curve:
 
 0x8102820201             / [2],[2, 1] /
@@ -1711,7 +1712,6 @@ ECDH-ES + A256KW with a P-256 curve:
 ECDH-ES + A256KW with an X25519 curve:
 
 0x8101820104           / [1],[1, 4] /
-
         </artwork>
         
       </section>
@@ -1753,15 +1753,15 @@ ECDH-ES + A256KW with an X25519 curve:
       <t>
         IANA is requested to create a new column in the "COSE Key Types" registry.
         The new column is to be labeled "Capabilities".
-        The new column is to be populated according the the entries in <xref target="initial-kty-caps"/>.
+        The new column is to be populated according the entries in <xref target="initial-kty-caps"/>.
       </t>
       
         <table anchor="initial-kty-caps">
           <name>Key Type Capabilities</name>
           <thead>
             <tr>
-              <th>Name</th>
               <th>Value</th>
+              <th>Name</th>
               <th>Capabilities</th>
             </tr>
           </thead>
@@ -1800,7 +1800,7 @@ ECDH-ES + A256KW with an X25519 curve:
           IANA is requested to create a new column in the "COSE Algorithms" registry.
           The new column is to be labeled "Capabilities".
           The new column is populated with "[kty]" for all current, non-provisional, registrations.
-          It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted at the time of final registration.
+          It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted final registration for this document is done.
         </t>
 
         <t>
@@ -1809,7 +1809,16 @@ ECDH-ES + A256KW with an X25519 curve:
           That action should be applied first.
         </t>
       </section>
+      <section>
+        <name>Changes to the "COSE Key Type Parameters" registry</name>
+        <t>
+          IANA is required to modify the description to "Public Key" for the line with "Key Type" of 2 and the "Name" of "x".
+          See <xref target="x-table-ec1-keys"/> which has been modified with this change.
+        </t>
+      </section>
     </section>
+
+
     <section anchor="security-considerations">
 
       <name>Security Considerations</name>
@@ -1843,7 +1852,7 @@ ECDH-ES + A256KW with an X25519 curve:
         <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' parameter)?</li>
       </ul>
       <t>There are a large number of algorithms presented in this document that use nonce values.  For all of the nonces defined in this document, there is some type of restriction on the nonce being a unique value either for a key or for some other conditions.  In all of these cases, there is no known requirement on the nonce being both unique and unpredictable; under these circumstances, it's reasonable to use a counter for creation of the nonce.  In cases where one wants the pattern of the nonce to be unpredictable as well as unique, one can use a key created for that purpose and encrypt the counter to produce the nonce value.  </t>
-      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in this document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
+      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in this document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
     </section>
   </middle>
   <back>

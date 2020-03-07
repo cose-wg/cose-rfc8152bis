@@ -58,7 +58,7 @@
       <t>The JOSE working group produced a set of documents <xref target="RFC7515"/> <xref target="RFC7516"/> <xref target="RFC7517"/> <xref target="RFC7518"/> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.ietf-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
 
       <ul>
-        <li>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded string.  </li>
+        <li>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded text string.  </li>
         <li>COSE is not a direct copy of the JOSE specification.  In the process of creating COSE, decisions that were made for JOSE were re-examined.  In many cases, different results were decided on as the criteria were not always the same.  </li>
       </ul>
 
@@ -105,7 +105,7 @@
       <section>
         <name>Changes from RFC8152</name>
         <ul>
-          <li> Split the orignal document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</li>
+          <li> Split the original document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</li>
           <li>Add some text describing why there is no digest structure defined by COSE.</li>
           <li>Rearrange the text around counter signatures and define a CBOR Tag for a standalone countersignature.</li>
           <li>Text clarifications and changes in terminology.</li>
@@ -130,7 +130,7 @@
         <name>CBOR Grammar</name>
         <t>
           There was not a standard CBOR grammar available when COSE was originally written.
-          For that reason the CBOR data objectd defined here are described in prose.
+          For that reason the CBOR data objects defined here are described in prose.
           Since that time CBOR Data Definition Language (CDDL) <xref target="RFC8610"/> has been published as an RFC.
           The CBOR grammar presented in this document is compatible with CDDL.
         </t>
@@ -191,10 +191,10 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
 
       <section anchor="label">
         <name>CBOR-Related Terminology</name>
-        <t>In JSON, maps are called objects and only have one kind of map key: a string.  In COSE, we use strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
+        <t>In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
         <t>
-          The presence of a label in a CBOR map that is not a string or an integer is an error. 
+          The presence of a label in a CBOR map that is not a text string or an integer is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they MUST NOT create messages with incorrect labels. 
         </t>
 
@@ -220,7 +220,7 @@ values = any
           The context to use can be implicit, identified using the 'kid context' header parameter defined in <xref target="RFC8613"/>, or identified by a protocol specific identifier.
           Context should generally be included in the cryptographic configuration, for more details see <xref target="Extern_AAD"/>.
         </t>
-        <t>The term 'byte string' is used for sequences of bytes, while the term 'string' is used for sequences of characters.</t>
+        <t>The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.</t>
       </section>
     </section>
 
@@ -389,7 +389,7 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
     <section anchor="header-parameters">
       <name>Header Parameters</name>
       <t>The structure of COSE has been designed to have two buckets of information that are not considered to be part of the payload itself, but are used for holding information about content, algorithms, keys, or evaluation hints for the processing of the layer.  These two buckets are available for use in all of the structures except for keys.  While these buckets are present, they may not all be usable in all instances.  For example, while the protected bucket is defined as part of the recipient structure, some of the algorithms used for recipient structures do not provide for authenticated data.  If this is the case, the protected bucket is left empty.  </t>
-      <t>Both buckets are implemented as CBOR maps.  The map key is a 'label' (<xref target="label"/>).  The value portion is dependent on the definition for the label.  Both maps use the same set of label/value pairs.  The integer and string values for labels have been divided into several sections including a standard range, a private range, and a range that is dependent on the algorithm selected.  The defined labels can be found in the "COSE Header Parameters" IANA registry (<xref target="cose-header-key-table"/>).  </t>
+      <t>Both buckets are implemented as CBOR maps.  The map key is a 'label' (<xref target="label"/>).  The value portion is dependent on the definition for the label.  Both maps use the same set of label/value pairs.  The integer and text string values for labels have been divided into several sections including a standard range, a private range, and a range that is dependent on the algorithm selected.  The defined labels can be found in the "COSE Header Parameters" IANA registry (<xref target="cose-header-key-table"/>).  </t>
       <t>
         The two buckets are:
       </t>
@@ -445,7 +445,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
           <dd>
             <t>
           This header parameter is used to indicate which protected header parameters an application that is processing a message is required to understand. 
-          Header arameters defined in this document do not need to be included as they should be understood by all implementations.
+          Header parameters defined in this document do not need to be included as they should be understood by all implementations.
           When present, this the 'crit' header parameter MUST be placed in the protected header parameter bucket.
           The array MUST have at least one value in it.  
 
@@ -461,22 +461,22 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
             </ul>
             <t>
 
-          The header parameters indicated by 'crit' can be processed by either the security library code or an application using a security library; the only requirement is that the header parameter is processed.  If the 'crit' value list includes a label for which the header parameter is not in the protected headers bucket, this is a fatal error in processing the message.
+          The header parameters indicated by 'crit' can be processed by either the security library code or an application using a security library; the only requirement is that the header parameter is processed.  If the 'crit' value list includes a label for which the header parameter is not in the protected header parameters bucket, this is a fatal error in processing the message.
             </t>
-          </dd>
+u          </dd>
           <dt>content type:</dt>
           <dd>This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <xref target="COAP.Formats"/>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <xref target="RFC6838"/>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications SHOULD provide this header parameter if the content structure is potentially ambiguous.  </dd>
           <dt>kid:</dt>
-          <dd>This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications MUST NOT assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected headers bucket.  </dd>
+          <dd>This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications MUST NOT assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected header parameters bucket.  </dd>
           <dt>IV:</dt>
-          <dd>This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected header bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.  </dd>
+          <dd>This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.  </dd>
           <dt>Partial IV:</dt>
           <dd>
-            <t>
+o            <t>
   This header parameter holds a part of the IV value. 
-  When using the COSE_Encrypt0 structure, a portion of the IV can be part of the context associated with the key (Context IV) while a portion can be changed with each message (Parital IV). 
+  When using the COSE_Encrypt0 structure, a portion of the IV can be part of the context associated with the key (Context IV) while a portion can be changed with each message (Partial IV). 
   This field is used to carry a value that causes the IV to be changed for each message. 
-  The Parital IV can be placed in the unprotected header bucket as modifying the value will cause the decryption to yield plaintext that is readily detectable as garbled. 
+  The Partial IV can be placed in the unprotected bucket as modifying the value will cause the decryption to yield plaintext that is readily detectable as garbled. 
   The 'Initialization Vector' and 'Partial Initialization Vector' header parameters MUST NOT both be present in the same security layer.
 
             </t>
@@ -575,7 +575,7 @@ Generic_Headers = (
       <t>COSE supports two different signature structures.  COSE_Sign allows for one or more signatures to be applied to the same content. COSE_Sign1 is restricted to a single signer.  The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.  </t>
       <section anchor="full-signature">
         <name>Signing with One or More Signers</name>
-        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These headeres parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of a header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
+        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of a header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
         <t>RFC 5652 indicates that:
 
         </t>
@@ -667,7 +667,7 @@ COSE_Sign1 = [
           One of the features offered in the COSE document is the ability for applications to provide additional data to be authenticated, but that is not carried as part of the COSE object. 
           The primary reason for supporting this can be seen by looking at the CoAP message structure <xref target="RFC7252"/>, where the facility exists for options to be carried before the payload. 
           Examples of data that can be placed in this location would be the CoAP code or CoAP options. 
-          If the data is in the header section, then it is available for proxies to help in performing its operations. 
+          If the data is in the headers of the CoAP message, then it is available for proxies to help in performing its operations. 
           For example, the Accept Option can be used by a proxy to determine if an appropriate value is in the proxy's cache. 
           But the sender can cause a failure at the server if a proxy, or an attacker, changes the set of accept values by including the field in the application supplied data.
         </t>
@@ -678,7 +678,7 @@ COSE_Sign1 = [
         <ul>
           <li>
               If multiple items are included, applications need to ensure that the same byte string cannot produced if there are different inputs. 
-              This would occur by appending the strings 'AB' and 'CDE' or by appending the strings 'ABC' and 'DE'. 
+              This would occur by appending the text strings 'AB' and 'CDE' or by appending the text strings 'ABC' and 'DE'. 
               This is usually addressed by making fields a fixed width and/or encoding the length of the field as part of the output. 
               Using options from CoAP <xref target="RFC7252"/> as an example, these fields use a TLV structure so they can be concatenated without any problems.
             </li>
@@ -703,7 +703,7 @@ COSE_Sign1 = [
         <ol type="1">
           <li>
             <t>
-              A context string identifying the context of the signature.  The context string is:
+              A context text string identifying the context of the signature.  The context text string is:
             </t>
             <ul empty="true">
               <li>"Signature" for signatures using the COSE_Signature structure.</li>
@@ -775,7 +775,7 @@ array to avoid confusion.
         The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.
       </t>
       <t>
-        COSE was designed for uniformity in how the data strutures are specified.
+        COSE was designed for uniformity in how the data structures are specified.
         One result of this is that for COSE one can expand the concept of countersignatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
         When creating a countersignature, one needs to be clear about the security properties that result.
         When done on a COSE_Signature, the normal countersignature semantics are preserved.  That is the countersignature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
@@ -985,7 +985,7 @@ COSE_Encrypt0 = [
         </t>
         <ol type="1">
           <li>
-            <t>A context string identifying the context of the authenticated data structure.  The context string is:
+            <t>A context text string identifying the context of the authenticated data structure.  The context text string is:
             </t>
             <ul empty="true">
               <li>"Encrypt0" for the content encryption of a COSE_Encrypt0 data structure.</li>
@@ -1026,7 +1026,7 @@ Enc_structure = [
   Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.
 </dd>
               <dt>Other:</dt>
-              <dd>The key is randomly or pseudorandomly generated.  </dd>
+              <dd>The key is randomly or pseudo-randomly generated.  </dd>
             </dl>
           </li>
           <li>Call the encryption algorithm with K (the encryption key), P (the plaintext), and AAD.  Place the returned ciphertext into the 'ciphertext' field of the structure.  </li>
@@ -1181,7 +1181,7 @@ COSE_Mac0 = [
         <t>In order to get a consistent encoding of the data to be authenticated, the MAC_structure is used to have a canonical form.  The MAC_structure is a CBOR array.  The fields of the MAC_structure in order are:
         </t>
         <ol type="1">
-          <li>A context string that identifies the structure that is being encoded.  This context string is "MAC" for the COSE_Mac structure.  This context string is "MAC0" for the COSE_Mac0 structure.  </li>
+          <li>A context text string that identifies the structure that is being encoded.  This context text string is "MAC" for the COSE_Mac structure.  This context text string is "MAC0" for the COSE_Mac0 structure.  </li>
           <li>The protected attributes from the COSE_MAC structure.  If there are no protected attributes, a zero-length bstr is used.  </li>
           <li>The protected attributes from the application encoded as a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
           <li>The payload to be MACed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </li>
@@ -1573,7 +1573,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <ul>
         <li>Applications need to determine the set of messages defined in this document that they will be using.  The set of messages corresponds fairly directly to the set of security services that are needed and to the security levels needed.  </li>
         <li>
-        Applications may define new header header parameters for a specific purpose. 
+        Applications may define new header parameters for a specific purpose. 
         Applications will often times select specific header parameters to use or not to use. 
         For example, an application would normally state a preference for using either the IV or the Partial IV header parameter. 
         If the Partial IV header parameter is specified, then the application also needs to define how the fixed portion of the IV is determined. 
@@ -1581,7 +1581,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>When applications use externally defined authenticated data, they need to define how that data is encoded.  This document assumes that the data will be provided as a byte string.  More information can be found in <xref target="Extern_AAD"/>.  </li>
         <li>Applications need to determine the set of security algorithms that are to be used.  When selecting the algorithms to be used as the mandatory-to-implement set, consideration should be given to choosing different types of algorithms when two are chosen for a specific purpose.  An example of this would be choosing HMAC-SHA512 and AES-CMAC as different MAC algorithms; the construction is vastly different between these two algorithms.  This means that a weakening of one algorithm would be unlikely to lead to a weakening of the other algorithms.  Of course, these algorithms do not provide the same level of security and thus may not be comparable for the desired security functionality.  </li>
         <li>
-          <t>Applications may need to provide some type of negotiation or discovery method if multiple algorithms or message structures are permitted.  The method can be as simple as requiring preconfiguration of the set of algorithms to providing a discovery method built into the protocol.  S/MIME provided a number of different ways to approach the problem that applications could follow:
+          <t>Applications may need to provide some type of negotiation or discovery method if multiple algorithms or message structures are permitted.  The method can be as simple as requiring pre-configuration of the set of algorithms to providing a discovery method built into the protocol.  S/MIME provided a number of different ways to approach the problem that applications could follow:
           </t>
           <ul>
               <li>Advertising in the message (S/MIME capabilities) <xref target="RFC5751"/>.</li>
@@ -1594,7 +1594,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     <section anchor="iana-considerations">
       <name>IANA Considerations</name>
       <t>
-        The registeries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
+        The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
         The only known action at this time is to update the references.
       </t>
       <section anchor="cbor-tag-assignment">
@@ -1802,7 +1802,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?</li>
       </ul>
       <t>There are a large number of algorithms presented in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> that use nonce values.  Nonces generally have some type of restriction on their values. Generally a nonce needs to be a unique value either for a key or for some other conditions.  In all of these cases, there is no known requirement on the nonce being both unique and unpredictable; under these circumstances, it's reasonable to use a counter for creation of the nonce.  In cases where one wants the pattern of the nonce to be unpredictable as well as unique, one can use a key created for that purpose and encrypt the counter to produce the nonce value.  </t>
-      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the strings could be defined as 'YES' and 'NO '.) </t>
+      <t>One area that has been starting to get exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
     </section>
     <section removeInRFC="true">
       <name>Implementation Status</name>
