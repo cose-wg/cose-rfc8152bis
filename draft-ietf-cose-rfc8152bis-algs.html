@@ -22,8 +22,8 @@
         This document along with   obsoletes RFC8152.
        
     " name="description">
-<meta content="xml2rfc 2.40.1" name="generator">
-<meta content="draft-ietf-cose-rfc8152bis-algs-latest" name="ietf.draft">
+<meta content="xml2rfc 2.44.0" name="generator">
+<meta content="draft-ietf-cose-rfc8152bis-algs-08" name="ietf.draft">
 <link href="draft-ietf-cose-rfc8152bis-algs.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 
@@ -306,11 +306,11 @@ ul.toc li {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">COSE Algorithms</td>
-<td class="right">March 2020</td>
+<td class="right">May 2020</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schaad</td>
-<td class="center">Expires 8 September 2020</td>
+<td class="center">Expires 16 November 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -320,18 +320,18 @@ ul.toc li {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">COSE Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-cose-rfc8152bis-algs-latest</dd>
+<dd class="internet-draft">draft-ietf-cose-rfc8152bis-algs-08</dd>
 <dt class="label-obsoletes">Obsoletes:</dt>
 <dd class="obsoletes">
 <a href="https://www.rfc-editor.org/rfc/rfc8152" class="eref">8152</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-03-07" class="published">7 March 2020</time>
+<time datetime="2020-05-15" class="published">15 May 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-09-08">8 September 2020</time></dd>
+<dd class="expires"><time datetime="2020-11-16">16 November 2020</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -386,7 +386,7 @@ ul.toc li {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 November 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -419,13 +419,13 @@ ul.toc li {
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
 <ul class="toc ulEmpty">
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-changes-from-rfc8152" class="xref">Changes from RFC8152</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-changes-from-rfc8152" class="xref">Changes from RFC8152</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-document-terminology" class="xref">Document Terminology</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-document-terminology" class="xref">Document Terminology</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.4">
                 <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-cbor-grammar" class="xref">CBOR Grammar</a><a href="#section-toc.1-1.1.2.4.1" class="pilcrow">¶</a></p>
@@ -709,14 +709,14 @@ ul.toc li {
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-signature-algorithms" class="section-name selfRef">Signature Algorithms</a>
       </h2>
 <p id="section-2-1">
-        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07#appendix-Section%209.1" class="relref">Part Section 9.1</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of signature algorithms.
+        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08#appendix-Section%209.1" class="relref">Part Section 9.1</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of signature algorithms.
         The document defines signature algorithm identifiers for two signature algorithms.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <div id="ECDSA">
 <section id="section-2.1">
         <h3 id="name-ecdsa">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-ecdsa" class="section-name selfRef">ECDSA</a>
         </h3>
-<p id="section-2.1-1">ECDSA <span>[<a href="#DSS" class="xref">DSS</a>]</span> defines a signature algorithm using ECC.  Implementations SHOULD use a deterministic version of ECDSA such as the one defined in <span>[<a href="#RFC6979" class="xref">RFC6979</a>]</span>.  The use of a deterministic signature algorithm allows for systems to avoid relying on random number generators in order to avoid generating the same value of 'k' (the per-message random value). Biased generation of the value 'k' can be attacked, and collisions of this value leads to leaked keys.  It additionally allows for doing deterministic tests for the signature algorithm.  The use of deterministic ECDSA does not lessen the need to have good random number generation when creating the private key.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-1">ECDSA <span>[<a href="#DSS" class="xref">DSS</a>]</span> defines a signature algorithm using ECC.  Implementations <span class="bcp14">SHOULD</span> use a deterministic version of ECDSA such as the one defined in <span>[<a href="#RFC6979" class="xref">RFC6979</a>]</span>.  The use of a deterministic signature algorithm allows for systems to avoid relying on random number generators in order to avoid generating the same value of 'k' (the per-message random value). Biased generation of the value 'k' can be attacked, and collisions of this value leads to leaked keys.  It additionally allows for doing deterministic tests for the signature algorithm.  The use of deterministic ECDSA does not lessen the need to have good random number generation when creating the private key.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.1-2">The ECDSA signature algorithm is parameterized with a hash function (h).  In the event that the length of the hash function output is greater than the group of the key, the leftmost bytes of the hash output are used.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1-3">The algorithms defined in this document can be found in <a href="#x-table_ecdsa" class="xref">Table 1</a>.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 <span id="name-ecdsa-algorithm-values"></span><div id="x-table_ecdsa">
@@ -771,13 +771,13 @@ ul.toc li {
           where n = ceiling(key_length / 8)<a href="#section-2.1-10" class="pilcrow">¶</a></p>
 <p id="section-2.1-11">When using a COSE key for this algorithm, the following checks are made:<a href="#section-2.1-11" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-2.1-12.1">The 'kty' field MUST be present, and it MUST be 'EC2'.<a href="#section-2.1-12.1" class="pilcrow">¶</a>
+<li id="section-2.1-12.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'EC2'.<a href="#section-2.1-12.1" class="pilcrow">¶</a>
 </li>
-<li id="section-2.1-12.2">If the 'alg' field is present, it MUST match the ECDSA signature algorithm being used.<a href="#section-2.1-12.2" class="pilcrow">¶</a>
+<li id="section-2.1-12.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the ECDSA signature algorithm being used.<a href="#section-2.1-12.2" class="pilcrow">¶</a>
 </li>
-<li id="section-2.1-12.3">If the 'key_ops' field is present, it MUST include 'sign' when creating an ECDSA signature.<a href="#section-2.1-12.3" class="pilcrow">¶</a>
+<li id="section-2.1-12.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'sign' when creating an ECDSA signature.<a href="#section-2.1-12.3" class="pilcrow">¶</a>
 </li>
-<li id="section-2.1-12.4">If the 'key_ops' field is present, it MUST include 'verify' when verifying an ECDSA signature.<a href="#section-2.1-12.4" class="pilcrow">¶</a>
+<li id="section-2.1-12.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'verify' when verifying an ECDSA signature.<a href="#section-2.1-12.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-2.1.1">
@@ -829,15 +829,15 @@ ul.toc li {
 <p id="section-2.2-4"><span>[<a href="#RFC8032" class="xref">RFC8032</a>]</span> describes the method of encoding the signature value.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
 <p id="section-2.2-5">When using a COSE key for this algorithm, the following checks are made:<a href="#section-2.2-5" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-2.2-6.1">The 'kty' field MUST be present, and it MUST be 'OKP' (Octet Key Pair).<a href="#section-2.2-6.1" class="pilcrow">¶</a>
+<li id="section-2.2-6.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'OKP' (Octet Key Pair).<a href="#section-2.2-6.1" class="pilcrow">¶</a>
 </li>
-<li id="section-2.2-6.2">The 'crv' field MUST be present, and it MUST be a curve defined for this signature algorithm.<a href="#section-2.2-6.2" class="pilcrow">¶</a>
+<li id="section-2.2-6.2">The 'crv' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be a curve defined for this signature algorithm.<a href="#section-2.2-6.2" class="pilcrow">¶</a>
 </li>
-<li id="section-2.2-6.3">If the 'alg' field is present, it MUST match 'EdDSA'.<a href="#section-2.2-6.3" class="pilcrow">¶</a>
+<li id="section-2.2-6.3">If the 'alg' field is present, it <span class="bcp14">MUST</span> match 'EdDSA'.<a href="#section-2.2-6.3" class="pilcrow">¶</a>
 </li>
-<li id="section-2.2-6.4">If the 'key_ops' field is present, it MUST include 'sign' when creating an EdDSA signature.<a href="#section-2.2-6.4" class="pilcrow">¶</a>
+<li id="section-2.2-6.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'sign' when creating an EdDSA signature.<a href="#section-2.2-6.4" class="pilcrow">¶</a>
 </li>
-<li id="section-2.2-6.5">If the 'key_ops' field is present, it MUST include 'verify' when verifying an EdDSA signature.<a href="#section-2.2-6.5" class="pilcrow">¶</a>
+<li id="section-2.2-6.5">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'verify' when verifying an EdDSA signature.<a href="#section-2.2-6.5" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-2.2.1">
@@ -845,7 +845,7 @@ ul.toc li {
 <a href="#section-2.2.1" class="section-number selfRef">2.2.1. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security Considerations</a>
           </h4>
 <p id="section-2.2.1-1">How public values are computed is not the same when looking at EdDSA and Elliptic Curve Diffie-Hellman (ECDH); for this reason, they should not be used with the other algorithm.<a href="#section-2.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.1-2">If batch signature verification is performed, a well-seeded cryptographic random number generator is REQUIRED.  Signing and non-batch signature verification are deterministic operations and do not need random numbers of any kind.<a href="#section-2.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.2.1-2">If batch signature verification is performed, a well-seeded cryptographic random number generator is <span class="bcp14">REQUIRED</span>.  Signing and non-batch signature verification are deterministic operations and do not need random numbers of any kind.<a href="#section-2.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </section>
 </section>
@@ -855,7 +855,7 @@ ul.toc li {
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-message-authentication-code" class="section-name selfRef">Message Authentication Code (MAC) Algorithms</a>
       </h2>
 <p id="section-3-1">
-        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07#appendix-Section%209.2" class="relref">Part Section 9.2</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of MAC algorithms.
+        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08#appendix-Section%209.2" class="relref">Part Section 9.2</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of MAC algorithms.
         This section defines the conventions for two MAC algorithms.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <section id="section-3.1">
         <h3 id="name-hash-based-message-authenti">
@@ -911,19 +911,19 @@ ul.toc li {
           </tbody>
         </table>
 </div>
-<p id="section-3.1-5">Some recipient algorithms carry the key while others derive a key from secret data.  For those algorithms that carry the key (such as AES Key Wrap), the size of the HMAC key SHOULD be the same size as the underlying hash function.  For those algorithms that derive the key (such as ECDH), the derived key MUST be the same size as the underlying hash function.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">Some recipient algorithms carry the key while others derive a key from secret data.  For those algorithms that carry the key (such as AES Key Wrap), the size of the HMAC key <span class="bcp14">SHOULD</span> be the same size as the underlying hash function.  For those algorithms that derive the key (such as ECDH), the derived key <span class="bcp14">MUST</span> be the same size as the underlying hash function.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <p id="section-3.1-6">When using a COSE key for this algorithm, the following checks are made:<a href="#section-3.1-6" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-3.1-7.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-3.1-7.1" class="pilcrow">¶</a>
+<li id="section-3.1-7.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-3.1-7.1" class="pilcrow">¶</a>
 </li>
-<li id="section-3.1-7.2">If the 'alg' field is present, it MUST match the HMAC algorithm being used.<a href="#section-3.1-7.2" class="pilcrow">¶</a>
+<li id="section-3.1-7.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the HMAC algorithm being used.<a href="#section-3.1-7.2" class="pilcrow">¶</a>
 </li>
-<li id="section-3.1-7.3">If the 'key_ops' field is present, it MUST include 'MAC create' when creating an HMAC authentication tag.<a href="#section-3.1-7.3" class="pilcrow">¶</a>
+<li id="section-3.1-7.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'MAC create' when creating an HMAC authentication tag.<a href="#section-3.1-7.3" class="pilcrow">¶</a>
 </li>
-<li id="section-3.1-7.4">If the 'key_ops' field is present, it MUST include 'MAC verify' when verifying an HMAC authentication tag.<a href="#section-3.1-7.4" class="pilcrow">¶</a>
+<li id="section-3.1-7.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'MAC verify' when verifying an HMAC authentication tag.<a href="#section-3.1-7.4" class="pilcrow">¶</a>
 </li>
 </ul>
-<p id="section-3.1-8">Implementations creating and validating MAC values MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
+<p id="section-3.1-8">Implementations creating and validating MAC values <span class="bcp14">MUST</span> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
 <section id="section-3.1.1">
           <h4 id="name-security-considerations-3">
 <a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-security-considerations-3" class="section-name selfRef">Security Considerations</a>
@@ -984,16 +984,16 @@ ul.toc li {
           </tbody>
         </table>
 </div>
-<p id="section-3.2-4">Keys may be obtained either from a key structure or from a recipient structure.  Implementations creating and validating MAC values MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">Keys may be obtained either from a key structure or from a recipient structure.  Implementations creating and validating MAC values <span class="bcp14">MUST</span> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">When using a COSE key for this algorithm, the following checks are made:<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-3.2-6.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-3.2-6.1" class="pilcrow">¶</a>
+<li id="section-3.2-6.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-3.2-6.1" class="pilcrow">¶</a>
 </li>
-<li id="section-3.2-6.2">If the 'alg' field is present, it MUST match the AES-MAC algorithm being used.<a href="#section-3.2-6.2" class="pilcrow">¶</a>
+<li id="section-3.2-6.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the AES-MAC algorithm being used.<a href="#section-3.2-6.2" class="pilcrow">¶</a>
 </li>
-<li id="section-3.2-6.3">If the 'key_ops' field is present, it MUST include 'MAC create' when creating an AES-MAC authentication tag.<a href="#section-3.2-6.3" class="pilcrow">¶</a>
+<li id="section-3.2-6.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'MAC create' when creating an AES-MAC authentication tag.<a href="#section-3.2-6.3" class="pilcrow">¶</a>
 </li>
-<li id="section-3.2-6.4">If the 'key_ops' field is present, it MUST include 'MAC verify' when verifying an AES-MAC authentication tag.<a href="#section-3.2-6.4" class="pilcrow">¶</a>
+<li id="section-3.2-6.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'MAC verify' when verifying an AES-MAC authentication tag.<a href="#section-3.2-6.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-3.2.1">
@@ -1019,7 +1019,7 @@ ul.toc li {
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-content-encryption-algorith" class="section-name selfRef">Content Encryption Algorithms</a>
       </h2>
 <p id="section-4-1">
-        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07#appendix-Section%209.3" class="relref">Part Section 9.3</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of Content Encryption algorithms.
+        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08#appendix-Section%209.3" class="relref">Part Section 9.3</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of Content Encryption algorithms.
         This document defines the identifier and usages for three content encryption algorithms.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <section id="section-4.1">
         <h3 id="name-aes-gcm">
@@ -1060,27 +1060,27 @@ ul.toc li {
           </tbody>
         </table>
 </div>
-<p id="section-4.1-5">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting <span class="bcp14">MUST</span> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <p id="section-4.1-6">When using a COSE key for this algorithm, the following checks are made:<a href="#section-4.1-6" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-4.1-7.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-4.1-7.1" class="pilcrow">¶</a>
+<li id="section-4.1-7.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-4.1-7.1" class="pilcrow">¶</a>
 </li>
-<li id="section-4.1-7.2">If the 'alg' field is present, it MUST match the AES-GCM algorithm being used.<a href="#section-4.1-7.2" class="pilcrow">¶</a>
+<li id="section-4.1-7.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the AES-GCM algorithm being used.<a href="#section-4.1-7.2" class="pilcrow">¶</a>
 </li>
-<li id="section-4.1-7.3">If the 'key_ops' field is present, it MUST include 'encrypt' or 'wrap key' when encrypting.<a href="#section-4.1-7.3" class="pilcrow">¶</a>
+<li id="section-4.1-7.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'encrypt' or 'wrap key' when encrypting.<a href="#section-4.1-7.3" class="pilcrow">¶</a>
 </li>
-<li id="section-4.1-7.4">If the 'key_ops' field is present, it MUST include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-4.1-7.4" class="pilcrow">¶</a>
+<li id="section-4.1-7.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-4.1-7.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-4.1.1">
           <h4 id="name-security-considerations-5">
 <a href="#section-4.1.1" class="section-number selfRef">4.1.1. </a><a href="#name-security-considerations-5" class="section-name selfRef">Security Considerations</a>
           </h4>
-<p id="section-4.1.1-1">When using AES-GCM, the following restrictions MUST be enforced:<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1.1-1">When using AES-GCM, the following restrictions <span class="bcp14">MUST</span> be enforced:<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-4.1.1-2.1">The key and nonce pair MUST be unique for every message encrypted.<a href="#section-4.1.1-2.1" class="pilcrow">¶</a>
+<li id="section-4.1.1-2.1">The key and nonce pair <span class="bcp14">MUST</span> be unique for every message encrypted.<a href="#section-4.1.1-2.1" class="pilcrow">¶</a>
 </li>
-<li id="section-4.1.1-2.2">The total amount of data encrypted for a single key MUST NOT exceed 2^39 - 256 bits.  An explicit check is required only in environments where it is expected that it might be exceeded.<a href="#section-4.1.1-2.2" class="pilcrow">¶</a>
+<li id="section-4.1.1-2.2">The total amount of data encrypted for a single key <span class="bcp14">MUST NOT</span> exceed 2^39 - 256 bits.  An explicit check is required only in environments where it is expected that it might be exceeded.<a href="#section-4.1.1-2.2" class="pilcrow">¶</a>
 </li>
 </ul>
 <p id="section-4.1.1-3">Consideration was given to supporting smaller tag values; the constrained community would desire tag sizes in the 64-bit range. Doing so drastically changes both the maximum messages size (generally not an issue) and the number of times that a key can be used.  Given that Counter with CBC-MAC (CCM) is the usual mode for constrained environments, restricted modes are not supported.<a href="#section-4.1.1-3" class="pilcrow">¶</a></p>
@@ -1099,18 +1099,22 @@ ul.toc li {
           <dt id="section-4.2-6.1">16 bits (2):</dt>
 <dd id="section-4.2-6.2">This limits messages to 2^16 bytes (64 KiB) in length.  This is sufficiently long for messages in the constrained world.  The nonce length is 13 bytes allowing for 2^104 possible values of the nonce without repeating.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.2-6.3">64 bits (8):</dt>
 <dd id="section-4.2-6.4">This limits messages to 2^64 bytes in length.  The nonce length is 7 bytes allowing for 2^56 possible values of the nonce without repeating.<a href="#section-4.2-6.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-4.2-7">The following values are used for M:<a href="#section-4.2-7" class="pilcrow">¶</a></p>
 <dl class="dlParallel" id="section-4.2-8">
           <dt id="section-4.2-8.1">64 bits (8):</dt>
 <dd id="section-4.2-8.2">This produces a 64-bit authentication tag.  This implies that there is a 1 in 2^64 chance that a modified message will authenticate.<a href="#section-4.2-8.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.2-8.3">128 bits (16):</dt>
 <dd id="section-4.2-8.4">This produces a 128-bit authentication tag.  This implies that there is a 1 in 2^128 chance that a modified message will authenticate.<a href="#section-4.2-8.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <span id="name-algorithm-values-for-aes-cc"></span><div id="x-table-AES-CCM">
 <table class="center" id="table-6">
@@ -1196,27 +1200,27 @@ ul.toc li {
           </tbody>
         </table>
 </div>
-<p id="section-4.2-10">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-4.2-10" class="pilcrow">¶</a></p>
+<p id="section-4.2-10">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting <span class="bcp14">MUST</span> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-4.2-10" class="pilcrow">¶</a></p>
 <p id="section-4.2-11">When using a COSE key for this algorithm, the following checks are made:<a href="#section-4.2-11" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-4.2-12.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-4.2-12.1" class="pilcrow">¶</a>
+<li id="section-4.2-12.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-4.2-12.1" class="pilcrow">¶</a>
 </li>
-<li id="section-4.2-12.2">If the 'alg' field is present, it MUST match the AES-CCM algorithm being used.<a href="#section-4.2-12.2" class="pilcrow">¶</a>
+<li id="section-4.2-12.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the AES-CCM algorithm being used.<a href="#section-4.2-12.2" class="pilcrow">¶</a>
 </li>
-<li id="section-4.2-12.3">If the 'key_ops' field is present, it MUST include 'encrypt' or 'wrap key' when encrypting.<a href="#section-4.2-12.3" class="pilcrow">¶</a>
+<li id="section-4.2-12.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'encrypt' or 'wrap key' when encrypting.<a href="#section-4.2-12.3" class="pilcrow">¶</a>
 </li>
-<li id="section-4.2-12.4">If the 'key_ops' field is present, it MUST include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-4.2-12.4" class="pilcrow">¶</a>
+<li id="section-4.2-12.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-4.2-12.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-4.2.1">
           <h4 id="name-security-considerations-6">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-security-considerations-6" class="section-name selfRef">Security Considerations</a>
           </h4>
-<p id="section-4.2.1-1">When using AES-CCM, the following restrictions MUST be enforced:<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-1">When using AES-CCM, the following restrictions <span class="bcp14">MUST</span> be enforced:<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-4.2.1-2.1">The key and nonce pair MUST be unique for every message encrypted. Note that the value of L influences the number of unique nonces.<a href="#section-4.2.1-2.1" class="pilcrow">¶</a>
+<li id="section-4.2.1-2.1">The key and nonce pair <span class="bcp14">MUST</span> be unique for every message encrypted. Note that the value of L influences the number of unique nonces.<a href="#section-4.2.1-2.1" class="pilcrow">¶</a>
 </li>
-<li id="section-4.2.1-2.2">The total number of times the AES block cipher is used MUST NOT exceed 2^61 operations.  This limitation is the sum of times the block cipher is used in computing the MAC value and in performing stream encryption operations.  An explicit check is required only in environments where it is expected that it might be exceeded.<a href="#section-4.2.1-2.2" class="pilcrow">¶</a>
+<li id="section-4.2.1-2.2">The total number of times the AES block cipher is used <span class="bcp14">MUST NOT</span> exceed 2^61 operations.  This limitation is the sum of times the block cipher is used in computing the MAC value and in performing stream encryption operations.  An explicit check is required only in environments where it is expected that it might be exceeded.<a href="#section-4.2.1-2.2" class="pilcrow">¶</a>
 </li>
 </ul>
 <p id="section-4.2.1-3"><span>[<a href="#RFC3610" class="xref">RFC3610</a>]</span> additionally calls out one other consideration of note.  It is possible to do a pre-computation attack against the algorithm in cases where portions of the plaintext are  highly predictable.  This reduces the security of the key size by half.  Ways to deal with this attack include adding a random portion to the nonce value and/or increasing the key size used.  Using a portion of the nonce for a random value will decrease the number of messages that a single key can be used for.  Increasing the key size may require more resources in the constrained device.  See Sections 5 and 10 of <span>[<a href="#RFC3610" class="xref">RFC3610</a>]</span> for more information.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
@@ -1250,23 +1254,23 @@ ul.toc li {
           </tbody>
         </table>
 </div>
-<p id="section-4.3-4">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting <span class="bcp14">MUST</span> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 <p id="section-4.3-5">When using a COSE key for this algorithm, the following checks are made:<a href="#section-4.3-5" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-4.3-6.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-4.3-6.1" class="pilcrow">¶</a>
+<li id="section-4.3-6.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-4.3-6.1" class="pilcrow">¶</a>
 </li>
-<li id="section-4.3-6.2">If the 'alg' field is present, it MUST match the ChaCha20/Poly1305 algorithm being used.<a href="#section-4.3-6.2" class="pilcrow">¶</a>
+<li id="section-4.3-6.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the ChaCha20/Poly1305 algorithm being used.<a href="#section-4.3-6.2" class="pilcrow">¶</a>
 </li>
-<li id="section-4.3-6.3">If the 'key_ops' field is present, it MUST include 'encrypt' or 'wrap key' when encrypting.<a href="#section-4.3-6.3" class="pilcrow">¶</a>
+<li id="section-4.3-6.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'encrypt' or 'wrap key' when encrypting.<a href="#section-4.3-6.3" class="pilcrow">¶</a>
 </li>
-<li id="section-4.3-6.4">If the 'key_ops' field is present, it MUST include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-4.3-6.4" class="pilcrow">¶</a>
+<li id="section-4.3-6.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-4.3-6.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-4.3.1">
           <h4 id="name-security-considerations-7">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-security-considerations-7" class="section-name selfRef">Security Considerations</a>
           </h4>
-<p id="section-4.3.1-1">The key and nonce values MUST be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">The key and nonce values <span class="bcp14">MUST</span> be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 </section>
 </section>
 </section>
@@ -1275,7 +1279,7 @@ ul.toc li {
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-key-derivation-functions-kd" class="section-name selfRef">Key Derivation Functions (KDFs)</a>
       </h2>
 <p id="section-5-1">
-        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07#appendix-Section%209.4" class="relref">Part Section 9.4</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of Key Derivation Functions.
+        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08#appendix-Section%209.4" class="relref">Part Section 9.4</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of Key Derivation Functions.
         This document defines a single context structure and a single KDF. 
         These elements are used for all of the recipient algorithms defined in this document that require a KDF process. 
         These algorithms are defined in Sections <a href="#direct-kdf" class="xref">6.1.2</a>, <a href="#ECDH" class="xref">6.3</a>, and <a href="#ECDH-wrap" class="xref">6.4</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
@@ -1454,6 +1458,7 @@ ul.toc li {
             The field exists in the context information so that a different key is generated for each algorithm even of all of the other context information is the same.
             In practice, this means if algorithm A is broken and thus finding the key is relatively easy, the key derived for algorithm B will not be the same as the key derived for algorithm A.<a href="#section-5.2-7.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.3">PartyUInfo:</dt>
 <dd id="section-5.2-7.4">
             <p id="section-5.2-7.4.1">This field holds information about party U.  The PartyUInfo is encoded as a CBOR array.  The elements of PartyUInfo are encoded in the order presented below.  The elements of the PartyUInfo array are:<a href="#section-5.2-7.4.1" class="pilcrow">¶</a></p>
@@ -1461,22 +1466,27 @@ ul.toc li {
               <dt id="section-5.2-7.4.2.1">identity:</dt>
 <dd id="section-5.2-7.4.2.2">
                 <p id="section-5.2-7.4.2.2.1">This contains the identity information for party U.  The identities can be assigned in one of two manners.  First, a protocol can assign identities based on roles.  For example, the roles of "client" and "server" may be assigned to different entities in the protocol.  Each entity would then use the correct label for the data they send or receive.  The second way for a protocol to assign identities is to use a name based on a naming system (i.e., DNS, X.509 names).<a href="#section-5.2-7.4.2.2.1" class="pilcrow">¶</a></p>
-<p id="section-5.2-7.4.2.2.2"> We define an algorithm parameter 'PartyU identity' that can be used to carry identity information in the message.  However, identity information is often known as part of the protocol and can thus be inferred rather than made explicit.  If identity information is carried in the message, applications SHOULD have a way of validating the supplied identity information.  The identity information does not need to be specified and is set to nil in that case.<a href="#section-5.2-7.4.2.2.2" class="pilcrow">¶</a></p>
+<p id="section-5.2-7.4.2.2.2"> We define an algorithm parameter 'PartyU identity' that can be used to carry identity information in the message.  However, identity information is often known as part of the protocol and can thus be inferred rather than made explicit.  If identity information is carried in the message, applications <span class="bcp14">SHOULD</span> have a way of validating the supplied identity information.  The identity information does not need to be specified and is set to nil in that case.<a href="#section-5.2-7.4.2.2.2" class="pilcrow">¶</a></p>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.4.2.3">nonce:</dt>
 <dd id="section-5.2-7.4.2.4">
                 <p id="section-5.2-7.4.2.4.1">This contains a nonce value.  The nonce can either be implicit from the protocol or be carried as a value in the unprotected header bucket.<a href="#section-5.2-7.4.2.4.1" class="pilcrow">¶</a></p>
 <p id="section-5.2-7.4.2.4.2"> We define an algorithm parameter 'PartyU nonce' that can be used to carry this value in the message; however, the nonce value could be determined by the application and the value determined from elsewhere.<a href="#section-5.2-7.4.2.4.2" class="pilcrow">¶</a></p>
 <p id="section-5.2-7.4.2.4.3"> This option does not need to be specified and is set to nil in that case.<a href="#section-5.2-7.4.2.4.3" class="pilcrow">¶</a></p>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.4.2.5">other:</dt>
 <dd id="section-5.2-7.4.2.6">This contains other information that is defined by the protocol. This option does not need to be specified and is set to nil in that case.<a href="#section-5.2-7.4.2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.5">PartyVInfo:</dt>
 <dd id="section-5.2-7.6">This field holds information about party V.  The content of the structure is the same as for the PartyUInfo but for party V.<a href="#section-5.2-7.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.7">SuppPubInfo:</dt>
 <dd id="section-5.2-7.8">
             <p id="section-5.2-7.8.1">This field contains public information that is mutually known to both parties.<a href="#section-5.2-7.8.1" class="pilcrow">¶</a></p>
@@ -1484,17 +1494,22 @@ ul.toc li {
               <dt id="section-5.2-7.8.2.1">keyDataLength:</dt>
 <dd id="section-5.2-7.8.2.2">This is set to the number of bits of the desired output value.  This practice means if algorithm A can use two different key lengths, the key derived for longer key size will not contain the key for shorter key size as a prefix.<a href="#section-5.2-7.8.2.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.8.2.3">protected:</dt>
 <dd id="section-5.2-7.8.2.4">This field contains the protected parameter field.  If there are no elements in the protected field, then use a zero-length bstr.<a href="#section-5.2-7.8.2.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.8.2.5">other:</dt>
-<dd id="section-5.2-7.8.2.6">This field is for free form data defined by the application.  An example is that an application could define two different byte strings to be placed here to generate different keys for a data stream versus a control stream.  This field is optional and will only be present if the application defines a structure for this information.  Applications that define this SHOULD use CBOR to encode the data so that types and lengths are correctly included.<a href="#section-5.2-7.8.2.6" class="pilcrow">¶</a>
+<dd id="section-5.2-7.8.2.6">This field is for free form data defined by the application.  An example is that an application could define two different byte strings to be placed here to generate different keys for a data stream versus a control stream.  This field is optional and will only be present if the application defines a structure for this information.  Applications that define this <span class="bcp14">SHOULD</span> use CBOR to encode the data so that types and lengths are correctly included.<a href="#section-5.2-7.8.2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </dd>
+<dd class="break"></dd>
 <dt id="section-5.2-7.9">SuppPrivInfo:</dt>
-<dd id="section-5.2-7.10">This field contains private information that is mutually known private information.  An example of this information would be a preexisting shared secret.  (This could, for example, be used in combination with an ECDH key agreement to provide a secondary proof of identity.) The field is optional and will only be present if the application defines a structure for this information.  Applications that define this SHOULD use CBOR to encode the data so that types and lengths are correctly included.<a href="#section-5.2-7.10" class="pilcrow">¶</a>
+<dd id="section-5.2-7.10">This field contains private information that is mutually known private information.  An example of this information would be a preexisting shared secret.  (This could, for example, be used in combination with an ECDH key agreement to provide a secondary proof of identity.) The field is optional and will only be present if the application defines a structure for this information.  Applications that define this <span class="bcp14">SHOULD</span> use CBOR to encode the data so that types and lengths are correctly included.<a href="#section-5.2-7.10" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-5.2-8">The following CDDL fragment corresponds to the text above.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft art-CDDL" id="section-5.2-9">
@@ -1527,14 +1542,14 @@ COSE_KDF_Context = [
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-content-key-distribution-me" class="section-name selfRef">Content Key Distribution Methods</a>
       </h2>
 <p id="section-6-1">
-        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07#appendix-Section%209.5" class="relref">Part Section 9.5</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of content key distribution methods.
+        <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08#appendix-Section%209.5" class="relref">Part Section 9.5</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> contains a generic description of content key distribution methods.
         This document defines the identifiers and usage for a number of content key distribution methods.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <section id="section-6.1">
         <h3 id="name-direct-encryption">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-direct-encryption" class="section-name selfRef">Direct Encryption</a>
         </h3>
 <p id="section-6.1-1">
-          Direct encryption algorithm is defined in <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07#appendix-Section%209.5.1" class="relref">Part Section 9.5.1</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span>.
+          Direct encryption algorithm is defined in <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08#appendix-Section%209.5.1" class="relref">Part Section 9.5.1</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span>.
           Information about how to fill in the COSE_Recipient structure are detailed there.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <section id="section-6.1.1">
           <h4 id="name-direct-key">
@@ -1545,8 +1560,8 @@ COSE_KDF_Context = [
           There are no algorithm parameters defined for this algorithm. 
           The algorithm identifier value is assigned  in <a href="#x-table-direct" class="xref">Table 11</a>.<a href="#section-6.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.1-2">
-          When this algorithm is used, the protected field MUST be zero length.
-          The key type MUST be 'Symmetric'.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
+          When this algorithm is used, the protected field <span class="bcp14">MUST</span> be zero length.
+          The key type <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-6.1.1-2" class="pilcrow">¶</a></p>
 <span id="name-direct-key-2"></span><div id="x-table-direct">
 <table class="center" id="table-11">
             <caption>
@@ -1591,12 +1606,11 @@ COSE_KDF_Context = [
           </h4>
 <p id="section-6.1.2-1">These recipient algorithms take a common shared secret between the two parties and applies the HKDF function (<a href="#HKDF" class="xref">Section 5.1</a>), using the context structure defined in <a href="#context" class="xref">Section 5.2</a> to transform the shared secret into the CEK. 
 
-        The 'protected' field can be of non-zero length.  Either the 'salt' parameter of HKDF or the 'PartyU nonce' parameter of the context structure MUST be present.  The salt/nonce parameter can be generated either randomly or deterministically.  The requirement is that it be a unique value for the shared secret in question.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
+        The 'protected' field can be of non-zero length.  Either the 'salt' parameter of HKDF or the 'PartyU nonce' parameter of the context structure <span class="bcp14">MUST</span> be present.  The salt/nonce parameter can be generated either randomly or deterministically.  The requirement is that it be a unique value for the shared secret in question.<a href="#section-6.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.1.2-2">If the salt/nonce value is generated randomly, then it is suggested that the length of the random value be the same length as the hash function underlying HKDF.  While there is no way to guarantee that it will be unique, there is a high probability that it will be unique.  If the salt/nonce value is generated deterministically, it can be guaranteed to be unique, and thus there is no length requirement.<a href="#section-6.1.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.1.2-3">A new IV must be used for each message if the same key is used.  The IV can be modified in a predictable manner, a random manner, or an unpredictable manner (i.e., encrypting a counter).<a href="#section-6.1.2-3" class="pilcrow">¶</a></p>
 <p id="section-6.1.2-4">The IV used for a key can also be generated from the same HKDF functionality as the key is generated.  If HKDF is used for generating the IV, the algorithm identifier is set to "IV-GENERATION".<a href="#section-6.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-6.1.2-5">When these algorithms are used, the key type MUST be 'symmetric'.<a href="#section-6.1.2-5" class="pilcrow">¶</a></p>
-<p id="section-6.1.2-6">The set of algorithms defined in this document can be found in <a href="#x-table-direct-kdf" class="xref">Table 12</a>.<a href="#section-6.1.2-6" class="pilcrow">¶</a></p>
+<p id="section-6.1.2-5">The set of algorithms defined in this document can be found in <a href="#x-table-direct-kdf" class="xref">Table 12</a>.<a href="#section-6.1.2-5" class="pilcrow">¶</a></p>
 <span id="name-direct-key-with-kdf-2"></span><div id="x-table-direct-kdf">
 <table class="center" id="table-12">
             <caption>
@@ -1639,13 +1653,13 @@ COSE_KDF_Context = [
             </tbody>
           </table>
 </div>
-<p id="section-6.1.2-8">When using a COSE key for this algorithm, the following checks are made:<a href="#section-6.1.2-8" class="pilcrow">¶</a></p>
+<p id="section-6.1.2-7">When using a COSE key for this algorithm, the following checks are made:<a href="#section-6.1.2-7" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-6.1.2-9.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-6.1.2-9.1" class="pilcrow">¶</a>
+<li id="section-6.1.2-8.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-6.1.2-8.1" class="pilcrow">¶</a>
 </li>
-<li id="section-6.1.2-9.2">If the 'alg' field is present, it MUST match the algorithm being used.<a href="#section-6.1.2-9.2" class="pilcrow">¶</a>
+<li id="section-6.1.2-8.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the algorithm being used.<a href="#section-6.1.2-8.2" class="pilcrow">¶</a>
 </li>
-<li id="section-6.1.2-9.3">If the 'key_ops' field is present, it MUST include 'deriveKey' or 'deriveBits'.<a href="#section-6.1.2-9.3" class="pilcrow">¶</a>
+<li id="section-6.1.2-8.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'deriveKey' or 'deriveBits'.<a href="#section-6.1.2-8.3" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-6.1.2.1">
@@ -1663,17 +1677,17 @@ COSE_KDF_Context = [
         <h3 id="name-aes-key-wrap">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-aes-key-wrap" class="section-name selfRef">AES Key Wrap</a>
         </h3>
-<p id="section-6.2-1">The AES Key Wrap algorithm is defined in <span>[<a href="#RFC3394" class="xref">RFC3394</a>]</span>.  This algorithm uses an AES key to wrap a value that is a multiple of 64 bits.  As such, it can be used to wrap a key for any of the content encryption algorithms defined in this document. The algorithm requires a single fixed parameter, the initial value.  This is fixed to the value specified in Section 2.2.3.1 of  <span>[<a href="#RFC3394" class="xref">RFC3394</a>]</span>.  There are no public key parameters that vary on a per-invocation basis.  The protected header bucket MUST be empty.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting MUST validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">The AES Key Wrap algorithm is defined in <span>[<a href="#RFC3394" class="xref">RFC3394</a>]</span>.  This algorithm uses an AES key to wrap a value that is a multiple of 64 bits.  As such, it can be used to wrap a key for any of the content encryption algorithms defined in this document. The algorithm requires a single fixed parameter, the initial value.  This is fixed to the value specified in Section 2.2.3.1 of  <span>[<a href="#RFC3394" class="xref">RFC3394</a>]</span>.  There are no public key parameters that vary on a per-invocation basis.  The protected header bucket <span class="bcp14">MUST</span> be empty.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">Keys may be obtained either from a key structure or from a recipient structure.  Implementations encrypting and decrypting <span class="bcp14">MUST</span> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 <p id="section-6.2-3">When using a COSE key for this algorithm, the following checks are made:<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-6.2-4.1">The 'kty' field MUST be present, and it MUST be 'Symmetric'.<a href="#section-6.2-4.1" class="pilcrow">¶</a>
+<li id="section-6.2-4.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-6.2-4.1" class="pilcrow">¶</a>
 </li>
-<li id="section-6.2-4.2">If the 'alg' field is present, it MUST match the AES Key Wrap algorithm being used.<a href="#section-6.2-4.2" class="pilcrow">¶</a>
+<li id="section-6.2-4.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the AES Key Wrap algorithm being used.<a href="#section-6.2-4.2" class="pilcrow">¶</a>
 </li>
-<li id="section-6.2-4.3">If the 'key_ops' field is present, it MUST include 'encrypt' or 'wrap key' when encrypting.<a href="#section-6.2-4.3" class="pilcrow">¶</a>
+<li id="section-6.2-4.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'encrypt' or 'wrap key' when encrypting.<a href="#section-6.2-4.3" class="pilcrow">¶</a>
 </li>
-<li id="section-6.2-4.4">If the 'key_ops' field is present, it MUST include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-6.2-4.4" class="pilcrow">¶</a>
+<li id="section-6.2-4.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'decrypt' or 'unwrap key'  when decrypting.<a href="#section-6.2-4.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <span id="name-aes-key-wrap-algorithm-valu"></span><div id="x-table_aes_keywrap">
@@ -1734,8 +1748,8 @@ COSE_KDF_Context = [
 </li>
 <li id="section-6.3-3.2">Computed Secret to Shared Secret: Once the computed secret is known, the resulting value needs to be converted to a byte string to run the KDF.  The x-coordinate is used for all of the curves defined in this document.  For curves X25519 and X448, the resulting value is used directly as it is a byte string of a known length.  For the P-256, P-384, and P-521 curves, the x-coordinate is run through the I2OSP function defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>, using the same computation for n as is defined in <a href="#ECDSA" class="xref">Section 2.1</a>.<a href="#section-6.3-3.2" class="pilcrow">¶</a>
 </li>
-<li id="section-6.3-3.3">Ephemeral-Static or Static-Static: The key agreement process may be done using either a static or an ephemeral key for the sender's side.  When using ephemeral keys, the sender MUST generate a new ephemeral key for every key agreement operation.  The ephemeral key is placed in the 'ephemeral key' parameter and MUST be present for all algorithm identifiers that use ephemeral keys.  When using static keys, the sender MUST either generate a new random value or create a unique value. 
-        For the KDFs used, this means either the 'salt' parameter for HKDF (<a href="#HKDF_Alg_Params" class="xref">Table 9</a>) or the 'PartyU nonce' parameter for the context structure (<a href="#KDF_Context_Alg_Params" class="xref">Table 10</a>) MUST be present (both can be present if desired). The value in the parameter MUST be unique for the pair of keys being used.  It is acceptable to use a global counter that is incremented for every static-static operation and use the resulting value.  When using static keys, the static key should be identified to the recipient.  The static key can be identified either by providing the key ('static key') or by providing a key identifier for the static key ('static key id').  Both of these header parameters are defined in <a href="#x-table-ecdh-es-parameter-table" class="xref">Table 15</a>.<a href="#section-6.3-3.3" class="pilcrow">¶</a>
+<li id="section-6.3-3.3">Ephemeral-Static or Static-Static: The key agreement process may be done using either a static or an ephemeral key for the sender's side.  When using ephemeral keys, the sender <span class="bcp14">MUST</span> generate a new ephemeral key for every key agreement operation.  The ephemeral key is placed in the 'ephemeral key' parameter and <span class="bcp14">MUST</span> be present for all algorithm identifiers that use ephemeral keys.  When using static keys, the sender <span class="bcp14">MUST</span> either generate a new random value or create a unique value. 
+        For the KDFs used, this means either the 'salt' parameter for HKDF (<a href="#HKDF_Alg_Params" class="xref">Table 9</a>) or the 'PartyU nonce' parameter for the context structure (<a href="#KDF_Context_Alg_Params" class="xref">Table 10</a>) <span class="bcp14">MUST</span> be present (both can be present if desired). The value in the parameter <span class="bcp14">MUST</span> be unique for the pair of keys being used.  It is acceptable to use a global counter that is incremented for every static-static operation and use the resulting value.  When using static keys, the static key should be identified to the recipient.  The static key can be identified either by providing the key ('static key') or by providing a key identifier for the static key ('static key id').  Both of these header parameters are defined in <a href="#x-table-ecdh-es-parameter-table" class="xref">Table 15</a>.<a href="#section-6.3-3.3" class="pilcrow">¶</a>
 </li>
 <li id="section-6.3-3.4">Key Derivation Algorithm: The result of an ECDH key agreement process does not provide a uniformly random secret.  As such, it needs to be run through a KDF in order to produce a usable key.  Processing the secret through a KDF also allows for the introduction of context material: how the key is going to be used and one-time material for static-static key agreement.  All of the algorithms defined in this document use one of the HKDF algorithms defined in <a href="#HKDF" class="xref">Section 5.1</a> with the context structure defined in <a href="#context" class="xref">Section 5.2</a>.<a href="#section-6.3-3.4" class="pilcrow">¶</a>
 </li>
@@ -1839,24 +1853,31 @@ COSE_KDF_Context = [
           </tbody>
         </table>
 </div>
-<p id="section-6.3-8">This document defines these algorithms to be used with the curves P-256, P-384, P-521, X25519, and X448.  Implementations MUST verify that the key type and curve are correct.  Different curves are restricted to different key types.  Implementations MUST verify that the curve and algorithm are appropriate for the entities involved.<a href="#section-6.3-8" class="pilcrow">¶</a></p>
+<p id="section-6.3-8">This document defines these algorithms to be used with the curves P-256, P-384, P-521, X25519, and X448.  Implementations <span class="bcp14">MUST</span> verify that the key type and curve are correct.  Different curves are restricted to different key types.  Implementations <span class="bcp14">MUST</span> verify that the curve and algorithm are appropriate for the entities involved.<a href="#section-6.3-8" class="pilcrow">¶</a></p>
 <p id="section-6.3-9">When using a COSE key for this algorithm, the following checks are made:<a href="#section-6.3-9" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-6.3-10.1">The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.<a href="#section-6.3-10.1" class="pilcrow">¶</a>
+<li id="section-6.3-10.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'EC2' or 'OKP'.<a href="#section-6.3-10.1" class="pilcrow">¶</a>
 </li>
-<li id="section-6.3-10.2">If the 'alg' field is present, it MUST match the key agreement algorithm being used.<a href="#section-6.3-10.2" class="pilcrow">¶</a>
+<li id="section-6.3-10.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the key agreement algorithm being used.<a href="#section-6.3-10.2" class="pilcrow">¶</a>
 </li>
-<li id="section-6.3-10.3">If the 'key_ops' field is present, it MUST include 'derive key' or 'derive bits' for the private key.<a href="#section-6.3-10.3" class="pilcrow">¶</a>
+<li id="section-6.3-10.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'derive key' or 'derive bits' for the private key.<a href="#section-6.3-10.3" class="pilcrow">¶</a>
 </li>
-<li id="section-6.3-10.4">If the 'key_ops' field is present, it MUST be empty for the public key.<a href="#section-6.3-10.4" class="pilcrow">¶</a>
+<li id="section-6.3-10.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> be empty for the public key.<a href="#section-6.3-10.4" class="pilcrow">¶</a>
 </li>
 </ul>
 <section id="section-6.3.1">
           <h4 id="name-security-considerations-10">
 <a href="#section-6.3.1" class="section-number selfRef">6.3.1. </a><a href="#name-security-considerations-10" class="section-name selfRef">Security Considerations</a>
           </h4>
-<p id="section-6.3.1-1">There is a method of checking that points provided from external entities are valid.  For the 'EC2' key format, this can be done by checking that the x and y values form a point on the curve.  For the 'OKP' format, there is no simple way to do point validation.<a href="#section-6.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.3.1-2">Consideration was given to requiring that the public keys of both entities be provided as part of the key derivation process (as recommended in Section 6.1 of <span>[<a href="#RFC7748" class="xref">RFC7748</a>]</span>). This was not done as COSE is used in a store and forward format rather than in online key exchange.  In order for this to be a problem, either the receiver public key has to be chosen maliciously or the sender has to be malicious.  In either case, all security evaporates anyway.<a href="#section-6.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.3.1-1">
+            There is a method of checking that points provided from external entities are valid.
+            For the 'EC2' key format, this can be done by checking that the x and y values form a point on the curve.
+            For the 'OKP' format, there is no simple way to do point validation.<a href="#section-6.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.3.1-2">
+            Consideration was given to requiring that the public keys of both entities be provided as part of the key derivation process (as recommended in <span><a href="https://rfc-editor.org/rfc/rfc7748#section-6.4" class="relref">Section 6.4</a> of [<a href="#RFC7748" class="xref">RFC7748</a>]</span>). 
+            This was not done as COSE is used in a store and forward format rather than in online key exchange. 
+            In order for this to be a problem, either the receiver public key has to be chosen maliciously or the sender has to be malicious. 
+            In either case, all security evaporates anyway.<a href="#section-6.3.1-2" class="pilcrow">¶</a></p>
 <p id="section-6.3.1-3">A proof of possession of the private key associated with the public key is recommended when a key is moved from untrusted to trusted (either by the end user or by the entity that is responsible for making trust statements on keys).<a href="#section-6.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </section>
@@ -1942,13 +1963,13 @@ COSE_KDF_Context = [
 </div>
 <p id="section-6.4-5">When using a COSE key for this algorithm, the following checks are made:<a href="#section-6.4-5" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-6.4-6.1">The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.<a href="#section-6.4-6.1" class="pilcrow">¶</a>
+<li id="section-6.4-6.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'EC2' or 'OKP'.<a href="#section-6.4-6.1" class="pilcrow">¶</a>
 </li>
-<li id="section-6.4-6.2">If the 'alg' field is present, it MUST match the key agreement algorithm being used.<a href="#section-6.4-6.2" class="pilcrow">¶</a>
+<li id="section-6.4-6.2">If the 'alg' field is present, it <span class="bcp14">MUST</span> match the key agreement algorithm being used.<a href="#section-6.4-6.2" class="pilcrow">¶</a>
 </li>
-<li id="section-6.4-6.3">If the 'key_ops' field is present, it MUST include 'derive key' or 'derive bits' for the private key.<a href="#section-6.4-6.3" class="pilcrow">¶</a>
+<li id="section-6.4-6.3">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> include 'derive key' or 'derive bits' for the private key.<a href="#section-6.4-6.3" class="pilcrow">¶</a>
 </li>
-<li id="section-6.4-6.4">If the 'key_ops' field is present, it MUST be empty for the public key.<a href="#section-6.4-6.4" class="pilcrow">¶</a>
+<li id="section-6.4-6.4">If the 'key_ops' field is present, it <span class="bcp14">MUST</span> be empty for the public key.<a href="#section-6.4-6.4" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
@@ -2005,7 +2026,7 @@ COSE_KDF_Context = [
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-elliptic-curve-keys" class="section-name selfRef">Elliptic Curve Keys</a>
         </h3>
 <p id="section-7.1-1">Two different key structures are defined for elliptic curve keys.  One version uses both an x-coordinate and a y-coordinate, potentially with point compression ('EC2').  This is the traditional EC point representation that is used in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.  The other version uses only the x-coordinate as the y-coordinate is either to be recomputed or not needed for the key agreement operation ('OKP').<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">Applications MUST check that the curve and the key type are consistent and reject a key if they are not.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">Applications <span class="bcp14">MUST</span> check that the curve and the key type are consistent and reject a key if they are not.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <span id="name-elliptic-curves"></span><div id="x-table-ec-curves">
 <table class="center" id="table-18">
           <caption>
@@ -2077,17 +2098,21 @@ COSE_KDF_Context = [
             <dt id="section-7.1.1-3.1">crv:</dt>
 <dd style="margin-left: 2.5em" id="section-7.1.1-3.2">This contains an identifier of the curve to be used with the key. The curves defined in this document for this key type can be found in <a href="#x-table-ec-curves" class="xref">Table 18</a>.  Other curves may be registered in the future, and private curves can be used as well.<a href="#section-7.1.1-3.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1.1-3.3">x:</dt>
-<dd style="margin-left: 2.5em" id="section-7.1.1-3.4">This contains the x-coordinate for the EC point.  The integer is converted to a byte string as defined in <span>[<a href="#SEC1" class="xref">SEC1</a>]</span>.  Leading zero octets MUST be preserved.<a href="#section-7.1.1-3.4" class="pilcrow">¶</a>
+<dd style="margin-left: 2.5em" id="section-7.1.1-3.4">This contains the x-coordinate for the EC point.  The integer is converted to a byte string as defined in <span>[<a href="#SEC1" class="xref">SEC1</a>]</span>.  Leading zero octets <span class="bcp14">MUST</span> be preserved.<a href="#section-7.1.1-3.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1.1-3.5">y:</dt>
-<dd style="margin-left: 2.5em" id="section-7.1.1-3.6">This contains either the sign bit or the value of the y-coordinate for the EC point.  When encoding the value y, the integer is converted to an byte string (as defined in <span>[<a href="#SEC1" class="xref">SEC1</a>]</span>) and encoded as a CBOR bstr.  Leading zero octets MUST be preserved.  The compressed point encoding is also supported.  Compute the sign bit as laid out in the Elliptic-Curve-Point-to-Octet-String Conversion function of <span>[<a href="#SEC1" class="xref">SEC1</a>]</span>.  If the sign bit is zero, then encode y as a CBOR false value; otherwise, encode y as a CBOR true value.  The encoding of the infinity point is not supported.<a href="#section-7.1.1-3.6" class="pilcrow">¶</a>
+<dd style="margin-left: 2.5em" id="section-7.1.1-3.6">This contains either the sign bit or the value of the y-coordinate for the EC point.  When encoding the value y, the integer is converted to an byte string (as defined in <span>[<a href="#SEC1" class="xref">SEC1</a>]</span>) and encoded as a CBOR bstr.  Leading zero octets <span class="bcp14">MUST</span> be preserved.  The compressed point encoding is also supported.  Compute the sign bit as laid out in the Elliptic-Curve-Point-to-Octet-String Conversion function of <span>[<a href="#SEC1" class="xref">SEC1</a>]</span>.  If the sign bit is zero, then encode y as a CBOR false value; otherwise, encode y as a CBOR true value.  The encoding of the infinity point is not supported.<a href="#section-7.1.1-3.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1.1-3.7">d:</dt>
 <dd style="margin-left: 2.5em" id="section-7.1.1-3.8">This contains the private key.<a href="#section-7.1.1-3.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
-<p id="section-7.1.1-4">For public keys, it is REQUIRED that 'crv', 'x', and 'y' be present in the structure.  For private keys, it is REQUIRED that 'crv' and 'd' be present in the structure.  For private keys, it is RECOMMENDED that 'x' and 'y' also be present, but they can be recomputed from the required elements and omitting them saves on space.<a href="#section-7.1.1-4" class="pilcrow">¶</a></p>
+<p id="section-7.1.1-4">For public keys, it is <span class="bcp14">REQUIRED</span> that 'crv', 'x', and 'y' be present in the structure.  For private keys, it is <span class="bcp14">REQUIRED</span> that 'crv' and 'd' be present in the structure.  For private keys, it is <span class="bcp14">RECOMMENDED</span> that 'x' and 'y' also be present, but they can be recomputed from the required elements and omitting them saves on space.<a href="#section-7.1.1-4" class="pilcrow">¶</a></p>
 <span id="name-ec-key-parameters"></span><div id="x-table-ec2-keys">
 <table class="center" id="table-19">
             <caption>
@@ -2148,14 +2173,17 @@ COSE_KDF_Context = [
           <dt id="section-7.2-3.1">crv:</dt>
 <dd style="margin-left: 2.5em" id="section-7.2-3.2">This contains an identifier of the curve to be used with the key. The curves defined in this document for this key type can be found in <a href="#x-table-ec-curves" class="xref">Table 18</a>.  Other curves may be registered in the future and private curves can be used as well.<a href="#section-7.2-3.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.2-3.3">x:</dt>
 <dd style="margin-left: 2.5em" id="section-7.2-3.4">This contains the public key.  The byte string contains the public key as defined by the algorithm. (For X25591, internally it is a little-endian integer.)<a href="#section-7.2-3.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.2-3.5">d:</dt>
 <dd style="margin-left: 2.5em" id="section-7.2-3.6">This contains the private key.<a href="#section-7.2-3.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
-<p id="section-7.2-4">For public keys, it is REQUIRED that 'crv' and  'x' be present in the structure.  For private keys, it is REQUIRED that 'crv' and 'd' be present in the structure.  For private keys, it is RECOMMENDED that 'x' also be present, but it can be recomputed from the required elements and omitting it saves on space.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
+<p id="section-7.2-4">For public keys, it is <span class="bcp14">REQUIRED</span> that 'crv' and  'x' be present in the structure.  For private keys, it is <span class="bcp14">REQUIRED</span> that 'crv' and 'd' be present in the structure.  For private keys, it is <span class="bcp14">RECOMMENDED</span> that 'x' also be present, but it can be recomputed from the required elements and omitting it saves on space.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
 <span id="name-octet-key-pair-parameters"></span><div id="x-table-ec1-keys">
 <table class="center" id="table-20">
           <caption>
@@ -2207,8 +2235,9 @@ COSE_KDF_Context = [
           <dt id="section-7.3-3.1">k:</dt>
 <dd id="section-7.3-3.2">This contains the value of the key.<a href="#section-7.3-3.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
-<p id="section-7.3-4">This key structure does not have a form that contains only public members.  As it is expected that this key structure is going to be transmitted, care must be taken that it is never transmitted accidentally or insecurely.  For symmetric keys, it is REQUIRED that 'k' be present in the structure.<a href="#section-7.3-4" class="pilcrow">¶</a></p>
+<p id="section-7.3-4">This key structure does not have a form that contains only public members.  As it is expected that this key structure is going to be transmitted, care must be taken that it is never transmitted accidentally or insecurely.  For symmetric keys, it is <span class="bcp14">REQUIRED</span> that 'k' be present in the structure.<a href="#section-7.3-4" class="pilcrow">¶</a></p>
 <span id="name-symmetric-key-parameters"></span><div id="x-table-symmetric-keys">
 <table class="center" id="table-21">
           <caption>
@@ -2249,17 +2278,19 @@ COSE_KDF_Context = [
         This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <span><a href="https://rfc-editor.org/rfc/rfc8551#section-2.5.2" class="relref">Section 2.5.2</a> of [<a href="#RFC8551" class="xref">RFC8551</a>]</span>.
         The concept is being pulled forward and defined now for COSE.<a href="#section-8-1" class="pilcrow">¶</a></p>
 <p id="section-8-2">
+        The algorithm identifier is not part of the capabilities data as it should already be part of message structure.
         There is a presumption in the way that this is laid out is that the algorithm identifier itself is not needed to be a part of this as it is specified in a different location.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <p id="section-8-3">
-        Two different types of capabilities are defined:  Capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list capabilities is immutable.
+        Two different types of capabilities are defined: capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list of capabilities is immutable.
         If it is later found that a new capability is needed for a key type or an algorithm, it will require that a new code point be assigned to deal with that.
-        As a general rule, the capabilities are going to map to algorithm specific header parameters or key parameters, but they do not need to do so.
+        As a general rule, the capabilities are going to map to algorithm-specific header parameters or key parameters, but they do not need to do so.
         An example of this is the HSS-LMS key capabilities defined below where the hash algorithm used is included.<a href="#section-8-3" class="pilcrow">¶</a></p>
 <p id="section-8-4">
         The capability structure is an array of values, the order being dependent on the specific algorithm or key.
         For an algorithm, the first element should always be a key type value, but the items that are specific to a key should not be included in the algorithm capabilities.
         This means that if one wishes to enumerate all of the capabilities for a device which implements ECDH, it requires multiple pairs of capability structures (algorithm, key) to deal with the different key types and curves that are supported.
-        For a key, the first element should also be a key type value, while this means that this value will be duplicated if both an algorithm and key capability are used, the key type is needed in order to understand the rest of the values.<a href="#section-8-4" class="pilcrow">¶</a></p>
+        For a key, the first element should also be a key type value.
+        While this means that this value will be duplicated if both an algorithm and key capability are used, the key type is needed in order to understand the rest of the values.<a href="#section-8-4" class="pilcrow">¶</a></p>
 <section id="section-8.1">
         <h3 id="name-assignments-for-existing-ke">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-assignments-for-existing-ke" class="section-name selfRef">Assignments for Existing Key Types</a>
@@ -2306,16 +2337,16 @@ COSE_KDF_Context = [
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-assignments-for-existing-al" class="section-name selfRef">Assignments for Existing Algorithms</a>
         </h3>
 <p id="section-8.2-1">
-          For the current set of algorithms in the registry, those in this document as well as those in <span>[<a href="#RFC8230" class="xref">RFC8230</a>]</span> and <span>[<a href="#I-D.ietf-cose-hash-sig" class="xref">I-D.ietf-cose-hash-sig</a>]</span>, the capabilities is set to the single entry of the key type (from the "COSE Key Types" Registry) that will be accepted.
-          It is expected future registered algorithms could have zero, one, multiple items.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+          For the current set of algorithms in the registry, those in this document as well as those in <span>[<a href="#RFC8230" class="xref">RFC8230</a>]</span> and <span>[<a href="#I-D.ietf-cose-hash-sig" class="xref">I-D.ietf-cose-hash-sig</a>]</span>, the capabilities list is an array with one element, the key type (from the "COSE Key Types" Registry).
+          It is expected future registered algorithms could have zero, one, or multiple elements.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 </section>
 <section id="section-8.3">
         <h3 id="name-examples-2">
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-examples-2" class="section-name selfRef">Examples</a>
         </h3>
 <p id="section-8.3-1">
-          In this section a trio of examples are provided.
-          In all three cases the pair of capabilities is always provided as the algorithm and then the key capabilities.
+          In this section a trio of examples is provided.
+          In all three cases it it encodes the algorithm capabilities followed by  the key capabilities.
           For simplicity's sake, a CBOR sequence <span>[<a href="#I-D.ietf-cbor-sequence" class="xref">I-D.ietf-cbor-sequence</a>]</span> is used for the two arrays.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-8.3-2">
 <pre>
@@ -2340,18 +2371,18 @@ ECDH-ES + A256KW with an X25519 curve:
       <h2 id="name-cbor-encoding-restrictions">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-cbor-encoding-restrictions" class="section-name selfRef">CBOR Encoding Restrictions</a>
       </h2>
-<p id="section-9-1">There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions:<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This document limits the restrictions it imposes on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions:<a href="#section-9-1" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-9-2.1">
           The restriction applies to the encoding of the COSE_KDF_Context.<a href="#section-9-2.1" class="pilcrow">¶</a>
 </li>
 <li id="section-9-2.2">
-          Encoding MUST be done using definite lengths and the length of the  MUST be the minimum possible length.
+          Encoding <span class="bcp14">MUST</span> be done using definite lengths and the length of the  <span class="bcp14">MUST</span> be the minimum possible length.
           This means that the integer 1 is encoded as "0x01" and not "0x1801".<a href="#section-9-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-9-2.3">
-          Applications MUST NOT generate messages with the same label used twice as a key in a single map. 
-          Applications MUST NOT parse and process messages with the same label used twice as a key in a single map. 
+          Applications <span class="bcp14">MUST NOT</span> generate messages with the same label used twice as a key in a single map. 
+          Applications <span class="bcp14">MUST NOT</span> parse and process messages with the same label used twice as a key in a single map. 
           Applications can enforce the parse and process requirement by using parsers that will fail the parse step or by using parsers that will pass all keys to the application, and the application can perform the check for duplicate keys.<a href="#section-9-2.3" class="pilcrow">¶</a>
 </li>
 </ul>
@@ -2421,18 +2452,41 @@ ECDH-ES + A256KW with an X25519 curve:
           IANA is requested to create a new column in the "COSE Algorithms" registry.
           The new column is to be labeled "Capabilities".
           The new column is populated with "[kty]" for all current, non-provisional, registrations.
-          It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted final registration for this document is done.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+          It is expected that the documents which define those algorithms will be expanded to include this registration, if this is not done then the DE should be consulted before final registration for this document is done.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 <p id="section-10.2-2">
           IANA is requested to update the reference column in the "COSE Algorithms" registry to include [[This Document]] as a reference for all rows where it is not already present.
           Note to IANA:  There is an action in <span>[<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> which also modifies data in the reference column.
           That action should be applied first.<a href="#section-10.2-2" class="pilcrow">¶</a></p>
+<p id="section-10.2-3">
+          IANA is rquested to add a new row to the "COSE Algorithms" registry.<a href="#section-10.2-3" class="pilcrow">¶</a></p>
+<table class="center" id="table-23">
+          <caption><a href="#table-23" class="selfRef">Table 23</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Value</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+              <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              <th class="text-left" rowspan="1" colspan="1">Recommended</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">IV Generation</td>
+              <td class="text-left" rowspan="1" colspan="1">IV-GENERATION</td>
+              <td class="text-left" rowspan="1" colspan="1">Reserved for doing IV generation for symmetric algorithms.</td>
+              <td class="text-left" rowspan="1" colspan="1">[[THIS DOCUMENT]]</td>
+              <td class="text-left" rowspan="1" colspan="1">No</td>
+            </tr>
+          </tbody>
+        </table>
 </section>
 <section id="section-10.3">
         <h3 id="name-changes-to-the-cose-key-typ">
 <a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-changes-to-the-cose-key-typ" class="section-name selfRef">Changes to the "COSE Key Type Parameters" registry</a>
         </h3>
 <p id="section-10.3-1">
-          IANA is required to modify the description to "Public Key" for the line with "Key Type" of 2 and the "Name" of "x".
+          IANA is requested to modify the description to "Public Key" for the line with "Key Type" of 2 and the "Name" of "x".
           See <a href="#x-table-ec1-keys" class="xref">Table 20</a> which has been modified with this change.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
 </section>
 </section>
@@ -2482,55 +2536,72 @@ ECDH-ES + A256KW with an X25519 curve:
 <dl class="references">
 <dt id="I-D.ietf-cose-rfc8152bis-struct">[I-D.ietf-cose-rfc8152bis-struct]</dt>
 <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-struct-07</span>, <time datetime="2019-11-17">17 November 2019</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-struct-08</span>, <time datetime="2020-03-09">9 March 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-08</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2104">[RFC2104]</dt>
 <dd>
 <span class="refAuthor">Krawczyk, H.</span><span class="refAuthor">, Bellare, M.</span><span class="refAuthor">, and R. Canetti</span>, <span class="refTitle">"HMAC: Keyed-Hashing for Message Authentication"</span>, <span class="seriesInfo">RFC 2104</span>, <span class="seriesInfo">DOI 10.17487/RFC2104</span>, <time datetime="1997-02">February 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2104">https://www.rfc-editor.org/info/rfc2104</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
 <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC3394">[RFC3394]</dt>
 <dd>
 <span class="refAuthor">Schaad, J.</span><span class="refAuthor"> and R. Housley</span>, <span class="refTitle">"Advanced Encryption Standard (AES) Key Wrap Algorithm"</span>, <span class="seriesInfo">RFC 3394</span>, <span class="seriesInfo">DOI 10.17487/RFC3394</span>, <time datetime="2002-09">September 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3394">https://www.rfc-editor.org/info/rfc3394</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC3610">[RFC3610]</dt>
 <dd>
 <span class="refAuthor">Whiting, D.</span><span class="refAuthor">, Housley, R.</span><span class="refAuthor">, and N. Ferguson</span>, <span class="refTitle">"Counter with CBC-MAC (CCM)"</span>, <span class="seriesInfo">RFC 3610</span>, <span class="seriesInfo">DOI 10.17487/RFC3610</span>, <time datetime="2003-09">September 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3610">https://www.rfc-editor.org/info/rfc3610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5869">[RFC5869]</dt>
 <dd>
 <span class="refAuthor">Krawczyk, H.</span><span class="refAuthor"> and P. Eronen</span>, <span class="refTitle">"HMAC-based Extract-and-Expand Key Derivation Function (HKDF)"</span>, <span class="seriesInfo">RFC 5869</span>, <span class="seriesInfo">DOI 10.17487/RFC5869</span>, <time datetime="2010-05">May 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5869">https://www.rfc-editor.org/info/rfc5869</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6090">[RFC6090]</dt>
 <dd>
 <span class="refAuthor">McGrew, D.</span><span class="refAuthor">, Igoe, K.</span><span class="refAuthor">, and M. Salter</span>, <span class="refTitle">"Fundamental Elliptic Curve Cryptography Algorithms"</span>, <span class="seriesInfo">RFC 6090</span>, <span class="seriesInfo">DOI 10.17487/RFC6090</span>, <time datetime="2011-02">February 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6090">https://www.rfc-editor.org/info/rfc6090</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6979">[RFC6979]</dt>
 <dd>
 <span class="refAuthor">Pornin, T.</span>, <span class="refTitle">"Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA)"</span>, <span class="seriesInfo">RFC 6979</span>, <span class="seriesInfo">DOI 10.17487/RFC6979</span>, <time datetime="2013-08">August 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6979">https://www.rfc-editor.org/info/rfc6979</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7049">[RFC7049]</dt>
 <dd>
 <span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">RFC 7049</span>, <span class="seriesInfo">DOI 10.17487/RFC7049</span>, <time datetime="2013-10">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7049">https://www.rfc-editor.org/info/rfc7049</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8439">[RFC8439]</dt>
 <dd>
 <span class="refAuthor">Nir, Y.</span><span class="refAuthor"> and A. Langley</span>, <span class="refTitle">"ChaCha20 and Poly1305 for IETF Protocols"</span>, <span class="seriesInfo">RFC 8439</span>, <span class="seriesInfo">DOI 10.17487/RFC8439</span>, <time datetime="2018-06">June 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8439">https://www.rfc-editor.org/info/rfc8439</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7748">[RFC7748]</dt>
 <dd>
 <span class="refAuthor">Langley, A.</span><span class="refAuthor">, Hamburg, M.</span><span class="refAuthor">, and S. Turner</span>, <span class="refTitle">"Elliptic Curves for Security"</span>, <span class="seriesInfo">RFC 7748</span>, <span class="seriesInfo">DOI 10.17487/RFC7748</span>, <time datetime="2016-01">January 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7748">https://www.rfc-editor.org/info/rfc7748</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
 <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="AES-GCM">[AES-GCM]</dt>
 <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC"</span>, <span class="seriesInfo">DOI 10.6028/NIST.SP.800-38D</span>, <span class="seriesInfo">NIST Special Publication 800-38D</span>, <time datetime="2007-11">November 2007</time>, <span>&lt;<a href="https://csrc.nist.gov/publications/nistpubs/800-38D/SP-800-38D.pdf">https://csrc.nist.gov/publications/nistpubs/800-38D/SP-800-38D.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="DSS">[DSS]</dt>
 <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <span class="seriesInfo">DOI 10.6028/NIST.FIPS.186-4</span>, <span class="seriesInfo">FIPS PUB 186-4</span>, <time datetime="2013-07">July 2013</time>, <span>&lt;<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="MAC">[MAC]</dt>
 <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Computer Data Authentication"</span>, <span class="seriesInfo">FIPS PUB 113</span>, <time datetime="1985-05">May 1985</time>, <span>&lt;<a href="http://csrc.nist.gov/publications/fips/fips113/fips113.html">http://csrc.nist.gov/publications/fips/fips113/fips113.html</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="SEC1">[SEC1]</dt>
 <dd>
 <span class="refAuthor">Certicom Research</span>, <span class="refTitle">"SEC 1: Elliptic Curve Cryptography"</span>, <time datetime="2009-05">May 2009</time>, <span>&lt;<a href="http://www.secg.org/sec1-v2.pdf">http://www.secg.org/sec1-v2.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8032">[RFC8032]</dt>
 <dd>
 <span class="refAuthor">Josefsson, S.</span><span class="refAuthor"> and I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8032">https://www.rfc-editor.org/info/rfc8032</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 </dl>
 </section>
 <section id="section-12.2">
@@ -2541,54 +2612,71 @@ ECDH-ES + A256KW with an X25519 curve:
 <dt id="RFC8610">[RFC8610]</dt>
 <dd>
 <span class="refAuthor">Birkholz, H.</span><span class="refAuthor">, Vigano, C.</span><span class="refAuthor">, and C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8610">https://www.rfc-editor.org/info/rfc8610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4231">[RFC4231]</dt>
 <dd>
 <span class="refAuthor">Nystrom, M.</span>, <span class="refTitle">"Identifiers and Test Vectors for HMAC-SHA-224, HMAC-SHA-256, HMAC-SHA-384, and HMAC-SHA-512"</span>, <span class="seriesInfo">RFC 4231</span>, <span class="seriesInfo">DOI 10.17487/RFC4231</span>, <time datetime="2005-12">December 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4231">https://www.rfc-editor.org/info/rfc4231</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4493">[RFC4493]</dt>
 <dd>
 <span class="refAuthor">Song, JH.</span><span class="refAuthor">, Poovendran, R.</span><span class="refAuthor">, Lee, J.</span><span class="refAuthor">, and T. Iwata</span>, <span class="refTitle">"The AES-CMAC Algorithm"</span>, <span class="seriesInfo">RFC 4493</span>, <span class="seriesInfo">DOI 10.17487/RFC4493</span>, <time datetime="2006-06">June 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4493">https://www.rfc-editor.org/info/rfc4493</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5116">[RFC5116]</dt>
 <dd>
 <span class="refAuthor">McGrew, D.</span>, <span class="refTitle">"An Interface and Algorithms for Authenticated Encryption"</span>, <span class="seriesInfo">RFC 5116</span>, <span class="seriesInfo">DOI 10.17487/RFC5116</span>, <time datetime="2008-01">January 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5116">https://www.rfc-editor.org/info/rfc5116</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5480">[RFC5480]</dt>
 <dd>
 <span class="refAuthor">Turner, S.</span><span class="refAuthor">, Brown, D.</span><span class="refAuthor">, Yiu, K.</span><span class="refAuthor">, Housley, R.</span><span class="refAuthor">, and T. Polk</span>, <span class="refTitle">"Elliptic Curve Cryptography Subject Public Key Information"</span>, <span class="seriesInfo">RFC 5480</span>, <span class="seriesInfo">DOI 10.17487/RFC5480</span>, <time datetime="2009-03">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5480">https://www.rfc-editor.org/info/rfc5480</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6151">[RFC6151]</dt>
 <dd>
 <span class="refAuthor">Turner, S.</span><span class="refAuthor"> and L. Chen</span>, <span class="refTitle">"Updated Security Considerations for the MD5 Message-Digest and the HMAC-MD5 Algorithms"</span>, <span class="seriesInfo">RFC 6151</span>, <span class="seriesInfo">DOI 10.17487/RFC6151</span>, <time datetime="2011-03">March 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6151">https://www.rfc-editor.org/info/rfc6151</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8259">[RFC8259]</dt>
 <dd>
 <span class="refAuthor">Bray, T., Ed.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="seriesInfo">STD 90</span>, <span class="seriesInfo">RFC 8259</span>, <span class="seriesInfo">DOI 10.17487/RFC8259</span>, <time datetime="2017-12">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7252">[RFC7252]</dt>
 <dd>
 <span class="refAuthor">Shelby, Z.</span><span class="refAuthor">, Hartke, K.</span><span class="refAuthor">, and C. Bormann</span>, <span class="refTitle">"The Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7252</span>, <span class="seriesInfo">DOI 10.17487/RFC7252</span>, <time datetime="2014-06">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7252">https://www.rfc-editor.org/info/rfc7252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7518">[RFC7518]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Algorithms (JWA)"</span>, <span class="seriesInfo">RFC 7518</span>, <span class="seriesInfo">DOI 10.17487/RFC7518</span>, <time datetime="2015-05">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7518">https://www.rfc-editor.org/info/rfc7518</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8017">[RFC8017]</dt>
 <dd>
 <span class="refAuthor">Moriarty, K., Ed.</span><span class="refAuthor">, Kaliski, B.</span><span class="refAuthor">, Jonsson, J.</span><span class="refAuthor">, and A. Rusch</span>, <span class="refTitle">"PKCS #1: RSA Cryptography Specifications Version 2.2"</span>, <span class="seriesInfo">RFC 8017</span>, <span class="seriesInfo">DOI 10.17487/RFC8017</span>, <time datetime="2016-11">November 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8017">https://www.rfc-editor.org/info/rfc8017</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8152">[RFC8152]</dt>
 <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span class="seriesInfo">RFC 8152</span>, <span class="seriesInfo">DOI 10.17487/RFC8152</span>, <time datetime="2017-07">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8152">https://www.rfc-editor.org/info/rfc8152</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8551">[RFC8551]</dt>
 <dd>
 <span class="refAuthor">Schaad, J.</span><span class="refAuthor">, Ramsdell, B.</span><span class="refAuthor">, and S. Turner</span>, <span class="refTitle">"Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 4.0 Message Specification"</span>, <span class="seriesInfo">RFC 8551</span>, <span class="seriesInfo">DOI 10.17487/RFC8551</span>, <time datetime="2019-04">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8551">https://www.rfc-editor.org/info/rfc8551</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8230">[RFC8230]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"Using RSA Algorithms with CBOR Object Signing and Encryption (COSE) Messages"</span>, <span class="seriesInfo">RFC 8230</span>, <span class="seriesInfo">DOI 10.17487/RFC8230</span>, <time datetime="2017-09">September 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8230">https://www.rfc-editor.org/info/rfc8230</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-core-oscore-groupcomm">[I-D.ietf-core-oscore-groupcomm]</dt>
 <dd>
-<span class="refAuthor">Tiloca, M.</span><span class="refAuthor">, Selander, G.</span><span class="refAuthor">, Palombini, F.</span><span class="refAuthor">, and J. Park</span>, <span class="refTitle">"Group OSCORE - Secure Group Communication for CoAP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-oscore-groupcomm-06</span>, <time datetime="2019-11-04">4 November 2019</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-core-oscore-groupcomm-06">https://tools.ietf.org/html/draft-ietf-core-oscore-groupcomm-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Tiloca, M.</span><span class="refAuthor">, Selander, G.</span><span class="refAuthor">, Palombini, F.</span><span class="refAuthor">, and J. Park</span>, <span class="refTitle">"Group OSCORE - Secure Group Communication for CoAP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-oscore-groupcomm-08</span>, <time datetime="2020-04-06">6 April 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-core-oscore-groupcomm-08">https://tools.ietf.org/html/draft-ietf-core-oscore-groupcomm-08</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-cose-hash-sig">[I-D.ietf-cose-hash-sig]</dt>
 <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Use of the HSS/LMS Hash-based Signature Algorithm with CBOR Object Signing and Encryption (COSE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hash-sig-09</span>, <time datetime="2019-12-11">11 December 2019</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-hash-sig-09">https://tools.ietf.org/html/draft-ietf-cose-hash-sig-09</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-cbor-sequence">[I-D.ietf-cbor-sequence]</dt>
 <dd>
 <span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR) Sequences"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-sequence-02</span>, <time datetime="2019-09-25">25 September 2019</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cbor-sequence-02">https://tools.ietf.org/html/draft-ietf-cbor-sequence-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="SP800-56A">[SP800-56A]</dt>
 <dd>
 <span class="refAuthor">Barker, E.</span><span class="refAuthor">, Chen, L.</span><span class="refAuthor">, Roginsky, A.</span><span class="refAuthor">, and M. Smid</span>, <span class="refTitle">"Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</span>, <span class="seriesInfo">DOI 10.6028/NIST.SP.800-56Ar2</span>, <span class="seriesInfo">NIST Special Publication 800-56A, Revision 2</span>, <time datetime="2013-05">May 2013</time>, <span>&lt;<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf">http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar2.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 </dl>
 </section>
 </section>

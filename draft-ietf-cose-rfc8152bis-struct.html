@@ -12,8 +12,8 @@
         This document along with   obsoletes RFC8152.
        
     " name="description">
-<meta content="xml2rfc 2.40.1" name="generator">
-<meta content="draft-ietf-cose-rfc8152bis-struct-latest" name="ietf.draft">
+<meta content="xml2rfc 2.44.0" name="generator">
+<meta content="draft-ietf-cose-rfc8152bis-struct-09" name="ietf.draft">
 <link href="draft-ietf-cose-rfc8152bis-struct.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 
@@ -296,11 +296,11 @@ ul.toc li {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">COSE Structure</td>
-<td class="right">March 2020</td>
+<td class="right">May 2020</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schaad</td>
-<td class="center">Expires 8 September 2020</td>
+<td class="center">Expires 16 November 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -310,18 +310,18 @@ ul.toc li {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">COSE Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-cose-rfc8152bis-struct-latest</dd>
+<dd class="internet-draft">draft-ietf-cose-rfc8152bis-struct-09</dd>
 <dt class="label-obsoletes">Obsoletes:</dt>
 <dd class="obsoletes">
 <a href="https://www.rfc-editor.org/rfc/rfc8152" class="eref">8152</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-03-07" class="published">7 March 2020</time>
+<time datetime="2020-05-15" class="published">15 May 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-09-08">8 September 2020</time></dd>
+<dd class="expires"><time datetime="2020-11-16">16 November 2020</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -368,7 +368,7 @@ ul.toc li {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 September 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 November 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -401,13 +401,13 @@ ul.toc li {
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
 <ul class="toc ulEmpty">
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-changes-from-rfc8152" class="xref">Changes from RFC8152</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-changes-from-rfc8152" class="xref">Changes from RFC8152</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-design-changes-from-jose" class="xref">Design Changes from JOSE</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-design-changes-from-jose" class="xref">Design Changes from JOSE</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.1.2.4">
                 <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-cbor-grammar" class="xref">CBOR Grammar</a><a href="#section-toc.1-1.1.2.4.1" class="pilcrow">¶</a></p>
@@ -452,10 +452,10 @@ ul.toc li {
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-counter-signatures" class="xref">Counter Signatures</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
 <ul class="toc ulEmpty">
 <li class="toc ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-full-countersignatures" class="xref">Full Countersignatures</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-full-counter-signatures" class="xref">Full Counter Signatures</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
 <li class="toc ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-abbreviated-countersignatur" class="xref">Abbreviated Countersignatures</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-abbreviated-counter-signatu" class="xref">Abbreviated Counter Signatures</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
 </ul>
 </li>
@@ -723,8 +723,8 @@ ul.toc li {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <span>[<a href="#RFC7049" class="xref">RFC7049</a>]</span>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <span>[<a href="#RFC8259" class="xref">RFC8259</a>]</span> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The JOSE working group produced a set of documents <span>[<a href="#RFC7515" class="xref">RFC7515</a>]</span> <span>[<a href="#RFC7516" class="xref">RFC7516</a>]</span> <span>[<a href="#RFC7517" class="xref">RFC7517</a>]</span> <span>[<a href="#RFC7518" class="xref">RFC7518</a>]</span> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account:<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <span>[<a href="#RFC7049" class="xref">RFC7049</a>]</span>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <span>[<a href="#RFC8259" class="xref">RFC8259</a>]</span> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically both to be small in terms of messages transported and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The JOSE working group produced a set of documents <span>[<a href="#RFC7515" class="xref">RFC7515</a>]</span> <span>[<a href="#RFC7516" class="xref">RFC7516</a>]</span> <span>[<a href="#RFC7517" class="xref">RFC7517</a>]</span> <span>[<a href="#RFC7518" class="xref">RFC7518</a>]</span> that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-1-3.1">CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded text string.<a href="#section-1-3.1" class="pilcrow">¶</a>
 </li>
@@ -756,7 +756,7 @@ ul.toc li {
         It is better for the structure to be defined in each document as different protocols will want to include a different set of fields as part of the structure.
         While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
         Applications may additionally want to define additional data fields as part of the structure.
-        A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application specific.<a href="#section-1-7" class="pilcrow">¶</a></p>
+        A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application-specific.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <div id="requirements-terminology">
 <section id="section-1.1">
         <h3 id="name-requirements-terminology">
@@ -775,7 +775,7 @@ ul.toc li {
 </li>
 <li id="section-1.2-1.2">Add some text describing why there is no digest structure defined by COSE.<a href="#section-1.2-1.2" class="pilcrow">¶</a>
 </li>
-<li id="section-1.2-1.3">Rearrange the text around counter signatures and define a CBOR Tag for a standalone countersignature.<a href="#section-1.2-1.3" class="pilcrow">¶</a>
+<li id="section-1.2-1.3">Rearrange the text around counter signatures and define a CBOR Tag for a standalone counter signature.<a href="#section-1.2-1.3" class="pilcrow">¶</a>
 </li>
 <li id="section-1.2-1.4">Text clarifications and changes in terminology.<a href="#section-1.2-1.4" class="pilcrow">¶</a>
 </li>
@@ -795,7 +795,7 @@ ul.toc li {
 </li>
 <li id="section-1.3-1.4">MACed messages have the ability to use the same set of recipient algorithms as enveloped messages for obtaining the MAC authentication key.<a href="#section-1.3-1.4" class="pilcrow">¶</a>
 </li>
-<li id="section-1.3-1.5">Use binary encodings for binary data rather than base64url encodings.<a href="#section-1.3-1.5" class="pilcrow">¶</a>
+<li id="section-1.3-1.5">Use binary encodings, rather than base64url encodings, to encode binary data.<a href="#section-1.3-1.5" class="pilcrow">¶</a>
 </li>
 <li id="section-1.3-1.6">Combine the authentication tag for encryption algorithms with the ciphertext.<a href="#section-1.3-1.6" class="pilcrow">¶</a>
 </li>
@@ -879,8 +879,8 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
         </h3>
 <p id="section-1.5-1">In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
 <p id="section-1.5-2">
-          The presence of a label in a CBOR map that is not a text string or an integer is an error. 
-          Applications can either fail processing or process messages by ignoring incorrect labels; however, they MUST NOT create messages with incorrect labels.<a href="#section-1.5-2" class="pilcrow">¶</a></p>
+          The presence in a CBOR map of a label that is not a text string or an integer is an error. 
+          Applications can either fail processing or process messages by ignoring incorrect labels; however, they <span class="bcp14">MUST NOT</span> create messages with incorrect labels.<a href="#section-1.5-2" class="pilcrow">¶</a></p>
 <p id="section-1.5-3">A CDDL grammar fragment defines the non-terminal 'label', as in the previous paragraph, and 'values', which permits any value to be used.<a href="#section-1.5-3" class="pilcrow">¶</a></p>
 <div id="section-1.5-4">
 <pre class="sourcecode lang-CDDL">
@@ -903,8 +903,8 @@ values = any
           Context is used throughout the document to represent information that is not part of the COSE message.
           Information which is part of the context can come from several different sources including:
           Protocol interactions, associated key structures and program configuration.
-          The context to use can be implicit, identified using the 'kid context' header parameter defined in <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>, or identified by a protocol specific identifier.
-          Context should generally be included in the cryptographic configuration, for more details see <a href="#Extern_AAD" class="xref">Section 4.3</a>.<a href="#section-1.6-6" class="pilcrow">¶</a></p>
+          The context to use can be implicit, identified using the 'kid context' header parameter defined in <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>, or identified by a protocol-specific identifier.
+          Context should generally be included in the cryptographic configuration; for more details see <a href="#Extern_AAD" class="xref">Section 4.3</a>.<a href="#section-1.6-6" class="pilcrow">¶</a></p>
 <p id="section-1.6-7">The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.<a href="#section-1.6-7" class="pilcrow">¶</a></p>
 </section>
 </section>
@@ -940,7 +940,7 @@ values = any
 </li>
 <li id="section-2-6.2">The message type is identified by a CBOR tag.  Messages with a CBOR tag are known in this specification as tagged messages, while those without the CBOR tag are known as untagged messages.  This document defines a CBOR tag for each of the message structures.  These tags can be found in <a href="#CBOR-Tags" class="xref">Table 1</a>.<a href="#section-2-6.2" class="pilcrow">¶</a>
 </li>
-<li id="section-2-6.3">When a COSE object is carried in a media type of 'application/cose', the optional parameter 'cose-type' can be used to identify the embedded object.  The parameter is OPTIONAL if the tagged version of the structure is used.  The parameter is REQUIRED if the untagged version of the structure is used.  The value to use with the parameter for each of the structures can be found in <a href="#CBOR-Tags" class="xref">Table 1</a>.<a href="#section-2-6.3" class="pilcrow">¶</a>
+<li id="section-2-6.3">When a COSE object is carried in a media type of 'application/cose', the optional parameter 'cose-type' can be used to identify the embedded object.  The parameter is OPTIONAL if the tagged version of the structure is used.  The parameter is <span class="bcp14">REQUIRED</span> if the untagged version of the structure is used.  The value to use with the parameter for each of the structures can be found in <a href="#CBOR-Tags" class="xref">Table 1</a>.<a href="#section-2-6.3" class="pilcrow">¶</a>
 </li>
 <li id="section-2-6.4">When a COSE object is carried as a CoAP payload, the CoAP Content-Format Option can be used to identify the message content.  The CoAP Content-Format values can be found in <a href="#CoAP_content_type" class="xref">Table 2</a>.  The CBOR tag for the message structure is not required as each security message is uniquely identified.<a href="#section-2-6.4" class="pilcrow">¶</a>
 </li>
@@ -1100,27 +1100,29 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
         <dt id="section-3-4.1">protected:</dt>
 <dd id="section-3-4.2">
             Contains parameters about the current layer that are cryptographically protected. 
-            This bucket MUST be empty if it is not going to be included in a cryptographic computation. 
+            This bucket <span class="bcp14">MUST</span> be empty if it is not going to be included in a cryptographic computation. 
             This bucket is encoded in the message as a binary object. 
             This value is obtained by CBOR encoding the protected map and wrapping it in a bstr object. 
-            Senders SHOULD encode a zero-length map as a zero-length byte string rather than as a zero-length map (encoded as h'a0'). 
+            Senders <span class="bcp14">SHOULD</span> encode a zero-length map as a zero-length byte string rather than as a zero-length map (encoded as h'a0'). 
             The zero-length binary encoding is preferred because it is both shorter and the version used in the serialization structures for cryptographic computation. 
             After encoding the map, the value is wrapped in the binary object. 
-            Recipients MUST accept both a zero-length binary value and a zero-length map encoded in the binary value. 
+            Recipients <span class="bcp14">MUST</span> accept both a zero-length byte string and a zero-length map encoded in the binary value. 
             The wrapping allows for the encoding of the protected map to be transported with a greater chance that it will not be altered in transit. 
             (Badly behaved intermediates could decode and re-encode, but this will result in a failure to verify unless the re-encoded byte string is identical to the decoded byte string.)
             This avoids the problem of all parties needing to be able to do a common canonical encoding.<a href="#section-3-4.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3-4.3">unprotected:</dt>
 <dd id="section-3-4.4">Contains parameters about the current layer that are not cryptographically protected.<a href="#section-3-4.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-3-5">
         Only header parameters that deal with the current layer are to be placed at that layer.  As an example of this, the header parameter 'content type' describes the content of the message being carried in the message.  As such, this header parameter is placed only in the content layer and is not placed in the recipient or signature layers.  In principle, one should be able to process any given layer without reference to any other layer.  With the exception of the COSE_Sign structure, the only data that needs to cross layers is the cryptographic key.<a href="#section-3-5" class="pilcrow">¶</a></p>
 <p id="section-3-6">
         The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The header parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<a href="#cose-header-key-table" class="xref">Section 12.2</a>).
         Some common header parameters are defined in the next section.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">Labels in each of the maps MUST be unique.  When processing messages, if a label appears multiple times, the message MUST be rejected as malformed.  Applications SHOULD verify that the same label does not occur in both the protected and unprotected header parameters.  If the message is not rejected as malformed, attributes MUST be obtained from the protected bucket before they are obtained from the unprotected bucket.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-7">Labels in each of the maps <span class="bcp14">MUST</span> be unique.  When processing messages, if a label appears multiple times, the message <span class="bcp14">MUST</span> be rejected as malformed.  Applications <span class="bcp14">SHOULD</span> verify that the same label does not occur in both the protected and unprotected header parameters.  If the message is not rejected as malformed, attributes <span class="bcp14">MUST</span> be obtained from the protected bucket before they are obtained from the unprotected bucket.<a href="#section-3-7" class="pilcrow">¶</a></p>
 <p id="section-3-8">The following CDDL fragment represents the two header parameter buckets.  A group "Headers" is defined in CDDL that represents the two buckets in which attributes are placed.  This group is used to provide these two fields consistently in all locations.  A type is also defined that represents the map of common header parameters.<a href="#section-3-8" class="pilcrow">¶</a></p>
 <div id="section-3-9">
 <pre class="sourcecode lang-CDDL">
@@ -1147,22 +1149,23 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 <p id="section-3.1-2">The set of header parameters defined in this section are:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <dl class="dlParallel" id="section-3.1-3">
           <dt id="section-3.1-3.1">alg:</dt>
-<dd id="section-3.1-3.2"> This header parameter is used to indicate the algorithm used for the security processing.  This header parameter MUST be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign1, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header parameter in the protected header parameter bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <span>[<a href="#COSE.Algorithms" class="xref">COSE.Algorithms</a>]</span>).<a href="#section-3.1-3.2" class="pilcrow">¶</a>
+<dd id="section-3.1-3.2"> This header parameter is used to indicate the algorithm used for the security processing.  This header parameter <span class="bcp14">MUST</span> be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (COSE_Sign, COSE_Sign1, COSE_Mac, and COSE_Mac0).  This authentication can be done either by placing the header parameter in the protected header parameter bucket or as part of the externally supplied data.  The value is taken from the "COSE Algorithms" registry (see <span>[<a href="#COSE.Algorithms" class="xref">COSE.Algorithms</a>]</span>).<a href="#section-3.1-3.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3.1-3.3">crit:</dt>
 <dd id="section-3.1-3.4">
             <p id="section-3.1-3.4.1">
           This header parameter is used to indicate which protected header parameters an application that is processing a message is required to understand. 
           Header parameters defined in this document do not need to be included as they should be understood by all implementations.
-          When present, this the 'crit' header parameter MUST be placed in the protected header parameter bucket.
-          The array MUST have at least one value in it.<a href="#section-3.1-3.4.1" class="pilcrow">¶</a></p>
+          When present, this the 'crit' header parameter <span class="bcp14">MUST</span> be placed in the protected header parameter bucket.
+          The array <span class="bcp14">MUST</span> have at least one value in it.<a href="#section-3.1-3.4.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-3.4.2">
           Not all header parameter labels need to be included in the 'crit' header parameter.
           The rules for deciding which header parameters are placed in the array are:<a href="#section-3.1-3.4.2" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-3.1-3.4.3.1">Integer labels in the range of 0 to 7 SHOULD be omitted.<a href="#section-3.1-3.4.3.1" class="pilcrow">¶</a>
+<li id="section-3.1-3.4.3.1">Integer labels in the range of 0 to 7 <span class="bcp14">SHOULD</span> be omitted.<a href="#section-3.1-3.4.3.1" class="pilcrow">¶</a>
 </li>
-<li id="section-3.1-3.4.3.2">Integer labels in the range -1 to -128 can be omitted as they are algorithm dependent.  If an application can correctly process an algorithm, it can be assumed that it will correctly process all of the common header parameters associated with that algorithm.  Integer labels in the range -129 to -65536 SHOULD be included as these would be less common header parameters that might not be generally supported.<a href="#section-3.1-3.4.3.2" class="pilcrow">¶</a>
+<li id="section-3.1-3.4.3.2">Integer labels in the range -1 to -128 can be omitted as they are algorithm dependent.  If an application can correctly process an algorithm, it can be assumed that it will correctly process all of the common header parameters associated with that algorithm.  Integer labels in the range -129 to -65536 <span class="bcp14">SHOULD</span> be included as these would be less common header parameters that might not be generally supported.<a href="#section-3.1-3.4.3.2" class="pilcrow">¶</a>
 </li>
 <li id="section-3.1-3.4.3.3">Labels for header parameters required for an application MAY be omitted.  Applications should have a statement if the label can be omitted.<a href="#section-3.1-3.4.3.3" class="pilcrow">¶</a>
 </li>
@@ -1171,15 +1174,19 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
           The header parameters indicated by 'crit' can be processed by either the security library code or an application using a security library; the only requirement is that the header parameter is processed.  If the 'crit' value list includes a label for which the header parameter is not in the protected header parameters bucket, this is a fatal error in processing the message.<a href="#section-3.1-3.4.4" class="pilcrow">¶</a></p>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3.1-3.5">content type:</dt>
-<dd id="section-3.1-3.6">This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <span>[<a href="#COAP.Formats" class="xref">COAP.Formats</a>]</span>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <span>[<a href="#RFC6838" class="xref">RFC6838</a>]</span>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications SHOULD provide this header parameter if the content structure is potentially ambiguous.<a href="#section-3.1-3.6" class="pilcrow">¶</a>
+<dd id="section-3.1-3.6">This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <span>[<a href="#COAP.Formats" class="xref">COAP.Formats</a>]</span>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <span>[<a href="#RFC6838" class="xref">RFC6838</a>]</span>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications <span class="bcp14">SHOULD</span> provide this header parameter if the content structure is potentially ambiguous.<a href="#section-3.1-3.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3.1-3.7">kid:</dt>
-<dd id="section-3.1-3.8">This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications MUST NOT assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected header parameters bucket.<a href="#section-3.1-3.8" class="pilcrow">¶</a>
+<dd id="section-3.1-3.8">This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications <span class="bcp14">MUST NOT</span> assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected header parameters bucket.<a href="#section-3.1-3.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3.1-3.9">IV:</dt>
 <dd id="section-3.1-3.10">This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.<a href="#section-3.1-3.10" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3.1-3.11">Partial IV:</dt>
 <dd id="section-3.1-3.12">
             <p id="section-3.1-3.12.1">
@@ -1187,7 +1194,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
   When using the COSE_Encrypt0 structure, a portion of the IV can be part of the context associated with the key (Context IV) while a portion can be changed with each message (Partial IV). 
   This field is used to carry a value that causes the IV to be changed for each message. 
   The Partial IV can be placed in the unprotected bucket as modifying the value will cause the decryption to yield plaintext that is readily detectable as garbled. 
-  The 'Initialization Vector' and 'Partial Initialization Vector' header parameters MUST NOT both be present in the same security layer.<a href="#section-3.1-3.12.1" class="pilcrow">¶</a></p>
+  The 'Initialization Vector' and 'Partial Initialization Vector' header parameters <span class="bcp14">MUST NOT</span> both be present in the same security layer.<a href="#section-3.1-3.12.1" class="pilcrow">¶</a></p>
 <p id="section-3.1-3.12.2">
   The message IV is generated by the following steps:<a href="#section-3.1-3.12.2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-3.12.3">
@@ -1197,9 +1204,11 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 </li>
 </ol>
 </dd>
+<dd class="break"></dd>
 <dt id="section-3.1-3.13">counter signature:</dt>
 <dd id="section-3.1-3.14">This header parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature header parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on counter signatures are found in <a href="#counter_signature" class="xref">Section 5</a>.<a href="#section-3.1-3.14" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <span id="name-common-header-parameters"></span><div id="Header-Table">
 <table class="center" id="table-3">
@@ -1298,7 +1307,7 @@ Generic_Headers = (
         <h3 id="name-signing-with-one-or-more-si">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-signing-with-one-or-more-si" class="section-name selfRef">Signing with One or More Signers</a>
         </h3>
-<p id="section-4.1-1">The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of a header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">RFC 5652 indicates that:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <blockquote id="section-4.1-3">
           When more than one signature is present, the successful validation of one signature associated with a given signer is usually treated as a successful signature by that signer.  However, there are some application environments where other rules are needed.  An application that employs a rule other than one valid signature for each signer must specify those rules.  Also, where simple matching of the signer identifier is not sufficient to determine whether the signatures were generated by the same signer, the application specification must describe how to determine which signatures were generated by the same signer.  Support for different communities of recipients is the primary reason that signers choose to include more than one signature.<a href="#section-4.1-3" class="pilcrow">¶</a>
@@ -1317,17 +1326,21 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
           <dt id="section-4.1-9.1">protected:</dt>
 <dd id="section-4.1-9.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-9.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.1-9.3">unprotected:</dt>
 <dd id="section-4.1-9.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-9.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.1-9.5">payload:</dt>
 <dd id="section-4.1-9.6">
             <p id="section-4.1-9.6.1">This field contains the serialized content to be signed.  If the payload is not present in the message, the application is required to supply the payload separately.  The payload is wrapped in a bstr to ensure that it is transported without changes.  If the payload is transported separately ("detached content"), then a nil CBOR object is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.<a href="#section-4.1-9.6.1" class="pilcrow">¶</a></p>
 <p id="section-4.1-9.6.2"> Note: When a signature with a message recovery algorithm is used (<a href="#SigAlgs" class="xref">Section 9.1</a>), the maximum number of bytes that can be recovered is the length of the payload.  The size of the payload is reduced by the number of bytes that will be recovered.  If all of the bytes of the payload are consumed, then the payload is encoded as a zero-length byte string rather than as being absent.<a href="#section-4.1-9.6.2" class="pilcrow">¶</a></p>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.1-9.7">signatures:</dt>
 <dd id="section-4.1-9.8">This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.<a href="#section-4.1-9.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-4.1-10">The CDDL fragment that represents the above text for COSE_Sign follows.<a href="#section-4.1-10" class="pilcrow">¶</a></p>
 <div id="section-4.1-11">
@@ -1344,12 +1357,15 @@ COSE_Sign = [
           <dt id="section-4.1-13.1">protected:</dt>
 <dd id="section-4.1-13.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-13.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.1-13.3">unprotected:</dt>
 <dd id="section-4.1-13.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-13.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.1-13.5">signature:</dt>
-<dd id="section-4.1-13.6">This field contains the computed signature value.  The type of the field is a bstr.  Algorithms MUST specify padding if the signature value is not a multiple of 8 bits.<a href="#section-4.1-13.6" class="pilcrow">¶</a>
+<dd id="section-4.1-13.6">This field contains the computed signature value.  The type of the field is a bstr.  Algorithms <span class="bcp14">MUST</span> specify padding if the signature value is not a multiple of 8 bits.<a href="#section-4.1-13.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-4.1-14">The CDDL fragment that represents the above text for COSE_Signature follows.<a href="#section-4.1-14" class="pilcrow">¶</a></p>
 <div id="section-4.1-15">
@@ -1379,15 +1395,19 @@ COSE_Sign1_Tagged = #6.18(COSE_Sign1)
           <dt id="section-4.2-6.1">protected:</dt>
 <dd id="section-4.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.2-6.3">unprotected:</dt>
 <dd id="section-4.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.2-6.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.2-6.5">payload:</dt>
 <dd id="section-4.2-6.6">This is as described in <a href="#full-signature" class="xref">Section 4.1</a>.<a href="#section-4.2-6.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-4.2-6.7">signature:</dt>
 <dd id="section-4.2-6.8">This field contains the computed signature value.  The type of the field is a bstr.<a href="#section-4.2-6.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-4.2-7">The CDDL fragment that represents the above text for COSE_Sign1 follows.<a href="#section-4.2-7" class="pilcrow">¶</a></p>
 <div id="section-4.2-8">
@@ -1411,13 +1431,13 @@ COSE_Sign1 = [
           Examples of data that can be placed in this location would be the CoAP code or CoAP options. 
           If the data is in the headers of the CoAP message, then it is available for proxies to help in performing its operations. 
           For example, the Accept Option can be used by a proxy to determine if an appropriate value is in the proxy's cache. 
-          But the sender can cause a failure at the server if a proxy, or an attacker, changes the set of accept values by including the field in the application supplied data.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+          But the sender can cause a failure at the server if a proxy, or an attacker, changes the set of accept values by including the field in the application-supplied data.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">
           This document describes the process for using a byte array of externally supplied authenticated data; the method of constructing the byte array is a function of the application. 
           Applications that use this feature need to define how the externally supplied authenticated data is to be constructed.  Such a construction needs to take into account the following issues:<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-4.3-3.1">
-              If multiple items are included, applications need to ensure that the same byte string cannot produced if there are different inputs. 
+              If multiple items are included, applications need to ensure that the same byte string cannot be produced if there are different inputs. 
               This would occur by appending the text strings 'AB' and 'CDE' or by appending the text strings 'ABC' and 'DE'. 
               This is usually addressed by making fields a fixed width and/or encoding the length of the field as part of the output. 
               Using options from CoAP <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span> as an example, these fields use a TLV structure so they can be concatenated without any problems.<a href="#section-4.3-3.1" class="pilcrow">¶</a>
@@ -1459,9 +1479,9 @@ COSE_Sign1 = [
 </li>
 </ul>
 </li>
-<li id="section-4.4-2.2">The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.<a href="#section-4.4-2.2" class="pilcrow">¶</a>
+<li id="section-4.4-2.2">The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.<a href="#section-4.4-2.2" class="pilcrow">¶</a>
 </li>
-<li id="section-4.4-2.3">The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.  This field is omitted for the COSE_Sign1 signature structure and CounterSignature0 attributes.<a href="#section-4.4-2.3" class="pilcrow">¶</a>
+<li id="section-4.4-2.3">The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.  This field is omitted for the COSE_Sign1 signature structure and CounterSignature0 attributes.<a href="#section-4.4-2.3" class="pilcrow">¶</a>
 </li>
 <li id="section-4.4-2.4">The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <a href="#Extern_AAD" class="xref">Section 4.3</a> for application guidance on constructing this field.)<a href="#section-4.4-2.4" class="pilcrow">¶</a>
 </li>
@@ -1517,35 +1537,35 @@ Sig_structure = [
       </h2>
 <p id="section-5-1">
         COSE supports two different forms for counter signatures.
-        Full countersignatures use the structure COSE_Countersign.
-        This is same structure as COSE_Signature and thus it can have protected attributes, chained countersignatures and information about identifying the key.
-        Abbreviated countersignatures use the structure COSE_Countersign1.
+        Full counter signatures use the structure COSE_Countersign.
+        This is same structure as COSE_Signature and thus it can have protected attributes, chained counter signatures and information about identifying the key.
+        Abbreviated counter signatures use the structure COSE_Countersign1.
         This structure only contains the signature value and nothing else.
         The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">
         COSE was designed for uniformity in how the data structures are specified.
-        One result of this is that for COSE one can expand the concept of countersignatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
-        When creating a countersignature, one needs to be clear about the security properties that result.
-        When done on a COSE_Signature, the normal countersignature semantics are preserved.  That is the countersignature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
+        One result of this is that for COSE one can expand the concept of counter signatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
+        When creating a counter signature, one needs to be clear about the security properties that result.
+        When done on a COSE_Signature, the normal counter signature semantics are preserved.  That is the counter signature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
         When done on a COSE_Mac or a COSE_Mac0, one effectively upgrades the MAC operation to a signature operation.
         When done on a COSE_Encrypt or COSE_Encrypt0, the existence of the encrypted data is attested to.
         It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
         If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
-        It is always possible to construct cases where the decryption is successful, while providing completely different answers by using a different key.
-        This situation is not detectable by a countersignature on the encrypted data.<a href="#section-5-2" class="pilcrow">¶</a></p>
+        It is always possible to construct cases where the use of two different keys will appear to result in a successful decryption (the tag check success), but which produce two completely different plaintexts.
+        This situation is not detectable by a counter signature on the encrypted data.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <section id="section-5.1">
-        <h3 id="name-full-countersignatures">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-full-countersignatures" class="section-name selfRef">Full Countersignatures</a>
+        <h3 id="name-full-counter-signatures">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-full-counter-signatures" class="section-name selfRef">Full Counter Signatures</a>
         </h3>
 <p id="section-5.1-1">
           The COSE_Countersignature structure allows for the same set of capabilities of a COSE_Signature.
           This means that all of the capabilities of a signature are duplicated with this structure.
-          Specifically, the countersigner does not need to be related to the producer of what is being counter signed as key and algorithm identification can be placed in the countersignature attributes.
-          This also means that the countersignature can itself be countersigned.
+          Specifically, the counter signer does not need to be related to the producer of what is being counter signed as key and algorithm identification can be placed in the counter signature attributes.
+          This also means that the counter signature can itself be counter signed.
           This is a feature required by protocols such as long-term archiving services.
           More information on how this is used can be found in the evidence record syntax described in <span>[<a href="#RFC4998" class="xref">RFC4998</a>]</span>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">
-          The full countersignature structure can be encoded as either a tagged or untagged depending on the context it is used in.  A tagged COSE_Countersign structure is identified by the CBOR tag TBD0.  The CDDL fragment for full countersignatures is:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+          The full counter signature structure can be encoded as either tagged or untagged depending on the context it is used in.  A tagged COSE_Countersign structure is identified by the CBOR tag TBD0.  The CDDL fragment for full counter signatures is:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <div id="section-5.1-3">
 <pre class="sourcecode lang-CDDL">
 COSE_CounterSignature_Tagged = #6.98(COSE_CounterSignature)
@@ -1553,8 +1573,8 @@ COSE_CounterSignature = COSE_Signature
 </pre><a href="#section-5.1-3" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-4">
-          The details of the fields of a countersignature can be found in <a href="#full-signature" class="xref">Section 4.1</a>.
-          The process of creating and validating abbreviated countersignatures is defined in <a href="#Sig_structure" class="xref">Section 4.4</a>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+          The details of the fields of a counter signature can be found in <a href="#full-signature" class="xref">Section 4.1</a>.
+          The process of creating and validating abbreviated counter signatures is defined in <a href="#Sig_structure" class="xref">Section 4.4</a>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <p id="section-5.1-5">          
           An example of a counter signature on a signature can be found in <a href="#Appendix_B_1_3" class="xref">Appendix C.1.3</a>. 
           An example of a counter signature in an encryption object can be found in <a href="#Appendix_B_3_3" class="xref">Appendix C.3.3</a>.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
@@ -1563,20 +1583,20 @@ COSE_CounterSignature = COSE_Signature
           This is because the body should be able to be processed without having to evaluate the counter signature, and this is not possible for signature schemes with message recovery.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
 </section>
 <section id="section-5.2">
-        <h3 id="name-abbreviated-countersignatur">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-abbreviated-countersignatur" class="section-name selfRef">Abbreviated Countersignatures</a>
+        <h3 id="name-abbreviated-counter-signatu">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-abbreviated-counter-signatu" class="section-name selfRef">Abbreviated Counter Signatures</a>
         </h3>
 <p id="section-5.2-1">
-          Abbreviated countersignatures were designed primarily to deal with the problem of having group encrypted messaging, but still needing to know who originated the message.
-          The objective was to keep the countersignature as small as possible while still providing the needed security.
-          For abbreviated countersignatures, there is no provision for any protected attributes related to the signing operation.
-          Instead, the parameters for computing or verifying the abbreviated countersignature are inferred from the same context used to describe the encryption, signature, or MAC processing.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+          Abbreviated counter signatures were designed primarily to deal with the problem of having encrypted group  messaging, but still needing to know who originated the message.
+          The objective was to keep the counter signature as small as possible while still providing the needed security.
+          For abbreviated counter signatures, there is no provision for any protected attributes related to the signing operation.
+          Instead, the parameters for computing or verifying the abbreviated counter signature are inferred from the same context used to describe the encryption, signature, or MAC processing.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">
           The byte string representing the signature value is placed in the CounterSignature0 attribute.
           This attribute is then encoded as an unprotected header parameter.
           The attribute is defined below.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2-3">
-          The process of creating and validating abbreviated countersignatures is defined in <a href="#Sig_structure" class="xref">Section 4.4</a>.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+          The process of creating and validating abbreviated counter signatures is defined in <a href="#Sig_structure" class="xref">Section 4.4</a>.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <span id="name-header-parameter-for-counte"></span><div id="CounterSign0">
 <table class="center" id="table-4">
           <caption>
@@ -1598,7 +1618,7 @@ COSE_CounterSignature = COSE_Signature
               <td class="text-left" rowspan="1" colspan="1">9</td>
               <td class="text-left" rowspan="1" colspan="1">bstr</td>
               <td class="text-left" rowspan="1" colspan="1"></td>
-              <td class="text-left" rowspan="1" colspan="1">Abbreviated Countersignature</td>
+              <td class="text-left" rowspan="1" colspan="1">Abbreviated Counter Signature</td>
             </tr>
           </tbody>
         </table>
@@ -1623,7 +1643,7 @@ COSE_CounterSignature = COSE_Signature
         </h3>
 <p id="section-6.1-1">The enveloped structure allows for one or more recipients of a message.  There are provisions for header parameters about the content and header parameters about the recipient information to be carried in the message.  The protected header parameters associated with the content are authenticated by the content encryption algorithm.  The protected header parameters associated with the recipient are authenticated by the recipient algorithm (when the algorithm supports it).  Examples of header parameters about the content are the type of the content and the content encryption algorithm.  Examples of header parameters about the recipient are the recipient's key identifier and the recipient's encryption algorithm.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">
-          The same techniques and nearly the same structure is used for encrypting both the plaintext and the keys. 
+          The same techniques and nearly the same structure are used for encrypting both the plaintext and the keys. 
           This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <span>[<a href="#RFC5652" class="xref">RFC5652</a>]</span> and "JSON Web Encryption (JWE)" <span>[<a href="#RFC7516" class="xref">RFC7516</a>]</span> where different structures are used for the content layer and for the recipient layer. 
           Two structures are defined: COSE_Encrypt to hold the encrypted content and COSE_recipient to hold the encrypted keys for recipients.  
 
@@ -1639,15 +1659,19 @@ COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
           <dt id="section-6.1-6.1">protected:</dt>
 <dd id="section-6.1-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-6.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1-6.3">unprotected:</dt>
 <dd id="section-6.1-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-6.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1-6.5">ciphertext:</dt>
 <dd id="section-6.1-6.6">This field contains the ciphertext encoded as a bstr.  If the ciphertext is to be transported independently of the control information about the encryption process (i.e., detached content), then the field is encoded as a nil value.<a href="#section-6.1-6.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1-6.7">recipients:</dt>
 <dd id="section-6.1-6.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient.<a href="#section-6.1-6.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-6.1-7">The CDDL fragment that corresponds to the above text is:<a href="#section-6.1-7" class="pilcrow">¶</a></p>
 <div id="section-6.1-8">
@@ -1664,15 +1688,19 @@ COSE_Encrypt = [
           <dt id="section-6.1-10.1">protected:</dt>
 <dd id="section-6.1-10.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-10.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1-10.3">unprotected:</dt>
 <dd id="section-6.1-10.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-10.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1-10.5">ciphertext:</dt>
 <dd id="section-6.1-10.6">This field contains the encrypted key encoded as a bstr.  All encoded keys are symmetric keys; the binary value of the key is the content.  If there is not an encrypted key, then this field is encoded as a nil value.<a href="#section-6.1-10.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1-10.7">recipients:</dt>
 <dd id="section-6.1-10.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient (an example of this can be found in <a href="#three-layer" class="xref">Appendix B</a>). If there are no recipient information structures, this element is absent.<a href="#section-6.1-10.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-6.1-11">The CDDL fragment that corresponds to the above text for COSE_recipient is:<a href="#section-6.1-11" class="pilcrow">¶</a></p>
 <div id="section-6.1-12">
@@ -1701,24 +1729,29 @@ COSE_recipient = [
                 The CEK is the same as the identified previously distributed symmetric key or is derived from a previously distributed secret. 
                 No CEK is transported in the message.<a href="#section-6.1.1-2.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1.1-2.3">symmetric key-encryption keys (KEK):</dt>
 <dd id="section-6.1.1-2.4">
                 The CEK is encrypted using a previously distributed symmetric KEK. 
                 Also known as key wrap.<a href="#section-6.1.1-2.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1.1-2.5">key agreement:</dt>
 <dd id="section-6.1.1-2.6">
                 The recipient's public key and a sender's private key are used to generate a pairwise secret, a Key Derivation Function (KDF) is applied to derive a key, and then the CEK is either the derived key or encrypted by the derived key.<a href="#section-6.1.1-2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1.1-2.7">key transport:</dt>
 <dd id="section-6.1.1-2.8">
                 The CEK is encrypted with the recipient's public key.<a href="#section-6.1.1-2.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.1.1-2.9">passwords:</dt>
 <dd id="section-6.1.1-2.10">
                 The CEK is encrypted in a KEK that is derived from a password.
                 As of when this document was published, no password algorithms have been defined.<a href="#section-6.1.1-2.10" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </section>
 </div>
@@ -1742,12 +1775,15 @@ COSE_Encrypt0_Tagged = #6.16(COSE_Encrypt0)
           <dt id="section-6.2-6.1">protected:</dt>
 <dd id="section-6.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.2-6.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.2-6.3">unprotected:</dt>
 <dd id="section-6.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.2-6.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.2-6.5">ciphertext:</dt>
 <dd id="section-6.2-6.6">This is as described in <a href="#EnvelopedData" class="xref">Section 6.1</a>.<a href="#section-6.2-6.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-6.2-7">The CDDL fragment for COSE_Encrypt0 that corresponds to the above text is:<a href="#section-6.2-7" class="pilcrow">¶</a></p>
 <div id="section-6.2-8">
@@ -1782,9 +1818,9 @@ COSE_Encrypt0 = [
 </li>
 </ul>
 </li>
-<li id="section-6.3-2.2">The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a bstr of length zero is used.<a href="#section-6.3-2.2" class="pilcrow">¶</a>
+<li id="section-6.3-2.2">The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.<a href="#section-6.3-2.2" class="pilcrow">¶</a>
 </li>
-<li id="section-6.3-2.3">The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length bstr.  (See <a href="#Extern_AAD" class="xref">Section 4.3</a> for application guidance on constructing this field.)<a href="#section-6.3-2.3" class="pilcrow">¶</a>
+<li id="section-6.3-2.3">The protected attributes from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <a href="#Extern_AAD" class="xref">Section 4.3</a> for application guidance on constructing this field.)<a href="#section-6.3-2.3" class="pilcrow">¶</a>
 </li>
 </ol>
 <p id="section-6.3-3">The CDDL fragment that describes the above text is:<a href="#section-6.3-3" class="pilcrow">¶</a></p>
@@ -1810,6 +1846,7 @@ Enc_structure = [
               <dt id="section-6.3-6.3.2.1">No Recipients:</dt>
 <dd id="section-6.3-6.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 9.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 9.5.2</a>), or pre-shared secrets.<a href="#section-6.3-6.3.2.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.3-6.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
 <dd id="section-6.3-6.3.2.4">
   The key is determined by the key and algorithm in the recipient structure. 
@@ -1817,9 +1854,11 @@ Enc_structure = [
   (For direct, the KDF can be thought of as the identity operation.)
   Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>.<a href="#section-6.3-6.3.2.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.3-6.3.2.5">Other:</dt>
 <dd id="section-6.3-6.3.2.6">The key is randomly or pseudo-randomly generated.<a href="#section-6.3-6.3.2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </li>
 <li id="section-6.3-6.4">Call the encryption algorithm with K (the encryption key), P (the plaintext), and AAD.  Place the returned ciphertext into the 'ciphertext' field of the structure.<a href="#section-6.3-6.4" class="pilcrow">¶</a>
@@ -1839,15 +1878,18 @@ Enc_structure = [
               <dt id="section-6.3-8.3.2.1">No Recipients:</dt>
 <dd id="section-6.3-8.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 9.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 9.5.2</a>), or pre-shared secrets.<a href="#section-6.3-8.3.2.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.3-8.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
 <dd id="section-6.3-8.3.2.4">
   The key is determined by the key and algorithm in the recipient structure. 
   The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
   (For direct, the KDF can be thought of as the identity operation.)<a href="#section-6.3-8.3.2.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.3-8.3.2.5">Other:</dt>
 <dd id="section-6.3-8.3.2.6">The key is determined by decoding and decrypting one of the recipient structures.<a href="#section-6.3-8.3.2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </li>
 <li id="section-6.3-8.4">Call the decryption algorithm with K (the decryption key to use), C (the ciphertext), and AAD.<a href="#section-6.3-8.4" class="pilcrow">¶</a>
@@ -1872,13 +1914,16 @@ Enc_structure = [
               <dt id="section-6.4-2.3.2.1">No Recipients:</dt>
 <dd id="section-6.4-2.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 9.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 9.5.2</a>), or pre-shared secrets.<a href="#section-6.4-2.3.2.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.4-2.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
 <dd id="section-6.4-2.3.2.4">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
 Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>.<a href="#section-6.4-2.3.2.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.4-2.3.2.5">Other:</dt>
 <dd id="section-6.4-2.3.2.6">The key is randomly generated.<a href="#section-6.4-2.3.2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </li>
 <li id="section-6.4-2.4">Call the encryption algorithm with K (the encryption key to use) and P (the plaintext).  Place the returned ciphertext into the 'ciphertext' field of the structure.<a href="#section-6.4-2.4" class="pilcrow">¶</a>
@@ -1898,13 +1943,16 @@ Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a hr
               <dt id="section-6.4-4.3.2.1">No Recipients:</dt>
 <dd id="section-6.4-4.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 9.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 9.5.2</a>), or pre-shared secrets.<a href="#section-6.4-4.3.2.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.4-4.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
 <dd id="section-6.4-4.3.2.4">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
 Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>.<a href="#section-6.4-4.3.2.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-6.4-4.3.2.5">Other:</dt>
 <dd id="section-6.4-4.3.2.6">The key is determined by decoding and decrypting one of the recipient structures.<a href="#section-6.4-4.3.2.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 </li>
 <li id="section-6.4-4.4">Call the decryption algorithm with K (the decryption key to use) and C (the ciphertext).<a href="#section-6.4-4.4" class="pilcrow">¶</a>
@@ -1944,18 +1992,23 @@ COSE_Mac_Tagged = #6.97(COSE_Mac)
           <dt id="section-7.1-5.1">protected:</dt>
 <dd id="section-7.1-5.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-7.1-5.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1-5.3">unprotected:</dt>
 <dd id="section-7.1-5.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-7.1-5.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1-5.5">payload:</dt>
 <dd id="section-7.1-5.6">This field contains the serialized content to be MACed.  If the payload is not present in the message, the application is required to supply the payload separately.  The payload is wrapped in a bstr to ensure that it is transported without changes.  If the payload is transported separately (i.e., detached content), then a nil CBOR value is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.<a href="#section-7.1-5.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1-5.7">tag:</dt>
 <dd id="section-7.1-5.8">This field contains the MAC value.<a href="#section-7.1-5.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.1-5.9">recipients:</dt>
 <dd id="section-7.1-5.10">This is as described in <a href="#EnvelopedData" class="xref">Section 6.1</a>.<a href="#section-7.1-5.10" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-7.1-6">The CDDL fragment that represents the above text for COSE_Mac follows.<a href="#section-7.1-6" class="pilcrow">¶</a></p>
 <div id="section-7.1-7">
@@ -1987,15 +2040,19 @@ COSE_Mac0_Tagged = #6.17(COSE_Mac0)
           <dt id="section-7.2-6.1">protected:</dt>
 <dd id="section-7.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-7.2-6.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.2-6.3">unprotected:</dt>
 <dd id="section-7.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-7.2-6.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.2-6.5">payload:</dt>
 <dd id="section-7.2-6.6">This is as described in <a href="#Mac_n" class="xref">Section 7.1</a>.<a href="#section-7.2-6.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-7.2-6.7">tag:</dt>
 <dd id="section-7.2-6.8">This field contains the MAC value.<a href="#section-7.2-6.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 </dl>
 <p id="section-7.2-7">The CDDL fragment that corresponds to the above text is:<a href="#section-7.2-7" class="pilcrow">¶</a></p>
 <div id="section-7.2-8">
@@ -2073,8 +2130,8 @@ MAC_structure = [
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-key-objects" class="section-name selfRef">Key Objects</a>
       </h2>
 <p id="section-8-1">A COSE Key structure is built on a CBOR map.  The set of common parameters that can appear in a COSE Key can be found in the IANA "COSE Key Common Parameters" registry (<a href="#cose-key-map-registry" class="xref">Section 12.4</a>).  Additional parameters defined for specific key types can be found in the IANA "COSE Key Type Parameters" registry (<span>[<a href="#COSE.KeyParameters" class="xref">COSE.KeyParameters</a>]</span>).<a href="#section-8-1" class="pilcrow">¶</a></p>
-<p id="section-8-2">A COSE Key Set uses a CBOR array object as its underlying type.  The values of the array elements are COSE Keys.  A COSE Key Set MUST have at least one element in the array.  Examples of COSE Key Sets can be found in <a href="#COSE_KEYS" class="xref">Appendix C.7</a>.<a href="#section-8-2" class="pilcrow">¶</a></p>
-<p id="section-8-3">Each element in a COSE Key Set MUST be processed independently.  If one element in a COSE Key Set is either malformed or uses a key that is not understood by an application, that key is ignored and the other keys are processed normally.<a href="#section-8-3" class="pilcrow">¶</a></p>
+<p id="section-8-2">A COSE Key Set uses a CBOR array object as its underlying type.  The values of the array elements are COSE Keys.  A COSE Key Set <span class="bcp14">MUST</span> have at least one element in the array.  Examples of COSE Key Sets can be found in <a href="#COSE_KEYS" class="xref">Appendix C.7</a>.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">Each element in a COSE Key Set <span class="bcp14">MUST</span> be processed independently.  If one element in a COSE Key Set is either malformed or uses a key that is not understood by an application, that key is ignored and the other keys are processed normally.<a href="#section-8-3" class="pilcrow">¶</a></p>
 <p id="section-8-4">The element "kty" is a required element in a COSE_Key map.<a href="#section-8-4" class="pilcrow">¶</a></p>
 <p id="section-8-5">The CDDL grammar describing COSE_Key and COSE_KeySet is:<a href="#section-8-5" class="pilcrow">¶</a></p>
 <div id="section-8-6">
@@ -2153,23 +2210,28 @@ COSE_KeySet = [+COSE_Key]
 </div>
 <dl class="dlParallel" id="section-8.1-3">
           <dt id="section-8.1-3.1">kty:</dt>
-<dd id="section-8.1-3.2">This parameter is used to identify the family of keys for this structure and, thus, the set of key-type-specific parameters to be found.  The set of values defined in this document can be found in <span>[<a href="#COSE.KeyTypes" class="xref">COSE.KeyTypes</a>]</span>.  This parameter MUST be present in a key object.  Implementations MUST verify that the key type is appropriate for the algorithm being processed.  The key type MUST be included as part of the trust decision process.<a href="#section-8.1-3.2" class="pilcrow">¶</a>
+<dd id="section-8.1-3.2">This parameter is used to identify the family of keys for this structure and, thus, the set of key-type-specific parameters to be found.  The set of values defined in this document can be found in <span>[<a href="#COSE.KeyTypes" class="xref">COSE.KeyTypes</a>]</span>.  This parameter <span class="bcp14">MUST</span> be present in a key object.  Implementations <span class="bcp14">MUST</span> verify that the key type is appropriate for the algorithm being processed.  The key type <span class="bcp14">MUST</span> be included as part of the trust decision process.<a href="#section-8.1-3.2" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-8.1-3.3">alg:</dt>
-<dd id="section-8.1-3.4">This parameter is used to restrict the algorithm that is used with the key.  If this parameter is present in the key structure, the application MUST verify that this algorithm matches the algorithm for which the key is being used.  If the algorithms do not match, then this key object MUST NOT be used to perform the cryptographic operation.  Note that the same key can be in a different key structure with a different or no algorithm specified; however, this is considered to be a poor security practice.<a href="#section-8.1-3.4" class="pilcrow">¶</a>
+<dd id="section-8.1-3.4">This parameter is used to restrict the algorithm that is used with the key.  If this parameter is present in the key structure, the application <span class="bcp14">MUST</span> verify that this algorithm matches the algorithm for which the key is being used.  If the algorithms do not match, then this key object <span class="bcp14">MUST NOT</span> be used to perform the cryptographic operation.  Note that the same key can be in a different key structure with a different or no algorithm specified; however, this is considered to be a poor security practice.<a href="#section-8.1-3.4" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-8.1-3.5">kid:</dt>
 <dd id="section-8.1-3.6">This parameter is used to give an identifier for a key.  The identifier is not structured and can be anything from a user-provided byte string to a value computed on the public portion of the key.  This field is intended for matching against a 'kid' parameter in a message in order to filter down the set of keys that need to be checked.<a href="#section-8.1-3.6" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-8.1-3.7">key_ops:</dt>
 <dd id="section-8.1-3.8">This parameter is defined to restrict the set of operations that a key is to be used for.  The value of the field is an array of values from <a href="#x-table-key-ops" class="xref">Table 6</a>.  Algorithms define the values of key ops that are permitted to appear and are required for specific operations.  The set of values matches that in <span>[<a href="#RFC7517" class="xref">RFC7517</a>]</span> and <span>[<a href="#W3C.WebCrypto" class="xref">W3C.WebCrypto</a>]</span>.<a href="#section-8.1-3.8" class="pilcrow">¶</a>
 </dd>
+<dd class="break"></dd>
 <dt id="section-8.1-3.9">Base IV:</dt>
 <dd id="section-8.1-3.10">
             <p id="section-8.1-3.10.1">This parameter is defined to carry the base portion of an IV.  It is designed to be used with the Partial IV header parameter defined in <a href="#cose-headers" class="xref">Section 3.1</a>.  This field provides the ability to associate a Partial IV with a key that is then modified on a per message basis with the Partial IV.<a href="#section-8.1-3.10.1" class="pilcrow">¶</a></p>
 <p id="section-8.1-3.10.2"> Extreme care needs to be taken when using a Base IV in an application.  Many encryption algorithms lose security if the same IV is used twice.<a href="#section-8.1-3.10.2" class="pilcrow">¶</a></p>
 <p id="section-8.1-3.10.3"> If different keys are derived for each sender, using the same Base IV with Partial IVs starting at zero is likely to ensure that the IV would not be used twice for a single key.  If different keys are derived for each sender, starting at the same Base IV is likely to satisfy this condition.  If the same key is used for multiple senders, then the application needs to provide for a method of dividing the IV space up between the senders.  This could be done by providing a different base point to start from or a different Partial IV to start with and restricting the number of messages to be sent before rekeying.<a href="#section-8.1-3.10.3" class="pilcrow">¶</a></p>
 </dd>
+<dd class="break"></dd>
 </dl>
 <span id="name-key-operation-values"></span><div id="x-table-key-ops">
 <table class="center" id="table-6">
@@ -2248,7 +2310,9 @@ COSE_KeySet = [+COSE_Key]
       </h2>
 <p id="section-9-1">
         In this section, a taxonomy of the different algorithm types that can be used in COSE is laid out.
-        This taxonomy should not be considered to be exhaustive as there are new algorithm structures that could be found or are not known to the author.<a href="#section-9-1" class="pilcrow">¶</a></p>
+        This taxonomy should not be considered to be exhaustive.
+        New algorithms will be created which will not fit into this taxonomy.
+        If this occurs, then new documents addressing this new algorithms are going to be needed.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div id="SigAlgs">
 <section id="section-9.1">
         <h3 id="name-signature-algorithms">
@@ -2311,7 +2375,7 @@ ciphertext = Encrypt(message content, key, additional data)
 valid, message content = Decrypt(ciphertext, key, additional data)
 </pre><a href="#section-9.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-9.3-4">Most AEAD algorithms are logically defined as returning the message content only if the decryption is valid.  Many but not all implementations will follow this convention.  The message content MUST NOT be used if the decryption does not validate.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
+<p id="section-9.3-4">Most AEAD algorithms are logically defined as returning the message content only if the decryption is valid.  Many but not all implementations will follow this convention.  The message content <span class="bcp14">MUST NOT</span> be used if the decryption does not validate.<a href="#section-9.3-4" class="pilcrow">¶</a></p>
 <p id="section-9.3-5">These algorithms are used in COSE_Encrypt and COSE_Encrypt0.<a href="#section-9.3-5" class="pilcrow">¶</a></p>
 </section>
 <section id="section-9.4">
@@ -2352,18 +2416,18 @@ valid, message content = Decrypt(ciphertext, key, additional data)
           <h4 id="name-direct-encryption">
 <a href="#section-9.5.1" class="section-number selfRef">9.5.1. </a><a href="#name-direct-encryption" class="section-name selfRef">Direct Encryption</a>
           </h4>
-<p id="section-9.5.1-1">The direct encryption class algorithms share a secret between the sender and the recipient that is used either directly or after manipulation as the CEK.  When direct encryption mode is used, it MUST be the only mode used on the message.<a href="#section-9.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.5.1-1">The direct encryption class algorithms share a secret between the sender and the recipient that is used either directly or after manipulation as the CEK.  When direct encryption mode is used, it <span class="bcp14">MUST</span> be the only mode used on the message.<a href="#section-9.5.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.5.1-2">The COSE_Recipient structure for the recipient is organized as follows:<a href="#section-9.5.1-2" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-9.5.1-3.1">The 'protected' field MUST be a zero-length item unless it is used in the computation of the content key.<a href="#section-9.5.1-3.1" class="pilcrow">¶</a>
+<li id="section-9.5.1-3.1">The 'protected' field <span class="bcp14">MUST</span> be a zero-length byte string unless it is used in the computation of the content key.<a href="#section-9.5.1-3.1" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.1-3.2">The 'alg' header parameter MUST be present.<a href="#section-9.5.1-3.2" class="pilcrow">¶</a>
+<li id="section-9.5.1-3.2">The 'alg' header parameter <span class="bcp14">MUST</span> be present.<a href="#section-9.5.1-3.2" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.1-3.3">A header parameter identifying the shared secret SHOULD be present.<a href="#section-9.5.1-3.3" class="pilcrow">¶</a>
+<li id="section-9.5.1-3.3">A header parameter identifying the shared secret <span class="bcp14">SHOULD</span> be present.<a href="#section-9.5.1-3.3" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.1-3.4">The 'ciphertext' field MUST be a zero-length item.<a href="#section-9.5.1-3.4" class="pilcrow">¶</a>
+<li id="section-9.5.1-3.4">The 'ciphertext' field <span class="bcp14">MUST</span> be a zero-length byte string.<a href="#section-9.5.1-3.4" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.1-3.5">The 'recipients' field MUST be absent.<a href="#section-9.5.1-3.5" class="pilcrow">¶</a>
+<li id="section-9.5.1-3.5">The 'recipients' field <span class="bcp14">MUST</span> be absent.<a href="#section-9.5.1-3.5" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
@@ -2375,16 +2439,16 @@ valid, message content = Decrypt(ciphertext, key, additional data)
 <p id="section-9.5.2-1">In key wrap mode, the CEK is randomly generated and that key is then encrypted by a shared secret between the sender and the recipient.  All of the currently defined key wrap algorithms for COSE are AE algorithms.  Key wrap mode is considered to be superior to direct encryption if the system has any capability for doing random key generation.  This is because the shared key is used to wrap random data rather than data that has some degree of organization and may in fact be repeating the same content.  The use of key wrap loses the weak data origination that is provided by the direct encryption algorithms.<a href="#section-9.5.2-1" class="pilcrow">¶</a></p>
 <p id="section-9.5.2-2">The COSE_Encrypt structure for the recipient is organized as follows:<a href="#section-9.5.2-2" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-9.5.2-3.1">The 'protected' field MUST be absent if the key wrap algorithm is an AE algorithm.<a href="#section-9.5.2-3.1" class="pilcrow">¶</a>
+<li id="section-9.5.2-3.1">The 'protected' field <span class="bcp14">MUST</span> be absent if the key wrap algorithm is an AE algorithm.<a href="#section-9.5.2-3.1" class="pilcrow">¶</a>
 </li>
 <li id="section-9.5.2-3.2">
               The 'recipients' field is normally absent, but can be used.
-              Applications MUST deal with a recipient field being present that has an unsupported algorithm, not being able to decrypt that recipient is an acceptable way of dealing with it. 
+              Applications <span class="bcp14">MUST</span> deal with a recipient field being present that has an unsupported algorithm, not being able to decrypt that recipient is an acceptable way of dealing with it. 
               Failing to process the message is not an acceptable way of dealing with it.<a href="#section-9.5.2-3.2" class="pilcrow">¶</a>
 </li>
 <li id="section-9.5.2-3.3">The plaintext to be encrypted is the key from next layer down (usually the content layer).<a href="#section-9.5.2-3.3" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.2-3.4">At a minimum, the 'unprotected' field MUST contain the 'alg' header parameter and SHOULD contain a header parameter identifying the shared secret.<a href="#section-9.5.2-3.4" class="pilcrow">¶</a>
+<li id="section-9.5.2-3.4">At a minimum, the 'unprotected' field <span class="bcp14">MUST</span> contain the 'alg' header parameter and <span class="bcp14">SHOULD</span> contain a header parameter identifying the shared secret.<a href="#section-9.5.2-3.4" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
@@ -2398,11 +2462,11 @@ valid, message content = Decrypt(ciphertext, key, additional data)
         A set of key transport algorithms are defined in <span>[<a href="#RFC8230" class="xref">RFC8230</a>]</span>.<a href="#section-9.5.3-1" class="pilcrow">¶</a></p>
 <p id="section-9.5.3-2">When using a key transport algorithm, the COSE_Encrypt structure for the recipient is organized as follows:<a href="#section-9.5.3-2" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-9.5.3-3.1">The 'protected' field MUST be absent.<a href="#section-9.5.3-3.1" class="pilcrow">¶</a>
+<li id="section-9.5.3-3.1">The 'protected' field <span class="bcp14">MUST</span> be absent.<a href="#section-9.5.3-3.1" class="pilcrow">¶</a>
 </li>
 <li id="section-9.5.3-3.2">The plaintext to be encrypted is the key from the next layer down (usually the content layer).<a href="#section-9.5.3-3.2" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.3-3.3">At a minimum, the 'unprotected' field MUST contain the 'alg' header parameter and SHOULD contain a parameter identifying the asymmetric key.<a href="#section-9.5.3-3.3" class="pilcrow">¶</a>
+<li id="section-9.5.3-3.3">At a minimum, the 'unprotected' field <span class="bcp14">MUST</span> contain the 'alg' header parameter and <span class="bcp14">SHOULD</span> contain a parameter identifying the asymmetric key.<a href="#section-9.5.3-3.3" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
@@ -2422,12 +2486,12 @@ valid, message content = Decrypt(ciphertext, key, additional data)
               Static-Static (SS) DH: where a static key is used for both the sender and the recipient.  The use of static keys allows for the recipient to get a weak version of data origination for the message.  When static-static key agreement is used, then some piece of unique data for the KDF is required to ensure that a different key is created for each message.<a href="#section-9.5.4-4.2" class="pilcrow">¶</a>
 </li>
 </ul>
-<p id="section-9.5.4-5">When direct key agreement mode is used, there MUST be only one recipient in the message.  This method creates the key directly, and that makes it difficult to mix with additional recipients.  If multiple recipients are needed, then the version with key wrap needs to be used.<a href="#section-9.5.4-5" class="pilcrow">¶</a></p>
+<p id="section-9.5.4-5">When direct key agreement mode is used, there <span class="bcp14">MUST</span> be only one recipient in the message.  This method creates the key directly, and that makes it difficult to mix with additional recipients.  If multiple recipients are needed, then the version with key wrap needs to be used.<a href="#section-9.5.4-5" class="pilcrow">¶</a></p>
 <p id="section-9.5.4-6">The COSE_Encrypt structure for the recipient is organized as follows:<a href="#section-9.5.4-6" class="pilcrow">¶</a></p>
 <ul>
-<li id="section-9.5.4-7.1">At a minimum, headers  MUST contain the 'alg' header parameter and SHOULD contain a header parameter identifying the recipient's asymmetric key.<a href="#section-9.5.4-7.1" class="pilcrow">¶</a>
+<li id="section-9.5.4-7.1">At a minimum, headers  <span class="bcp14">MUST</span> contain the 'alg' header parameter and <span class="bcp14">SHOULD</span> contain a header parameter identifying the recipient's asymmetric key.<a href="#section-9.5.4-7.1" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.4-7.2">The headers SHOULD identify the sender's key for the static-static versions and MUST contain the sender's ephemeral key for the ephemeral-static versions.<a href="#section-9.5.4-7.2" class="pilcrow">¶</a>
+<li id="section-9.5.4-7.2">The headers <span class="bcp14">SHOULD</span> identify the sender's key for the static-static versions and <span class="bcp14">MUST</span> contain the sender's ephemeral key for the ephemeral-static versions.<a href="#section-9.5.4-7.2" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
@@ -2448,9 +2512,9 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </li>
 <li id="section-9.5.5-4.2">The plaintext to be encrypted is the key from the next layer down (usually the content layer).<a href="#section-9.5.5-4.2" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.5-4.3">The 'alg' header parameter MUST be present in the layer.<a href="#section-9.5.5-4.3" class="pilcrow">¶</a>
+<li id="section-9.5.5-4.3">The 'alg' header parameter <span class="bcp14">MUST</span> be present in the layer.<a href="#section-9.5.5-4.3" class="pilcrow">¶</a>
 </li>
-<li id="section-9.5.5-4.4">A header parameter identifying the recipient's key SHOULD be present.  A header parameter identifying the sender's key SHOULD be present.<a href="#section-9.5.5-4.4" class="pilcrow">¶</a>
+<li id="section-9.5.5-4.4">A header parameter identifying the recipient's key <span class="bcp14">SHOULD</span> be present.  A header parameter identifying the sender's key <span class="bcp14">SHOULD</span> be present.<a href="#section-9.5.5-4.4" class="pilcrow">¶</a>
 </li>
 </ul>
 </section>
@@ -2463,18 +2527,18 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <h2 id="name-cbor-encoding-restrictions">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-cbor-encoding-restrictions" class="section-name selfRef">CBOR Encoding Restrictions</a>
       </h2>
-<p id="section-10-1">There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions:<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">The document limits the restrictions it imposes on the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions:<a href="#section-10-1" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-10-2.1">
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.<a href="#section-10-2.1" class="pilcrow">¶</a>
 </li>
 <li id="section-10-2.2">
-          Encoding MUST be done using definite lengths and values MUST be the minimum possible length.
+          Encoding <span class="bcp14">MUST</span> be done using definite lengths and values <span class="bcp14">MUST</span> be the minimum possible length.
           This means that the integer 1 is encoded as "0x01" and not "0x1801".<a href="#section-10-2.2" class="pilcrow">¶</a>
 </li>
 <li id="section-10-2.3">
-          Applications MUST NOT generate messages with the same label used twice as a key in a single map. 
-          Applications MUST NOT parse and process messages with the same label used twice as a key in a single map. 
+          Applications <span class="bcp14">MUST NOT</span> generate messages with the same label used twice as a key in a single map. 
+          Applications <span class="bcp14">MUST NOT</span> parse and process messages with the same label used twice as a key in a single map. 
           Applications can enforce the parse and process requirement by using parsers that will fail the parse step or by using parsers that will pass all keys to the application, and the application can perform the check for duplicate keys.<a href="#section-10-2.3" class="pilcrow">¶</a>
 </li>
 </ul>
@@ -2839,7 +2903,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </li>
 <li id="section-14.1-2.5">
               Coverage:
-              The C version currently does not have full countersign support.
+              The C version currently does not have full counter sign support.
               The other two versions do.
               They do have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.<a href="#section-14.1-2.5" class="pilcrow">¶</a>
 </li>
@@ -2849,7 +2913,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
               All three libraries have tests to allow for the creating of the same messages that are in the example library followed by validating them.
               These are not compared against the example library.
               The Java and C# libraries have unit testing included.
-              Not all of the MUST statements in the document have been implemented as part of the libraries.
+              Not all of the <span class="bcp14">MUST</span> statements in the document have been implemented as part of the libraries.
               One such statement is the requirement that unique labels be present.<a href="#section-14.1-2.6" class="pilcrow">¶</a>
 </li>
 <li id="section-14.1-2.7">Licensing: Revised BSD License<a href="#section-14.1-2.7" class="pilcrow">¶</a>
@@ -2933,33 +2997,43 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dt id="COAP.Formats">[COAP.Formats]</dt>
 <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"CoAP Content-Formats"</span>, <time></time>, <span>&lt;<a href="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="COSE.Algorithms">[COSE.Algorithms]</dt>
 <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Algorithms"</span>, <time></time>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#algorithms">https://www.iana.org/assignments/cose/cose.xhtml#algorithms</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="COSE.KeyParameters">[COSE.KeyParameters]</dt>
 <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Parameters"</span>, <time></time>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters">https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="COSE.KeyTypes">[COSE.KeyTypes]</dt>
 <dd>
 <span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Types"</span>, <time></time>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type">https://www.iana.org/assignments/cose/cose.xhtml#key-type</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
 <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7049">[RFC7049]</dt>
 <dd>
 <span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="seriesInfo">RFC 7049</span>, <span class="seriesInfo">DOI 10.17487/RFC7049</span>, <time datetime="2013-10">October 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7049">https://www.rfc-editor.org/info/rfc7049</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
 <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="DSS">[DSS]</dt>
 <dd>
 <span class="refAuthor">National Institute of Standards and Technology</span>, <span class="refTitle">"Digital Signature Standard (DSS)"</span>, <span class="seriesInfo">DOI 10.6028/NIST.FIPS.186-4</span>, <span class="seriesInfo">FIPS PUB 186-4</span>, <time datetime="2013-07">July 2013</time>, <span>&lt;<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8032">[RFC8032]</dt>
 <dd>
 <span class="refAuthor">Josefsson, S.</span><span class="refAuthor"> and I. Liusvaara</span>, <span class="refTitle">"Edwards-Curve Digital Signature Algorithm (EdDSA)"</span>, <span class="seriesInfo">RFC 8032</span>, <span class="seriesInfo">DOI 10.17487/RFC8032</span>, <time datetime="2017-01">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8032">https://www.rfc-editor.org/info/rfc8032</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</dt>
 <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-06</span>, <time datetime="2019-11-04">4 November 2019</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-06">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-07</span>, <time datetime="2020-03-09">9 March 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-07">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 </dl>
 </section>
 <section id="section-15.2">
@@ -2970,78 +3044,103 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dt id="RFC8152">[RFC8152]</dt>
 <dd>
 <span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span class="seriesInfo">RFC 8152</span>, <span class="seriesInfo">DOI 10.17487/RFC8152</span>, <time datetime="2017-07">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8152">https://www.rfc-editor.org/info/rfc8152</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8610">[RFC8610]</dt>
 <dd>
 <span class="refAuthor">Birkholz, H.</span><span class="refAuthor">, Vigano, C.</span><span class="refAuthor">, and C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8610">https://www.rfc-editor.org/info/rfc8610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8018">[RFC8018]</dt>
 <dd>
 <span class="refAuthor">Moriarty, K., Ed.</span><span class="refAuthor">, Kaliski, B.</span><span class="refAuthor">, and A. Rusch</span>, <span class="refTitle">"PKCS #5: Password-Based Cryptography Specification Version 2.1"</span>, <span class="seriesInfo">RFC 8018</span>, <span class="seriesInfo">DOI 10.17487/RFC8018</span>, <time datetime="2017-01">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8018">https://www.rfc-editor.org/info/rfc8018</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2633">[RFC2633]</dt>
 <dd>
 <span class="refAuthor">Ramsdell, B., Ed.</span>, <span class="refTitle">"S/MIME Version 3 Message Specification"</span>, <span class="seriesInfo">RFC 2633</span>, <span class="seriesInfo">DOI 10.17487/RFC2633</span>, <time datetime="1999-06">June 1999</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2633">https://www.rfc-editor.org/info/rfc2633</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4262">[RFC4262]</dt>
 <dd>
 <span class="refAuthor">Santesson, S.</span>, <span class="refTitle">"X.509 Certificate Extension for Secure/Multipurpose Internet Mail Extensions (S/MIME) Capabilities"</span>, <span class="seriesInfo">RFC 4262</span>, <span class="seriesInfo">DOI 10.17487/RFC4262</span>, <time datetime="2005-12">December 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4262">https://www.rfc-editor.org/info/rfc4262</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4949">[RFC4949]</dt>
 <dd>
 <span class="refAuthor">Shirey, R.</span>, <span class="refTitle">"Internet Security Glossary, Version 2"</span>, <span class="seriesInfo">FYI 36</span>, <span class="seriesInfo">RFC 4949</span>, <span class="seriesInfo">DOI 10.17487/RFC4949</span>, <time datetime="2007-08">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4949">https://www.rfc-editor.org/info/rfc4949</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5116">[RFC5116]</dt>
 <dd>
 <span class="refAuthor">McGrew, D.</span>, <span class="refTitle">"An Interface and Algorithms for Authenticated Encryption"</span>, <span class="seriesInfo">RFC 5116</span>, <span class="seriesInfo">DOI 10.17487/RFC5116</span>, <time datetime="2008-01">January 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5116">https://www.rfc-editor.org/info/rfc5116</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5652">[RFC5652]</dt>
 <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">STD 70</span>, <span class="seriesInfo">RFC 5652</span>, <span class="seriesInfo">DOI 10.17487/RFC5652</span>, <time datetime="2009-09">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5652">https://www.rfc-editor.org/info/rfc5652</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5751">[RFC5751]</dt>
 <dd>
 <span class="refAuthor">Ramsdell, B.</span><span class="refAuthor"> and S. Turner</span>, <span class="refTitle">"Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 3.2 Message Specification"</span>, <span class="seriesInfo">RFC 5751</span>, <span class="seriesInfo">DOI 10.17487/RFC5751</span>, <time datetime="2010-01">January 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5751">https://www.rfc-editor.org/info/rfc5751</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5752">[RFC5752]</dt>
 <dd>
 <span class="refAuthor">Turner, S.</span><span class="refAuthor"> and J. Schaad</span>, <span class="refTitle">"Multiple Signatures in Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 5752</span>, <span class="seriesInfo">DOI 10.17487/RFC5752</span>, <time datetime="2010-01">January 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5752">https://www.rfc-editor.org/info/rfc5752</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5990">[RFC5990]</dt>
 <dd>
 <span class="refAuthor">Randall, J.</span><span class="refAuthor">, Kaliski, B.</span><span class="refAuthor">, Brainard, J.</span><span class="refAuthor">, and S. Turner</span>, <span class="refTitle">"Use of the RSA-KEM Key Transport Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 5990</span>, <span class="seriesInfo">DOI 10.17487/RFC5990</span>, <time datetime="2010-09">September 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5990">https://www.rfc-editor.org/info/rfc5990</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC6838">[RFC6838]</dt>
 <dd>
 <span class="refAuthor">Freed, N.</span><span class="refAuthor">, Klensin, J.</span><span class="refAuthor">, and T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6838">https://www.rfc-editor.org/info/rfc6838</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8259">[RFC8259]</dt>
 <dd>
 <span class="refAuthor">Bray, T., Ed.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="seriesInfo">STD 90</span>, <span class="seriesInfo">RFC 8259</span>, <span class="seriesInfo">DOI 10.17487/RFC8259</span>, <time datetime="2017-12">December 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8259">https://www.rfc-editor.org/info/rfc8259</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7252">[RFC7252]</dt>
 <dd>
 <span class="refAuthor">Shelby, Z.</span><span class="refAuthor">, Hartke, K.</span><span class="refAuthor">, and C. Bormann</span>, <span class="refTitle">"The Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7252</span>, <span class="seriesInfo">DOI 10.17487/RFC7252</span>, <time datetime="2014-06">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7252">https://www.rfc-editor.org/info/rfc7252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7515">[RFC7515]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span><span class="refAuthor">, Bradley, J.</span><span class="refAuthor">, and N. Sakimura</span>, <span class="refTitle">"JSON Web Signature (JWS)"</span>, <span class="seriesInfo">RFC 7515</span>, <span class="seriesInfo">DOI 10.17487/RFC7515</span>, <time datetime="2015-05">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7515">https://www.rfc-editor.org/info/rfc7515</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7516">[RFC7516]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span><span class="refAuthor"> and J. Hildebrand</span>, <span class="refTitle">"JSON Web Encryption (JWE)"</span>, <span class="seriesInfo">RFC 7516</span>, <span class="seriesInfo">DOI 10.17487/RFC7516</span>, <time datetime="2015-05">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7516">https://www.rfc-editor.org/info/rfc7516</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7517">[RFC7517]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Key (JWK)"</span>, <span class="seriesInfo">RFC 7517</span>, <span class="seriesInfo">DOI 10.17487/RFC7517</span>, <time datetime="2015-05">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7517">https://www.rfc-editor.org/info/rfc7517</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7518">[RFC7518]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Algorithms (JWA)"</span>, <span class="seriesInfo">RFC 7518</span>, <span class="seriesInfo">DOI 10.17487/RFC7518</span>, <time datetime="2015-05">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7518">https://www.rfc-editor.org/info/rfc7518</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8126">[RFC8126]</dt>
 <dd>
 <span class="refAuthor">Cotton, M.</span><span class="refAuthor">, Leiba, B.</span><span class="refAuthor">, and T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8126">https://www.rfc-editor.org/info/rfc8126</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="PVSig">[PVSig]</dt>
 <dd>
 <span class="refAuthor">Brown, D.</span><span class="refAuthor"> and D. Johnson</span>, <span class="refTitle">"Formal Security Proofs for a Signature Scheme with Partial Message Recovery"</span>, <span class="seriesInfo">DOI 10.1007/3-540-45353-9_11</span>, <span class="seriesInfo">LNCS Volume 2020</span>, <time datetime="2000-06">June 2000</time>, <span>&lt;<a href="https://doi.org/10.1007/3-540-45353-9_11">https://doi.org/10.1007/3-540-45353-9_11</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="W3C.WebCrypto">[W3C.WebCrypto]</dt>
 <dd>
 <span class="refAuthor">Watson, M.</span>, <span class="refTitle">"Web Cryptography API"</span>, <span class="seriesInfo">W3C Recommendation</span>, <time datetime="2017-01">January 2017</time>, <span>&lt;<a href="https://www.w3.org/TR/WebCryptoAPI/">https://www.w3.org/TR/WebCryptoAPI/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8613">[RFC8613]</dt>
 <dd>
 <span class="refAuthor">Selander, G.</span><span class="refAuthor">, Mattsson, J.</span><span class="refAuthor">, Palombini, F.</span><span class="refAuthor">, and L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8613">https://www.rfc-editor.org/info/rfc8613</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8230">[RFC8230]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"Using RSA Algorithms with CBOR Object Signing and Encryption (COSE) Messages"</span>, <span class="seriesInfo">RFC 8230</span>, <span class="seriesInfo">DOI 10.17487/RFC8230</span>, <time datetime="2017-09">September 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8230">https://www.rfc-editor.org/info/rfc8230</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7942">[RFC7942]</dt>
 <dd>
 <span class="refAuthor">Sheffer, Y.</span><span class="refAuthor"> and A. Farrel</span>, <span class="refTitle">"Improving Awareness of Running Code: The Implementation Status Section"</span>, <span class="seriesInfo">BCP 205</span>, <span class="seriesInfo">RFC 7942</span>, <span class="seriesInfo">DOI 10.17487/RFC7942</span>, <time datetime="2016-07">July 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7942">https://www.rfc-editor.org/info/rfc7942</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4998">[RFC4998]</dt>
 <dd>
 <span class="refAuthor">Gondrom, T.</span><span class="refAuthor">, Brandner, R.</span><span class="refAuthor">, and U. Pordesch</span>, <span class="refTitle">"Evidence Record Syntax (ERS)"</span>, <span class="seriesInfo">RFC 4998</span>, <span class="seriesInfo">DOI 10.17487/RFC4998</span>, <time datetime="2007-08">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4998">https://www.rfc-editor.org/info/rfc4998</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 </dl>
 </section>
 </section>
@@ -3057,7 +3156,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <p id="section-appendix.a-2">
     This appendix lays out how such a change can be made and the details that an application needs to specify in order to use this option. 
     Two different sets of details are specified: those needed to omit an algorithm identifier and those needed to use a variant on the counter signature attribute that contains no attributes about itself.<a href="#section-appendix.a-2" class="pilcrow">¶</a></p>
-<p id="section-appendix.a-3">Three sets of recommendations are laid out.  The first set of recommendations apply to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations apply to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations apply to having implicit algorithms for multiple COSE object constructs.<a href="#section-appendix.a-3" class="pilcrow">¶</a></p>
+<p id="section-appendix.a-3">Three sets of recommendations are laid out.  The first set of recommendations applies to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations applies to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations applies to having implicit algorithms for multiple COSE object constructs.<a href="#section-appendix.a-3" class="pilcrow">¶</a></p>
 <p id="section-appendix.a-4">The key words from <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.<a href="#section-appendix.a-4" class="pilcrow">¶</a></p>
 <p id="section-appendix.a-5">This set of recommendations applies to the case where an application is distributing a fixed algorithm along with the key information for use in a single COSE object.  This normally applies to the smallest of the COSE objects, specifically COSE_Sign1, COSE_Mac0, and COSE_Encrypt0, but could apply to the other structures as well.<a href="#section-appendix.a-5" class="pilcrow">¶</a></p>
 <p id="section-appendix.a-6">The following items should be taken into account:<a href="#section-appendix.a-6" class="pilcrow">¶</a></p>
