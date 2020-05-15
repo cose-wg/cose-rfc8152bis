@@ -15,12 +15,12 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-latest" category="std" obsoletes="8152" updates="" submissionType="IETF" xml:lang="en" version="3" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-09" category="std" obsoletes="8152" updates="" submissionType="IETF" xml:lang="en" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Structure">
     CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Structures and Process</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-struct-latest"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-struct-09"/>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -53,9 +53,9 @@
   <middle>
     <section anchor="introduction">
       <name>Introduction</name>
-      <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"/>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC8259"/> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
+      <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"/>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC8259"/> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically both to be small in terms of messages transported and implementation size and be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
       
-      <t>The JOSE working group produced a set of documents <xref target="RFC7515"/> <xref target="RFC7516"/> <xref target="RFC7517"/> <xref target="RFC7518"/> using JSON that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.ietf-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
+      <t>The JOSE working group produced a set of documents <xref target="RFC7515"/> <xref target="RFC7516"/> <xref target="RFC7517"/> <xref target="RFC7518"/> that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.ietf-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
 
       <ul>
         <li>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded text string.  </li>
@@ -119,7 +119,7 @@
           <li>Signed messages distinguish between the protected and unprotected header parameters that relate to the content from those that relate to the signature. </li>
           <li>MACed messages are separated from signed messages.  </li>
           <li>MACed messages have the ability to use the same set of recipient algorithms as enveloped messages for obtaining the MAC authentication key.  </li>
-          <li>Use binary encodings for binary data rather than base64url encodings.  </li>
+          <li>Use binary encodings, rather than base64url encodings, to encode binary data.  </li>
           <li>Combine the authentication tag for encryption algorithms with the ciphertext.  </li>
           <li>The set of cryptographic algorithms has been expanded in some directions and trimmed in others.  </li>
         </ul>
@@ -194,7 +194,7 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
         <t>In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
         <t>
-          The presence of a label in a CBOR map that is not a text string or an integer is an error. 
+          The presence in a CBOR map of a label that is not a text string or an integer is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they <bcp14>MUST NOT</bcp14> create messages with incorrect labels. 
         </t>
 
@@ -217,8 +217,8 @@ values = any
           Context is used throughout the document to represent information that is not part of the COSE message.
           Information which is part of the context can come from several different sources including:
           Protocol interactions, associated key structures and program configuration.
-          The context to use can be implicit, identified using the 'kid context' header parameter defined in <xref target="RFC8613"/>, or identified by a protocol specific identifier.
-          Context should generally be included in the cryptographic configuration, for more details see <xref target="Extern_AAD"/>.
+          The context to use can be implicit, identified using the 'kid context' header parameter defined in <xref target="RFC8613"/>, or identified by a protocol-specific identifier.
+          Context should generally be included in the cryptographic configuration; for more details see <xref target="Extern_AAD"/>.
         </t>
         <t>The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.</t>
       </section>
@@ -575,7 +575,7 @@ Generic_Headers = (
       <t>COSE supports two different signature structures.  COSE_Sign allows for one or more signatures to be applied to the same content. COSE_Sign1 is restricted to a single signer.  The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.  </t>
       <section anchor="full-signature">
         <name>Signing with One or More Signers</name>
-        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of a header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
+        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
         <t>RFC 5652 indicates that:
 
         </t>
@@ -867,7 +867,7 @@ COSE_CounterSignature = COSE_Signature
         <name>Enveloped COSE Structure</name>
         <t>The enveloped structure allows for one or more recipients of a message.  There are provisions for header parameters about the content and header parameters about the recipient information to be carried in the message.  The protected header parameters associated with the content are authenticated by the content encryption algorithm.  The protected header parameters associated with the recipient are authenticated by the recipient algorithm (when the algorithm supports it).  Examples of header parameters about the content are the type of the content and the content encryption algorithm.  Examples of header parameters about the recipient are the recipient's key identifier and the recipient's encryption algorithm.  </t>
         <t>
-          The same techniques and nearly the same structure is used for encrypting both the plaintext and the keys. 
+          The same techniques and nearly the same structure are used for encrypting both the plaintext and the keys. 
           This is different from the approach used by both "Cryptographic Message Syntax (CMS)" <xref target="RFC5652"/> and "JSON Web Encryption (JWE)" <xref target="RFC7516"/> where different structures are used for the content layer and for the recipient layer. 
           Two structures are defined: COSE_Encrypt to hold the encrypted content and COSE_recipient to hold the encrypted keys for recipients.  
 
@@ -1548,7 +1548,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     </section>
     <section anchor="CBOR-Canonical">
       <name>CBOR Encoding Restrictions</name>
-      <t>There has been an attempt to limit the number of places where the document needs to impose restrictions on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
+      <t>The document limits the restrictions it imposes on the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
       <ul>
         <li>
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.
@@ -2022,7 +2022,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     This appendix lays out how such a change can be made and the details that an application needs to specify in order to use this option. 
     Two different sets of details are specified: those needed to omit an algorithm identifier and those needed to use a variant on the counter signature attribute that contains no attributes about itself. 
       </t>
-      <t>Three sets of recommendations are laid out.  The first set of recommendations apply to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations apply to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations apply to having implicit algorithms for multiple COSE object constructs.  </t>
+      <t>Three sets of recommendations are laid out.  The first set of recommendations applies to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations applies to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations applies to having implicit algorithms for multiple COSE object constructs.  </t>
       <t>The key words from <xref target="RFC2119"/> are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.  </t>
       <t>This set of recommendations applies to the case where an application is distributing a fixed algorithm along with the key information for use in a single COSE object.  This normally applies to the smallest of the COSE objects, specifically COSE_Sign1, COSE_Mac0, and COSE_Encrypt0, but could apply to the other structures as well.  </t>
       <t>The following items should be taken into account:
