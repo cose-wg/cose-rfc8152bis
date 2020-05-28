@@ -2032,12 +2032,11 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             <date year="2017" month="January"/>
           </front>
         </reference>
-        <xi:include href="reference.RFC.8613.xml"/>
         <xi:include href="reference.RFC.8230.xml"/>
         <xi:include href="reference.RFC.7942.xml"/>
         <xi:include href="reference.RFC.4998.xml"/>
-        <xi:include href="I-D.ietf-cose-hash-algs.xml"/>
-        <xi:include href="I-D.ietf-core-groupcomm-bis.xml"/>
+        <xi:include href="reference.I-D.ietf-cose-hash-algs.xml"/>
+        <xi:include href="reference.I-D.ietf-core-groupcomm-bis.xml"/>
         <xi:include href="reference.RFC.8613.xml"/>
       </references>
     </references>
