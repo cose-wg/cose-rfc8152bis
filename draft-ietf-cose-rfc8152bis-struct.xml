@@ -9,18 +9,24 @@
 
 <!--  <!ENTITY cose-alg SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.schaad-cose-rfc8152bis-algs.xml"> -->
 
+<!-- RFC EDITOR
+Issue has been raised about countersign vs counter sign.
+The dictionaries seem to favor a single word, but when you did RFC 8152 you left it as a double word.
+-->
+
+
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-09" category="std" obsoletes="8152" updates="" submissionType="IETF" xml:lang="en" version="3" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-10" category="std" obsoletes="8152" updates="" submissionType="IETF" xml:lang="en" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Structure">
     CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Structures and Process</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-struct-09"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-struct-10"/>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -86,12 +92,21 @@
       </t>
 
       <t>
-        One feature that is present in CMS <xref target="RFC5652"/> that is not present in this standard is a digest structure.
+        COSE was initially designed as part of a solution to provide security to Constrained RESTful Environments (CoRE), and this is done using <xref target="RFC8613"/> and <xref target="I-D.ietf-core-groupcomm-bis"/>.
+        However, COSE is not restricted to just these cases and can be used in any place where one would consider either JOSE or CMS <xref target="RFC5652"/> for the purpose of providing security services.
+        The use of COSE, like JOSE and CMS, is only in store and forward or offline protocols, different solutions would be appropriate for online protocols although one can use COSE in and online protocol after having done some type of online key establishment process.
+        Any application which uses COSE for security services first needs to determine what security services are required and then select the appropriate COSE structures and cryptographic algorithms based on those needs.
+        <xref target="app-considerations"/> provides additional information on what applications need to specify when using COSE.
+      </t>
+
+      <t>
+        One feature that is present in CMS that is not present in this standard is a digest structure.
         This omission is deliberate.
-        It is better for the structure to be defined in each document as different protocols will want to include a different set of fields as part of the structure.
+        It is better for the structure to be defined in each protocol as different protocols will want to include a different set of fields as part of the structure.
         While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
         Applications may additionally want to define additional data fields as part of the structure.
         A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application-specific.
+        <xref target="I-D.ietf-cose-hash-algs"/> contains one such possible structure along with defining a set of digest algorithms.
       </t>
 
       <section anchor="requirements-terminology">
@@ -575,7 +590,7 @@ Generic_Headers = (
       <t>COSE supports two different signature structures.  COSE_Sign allows for one or more signatures to be applied to the same content. COSE_Sign1 is restricted to a single signer.  The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.  </t>
       <section anchor="full-signature">
         <name>Signing with One or More Signers</name>
-        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
+        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type header parameter.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
         <t>RFC 5652 indicates that:
 
         </t>
@@ -766,6 +781,14 @@ array to avoid confusion.
     </section>
     <section anchor="counter_signature">
       <name>Counter Signatures</name>
+      <t>
+        A counter signature is normally defined as a second signature that confirms a primary signature.
+        A normal example of a counter signature is the signature that a notary public places on a document as witnessing that you have signed the document.
+        Thus applying a counter signature to either the COSE_Signature or COSE_Sign1 objects match this traditional definition.
+        This document extends the context of a counter signature to allow it to be applied to all of the security structures defined.
+        It needs to be noted that the counter signature needs to be treated as a separate operation from the initial operation even if it is applied by the same user as is done in <xref target="I-D.ietf-core-groupcomm-bis"/>.
+      </t>
+      
       <t>
         COSE supports two different forms for counter signatures.
         Full counter signatures use the structure COSE_Countersign.
@@ -1548,7 +1571,12 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     </section>
     <section anchor="CBOR-Canonical">
       <name>CBOR Encoding Restrictions</name>
-      <t>The document limits the restrictions it imposes on the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
+      <t>
+        The document limits the restrictions it imposes on the CBOR Encoder needs to work.
+        <!-- RFC EDITOR:
+             If the CBOR bis document manages to get there at about the same time I want to add a sentence here.
+        -->
+      </t>
       <ul>
         <li>
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.
@@ -1564,7 +1592,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </li>
       </ul>
     </section>
-    <section>
+    <section anchor="app-considerations">
       <name>Application Profiling Considerations</name>
       <t>This document is designed to provide a set of security services, but not impose algorithm implementation requirements for specific usage.  The interoperability requirements are provided for how each of the individual services are used and how the algorithms are to be used for interoperability.  The requirements about which algorithms and which services are needed are deferred to each application.  </t>
       <t>
@@ -1597,7 +1625,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <name>IANA Considerations</name>
       <t>
         The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
-        The only known action at this time is to update the references.
+        The majority of the actions are to update the references to point to this document.
       </t>
       <section anchor="cbor-tag-assignment">
         <name>CBOR Tag Assignment</name>
@@ -2004,10 +2032,12 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             <date year="2017" month="January"/>
           </front>
         </reference>
-        <xi:include href="reference.RFC.8613.xml"/>
         <xi:include href="reference.RFC.8230.xml"/>
         <xi:include href="reference.RFC.7942.xml"/>
         <xi:include href="reference.RFC.4998.xml"/>
+        <xi:include href="reference.I-D.ietf-cose-hash-algs.xml"/>
+        <xi:include href="reference.I-D.ietf-core-groupcomm-bis.xml"/>
+        <xi:include href="reference.RFC.8613.xml"/>
       </references>
     </references>
     <section>
