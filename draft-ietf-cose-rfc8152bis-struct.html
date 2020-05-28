@@ -13,7 +13,7 @@
        
     " name="description">
 <meta content="xml2rfc 2.44.0" name="generator">
-<meta content="draft-ietf-cose-rfc8152bis-struct-09" name="ietf.draft">
+<meta content="draft-ietf-cose-rfc8152bis-struct-10" name="ietf.draft">
 <link href="draft-ietf-cose-rfc8152bis-struct.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 
@@ -300,7 +300,7 @@ ul.toc li {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schaad</td>
-<td class="center">Expires 16 November 2020</td>
+<td class="center">Expires 29 November 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -310,18 +310,18 @@ ul.toc li {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">COSE Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-cose-rfc8152bis-struct-09</dd>
+<dd class="internet-draft">draft-ietf-cose-rfc8152bis-struct-10</dd>
 <dt class="label-obsoletes">Obsoletes:</dt>
 <dd class="obsoletes">
 <a href="https://www.rfc-editor.org/rfc/rfc8152" class="eref">8152</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-05-15" class="published">15 May 2020</time>
+<time datetime="2020-05-28" class="published">28 May 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-11-16">16 November 2020</time></dd>
+<dd class="expires"><time datetime="2020-11-29">29 November 2020</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -368,7 +368,7 @@ ul.toc li {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 November 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 November 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -751,12 +751,19 @@ ul.toc li {
         Details on specific algorithms can be found in <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span> and <span>[<a href="#RFC8230" class="xref">RFC8230</a>]</span>.
         Details for additional algorithms are expected to be defined in future documents.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">
-        One feature that is present in CMS <span>[<a href="#RFC5652" class="xref">RFC5652</a>]</span> that is not present in this standard is a digest structure.
+        COSE was initially designed as part of a solution to provide security to Constrained RESTful Environments (CoRE), and this is done using <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span> and <span>[<a href="#I-D.ietf-core-groupcomm-bis" class="xref">I-D.ietf-core-groupcomm-bis</a>]</span>.
+        However, COSE is not restricted to just these cases and can be used in any place where one would consider either JOSE or CMS <span>[<a href="#RFC5652" class="xref">RFC5652</a>]</span> for the purpose of providing security services.
+        The use of COSE, like JOSE and CMS, is only in store and forward or offline protocols, different solutions would be appropriate for online protocols although one can use COSE in and online protocol after having done some type of online key establishment process.
+        Any application which uses COSE for security services first needs to determine what security services are required and then select the appropriate COSE structures and cryptographic algorithms based on those needs.
+        <a href="#app-considerations" class="xref">Section 11</a> provides additional information on what applications need to specify when using COSE.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">
+        One feature that is present in CMS that is not present in this standard is a digest structure.
         This omission is deliberate.
-        It is better for the structure to be defined in each document as different protocols will want to include a different set of fields as part of the structure.
+        It is better for the structure to be defined in each protocol as different protocols will want to include a different set of fields as part of the structure.
         While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
         Applications may additionally want to define additional data fields as part of the structure.
-        A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application-specific.<a href="#section-1-7" class="pilcrow">¶</a></p>
+        A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application-specific.
+        <span>[<a href="#I-D.ietf-cose-hash-algs" class="xref">I-D.ietf-cose-hash-algs</a>]</span> contains one such possible structure along with defining a set of digest algorithms.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <div id="requirements-terminology">
 <section id="section-1.1">
         <h3 id="name-requirements-terminology">
@@ -1307,7 +1314,7 @@ Generic_Headers = (
         <h3 id="name-signing-with-one-or-more-si">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-signing-with-one-or-more-si" class="section-name selfRef">Signing with One or More Signers</a>
         </h3>
-<p id="section-4.1-1">The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of header a parameter about the content is the content type header parameter.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">RFC 5652 indicates that:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <blockquote id="section-4.1-3">
           When more than one signature is present, the successful validation of one signature associated with a given signer is usually treated as a successful signature by that signer.  However, there are some application environments where other rules are needed.  An application that employs a rule other than one valid signature for each signer must specify those rules.  Also, where simple matching of the signer identifier is not sufficient to determine whether the signatures were generated by the same signer, the application specification must describe how to determine which signatures were generated by the same signer.  Support for different communities of recipients is the primary reason that signers choose to include more than one signature.<a href="#section-4.1-3" class="pilcrow">¶</a>
@@ -1536,13 +1543,19 @@ Sig_structure = [
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-counter-signatures" class="section-name selfRef">Counter Signatures</a>
       </h2>
 <p id="section-5-1">
+        A counter signature is normally defined as a second signature that confirms a primary signature.
+        A normal example of a counter signature is the signature that a notary public places on a document as witnessing that you have signed the document.
+        Thus applying a counter signature to either the COSE_Signature or COSE_Sign1 objects match this traditional definition.
+        This document extends the context of a counter signature to allow it to be applied to all of the security structures defined.
+        It needs to be noted that the counter signature needs to be treated as a separate operation from the initial operation even if it is applied by the same user as is done in <span>[<a href="#I-D.ietf-core-groupcomm-bis" class="xref">I-D.ietf-core-groupcomm-bis</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">
         COSE supports two different forms for counter signatures.
         Full counter signatures use the structure COSE_Countersign.
         This is same structure as COSE_Signature and thus it can have protected attributes, chained counter signatures and information about identifying the key.
         Abbreviated counter signatures use the structure COSE_Countersign1.
         This structure only contains the signature value and nothing else.
-        The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">
+        The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">
         COSE was designed for uniformity in how the data structures are specified.
         One result of this is that for COSE one can expand the concept of counter signatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
         When creating a counter signature, one needs to be clear about the security properties that result.
@@ -1552,7 +1565,7 @@ Sig_structure = [
         It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
         If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
         It is always possible to construct cases where the use of two different keys will appear to result in a successful decryption (the tag check success), but which produce two completely different plaintexts.
-        This situation is not detectable by a counter signature on the encrypted data.<a href="#section-5-2" class="pilcrow">¶</a></p>
+        This situation is not detectable by a counter signature on the encrypted data.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <section id="section-5.1">
         <h3 id="name-full-counter-signatures">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-full-counter-signatures" class="section-name selfRef">Full Counter Signatures</a>
@@ -2527,7 +2540,8 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <h2 id="name-cbor-encoding-restrictions">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-cbor-encoding-restrictions" class="section-name selfRef">CBOR Encoding Restrictions</a>
       </h2>
-<p id="section-10-1">The document limits the restrictions it imposes on the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions:<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">
+        The document limits the restrictions it imposes on the CBOR Encoder needs to work.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-10-2.1">
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.<a href="#section-10-2.1" class="pilcrow">¶</a>
@@ -2544,6 +2558,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </ul>
 </section>
 </div>
+<div id="app-considerations">
 <section id="section-11">
       <h2 id="name-application-profiling-consi">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-application-profiling-consi" class="section-name selfRef">Application Profiling Considerations</a>
@@ -2578,6 +2593,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </li>
 </ul>
 </section>
+</div>
 <div id="iana-considerations">
 <section id="section-12">
       <h2 id="name-iana-considerations">
@@ -2585,7 +2601,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       </h2>
 <p id="section-12-1">
         The registries and registrations listed below were created during processing of RFC 8152 <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>.
-        The only known action at this time is to update the references.<a href="#section-12-1" class="pilcrow">¶</a></p>
+        The majority of the actions are to update the references to point to this document.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <div id="cbor-tag-assignment">
 <section id="section-12.1">
         <h3 id="name-cbor-tag-assignment">
@@ -3032,7 +3048,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</dt>
 <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-07</span>, <time datetime="2020-03-09">9 March 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-07">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-08</span>, <time datetime="2020-05-14">14 May 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-08">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3125,10 +3141,6 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dd>
 <span class="refAuthor">Watson, M.</span>, <span class="refTitle">"Web Cryptography API"</span>, <span class="seriesInfo">W3C Recommendation</span>, <time datetime="2017-01">January 2017</time>, <span>&lt;<a href="https://www.w3.org/TR/WebCryptoAPI/">https://www.w3.org/TR/WebCryptoAPI/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8613">[RFC8613]</dt>
-<dd>
-<span class="refAuthor">Selander, G.</span><span class="refAuthor">, Mattsson, J.</span><span class="refAuthor">, Palombini, F.</span><span class="refAuthor">, and L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8613">https://www.rfc-editor.org/info/rfc8613</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8230">[RFC8230]</dt>
 <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"Using RSA Algorithms with CBOR Object Signing and Encryption (COSE) Messages"</span>, <span class="seriesInfo">RFC 8230</span>, <span class="seriesInfo">DOI 10.17487/RFC8230</span>, <time datetime="2017-09">September 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8230">https://www.rfc-editor.org/info/rfc8230</a>&gt;</span>. </dd>
@@ -3140,6 +3152,18 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dt id="RFC4998">[RFC4998]</dt>
 <dd>
 <span class="refAuthor">Gondrom, T.</span><span class="refAuthor">, Brandner, R.</span><span class="refAuthor">, and U. Pordesch</span>, <span class="refTitle">"Evidence Record Syntax (ERS)"</span>, <span class="seriesInfo">RFC 4998</span>, <span class="seriesInfo">DOI 10.17487/RFC4998</span>, <time datetime="2007-08">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4998">https://www.rfc-editor.org/info/rfc4998</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-cose-hash-algs">[I-D.ietf-cose-hash-algs]</dt>
+<dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Hash Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hash-algs-03</span>, <time datetime="2020-03-09">9 March 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-hash-algs-03">https://tools.ietf.org/html/draft-ietf-cose-hash-algs-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-core-groupcomm-bis">[I-D.ietf-core-groupcomm-bis]</dt>
+<dd>
+<span class="refAuthor">Dijk, E.</span><span class="refAuthor">, Wang, C.</span><span class="refAuthor">, and M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-00</span>, <time datetime="2020-03-30">30 March 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-00">https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8613">[RFC8613]</dt>
+<dd>
+<span class="refAuthor">Selander, G.</span><span class="refAuthor">, Mattsson, J.</span><span class="refAuthor">, Palombini, F.</span><span class="refAuthor">, and L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8613">https://www.rfc-editor.org/info/rfc8613</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
