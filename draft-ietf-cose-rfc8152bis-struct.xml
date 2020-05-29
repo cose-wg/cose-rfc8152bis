@@ -94,7 +94,7 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
       <t>
         COSE was initially designed as part of a solution to provide security to Constrained RESTful Environments (CoRE), and this is done using <xref target="RFC8613"/> and <xref target="I-D.ietf-core-groupcomm-bis"/>.
         However, COSE is not restricted to just these cases and can be used in any place where one would consider either JOSE or CMS <xref target="RFC5652"/> for the purpose of providing security services.
-        The use of COSE, like JOSE and CMS, is only in store and forward or offline protocols, different solutions would be appropriate for online protocols although one can use COSE in and online protocol after having done some type of online key establishment process.
+        The use of COSE, like JOSE and CMS, is only in store and forward or offline protocols, different solutions would be appropriate for online protocols although one can use COSE in an online protocol after having done some type of online key establishment process.
         Any application which uses COSE for security services first needs to determine what security services are required and then select the appropriate COSE structures and cryptographic algorithms based on those needs.
         <xref target="app-considerations"/> provides additional information on what applications need to specify when using COSE.
       </t>
@@ -173,6 +173,7 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
         <ul empty="true">
           <li>FOO / BAR -- indicates that either FOO or BAR can appear here.</li>
           <li>[+ FOO] -- indicates that the type FOO appears one or more times in an array.</li>
+          <li>* FOO -- indicates that the type FOO appears zero or more times.</li>
         </ul>
 
         <t>
@@ -411,6 +412,7 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
       <dl newline="false">
         <dt>protected:</dt>
         <dd>
+          <t>
             Contains parameters about the current layer that are cryptographically protected. 
             This bucket <bcp14>MUST</bcp14> be empty if it is not going to be included in a cryptographic computation. 
             This bucket is encoded in the message as a binary object. 
@@ -418,10 +420,13 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
             Senders <bcp14>SHOULD</bcp14> encode a zero-length map as a zero-length byte string rather than as a zero-length map (encoded as h'a0'). 
             The zero-length binary encoding is preferred because it is both shorter and the version used in the serialization structures for cryptographic computation. 
             After encoding the map, the value is wrapped in the binary object. 
-            Recipients <bcp14>MUST</bcp14> accept both a zero-length byte string and a zero-length map encoded in the binary value. 
-            The wrapping allows for the encoding of the protected map to be transported with a greater chance that it will not be altered in transit. 
+            Recipients <bcp14>MUST</bcp14> accept both a zero-length byte string and a zero-length map encoded in the binary value.
+          </t>
+          <t>
+            Wrapping the encoding with a byte string allows for the protected map to be transported with a greater chance that it will not be altered accidentally in transit. 
             (Badly behaved intermediates could decode and re-encode, but this will result in a failure to verify unless the re-encoded byte string is identical to the decoded byte string.)
             This avoids the problem of all parties needing to be able to do a common canonical encoding.
+          </t>
           </dd>
         <dt>unprotected:</dt>
         <dd>Contains parameters about the current layer that are not cryptographically protected.  </dd>
