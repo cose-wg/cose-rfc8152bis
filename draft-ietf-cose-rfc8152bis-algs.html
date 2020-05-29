@@ -22,7 +22,7 @@
         This document along with   obsoletes RFC8152.
        
     " name="description">
-<meta content="xml2rfc 2.44.0" name="generator">
+<meta content="xml2rfc 2.45.0" name="generator">
 <meta content="draft-ietf-cose-rfc8152bis-algs-08" name="ietf.draft">
 <link href="draft-ietf-cose-rfc8152bis-algs.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -310,7 +310,7 @@ ul.toc li {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schaad</td>
-<td class="center">Expires 29 November 2020</td>
+<td class="center">Expires 30 November 2020</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -326,12 +326,12 @@ ul.toc li {
 <a href="https://www.rfc-editor.org/rfc/rfc8152" class="eref">8152</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-05-28" class="published">28 May 2020</time>
+<time datetime="2020-05-29" class="published">29 May 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2020-11-29">29 November 2020</time></dd>
+<dd class="expires"><time datetime="2020-11-30">30 November 2020</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -386,7 +386,7 @@ ul.toc li {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 November 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 November 2020.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -680,6 +680,20 @@ ul.toc li {
           Authenticated Encryption (AE) <span>[<a href="#RFC5116" class="xref">RFC5116</a>]</span> algorithms are those encryption algorithms that provide an authentication check of the plain text contents as part of the encryption service.<a href="#section-1.3-4" class="pilcrow">¶</a></p>
 <p id="section-1.3-5">Authenticated Encryption with Associated Data (AEAD) <span>[<a href="#RFC5116" class="xref">RFC5116</a>]</span> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.<a href="#section-1.3-5" class="pilcrow">¶</a></p>
 <p id="section-1.3-6">The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.<a href="#section-1.3-6" class="pilcrow">¶</a></p>
+<p id="section-1.3-7">
+          The tables for algorithms contain the following columns:<a href="#section-1.3-7" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-1.3-8.1">A name for use in documents for the algorithms.<a href="#section-1.3-8.1" class="pilcrow">¶</a>
+</li>
+<li id="section-1.3-8.2">
+            The value used on the wire for the algorithm.
+            One place this is used is the algorithm header parameter of a message.<a href="#section-1.3-8.2" class="pilcrow">¶</a>
+</li>
+<li id="section-1.3-8.3">A short description so that the algorithm can be easily identified when scanning the IANA registry.<a href="#section-1.3-8.3" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-1.3-9">
+          Additional columns may be present in the table depending on the algorithms.<a href="#section-1.3-9" class="pilcrow">¶</a></p>
 </section>
 <section id="section-1.4">
         <h3 id="name-cbor-grammar">
@@ -696,9 +710,11 @@ ul.toc li {
         </h3>
 <p id="section-1.5-1">
           A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains a set of testing examples as well. 
-          Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format. 
-          Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file. 
-          If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
+          Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used for debugging, and the output of the example.
+          The results are encoded using both hexadecimal and CBOR diagnostic notation format.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
+<p id="section-1.5-2">
+          Some of the examples are designed to test failure case; these are clearly marked as such in the JSON file. 
+          If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.<a href="#section-1.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -911,7 +927,7 @@ ul.toc li {
           </tbody>
         </table>
 </div>
-<p id="section-3.1-5">Some recipient algorithms carry the key while others derive a key from secret data.  For those algorithms that carry the key (such as AES Key Wrap), the size of the HMAC key <span class="bcp14">SHOULD</span> be the same size as the underlying hash function.  For those algorithms that derive the key (such as ECDH), the derived key <span class="bcp14">MUST</span> be the same size as the underlying hash function.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">Some recipient algorithms transport the key, while others derive a key from secret data.  For those algorithms that transport the key (such as AES Key Wrap), the size of the HMAC key <span class="bcp14">SHOULD</span> be the same size as the underlying hash function.  For those algorithms that derive the key (such as ECDH), the derived key <span class="bcp14">MUST</span> be the same size as the underlying hash function.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <p id="section-3.1-6">When using a COSE key for this algorithm, the following checks are made:<a href="#section-3.1-6" class="pilcrow">¶</a></p>
 <ul>
 <li id="section-3.1-7.1">The 'kty' field <span class="bcp14">MUST</span> be present, and it <span class="bcp14">MUST</span> be 'Symmetric'.<a href="#section-3.1-7.1" class="pilcrow">¶</a>
@@ -1128,7 +1144,7 @@ ul.toc li {
               <th class="text-left" rowspan="1" colspan="1">Value</th>
               <th class="text-left" rowspan="1" colspan="1">L</th>
               <th class="text-left" rowspan="1" colspan="1">M</th>
-              <th class="text-left" rowspan="1" colspan="1">k</th>
+              <th class="text-left" rowspan="1" colspan="1">Key Length</th>
               <th class="text-left" rowspan="1" colspan="1">Description</th>
             </tr>
           </thead>
@@ -2480,6 +2496,8 @@ ECDH-ES + A256KW with an X25519 curve:
             </tr>
           </tbody>
         </table>
+<p id="section-10.2-5">
+          The capabilities column for this registration is to be empty.<a href="#section-10.2-5" class="pilcrow">¶</a></p>
 </section>
 <section id="section-10.3">
         <h3 id="name-changes-to-the-cose-key-typ">
@@ -2488,6 +2506,8 @@ ECDH-ES + A256KW with an X25519 curve:
 <p id="section-10.3-1">
           IANA is requested to modify the description to "Public Key" for the line with "Key Type" of 2 and the "Name" of "x".
           See <a href="#x-table-ec1-keys" class="xref">Table 20</a> which has been modified with this change.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
+<p id="section-10.3-2">
+          IANA is requested to update the references in the table from RFC8152 to [[This Document]].<a href="#section-10.3-2" class="pilcrow">¶</a></p>
 </section>
 </section>
 </div>
