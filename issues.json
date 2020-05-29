@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/23",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/23/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/23/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/23/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/23",
+    "id": 627427074,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NDI1MjM1MDg0",
+    "number": 23,
+    "title": "Comments for IANA, SecDir and GenArt",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-05-29T17:35:21Z",
+    "updated_at": "2020-05-29T17:37:12Z",
+    "closed_at": "2020-05-29T17:37:12Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/23",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/23",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/23.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/23.patch"
+    },
+    "body": "Add in response for\r\n\r\n*IANA review on all documents\r\n* SecDir review by Nancy on -algs\r\n* GenArt review on -struct"
+  },
+  {
     "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/22",
     "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
     "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/22/labels{/name}",
