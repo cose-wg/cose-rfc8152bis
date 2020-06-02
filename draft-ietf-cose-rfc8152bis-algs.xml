@@ -110,6 +110,21 @@
         </t>
         <t>Authenticated Encryption with Associated Data (AEAD) <xref target="RFC5116"/> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
         <t>The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.</t>
+
+        <t>
+          The tables for algorithms contain the following columns:
+        </t>
+        <ul>
+          <li>A name for use in documents for the algorithms.</li>
+          <li>
+            The value used on the wire for the algorithm.
+            One place this is used is the algorithm header parameter of a message.
+          </li>
+          <li>A short description so that the algorithm can be easily identified when scanning the IANA registry.</li>
+        </ul>
+        <t>
+          Additional columns may be present in the table depending on the algorithms.
+        </t>
       </section>
       <section>
 
@@ -124,8 +139,11 @@
         <name>Examples</name>
         <t>
           A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains a set of testing examples as well. 
-          Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented in both a hex and a CBOR diagnostic notation format. 
-          Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file. 
+          Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used for debugging, and the output of the example.
+          The results are encoded using both hexadecimal and CBOR diagnostic notation format.
+        </t>
+        <t>
+          Some of the examples are designed to test failure case; these are clearly marked as such in the JSON file. 
           If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file. 
         </t>
       </section>
@@ -330,7 +348,7 @@
             </tr>
           </tbody>
         </table>
-        <t>Some recipient algorithms carry the key while others derive a key from secret data.  For those algorithms that carry the key (such as AES Key Wrap), the size of the HMAC key <bcp14>SHOULD</bcp14> be the same size as the underlying hash function.  For those algorithms that derive the key (such as ECDH), the derived key <bcp14>MUST</bcp14> be the same size as the underlying hash function.  </t>
+        <t>Some recipient algorithms transport the key, while others derive a key from secret data.  For those algorithms that transport the key (such as AES Key Wrap), the size of the HMAC key <bcp14>SHOULD</bcp14> be the same size as the underlying hash function.  For those algorithms that derive the key (such as ECDH), the derived key <bcp14>MUST</bcp14> be the same size as the underlying hash function.  </t>
         <t>When using a COSE key for this algorithm, the following checks are made:
         </t>
 
@@ -541,7 +559,7 @@
               <th>Value</th>
               <th>L</th>
               <th>M</th>
-              <th>k</th>
+              <th>Key Length</th>
               <th>Description</th>
             </tr>
           </thead>
@@ -1846,6 +1864,10 @@ ECDH-ES + A256KW with an X25519 curve:
             </tr>
           </tbody>
         </table>
+
+        <t>
+          The capabilities column for this registration is to be empty.
+        </t>
               
       </section>
       <section>
@@ -1853,6 +1875,9 @@ ECDH-ES + A256KW with an X25519 curve:
         <t>
           IANA is requested to modify the description to "Public Key" for the line with "Key Type" of 2 and the "Name" of "x".
           See <xref target="x-table-ec1-keys"/> which has been modified with this change.
+        </t>
+        <t>
+          IANA is requested to update the references in the table from RFC8152 to [[This Document]].
         </t>
       </section>
     </section>
