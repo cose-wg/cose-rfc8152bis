@@ -211,7 +211,7 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
         <t>In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
         <t>
-          The presence in a CBOR map of a label that is not a text string or an integer is an error. 
+          The presence a label that is neither a a text string bor an integer, in a CBOR map, is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they <bcp14>MUST NOT</bcp14> create messages with incorrect labels. 
         </t>
 
