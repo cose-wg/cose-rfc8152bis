@@ -1643,7 +1643,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>When applications use externally defined authenticated data, they need to define how that data is encoded.  This document assumes that the data will be provided as a byte string.  More information can be found in <xref target="Extern_AAD"/>.  </li>
         <li>Applications need to determine the set of security algorithms that are to be used.  When selecting the algorithms to be used as the mandatory-to-implement set, consideration should be given to choosing different types of algorithms when two are chosen for a specific purpose.
         An example of this would be choosing HMAC-SHA512 and AES-CMAC as different MAC algorithms; the construction is vastly different between these two algorithms.  This means that a weakening of one algorithm would be unlikely to lead to a weakening of the other algorithms.  Of course, these algorithms do not provide the same level of security and thus may not be comparable for the desired security functionality.
-                Additional guidence can be found in <xref target="STD201"/>.
+                Additional guidence can be found in <xref target="BCP201"/>.
 
         </li>
         <li>
@@ -1989,8 +1989,55 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <xi:include href="reference.RFC.5752.xml"/>
         <xi:include href="reference.RFC.5990.xml"/>
         <xi:include href="reference.RFC.6838.xml"/>
-        <xi:include href="reference.STD.0090.xml"/>
-        <xi:include href="reference.STD.0201.xml"/>
+<!--        <xi:include href="bibxml9/reference.STD.0090.xml"/> -->
+<referencegroup anchor="STD90" target="https://www.rfc-editor.org/info/std90">
+<!-- reference.RFC.8259.xml -->
+<reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259">
+<front>
+<title>
+The JavaScript Object Notation (JSON) Data Interchange Format
+</title>
+<author initials="T." surname="Bray" fullname="T. Bray" role="editor">
+<organization/>
+</author>
+<date year="2017" month="December"/>
+<abstract>
+<t>
+JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data.
+</t>
+<t>
+This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.
+</t>
+</abstract>
+</front>
+<seriesInfo name="STD" value="90"/>
+<seriesInfo name="RFC" value="8259"/>
+<seriesInfo name="DOI" value="10.17487/RFC8259"/>
+</reference>
+</referencegroup>        
+                <!-- <xi:include href="reference.BCP.0201.xml"/> -->
+<referencegroup anchor="BCP201" target="https://www.rfc-editor.org/info/bcp201">
+<!-- reference.RFC.7696.xml -->
+<reference anchor="RFC7696" target="https://www.rfc-editor.org/info/rfc7696">
+<front>
+<title>
+Guidelines for Cryptographic Algorithm Agility and Selecting Mandatory-to-Implement Algorithms
+</title>
+<author initials="R." surname="Housley" fullname="R. Housley">
+<organization/>
+</author>
+<date year="2015" month="November"/>
+<abstract>
+<t>
+Many IETF protocols use cryptographic algorithms to provide confidentiality, integrity, authentication, or digital signature. Communicating peers must support a common set of cryptographic algorithms for these mechanisms to work properly. This memo provides guidelines to ensure that protocols have the ability to migrate from one mandatory-to-implement algorithm suite to another over time.
+</t>
+</abstract>
+</front>
+<seriesInfo name="BCP" value="201"/>
+<seriesInfo name="RFC" value="7696"/>
+<seriesInfo name="DOI" value="10.17487/RFC7696"/>
+</reference>
+</referencegroup>
         <xi:include href="reference.RFC.7252.xml"/>
         <xi:include href="reference.RFC.7515.xml"/>
         <xi:include href="reference.RFC.7516.xml"/>
@@ -2030,6 +2077,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <xi:include href="reference.RFC.8230.xml"/>
         <xi:include href="reference.RFC.7942.xml"/>
         <xi:include href="reference.RFC.4998.xml"/>
+        <xi:include href="reference.RFC.3394.xml"/>
         <xi:include href="reference.I-D.ietf-cose-hash-algs.xml"/>
         <xi:include href="reference.I-D.ietf-core-groupcomm-bis.xml"/>
         <xi:include href="reference.RFC.8613.xml"/>
