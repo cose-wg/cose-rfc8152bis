@@ -333,7 +333,7 @@ values = any
             <td>COSE Mac w/o Recipients Object</td>
           </tr>
           <tr>
-            <td>TBD0</td>
+            <td>TBD00</td>
             <td>cose-countersign</td>
             <td>COSE_Countersignature</td>
             <td>COSE standalone counter signature</td>
@@ -1674,7 +1674,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </t>
         <ul>
           <li>Tag: TBD0</li>
-          <li>Data Item: COSE_Signature</li>
+          <li>Data Item: COSE_Countersignature</li>
           <li>Semantics: COSE standalone counter signature</li>
           <li>Reference: [[this document]]</li>
         </ul>
@@ -1683,13 +1683,12 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <name>COSE Header Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Header Parameters" as part of processing <xref target="RFC8152"/>. 
-          The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"/>.
+          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
         <t>
           Additionally, the type for the attribute CounterSignature0 is to be updated from 'bstr' to 'COSE_Countersignature0'.
         </t>
         <t>
-          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
           This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
         </t>
       </section>
@@ -1697,10 +1696,9 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <name>COSE Key Common Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <xref target="RFC8152"/>.
-          The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"/>.
+          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
         <t>
-          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
           This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
         </t>
       </section>
@@ -1806,7 +1804,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <section>
         <name>CoAP Content-Formats Registry</name>
         <t>
-          IANA  added  entries to the "CoAP Content-Formats" registry while processing <xref target="RFC8152"/>.
+          IANA added  entries to the "CoAP Content-Formats" registry while processing <xref target="RFC8152"/>.
           IANA is requested to update the reference value from <xref target="RFC8152"/> to [[This Document]].
         </t>
       </section>
