@@ -13,7 +13,7 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-cose-rfc8152bis-algs-08" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="info" docName="draft-ietf-cose-rfc8152bis-algs-08" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Algorithms">
@@ -38,7 +38,7 @@
         COSE additionally describes how to represent cryptographic keys using CBOR.
       </t>
       <t>
-        In this specification the conventions for the use of a number of cryptographic algorithms with COSE.
+        This specification defines the conventions for the use of a number of cryptographic algorithms with COSE.
         The details of the structure of COSE are defined in <xref target="I-D.ietf-cose-rfc8152bis-struct"/>.
       </t>
       <t>
@@ -73,7 +73,6 @@
         The core COSE specification consists of two documents.
         <xref target="I-D.ietf-cose-rfc8152bis-struct"/> contains the serialization structures and the procedures for using the different cryptographic algorithms.
         This document provides an initial set of algorithms for use with those structures.
-        Additional algorithms beyond what are in this document are defined elsewhere.
       </t>
       <section anchor="requirements-terminology">
 
@@ -1654,13 +1653,13 @@ COSE_KDF_Context = [
       <t>
         There are some situations that have been identified where identification of capabilities of an algorithm need to be specified.
         One example of this is in <xref target="I-D.ietf-core-oscore-groupcomm"/> where the capabilities of the counter signature algorithm are mixed into the traffic key derivation process.
-        This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <xref target="RFC8551" section="2.5.2"/>.
-        The concept is being pulled forward and defined now for COSE.
+        This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <xref target="RFC8551" section="2.5a.2"/>.
+        This document defines the same concept for COSE.
       </t>
 
       <t>
         The algorithm identifier is not part of the capabilities data as it should already be part of message structure.
-        There is a presumption in the way that this is laid out is that the algorithm identifier itself is not needed to be a part of this as it is specified in a different location.
+        The algorithm identifier is not included in the capabilities data as it should be encoded elsewhere in the message.
       </t>
 
       <t>
@@ -1752,7 +1751,8 @@ ECDH-ES + A256KW with an X25519 curve:
     <section anchor="CBOR-Canonical">
 
       <name>CBOR Encoding Restrictions</name>
-      <t>This document limits the restrictions it imposes on how the CBOR Encoder needs to work.  We have managed to narrow it down to the following restrictions: </t>
+      <t>This document limits the restrictions it imposes on how the CBOR Encoder needs to work.
+      It has been  narrowed down to the following restrictions: </t>
 
       <ul>
 
@@ -1835,13 +1835,15 @@ ECDH-ES + A256KW with an X25519 curve:
         </t>
 
         <t>
-          IANA is requested to update the reference column in the "COSE Algorithms" registry to include [[This Document]] as a reference for all rows where it is not already present.
-          Note to IANA:  There is an action in <xref target="I-D.ietf-cose-rfc8152bis-struct"/> which also modifies data in the reference column.
-          That action should be applied first.
+          IANA is requested to update all references from RFC 8152 to [[This Document]].
         </t>
 
         <t>
-          IANA is rquested to add a new row to the "COSE Algorithms" registry.
+          IANA is requested to update the reference column in the "COSE Algorithms" registry to include [[This Document]] as a reference for all rows where it is not already present.
+        </t>
+
+        <t>
+          IANA is requested to add a new row to the "COSE Algorithms" registry.
         </t>
 
         <table>
@@ -1868,8 +1870,8 @@ ECDH-ES + A256KW with an X25519 curve:
         <t>
           The capabilities column for this registration is to be empty.
         </t>
-              
       </section>
+
       <section>
         <name>Changes to the "COSE Key Type Parameters" registry</name>
         <t>
@@ -1880,6 +1882,18 @@ ECDH-ES + A256KW with an X25519 curve:
           IANA is requested to update the references in the table from RFC8152 to [[This Document]].
         </t>
       </section>
+
+      <section anchor="IANA-Alg-Registry">
+        <name>COSE Header Algorithm Parameters Registry</name>
+        <t>
+          IANA created a registry titled  "COSE Header Algorithm Parameters" as part of processing <xref target="RFC8152"/>.
+          The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"/>.
+        </t>
+        <t>
+          IANA is requested to update the references from <xref target="RFC8152"/> to this document.
+        </t>
+      </section>
+      
     </section>
 
 
@@ -1982,6 +1996,7 @@ ECDH-ES + A256KW with an X25519 curve:
       </references>
       <references>
         <name>Informative References</name>
+        <xi:include href="reference.RFC.8126.xml"/>
         <xi:include href="reference.RFC.8610.xml"/>
         <xi:include href="reference.RFC.4231.xml"/>
         <xi:include href="reference.RFC.4493.xml"/>
