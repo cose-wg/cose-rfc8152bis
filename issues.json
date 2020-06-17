@@ -1,6 +1,116 @@
 [
 
   {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/26",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/26/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/26/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/26/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/26",
+    "id": 640782585,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NDM2MTI5NDg0",
+    "number": 26,
+    "title": "IESG interactions",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-06-17T22:31:51Z",
+    "updated_at": "2020-06-17T22:33:11Z",
+    "closed_at": "2020-06-17T22:33:11Z",
+    "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/26",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/26",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/26.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/26.patch"
+    },
+    "body": "Work through all of the IESG interactions."
+  },
+  {
+    "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/25",
+    "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
+    "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/25/labels{/name}",
+    "comments_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/25/comments",
+    "events_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/25/events",
+    "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/25",
+    "id": 635094040,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NDMxNTIyNzM0",
+    "number": 25,
+    "title": "DISCUSS and Comment for Roman",
+    "user": {
+      "login": "jimsch",
+      "id": 4946037,
+      "node_id": "MDQ6VXNlcjQ5NDYwMzc=",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4946037?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jimsch",
+      "html_url": "https://github.com/jimsch",
+      "followers_url": "https://api.github.com/users/jimsch/followers",
+      "following_url": "https://api.github.com/users/jimsch/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jimsch/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jimsch/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jimsch/subscriptions",
+      "organizations_url": "https://api.github.com/users/jimsch/orgs",
+      "repos_url": "https://api.github.com/users/jimsch/repos",
+      "events_url": "https://api.github.com/users/jimsch/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jimsch/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-06-09T04:07:08Z",
+    "updated_at": "2020-06-17T22:33:41Z",
+    "closed_at": "2020-06-17T22:33:41Z",
+    "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
+    "pull_request": {
+      "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/25",
+      "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/25",
+      "diff_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/25.diff",
+      "patch_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/25.patch"
+    },
+    "body": ""
+  },
+  {
     "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/24",
     "repository_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis",
     "labels_url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/issues/24/labels{/name}",
@@ -46,6 +156,7 @@
     "updated_at": "2020-06-02T19:30:42Z",
     "closed_at": "2020-06-02T19:30:33Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/24",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/24",
@@ -100,6 +211,7 @@
     "updated_at": "2020-05-29T17:37:12Z",
     "closed_at": "2020-05-29T17:37:12Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/23",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/23",
@@ -154,6 +266,7 @@
     "updated_at": "2020-05-28T02:17:11Z",
     "closed_at": "2020-05-28T02:17:11Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/22",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/22",
@@ -208,6 +321,7 @@
     "updated_at": "2020-05-15T03:55:50Z",
     "closed_at": "2020-05-15T03:55:43Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/21",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/21",
@@ -262,6 +376,7 @@
     "updated_at": "2019-12-28T02:36:13Z",
     "closed_at": null,
     "author_association": "NONE",
+    "active_lock_reason": null,
     "body": "The protected buckets are sometimes referred to as headers. \r\n\r\n> The IV can be placed in the unprotected header\r\n> The Parital IV can be placed in the unprotected header\r\n> The parameter is used to indicate which protected header labels\r\n> This attribute is then encoded as an unprotected header.\r\n> Applications SHOULD verify that the same label does not occur in both the protected and unprotected headers\r\n\r\n> Headers = (\r\n>     protected : empty_or_serialized_map,\r\n>     unprotected : header_map\r\n> )"
   },
   {
@@ -310,6 +425,7 @@
     "updated_at": "2020-03-09T22:03:12Z",
     "closed_at": "2020-03-07T00:39:26Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/19",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/19",
@@ -364,6 +480,7 @@
     "updated_at": "2019-11-13T21:51:33Z",
     "closed_at": "2019-11-13T21:51:01Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/18",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/18",
@@ -418,6 +535,7 @@
     "updated_at": "2019-10-11T23:33:21Z",
     "closed_at": null,
     "author_association": "NONE",
+    "active_lock_reason": null,
     "body": "Is a kid, iv, content type... a \"header\", a \"parameter\" or a \"header parameter\"?\r\n\r\nThe textual description of each refers to them as \"parameters\" -- \"This parameter is used to indicate...\"\r\n\r\nThe summarizing table 2 calls them \"header parameters\". \r\n\r\nThe paragraph on CDDL and the CDDL refers them as \"headers\".\r\n\r\nI was theorizing that protected and unprotected are headers and kid, iv... are parameters or header parameters, but that isn't consistent with the text.\r\n\r\nNo ambiguity when implementing, but a little confusing to read.\r\n\r\nIf the official name is \"header parameter\" and \"parameter\" is the short name, then the main divergence is the CDDL and CDDL-related text. If the CDDL and CDDL-related text where changed to  use \"header parameter\" it seems like all would be consistent.\r\n"
   },
   {
@@ -466,6 +584,7 @@
     "updated_at": "2019-09-11T19:34:44Z",
     "closed_at": "2019-09-11T19:34:39Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/16",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/16",
@@ -520,6 +639,7 @@
     "updated_at": "2019-08-18T21:32:06Z",
     "closed_at": "2019-08-18T21:31:50Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/15",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/15",
@@ -574,6 +694,7 @@
     "updated_at": "2019-08-18T17:36:42Z",
     "closed_at": "2019-08-18T17:36:38Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/14",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/14",
@@ -628,6 +749,7 @@
     "updated_at": "2019-08-18T01:07:37Z",
     "closed_at": "2019-08-18T01:07:02Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/13",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/13",
@@ -682,6 +804,7 @@
     "updated_at": "2019-09-11T19:32:53Z",
     "closed_at": "2019-09-11T19:32:53Z",
     "author_association": "NONE",
+    "active_lock_reason": null,
     "body": "Both documents refer to AEAD as \"Authenticated Encryption with Authenticated Data\" and refers to RFC5116. But RFC5116 defines AEAD as \"Authenticated Encryption with Associated Data\".\r\n\r\n"
   },
   {
@@ -730,6 +853,7 @@
     "updated_at": "2019-07-30T22:27:13Z",
     "closed_at": "2019-07-30T22:27:06Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/11",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/11",
@@ -784,6 +908,7 @@
     "updated_at": "2019-06-10T21:52:43Z",
     "closed_at": "2019-06-10T21:52:43Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/10",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/10",
@@ -838,6 +963,7 @@
     "updated_at": "2019-03-11T18:57:15Z",
     "closed_at": "2019-03-11T18:57:09Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/9",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/9",
@@ -892,6 +1018,7 @@
     "updated_at": "2019-02-15T02:38:35Z",
     "closed_at": "2019-02-15T02:32:22Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/8",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/8",
@@ -946,6 +1073,7 @@
     "updated_at": "2019-01-21T18:40:43Z",
     "closed_at": "2019-01-21T18:40:38Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/7",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/7",
@@ -1008,6 +1136,7 @@
     "updated_at": "2019-02-15T02:41:07Z",
     "closed_at": "2019-02-15T02:41:07Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "body": "COSE_Sign0 is only mentioned once in the document, but COSE_Sign1 appears many times. "
   },
   {
@@ -1064,6 +1193,7 @@
     "updated_at": "2019-02-15T02:41:19Z",
     "closed_at": "2019-02-15T02:41:19Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "body": "kty in section 7.1 points to key common parameters and not to the key type registry."
   },
   {
@@ -1120,6 +1250,7 @@
     "updated_at": "2019-02-15T02:41:30Z",
     "closed_at": "2019-02-15T02:41:30Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "body": "The restriction applies to the encoding of the COSE_KDF_Context, \r\n      Sig_structure, the Enc_structure, and the MAC_structure."
   },
   {
@@ -1168,6 +1299,7 @@
     "updated_at": "2018-12-22T17:51:13Z",
     "closed_at": "2018-12-22T17:51:08Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/3",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/3",
@@ -1222,6 +1354,7 @@
     "updated_at": "2019-01-04T17:12:34Z",
     "closed_at": "2019-01-04T17:12:34Z",
     "author_association": "MEMBER",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/2",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/2",
@@ -1276,6 +1409,7 @@
     "updated_at": "2018-12-13T19:56:09Z",
     "closed_at": "2018-12-13T19:55:20Z",
     "author_association": "CONTRIBUTOR",
+    "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/cose-wg/cose-rfc8152bis/pulls/1",
       "html_url": "https://github.com/cose-wg/cose-rfc8152bis/pull/1",
