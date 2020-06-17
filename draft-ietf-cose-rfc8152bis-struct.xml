@@ -106,7 +106,7 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
         It is better for the structure to be defined in each protocol as different protocols will want to include a different set of fields as part of the structure.
         While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
         Applications may additionally want to define additional data fields as part of the structure.
-        A common structure is going to include a URI or other pointer to where the data that is being hashed is kept, allowing this to be application-specific.
+        A one such application-specific element would be to include a URI or other pointer to where the data that is being hashed can be obtained.
         <xref target="I-D.ietf-cose-hash-algs"/> contains one such possible structure along with defining a set of digest algorithms.
       </t>
 
@@ -232,7 +232,7 @@ values = any
         <t>
           Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are encryption algorithms that provide an authentication check of the contents algorithm with the encryption service.
           An example of an AE algorithm used in COSE is AES Key Wrap <xref target="RFC3394"/>.
-          These algorithms are used for key encryption algorithms, but AEAD algorithms would be prefered.
+          These algorithms are used for key encryption algorithms, but AEAD algorithms would be preferred.
         </t>
 
         <t>
@@ -449,7 +449,7 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
         The buckets are present in all of the security objects defined in this document.  The fields in order are the 'protected' bucket (as a CBOR 'bstr' type) and then the 'unprotected' bucket (as a CBOR 'map' type).  The presence of both buckets is required.  The header parameters that go into the buckets come from the IANA "COSE Header Parameters" registry (<xref target="cose-header-key-table"/>).
         Some header parameters are defined in the next section.
       </t>
-      <t>Labels in each of the maps <bcp14>MUST</bcp14> be unique.  When processing messages, if a label appears multiple times, the message <bcp14>MUST</bcp14> be rejected as malformed.  Applications <bcp14>SHOULD</bcp14> verify that the same label does not occur in both the protected and unprotected header parameters.  If the message is not rejected as malformed, attributes <bcp14>MUST</bcp14> be obtained from the protected bucket before they are obtained from the unprotected bucket.  </t>
+      <t>Labels in each of the maps <bcp14>MUST</bcp14> be unique.  When processing messages, if a label appears multiple times, the message <bcp14>MUST</bcp14> be rejected as malformed.  Applications <bcp14>SHOULD</bcp14> verify that the same label does not occur in both the protected and unprotected header parameters.  If the message is not rejected as malformed, attributes <bcp14>MUST</bcp14> be obtained from the protected bucket, and only if not found  are attributes obtained from the unprotected bucket.  </t>
       <t>The following CDDL fragment represents the two header parameter buckets.  A group "Headers" is defined in CDDL that represents the two buckets in which attributes are placed.  This group is used to provide these two fields consistently in all locations.  A type is also defined that represents the map of common header parameters.  </t>
       <sourcecode type="CDDL"><![CDATA[
 Headers = (
@@ -487,7 +487,12 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
             </t>
             <ul>
               <li>Integer labels in the range of 0 to 7 <bcp14>SHOULD</bcp14> be omitted.</li>
-              <li>Integer labels in the range -1 to -128 can be omitted as they are algorithm dependent.  If an application can correctly process an algorithm, it can be assumed that it will correctly process all of the common header parameters associated with that algorithm.  Integer labels in the range -129 to -65536 <bcp14>SHOULD</bcp14> be included as these would be less common header parameters that might not be generally supported.  </li>
+              <li>
+                Integer labels in the range -1 to -128 can be omitted.
+                Algorithms can assign labels in this range where the ability to process the content of the label is considered to be core to implementing the algorithm.
+                Algorithms can assign labels outside of this range where the ability to process the content of the label is not considered to be core, but needs to be understood to correctly process this instance.
+                Integer labels in the range -129 to -65536 <bcp14>SHOULD</bcp14> be included as these would be less common header parameters that might not be generally supported.
+              </li>
               <li>Labels for header parameters required for an application MAY be omitted.  Applications should have a statement if the label can be omitted.  </li>
             </ul>
             <t>
@@ -620,6 +625,28 @@ For example, the COSE_Sign structure might include signatures generated with the
 COSE_Sign_Tagged = #6.98(COSE_Sign)
 ]]></sourcecode>
         <t>A COSE Signed Message is defined in two parts.  The CBOR object that carries the body and information about the body is called the COSE_Sign structure.  The CBOR object that carries the signature and information about the signature is called the COSE_Signature structure.  Examples of COSE Signed Messages can be found in <xref target="SignedExamples"/>.  </t>
+        <!-- Ben is complaining about the above, I think it is ok.  Here is our email exchange:
+> > > >    A COSE Signed Message is defined in two parts.  The CBOR object that
+> > > >    carries the body and information about the body is called the
+> > > >    COSE_Sign structure.  The CBOR object that carries the
+> > > > signature and
+> > > >
+> > > > (COSE_Sign also carries the signature parts?) [JLS] No - they are
+> > > > carried in COSE_Signature
+> > >
+> > > I thought the COSE_Sign structure contained one or more
+> > > COSE_Signature structures.
+> >
+> > Yes it does.  I think of the "signature" as the byte string as being different
+> from the COSE_Signature structure.  This is referring to the first.
+> 
+> Okay ... but even in this sense the "signature" is *indirectly* contained in
+> COSE_Sign, and I at least did not get the sense from this text that we intended
+> the "directly carries" sense of the term.  Maybe we should leave a note to ask
+> the RFC Editor for help; I'm failing to come up with a good wording right now.
+> 
+
+-->
         <t>The COSE_Sign structure is a CBOR array.  The fields of the array in order are:
         </t>
         <dl newline="false">
@@ -629,10 +656,17 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
           <dd>This is as described in <xref target="header-parameters"/>.  </dd>
           <dt>payload:</dt>
           <dd>
-            <t>This field contains the serialized content to be signed.  If the payload is not present in the message, the application is required to supply the payload separately.  The payload is wrapped in a bstr to ensure that it is transported without changes.  If the payload is transported separately ("detached content"), then a nil CBOR object is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.
-
+            <t>
+              This field contains the serialized content to be signed.
+              If the payload is not present in the message, the application is required to supply the payload separately.
+              The payload is wrapped in a bstr to ensure that it is transported without changes.
+              If the payload is transported separately ("detached content"), then a nil CBOR object is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.
             </t>
-            <t> Note: When a signature with a message recovery algorithm is used (<xref target="SigAlgs"/>), the maximum number of bytes that can be recovered is the length of the payload.  The size of the payload is reduced by the number of bytes that will be recovered.  If all of the bytes of the payload are consumed, then the payload is encoded as a zero-length byte string rather than as being absent.  </t>
+            <t>
+              Note: When a signature with a message recovery algorithm is used (<xref target="SigAlgs"/>), the maximum number of bytes that can be recovered is the length of the original payload.
+              The size of the encoded payload is reduced by the number of bytes that will be recovered.
+              If all of the bytes of the original payload are consumed, then the transmitted payload is encoded as a zero-length byte string rather than as being absent.
+            </t>
           </dd>
           <dt>signatures:</dt>
           <dd>This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.  </dd>
@@ -1501,7 +1535,7 @@ valid, message content = Decrypt(ciphertext, key, additional data)
         <t>
   General KDFs work well with the first type of secret, can do reasonably well with the second type of secret, and generally do poorly with the last type of secret. 
   <!-- None of the KDFs in this section are designed to deal with the type of secrets that are used for passwords. -->
-  Functions like PBES2 <xref target="RFC8018"/> need to be used for non-random secrets.
+  Functions like Argon2 <xref target="I-D.irtf-cfrg-argon2"/> need to be used for non-random secrets.
 </t>
         <t>
   The same KDF can be set up to deal with the first two types of secrets in a different way. 
@@ -2041,7 +2075,6 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
         <xi:include href="reference.RFC.7516.xml"/>
         <xi:include href="reference.RFC.7517.xml"/>
         <xi:include href="reference.RFC.7518.xml"/>
-        <xi:include href="reference.RFC.8126.xml"/>
         <xi:include href="reference.RFC.8032.xml"/>
         <reference anchor="DSS" target="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
           <front>
@@ -2079,6 +2112,7 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
         <xi:include href="reference.I-D.ietf-cose-hash-algs.xml"/>
         <xi:include href="reference.I-D.ietf-core-groupcomm-bis.xml"/>
         <xi:include href="reference.RFC.8613.xml"/>
+        <xi:include href="reference.I-D.irtf-cfrg-argon2.xml"/>
         <reference anchor="COAP.Formats" target="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">
           <front>
             <title>CoAP Content-Formats</title>
