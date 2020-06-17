@@ -64,9 +64,9 @@
       <t>
         There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT). 
         One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"/>. 
-        CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="RFC8259"/> by allowing for binary data, among other changes. 
+        CBOR extended the data model of JavaScript Object Notation (JSON) <xref target="RFC8259"/> by allowing for binary data, among other changes. 
         CBOR is being adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures. 
-        CBOR was designed specifically to be both small in terms of messages transport and implementation size and be a schema-free decoder. 
+        CBOR was designed specifically to be both small in terms of message transport and implementation size and be a schema-free decoder. 
         A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.
       </t>
       <t>
@@ -105,9 +105,16 @@
         <t>Byte is a synonym for octet.</t>
         <t>Constrained Application Protocol (CoAP) is a specialized web transfer protocol for use in constrained systems.  It is defined in <xref target="RFC7252"/>.  </t>
         <t>
-          Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are those encryption algorithms that provide an authentication check of the plain text contents as part of the encryption service.
+          Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are encryption algorithms that provide an authentication check of the contents algorithm with the encryption service.
+          An example of an AE algorithm used in COSE is AES Key Wrap <xref target="RFC3394"/>.
+          These algorithms are used for key encryption algorithms, but AEAD algorithms would be preferred.
         </t>
-        <t>Authenticated Encryption with Associated Data (AEAD) <xref target="RFC5116"/> algorithms provide the same content authentication service as AE algorithms, but they additionally provide for authentication of non-encrypted data as well.  </t>
+        <t>
+          Authenticated Encryption with Associated Data (AEAD) <xref target="RFC5116"/> algorithms provide the same authentication service of the content as AE algorithms do.
+          They also allow for associated data to be included in the authentication service, but which is not part of the encrypted body.
+          An example of an AEAD algorithm used in COSE is AES-GCM <xref target="RFC5116"/>.
+          These algorithms are used for content encryption and can be used for key encryption as well.
+        </t>
         <t>The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.</t>
 
         <t>
@@ -137,7 +144,7 @@
 
         <name>Examples</name>
         <t>
-          A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains a set of testing examples as well. 
+          A GitHub project has been created at <xref target="GitHub-Examples"/> that contains a set of testing examples as well. 
           Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used for debugging, and the output of the example.
           The results are encoded using both hexadecimal and CBOR diagnostic notation format.
         </t>
@@ -1651,29 +1658,32 @@ COSE_KDF_Context = [
     <section anchor="COSE-Capabilities">
       <name>COSE Capabilities</name>
       <t>
-        There are some situations that have been identified where identification of capabilities of an algorithm need to be specified.
+        There are some situations that have been identified where identification of capabilities of an algorithm or a key type need to be specified.
         One example of this is in <xref target="I-D.ietf-core-oscore-groupcomm"/> where the capabilities of the counter signature algorithm are mixed into the traffic key derivation process.
         This has a counterpart in the S/MIME specifications where SMIMECapabilities is defined in <xref target="RFC8551" section="2.5a.2"/>.
         This document defines the same concept for COSE.
       </t>
 
       <t>
-        The algorithm identifier is not part of the capabilities data as it should already be part of message structure.
         The algorithm identifier is not included in the capabilities data as it should be encoded elsewhere in the message.
+        The key type identifier is included in the capabilities data as it is not expected to be encoded elsewhere.
       </t>
 
       <t>
-        Two different types of capabilities are defined: capabilities for algorithms and capabilities for key structures. Once defined by registration with IANA, the list of capabilities is immutable.
+        Two different types of capabilities are defined: capabilities for algorithms and capabilities for key type.
+        Once defined by registration with IANA, the list of capabilities for an algorithm or key type is immutable.
         If it is later found that a new capability is needed for a key type or an algorithm, it will require that a new code point be assigned to deal with that.
         As a general rule, the capabilities are going to map to algorithm-specific header parameters or key parameters, but they do not need to do so.
         An example of this is the HSS-LMS key capabilities defined below where the hash algorithm used is included.
       </t>
+      
       <t>
-        The capability structure is an array of values, the order being dependent on the specific algorithm or key.
-        For an algorithm, the first element should always be a key type value, but the items that are specific to a key should not be included in the algorithm capabilities.
+        The capability structure is an array of values, the values included in the structure are dependent on a specific algorithm or key type.
+        For algorithm capabilities, the first element should always be a key type value if applicable, but the items that are specific to a key (for example a curve) should not be included in the algorithm capabilities.
         This means that if one wishes to enumerate all of the capabilities for a device which implements ECDH, it requires multiple pairs of capability structures (algorithm, key) to deal with the different key types and curves that are supported.
+        The last example of <xref target="cap-examples"/> provides a case where this is done.
         For a key, the first element should also be a key type value.
-        While this means that this value will be duplicated if both an algorithm and key capability are used, the key type is needed in order to understand the rest of the values.
+        While this means that the key type value will be duplicated if both an algorithm and key capability are used, the key type is needed in order to understand the rest of the values.
       </t>
 
       <section>
@@ -1721,27 +1731,86 @@ COSE_KDF_Context = [
 
       </section>
 
-      <section>
+      <section anchor="cap-examples">
         <name>Examples</name>
         <t>
-          In this section a trio of examples is provided.
-          In all three cases it it encodes the algorithm capabilities followed by  the key capabilities.
-          For simplicity's sake, a CBOR sequence <xref target="I-D.ietf-cbor-sequence"/> is used for the two arrays.
+          Capabilities can be use in a key derivation process to make sure that both sides are using the same parameters.
+          This is the approach that is being used by the group communication KDF in <xref target="I-D.ietf-core-oscore-groupcomm"/>.
+          The three examples below show different ways that one might include things:
         </t>
+        <ul>
+          <li>Just an algorithm capability: This is useful if you want to require a specific algorithm such as ECDSA, but you are agnostic about which curve is being used. See the first example.</li>
+          <li>Just a key type capability: This is useful if you want to require a specific curve such as P-256, but will accept any algorithm using that curve (e.g. both ECDSA and ECDH). See the second example.</li>
+          <li>Both an algorithm and a key type capability:  This is used if one needs to nail down all of the options surrounding an algorithm  E.g. EdDSA with the curve X25519.  See the third example which just concatenates the two capabilities together.</li>
+        </ul>
 
         <artwork>
-ECDSA with SHA-512 and a P-256 curve:
+Algorithm ECDSA 
 
-0x8102820201             / [2],[2, 1] /
+0x8102                 / [2 \ EC2 \ ] /
 
-ECDH-ES + A256KW with a P-256 curve:
+Key type EC2 with P-256 curve:
 
-0x8102820201            / [2],[2, 1] /
+0x820201               / [2 \ EC2 \, 1 \ P-256 \] /
 
 ECDH-ES + A256KW with an X25519 curve:
 
-0x8101820104           / [1],[1, 4] /
+0x8101820104           / [1 \ OKP \],[1 \ OKP \, 4 \ X25519 \] /
         </artwork>
+
+        <t>
+          The capabilities can also be used by and entity to advertise what it is capabable of doing.
+          The decoded example below is one of many encoding that could be used for that purpose.
+          Each array element includes three fields: the algorithm identifier, one or more algorithm capabilities, and one or more key type capabilities.
+        </t>
+
+        <artwork>
+[
+ [-8 / EdDSA /, 
+   [1 / OKP key type /],
+   [
+     [1 / OKP /, 6 / Ed25519 / ],
+     [1 /OKP/, 7 /Ed448 /]
+   ]
+ ],
+ [-7 / ECDSA with SHA-256/, 
+   [2 /EC2 key type/],
+   [
+     [2 /EC2/, 1 /P-256/],
+     [2 /EC2/, 3 /P-521/]
+   ]
+ ],
+ [ -31 / ECDH-ES+A256KW/,
+   [ 
+     [ 2 /EC2/],
+     [1 /OKP/ ]
+   ],
+   [
+     [2 /EC2/, 1 /P-256/],
+     [1 /OKP/, 4 / X25519/ ]
+   ]
+ ],
+ [ 1 / A128GCM /,
+   [ 4 / Symmetric / ],
+   [ 4 / Symmetric /]
+ ]
+]          
+        </artwork>
+        <t>
+          Examining the above:
+        </t>
+        <ul>
+          <li>The first element indicates that the entity supports EdDSA with curves Ed25519 and Ed448.</li>
+          <li>The second element indicates that the entity supports ECDSA with curves P-256 and P-521.</li>
+          <li>
+            The third element indicates that the entity support ephemeral-static ECDH using AES256 key wrap.
+            The entity can support the P-256 curve with an EC2 key type and the X25519 curve with an OKP key type.
+          </li>
+          <li>The last element indicates that the entity supports AES-GCM of 128 bits for content encryption.</li>
+        </ul>
+        <t>
+          The entity does not advertise that it supports and MAC algorithms.
+        </t>
         
       </section>
         
@@ -2031,6 +2100,12 @@ ECDH-ES + A256KW with an X25519 curve:
               <organization>Orion Security Solutions, Inc.</organization>
             </author>
             <date year="2013" month="May"/>
+          </front>
+        </reference>
+        <reference anchor="GitHub-Examples" target="https://github.com/cose-wg/Examples">
+          <front>
+            <title>GitHub Examples of COSE</title>
+            <author/>
           </front>
         </reference>
       </references>
