@@ -230,7 +230,7 @@ values = any
         </t>
 
         <t>
-          Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are encryption algorithms that provide an authentication check of the contents algorithm with the encryption service.
+          Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are encryption algorithms that provide an authentication check of the contents with the encryption service.
           An example of an AE algorithm used in COSE is AES Key Wrap <xref target="RFC3394"/>.
           These algorithms are used for key encryption algorithms, but AEAD algorithms would be preferred.
         </t>
@@ -765,6 +765,7 @@ COSE_Sign1 = [
           A Sig_structure is a CBOR array. 
           The fields of the Sig_structure in order are:
         </t>
+
         <ol type="1">
           <li>
             <t>
@@ -793,6 +794,23 @@ Sig_structure = [
     payload : bstr
 ]
 ]]></sourcecode>
+        <t>
+          A countersignature, like a signature needs a well-defined byte string.
+          The process uses the same Sig_structure but fills it in slightly differently.
+          The signing and verification process takes in the target information (COSE_Sign, COSE_Sign1, COSE_Mac, COSE_Mac0, COSE_Encrypt, COSE_Encrypt0, COSE_Recipient, and COSE_Countersignature), the signer information (COSE_Signature) and the application data (external source).
+          The target structure of the countersignature needs to have all of it's cryptographic functions finalized before the computing the signature.
+          The fields of the Sig_stucture in order are:
+        </t>
+
+        <ol type="1">
+          <li>A context string identifing the context of the signature as above.</li>
+          <li>The protected attributes from the target structure encoded in a bstr type.    If there are no protected attributes, a zero-length byte string is used.  </li>
+          <li>The protected attributes from the countersignture structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.  This field is omitted when computing the CounterSignature0 attributes.  </li>
+          <li>The externally supplied data from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
+          <li>The payload from the target structure encoded in a bstr type.  The payload is placed here independent of how it is transported.  </li>
+        </ol>
+        
+
         <t>How to compute a signature:
         </t>
         <ol type="1">
@@ -873,7 +891,7 @@ array to avoid confusion.
           The full counter signature structure can be encoded as either tagged or untagged depending on the context it is used in.  A tagged COSE_Countersignature structure is identified by the CBOR tag TBD0.  The CDDL fragment for full counter signatures is:
         </t>
         <sourcecode type="CDDL"><![CDATA[
-COSE_CounterSignature_Tagged = #6.TBD(COSE_Countersignature)
+COSE_Countersignature_Tagged = #6.9999(COSE_Countersignature)
 COSE_Countersignature = COSE_Signature
 COSE_CounterSignature = COSE_Countersignature
 ]]></sourcecode>
@@ -1723,7 +1741,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           Additionally, the type for the attribute CounterSignature0 is to be updated from 'bstr' to 'COSE_Countersignature0'.
         </t>
         <t>
-          This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
+          IANA is requested to update the pointer for expert rview to [[this document]].
         </t>
       </section>
       <section anchor="cose-key-map-registry">
@@ -1733,7 +1751,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
         <t>
-          This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
+          IANA is requested to update the pointer for expert rview to [[this document]].
         </t>
       </section>
       <section>
@@ -1842,20 +1860,23 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           IANA is requested to update the reference value from <xref target="RFC8152"/> to [[This Document]].
         </t>
       </section>
-      <!--
       <section title="Expert Review Instructions" anchor="review"  >
-        <t>All of the IANA registries established in this document are defined as expert review.  This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.  </t>
-        <t>Expert reviewers should take into consideration the following points: <list style="symbols">
+        <t>
+          All of the IANA registries established by <xref target="RFC8152"/> are, at least in part, defined as expert review.  This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.
+        </t>
+        <t>Expert reviewers should take into consideration the following points:</t>
+<ul>
 
-<t>Point squatting should be discouraged.  Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.  The zones tagged as private use are intended for testing purposes and closed environments; code points in other ranges should not be assigned for testing.  </t>
+<li>Point squatting should be discouraged.  Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.  The zones tagged as private use are intended for testing purposes and closed environments; code points in other ranges should not be assigned for testing.  </li>
 
-<t>Specifications are required for the standards track range of point assignment.  Specifications should exist for specification required ranges, but early assignment before a specification is available is considered to be permissible.  Specifications are needed for the first-come, first-serve range if they are expected to be used outside of closed environments in an interoperable way.  When specifications are not provided, the description provided needs to have sufficient information to identify what the point is being used for.  </t>
+<li>Specifications are required for the standards track range of point assignment.  Specifications should exist for specification required ranges, but early assignment before a specification is available is considered to be permissible.  Specifications are needed for the first-come, first-serve range if they are expected to be used outside of closed environments in an interoperable way.  When specifications are not provided, the description provided needs to have sufficient information to identify what the point is being used for.  </li>
 
-<t>Experts should take into account the expected usage of fields when approving point assignment.  The fact that there is a range for standards track documents does not mean that a standards track document cannot have points assigned outside of that range.  The length of the encoded value should be weighed against how many code points of that length are left, the size of device it will be used on, and the number of code points left that encode to that size. </t>
+<li>Experts should take into account the expected usage of fields when approving point assignment.  The fact that there is a range for standards track documents does not mean that a standards track document cannot have points assigned outside of that range.  The length of the encoded value should be weighed against how many code points of that length are left, the size of device it will be used on, and the number of code points left that encode to that size. </li>
 
-<t>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </t></list> </t>
+<li>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </li>
+</ul>
+
 </section>
--->
     </section>
     <section anchor="security-considerations">
       <name>Security Considerations</name>
@@ -1894,7 +1915,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>Is the request something that is reasonable, given the current state of the application?</li>
         <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?</li>
       </ul>
-      <t>One area that has been getting exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
+      <t>One area that has been getting exposure is traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
     </section>
     <section removeInRFC="true">
       <name>Implementation Status</name>
@@ -2224,9 +2245,9 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
       <sourcecode type="CBORdiag"><![CDATA[
 96(
   [ / COSE_Encrypt /
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected  h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >>, 
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
     }, 
@@ -2242,9 +2263,9 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
 18f11', 
         / recipients / [
           [ / COSE_Recipient /
-            / protected / h'a1013818' / {
-                \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-              } / , 
+            / protected  h'a1013818' / << {
+                / alg / 1:-25 / ECDH-ES + HKDF-256 /
+              } >> , 
             / unprotected / {
               / ephemeral / -1:{
                 / kty / 1:2, 
@@ -2298,9 +2319,9 @@ e9b8a55a600b21233e86e68',
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>,
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2331,9 +2352,9 @@ e9b8a55a600b21233e86e68',
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2342,9 +2363,9 @@ e9b8a55a600b21233e86e68',
 98f53afd2fa0f30a'
       ], 
       [
-        / protected / h'a1013823' / {
-            \ alg \ 1:-36
-          } / , 
+        / protected h'a1013823' / << {
+            / alg / 1:-36 / ECDSA 521 /
+          } >> , 
         / unprotected / {
           / kid / 4:'bilbo.baggins@hobbiton.example'
         }, 
@@ -2374,9 +2395,9 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
     / protected / h'', 
     / unprotected / {
       / countersign / 7:[
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected  h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2388,9 +2409,9 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2415,20 +2436,20 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
           <sourcecode type="CBORdiag"><![CDATA[
 98(
   [
-    / protected / h'a2687265736572766564f40281687265736572766564' / 
-{
+    / protected h'a2687265736572766564f40281687265736572766564' / 
+    << {
         "reserved":false, 
-        \ crit \ 2:[
+        / crit / 2:[
           "reserved"
         ]
-      } / , 
+      } >>, 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2455,9 +2476,9 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
           <sourcecode type="CBORdiag"><![CDATA[
 18(
   [
-    / protected / h'a10126' / {
-        \ alg \ 1:-7 \ ECDSA 256 \
-      } / , 
+    / protected h'a10126' / << {
+        / alg / 1:-7 / ECDSA 256 /
+      } >>,
     / unprotected / {
       / kid / 4:'11'
     }, 
@@ -2484,9 +2505,9 @@ a4c345cacb36'
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >>,
     / unprotected / {
       / iv / 5:h'c9cf4df2fe6c632bf7886413'
     }, 
@@ -2494,9 +2515,9 @@ a4c345cacb36'
 c52a357da7a644b8070a151b0', 
     / recipients / [
       [
-        / protected / h'a1013818' / {
-            \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+        / protected h'a1013818' / << {
+            / alg / 1:-25 / ECDH-ES + HKDF-256 /
+          } >>,
         / unprotected / {
           / ephemeral / -1:{
             / kty / 1:2, 
@@ -2535,9 +2556,9 @@ bf054e1c7b4d91d6280',
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a1010a' / {
-        \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+    / protected h'a1010a' / << {
+        / alg / 1:10 / AES-CCM-16-64-128 /
+      } >>, 
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a76c'
     }, 
@@ -2545,9 +2566,9 @@ bf054e1c7b4d91d6280',
 1b687b847', 
     / recipients / [
       [
-        / protected / h'a10129' / {
-            \ alg \ 1:-10
-          } / , 
+        / protected  h'a10129' / << {
+            / alg / 1:-10
+          } >>, 
         / unprotected / {
           / salt / -20:'aabbccddeeffgghh', 
           / kid / 4:'our-secret'
@@ -2571,9 +2592,9 @@ bf054e1c7b4d91d6280',
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >>, 
     / unprotected / {
       / iv / 5:h'c9cf4df2fe6c632bf7886413', 
       / countersign / 7:[
@@ -2594,9 +2615,9 @@ c3430c9d65e7ddff'
 c52a357da7a644b8070a151b0', 
     / recipients / [
       [
-        / protected / h'a1013818' / {
-            \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+        / protected h'a1013818' / << {
+            / alg / 1:-25 / ECDH-ES + HKDF-256 /
+          } >> , 
         / unprotected / {
           / ephemeral / -1:{
             / kty / 1:2, 
@@ -2627,9 +2648,9 @@ bf054e1c7b4d91d6280',
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >> , 
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
     }, 
@@ -2667,9 +2688,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 16(
   [
-    / protected / h'a1010a' / {
-        \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+    / protected h'a1010a' / << {
+        / alg / 1:10 / AES-CCM-16-64-128 /
+      } >> , 
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a78c'
     }, 
@@ -2691,9 +2712,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 16(
   [
-    / protected / h'a1010a' / {
-        \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+    / protected  h'a1010a' / << {
+        / alg / 1:10 / AES-CCM-16-64-128 /
+      } >> , 
     / unprotected / {
       / partial iv / 6:h'61a7'
     }, 
@@ -2718,9 +2739,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a1010f' / {
-        \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
+    / protected  h'a1010f' / << {
+        / alg / 1:15 / AES-CBC-MAC-256//64 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'9e1226ba1f81b848', 
@@ -2750,18 +2771,18 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a10105' / {
-        \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
+    / protected  h'a10105' / << {
+        / alg / 1:5 / HMAC 256//256 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'81a03448acd3d305376eaa11fb3fe416a955be2cbe7ec96f012c99
 4bc3f16a41', 
     / recipients / [
       [
-        / protected / h'a101381a' / {
-            \ alg \ 1:-27 \ ECDH-SS + HKDF-256 \
-          } / , 
+        / protected  h'a101381a' / << {
+            / alg / 1:-27 / ECDH-SS + HKDF-256 /
+          } >> , 
         / unprotected / {
           / static kid / -3:'peregrin.took@tuckborough.example', 
           / kid / 4:'meriadoc.brandybuck@buckland.example', 
@@ -2788,9 +2809,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a1010e' / {
-        \ alg \ 1:14 \ AES-CBC-MAC-128//64 \
-      } / , 
+    / protected  h'a1010e' / << {
+        / alg / 1:14 / AES-CBC-MAC-128//64 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'36f5afaf0bab5d43', 
@@ -2828,18 +2849,18 @@ b6eb0'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a10105' / {
-        \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
+    / protected h'a10105' / << {
+        / alg / 1:5 / HMAC 256//256 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'bf48235e809b5c42e995f2b7d5fa13620e7ed834e337f6aa43df16
 1e49e9323e', 
     / recipients / [
       [
-        / protected / h'a101381c' / {
-            \ alg \ 1:-29 \ ECHD-ES+A128KW \
-          } / , 
+        / protected h'a101381c' / << {
+            / alg / 1:-29 / ECHD-ES+A128KW /
+          } >> , 
         / unprotected / {
           / ephemeral / -1:{
             / kty / 1:2, 
@@ -2883,9 +2904,9 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
           <sourcecode type="CBORdiag"><![CDATA[
 17(
   [
-    / protected / h'a1010f' / {
-        \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
+    / protected h'a1010f' / << {
+        / alg / 1:15 / AES-CBC-MAC-256//64 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'726043745027214f'
@@ -3043,7 +3064,7 @@ df1c3'
       <t>The following individuals are to blame for getting me started on this project in the first place: Richard Barnes, Matt Miller, and Martin Thomson.  </t>
       <t>The initial version of the specification was based to some degree on the outputs of the JOSE and S/MIME working groups.  </t>
       <t>
-        The following individuals provided input into the final form of the document: Carsten Bormann, John Bradley, Brain Campbell, Michael B. Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran Göran Selander.
+        The following individuals provided input into the final form of the document: Carsten Bormann, John Bradley, Brain Campbell, Michael B. Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Göran Selander.
       </t>
     </section>
   </back>

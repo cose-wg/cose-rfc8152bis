@@ -14,13 +14,13 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="info" docName="draft-ietf-cose-rfc8152bis-algs-08" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="info" docName="draft-ietf-cose-rfc8152bis-algs-11" obsoletes="8152" submissionType="IETF" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Algorithms">
       CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Initial Algorithms
     </title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-algs-08"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-algs-11"/>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -226,7 +226,7 @@
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for ECDSA</name>
           <t>The security strength of the signature is no greater than the minimum of the security strength associated with the bit length of the key and the security strength of the hash function.  </t>
           <t>
             Note: Use of a deterministic signature technique is a good idea even when good random number generation exists. 
@@ -286,7 +286,7 @@
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for EdDSA</name>
           <t>How public values are computed is not the same when looking at EdDSA and Elliptic Curve Diffie-Hellman (ECDH); for this reason, the public key should not be used with the other algorithm.  </t>
           <t>If batch signature verification is performed, a well-seeded cryptographic random number generator is <bcp14>REQUIRED</bcp14> (<relref target="RFC8032" section="8.2"/>).  Signing and non-batch signature verification are deterministic operations and do not need random numbers of any kind.  </t>
         </section>
@@ -365,7 +365,7 @@
         <t>Implementations creating and validating MAC values <bcp14>MUST</bcp14> validate that the key type, key length, and algorithm are correct and appropriate for the entities involved.  </t>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for HMAC</name>
           <t>HMAC has proved to be resistant to attack even when used with weakened hash algorithms.  The current best known attack is to brute force the key.  This means that key size is going to be directly related to the security of an HMAC operation.  </t>
         </section>
       </section>
@@ -433,7 +433,7 @@
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations AES-CBC_MAC </name>
           <t>A number of attacks exist against Cipher Block Chaining Message Authentication Code (CBC-MAC) that need to be considered.
 
           </t>
@@ -508,7 +508,7 @@
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for AES-GCM</name>
           <t>When using AES-GCM, the following restrictions <bcp14>MUST</bcp14> be enforced:
           </t>
 
@@ -651,7 +651,7 @@
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for AES-CCM</name>
           <t>When using AES-CCM, the following restrictions <bcp14>MUST</bcp14> be enforced:
           </t>
 
@@ -714,7 +714,7 @@
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for ChaCha20/Poly1305</name>
           <t>The key and nonce values <bcp14>MUST</bcp14> be a unique pair for every invocation of the algorithm.  Nonce counters are considered to be an acceptable way of ensuring that they are unique.  </t>
 <t>
               A more recent analysis in <xref target="ROBUST"/> indicates that the the number of failed decryptions needs to be taken into account as part determining when a key roll-over is to be done.
@@ -1029,7 +1029,7 @@ COSE_KDF_Context = [
           </table>
           <section>
 
-            <name>Security Considerations</name>
+            <name>Security Considerations for Direct Key</name>
             <t>This recipient algorithm has several potential problems that need to be considered: 
             </t>
 
@@ -1106,7 +1106,7 @@ COSE_KDF_Context = [
           </ul>
           <section>
 
-            <name>Security Considerations</name>
+            <name>Security Considerations for Direct Key with KDF</name>
             <t>The shared secret needs to have some method to be regularly updated over time.  The shared secret forms the basis of trust.  Although not used directly, it should still be subject to scheduled rotation.  </t>
             <t>While these methods do not provide for perfect forward secrecy, as the same shared secret is used for all of the keys generated, if the key for any single message is discovered, only the message (or series of messages) using that derived key are compromised.  A new key derivation step will generate a new key that requires the same amount of work to get the key.  </t>
           </section>
@@ -1316,7 +1316,7 @@ COSE_KDF_Context = [
         </ul>
         <section>
 
-          <name>Security Considerations</name>
+          <name>Security Considerations for ECDH</name>
           <t>
             There is a method of checking that points provided from external entities are valid.
             For the 'EC2' key format, this can be done by checking that the x and y values form a point on the curve.
@@ -1732,7 +1732,7 @@ COSE_KDF_Context = [
         <name>Assignments for Existing Algorithms</name>
         <t>
           For the current set of algorithms in the registry, those in this document as well as those in <xref target="RFC8230"/> and <xref target="I-D.ietf-cose-hash-sig"/>, the capabilities list is an array with one element, the key type (from the "COSE Key Types" Registry).
-          It is expected future registered algorithms could have zero, one, or multiple elements.
+          It is expected that future registered algorithms could have zero, one, or multiple elements.
         </t>
 
       </section>
