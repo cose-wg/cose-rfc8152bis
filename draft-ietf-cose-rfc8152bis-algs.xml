@@ -2091,23 +2091,23 @@ ECDH-ES + A256KW with an X25519 curve:
     </section>
   </middle>
   <back>
-    <references>
+    <references xml:base="https://xml2rfc.ietf.org/public/rfc/">
       <name>References</name>
       <references>
 
         <name>Normative References</name>
-        <xi:include href="reference.I-D.ietf-cose-rfc8152bis-struct.xml"/>
-        <xi:include href="reference.RFC.2104.xml"/>
-        <xi:include href="reference.RFC.2119.xml"/>
-        <xi:include href="reference.RFC.3394.xml"/>
-        <xi:include href="reference.RFC.3610.xml"/>
-        <xi:include href="reference.RFC.5869.xml"/>
-        <xi:include href="reference.RFC.6090.xml"/>
-        <xi:include href="reference.RFC.6979.xml"/>
-        <xi:include href="reference.RFC.7049.xml"/>
-        <xi:include href="reference.RFC.8439.xml"/>
-        <xi:include href="reference.RFC.7748.xml"/>
-        <xi:include href="reference.RFC.8174.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cose-rfc8152bis-struct.xml"/>
+        <xi:include href="bibxml/reference.RFC.2104.xml"/>
+        <xi:include href="bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="bibxml/reference.RFC.3394.xml"/>
+        <xi:include href="bibxml/reference.RFC.3610.xml"/>
+        <xi:include href="bibxml/reference.RFC.5869.xml"/>
+        <xi:include href="bibxml/reference.RFC.6090.xml"/>
+        <xi:include href="bibxml/reference.RFC.6979.xml"/>
+        <xi:include href="bibxml/reference.RFC.7049.xml"/>
+        <xi:include href="bibxml/reference.RFC.8439.xml"/>
+        <xi:include href="bibxml/reference.RFC.7748.xml"/>
+        <xi:include href="bibxml/reference.RFC.8174.xml"/>
         <reference anchor="AES-GCM" target="https://csrc.nist.gov/publications/nistpubs/800-38D/SP-800-38D.pdf">
           <front>
             <title>Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC</title>
@@ -2155,18 +2155,18 @@ ECDH-ES + A256KW with an X25519 curve:
             <date year="2009" month="May"/>
           </front>
         </reference>
-        <xi:include href="reference.RFC.8032.xml"/>
-        <xi:include href="reference.RFC.8017.xml"/>
+        <xi:include href="bibxml/reference.RFC.8032.xml"/>
+        <xi:include href="bibxml/reference.RFC.8017.xml"/>
       </references>
       <references>
         <name>Informative References</name>
-        <xi:include href="reference.RFC.8126.xml"/>
-        <xi:include href="reference.RFC.8610.xml"/>
-        <xi:include href="reference.RFC.4231.xml"/>
-        <xi:include href="reference.RFC.4493.xml"/>
-        <xi:include href="reference.RFC.5116.xml"/>
-        <xi:include href="reference.RFC.5480.xml"/>
-        <xi:include href="reference.RFC.6151.xml"/>
+        <xi:include href="bibxml/reference.RFC.8126.xml"/>
+        <xi:include href="bibxml/reference.RFC.8610.xml"/>
+        <xi:include href="bibxml/reference.RFC.4231.xml"/>
+        <xi:include href="bibxml/reference.RFC.4493.xml"/>
+        <xi:include href="bibxml/reference.RFC.5116.xml"/>
+        <xi:include href="bibxml/reference.RFC.5480.xml"/>
+        <xi:include href="bibxml/reference.RFC.6151.xml"/>
 <!--        <xi:include href="bibxml9/reference.STD.0090.xml"/> -->
 <referencegroup anchor="STD90" target="https://www.rfc-editor.org/info/std90">
 <!-- reference.RFC.8259.xml -->
@@ -2193,13 +2193,13 @@ This document removes inconsistencies with other specifications of JSON, repairs
 <seriesInfo name="DOI" value="10.17487/RFC8259"/>
 </reference>
 </referencegroup>        
-        <xi:include href="reference.RFC.7252.xml"/>
-        <xi:include href="reference.RFC.7518.xml"/>
-        <xi:include href="reference.RFC.8152.xml"/>
-        <xi:include href="reference.RFC.8551.xml"/>
-        <xi:include href="reference.RFC.8230.xml"/>
-        <xi:include href="reference.I-D.ietf-core-oscore-groupcomm.xml"/>
-        <xi:include href="reference.I-D.ietf-cose-hash-sig.xml"/>
+        <xi:include href="bibxml/reference.RFC.7252.xml"/>
+        <xi:include href="bibxml/reference.RFC.7518.xml"/>
+        <xi:include href="bibxml/reference.RFC.8152.xml"/>
+        <xi:include href="bibxml/reference.RFC.8551.xml"/>
+        <xi:include href="bibxml/reference.RFC.8230.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-core-oscore-groupcomm.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cose-hash-sig.xml"/>
         <reference anchor="SP800-38d" target="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf">
           <front>
             <title>Recommendation for Block Cipher Modes of Operation:  Galois/Counter Mode (GCM) and GMAC</title>
@@ -2235,7 +2235,7 @@ This document removes inconsistencies with other specifications of JSON, repairs
             <author/>
           </front>
         </reference>
-        <xi:include href="reference.I-D.mattsson-cfrg-det-sigs-with-noise.xml"/>
+        <xi:include href="bibxml3/reference.I-D.mattsson-cfrg-det-sigs-with-noise.xml"/>
       <reference anchor="HKDF" target="https://eprint.iacr.org/2010/264.pdf">
         <front>
           <title>Cryptographic Extraction and Key Derivation: The HKDF Scheme</title>
@@ -2254,7 +2254,7 @@ This document removes inconsistencies with other specifications of JSON, repairs
           <date year="2020" month="Feb"/>
         </front>
       </reference>
-      <xi:include href="reference.I-D.ietf-quic-tls.xml"/>
+      <xi:include href="bibxml3/reference.I-D.ietf-quic-tls.xml"/>
       </references>
     </references>
     <section numbered="false">
