@@ -1898,6 +1898,11 @@ ECDH-ES + A256KW with an X25519 curve:
     <section anchor="iana-considerations">
 
       <name>IANA Considerations</name>
+
+      <t>
+        IANA is requested to updte ll COSE registeries except for "COSE Header Parmeters" and "COSE Key Common Parameters" from <xref target="RFC8152"/> to [[This document]].
+      </t>
+      
       <section>
         <name>Changes to "COSE Key Types" registry.</name>
       <t>
@@ -1944,9 +1949,6 @@ ECDH-ES + A256KW with an X25519 curve:
             </tr>
           </tbody>
         </table>
-        <t>
-          IANA is requested to update the pointer for expert review to [[this document]].
-        </t>
       </section>
 
       <section>
@@ -1959,13 +1961,6 @@ ECDH-ES + A256KW with an X25519 curve:
           If this is not done then the Designated Expert should be consulted before final registration for this document is done.
         </t>
 
-        <t>
-          IANA is requested to update all references from RFC 8152 to [[This Document]].
-        </t>
-
-        <t>
-          IANA is requested to update the pointer for expert rview to [[this document]].
-        </t>
         <t>
           IANA is requested to update the reference column in the "COSE Algorithms" registry to include [[This Document]] as a reference for all rows where it is not already present.
         </t>
@@ -2006,27 +2001,8 @@ ECDH-ES + A256KW with an X25519 curve:
           IANA is requested to modify the description to "Public Key" for the line with "Key Type" of 2 and the "Name" of "x".
           See <xref target="x-table-ec1-keys"/> which has been modified with this change.
         </t>
-        <t>
-          IANA is requested to update the references in the table from RFC8152 to [[This Document]].
-        </t>
-        <t>
-          IANA is requested to update the pointer for expert rview to [[this document]].
-        </t>
       </section>
 
-      <section anchor="IANA-Alg-Registry">
-        <name>COSE Header Algorithm Parameters Registry</name>
-        <t>
-          IANA created a registry titled  "COSE Header Algorithm Parameters" as part of processing <xref target="RFC8152"/>.
-          The registry has been created to use the "Expert Review Required" registration procedure <xref target="RFC8126"/>.
-        </t>
-        <t>
-          IANA is requested to update the references from <xref target="RFC8152"/> to this document.
-        </t>
-        <t>
-          IANA is requested to update the pointer for expert rview to [[this document]].
-        </t>
-      </section>
       
       <section title="Expert Review Instructions" anchor="review"  >
         <t>

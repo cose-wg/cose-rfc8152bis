@@ -1,0 +1,796 @@
+<?xml version='1.0' encoding='utf-8'?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
+<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent" [
+<!ENTITY RFC8152 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8152.xml">
+<!ENTITY HkdfSection "5.1">
+<!ENTITY SectionDirectKdf "6.1.2">
+<!ENTITY SectionECDH "6.3">
+]>
+
+<!--  <!ENTITY cose-alg SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.schaad-cose-rfc8152bis-algs.xml"> -->
+
+<!-- RFC EDITOR
+Issue has been raised about countersign vs counter sign.
+The dictionaries seem to favor a single word, but when you did RFC 8152 you left it as a double word.
+
+I have switched to the single word version except for tables 3 and 4 where it causes the text file to have long lines.
+-->
+
+
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<?rfc toc="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-countersign-00" category="std" submissionType="IETF" xml:lang="en" version="3" consensus="true">
+  <front>
+    <title abbrev="COSE Structure">
+    CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Countersignatures</title>
+    <author initials="J." surname="Schaad" fullname="Jim Schaad">
+      <organization>August Cellars</organization>
+      <address>
+        <email>ietf@augustcellars.com</email>
+      </address>
+    </author>
+    <date/>
+    <area>Security</area>
+    <workgroup>COSE Working Group</workgroup>
+    
+    <abstract>
+      <t>
+        Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.
+        CBOR Object Signing and Encryption (COSE) defines a set of security services for CBOR.
+        This document defines a countersignature algorithm along with the needed header parameters and CBOR tags for COSE.
+      </t>
+    </abstract>
+    
+    <note removeInRFC="true">
+      <name>Contributing to this document</name>
+      <!-- RFC EDITOR - Please remove this note before publishing -->
+      <t>
+        The source for this draft is being maintained in GitHub.
+        Suggested changes should be submitted as pull requests  at <eref target="https://github.com/cose-wg/cose-rfc8152bis"/>.
+        Instructions are on that page as well.
+        Editorial changes can be managed in GitHub, but any substantial issues need to be discussed on the COSE mailing list.
+      </t>
+    </note>
+  </front>
+  <middle>
+    <section anchor="introduction">
+      <name>Introduction</name>
+      <t>
+        There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT). 
+        One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="I-D.ietf-cbor-7049bis"/>. 
+        CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="STD90"/> by allowing for binary data, among other changes. 
+        CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures. 
+        CBOR was designed specifically both to be small in terms of messages transported and implementation size and to be a schema-free decoder. 
+        A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense. 
+      </t>
+
+      <t>
+        During the process of advancing COSE to an Internet Standard, it was noticed the description of the security properties of countersignatures was incorrect for the COSE_Sign1 structure.
+        Since the security properties that were described, those of a true countersignature, were those that the working group desired, the decision was made to remove all of the countersignature text from <xref target="I-D.ietf-cose-rfc8152bis-struct"/> and create a new document to both deprecate the old countersignature algorithm and to define a new one with the desired security properties.
+      </t>
+
+      <t>
+        The problem with the previous countersignature algorithm was that the cryptographically computed value was not always included.
+        The initial assumption that the cryptographic value was in the third slot of the array was known not to be true at the time, but in the case of the MAC structures this was not deemed to be an issue.
+        The new algorithm is more aggressive about the set of values included in the countersignature computation so that the cryptographic computed values is included.
+        The exception to this is the COSE_Signature structure where there is no cryptographic computed value.
+      </t>
+
+      <t>
+        The new algorithm is designed to produce the same countersignature value in those cases where the cryptographic computed value was already included.
+        This means that for those structures the only thing that would need to be done is to change the value of the header parameter.
+      </t>
+
+      <section anchor="requirements-terminology">
+        <name>Requirements Terminology</name>
+
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when, they appear in all capitals, as shown here.
+        </t>
+      </section>
+
+      <section anchor="cbor-grammar">
+        <name>CBOR Grammar</name>
+        <t>
+          CBOR grammar in the document is presented using CBOR Data Definition Language (CDDL) <xref target="RFC8610"/>.
+        </t>
+
+        <t>The collected CDDL can be extracted from the XML version of this document via the following XPath expression below.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) </t>
+
+        <sourcecode type="XPATH"><![CDATA[
+//sourcecode[@type='CDDL']/text()
+]]></sourcecode>
+        
+        <t>CDDL expects the initial non-terminal symbol to be the first symbol in the file.  For this reason, the first fragment of CDDL is presented here.  </t>
+        <sourcecode type="CDDL"><![CDATA[
+start = COSE_Countersignature_Tagged / Internal_Types
+
+; This is defined to make the tool quieter:
+Internal_Types = Countersign_structure / COSE_Countersignature0
+]]></sourcecode>
+        <t>The non-terminal Internal_Types is defined for dealing with the automated validation tools used during the writing of this document.  It references those non-terminals that are used for security computations but are not emitted for transport.  </t>
+      </section>
+
+      <section>
+        <name>Document Terminology</name>
+        <t>In this document, we use the following terminology: </t>
+        <t>Byte is a synonym for octet.</t>
+        <t>
+          Constrained Application Protocol (CoAP) is a specialized web transfer protocol for use in constrained systems.  It is defined in <xref target="RFC7252"/>.
+        </t>
+
+        <t>
+          Context is used throughout the document to represent information that is not part of the COSE message.
+          Information which is part of the context can come from several different sources including:
+          Protocol interactions, associated key structures, and program configuration.
+          The context to use can be implicit, identified using the 'kid context' header parameter defined in <xref target="RFC8613"/>, or identified by a protocol-specific identifier.
+          Context should generally be included in the cryptographic construction; for more details see <relref section="4.3" target="I-D.ietf-cose-rfc8152bis-struct"/>.
+        </t>
+
+        <t>The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.</t>
+      </section>
+    </section>
+
+    <section>
+      <name>Countersignature Header Parameters</name>
+      <t>This section defines a set of common header parameters.  A summary of these header parameters can be found in <xref target="Header-Table"/>.  This table should be consulted to determine the value of label and the type of the value.  </t>
+      <t>The set of header parameters defined in this section are: </t>
+      <dl newline="false">
+        <dt>V2 countersignature:</dt>
+        <dd>
+          This header parameter holds one or more countersignature values. 
+          Countersignatures provide a method of having a second party sign some data. 
+          The countersignature header parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0. 
+          Details on version 2 countersignatures are found in <xref target="counter_signatureV2"/>. 
+        </dd>
+        
+      </dl>
+      <table anchor="Header-Table" align="center">
+        <name>Common Header Parameters</name>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Label</th>
+            <th>Value Type</th>
+            <th>Value Registry</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>counter signature version 2</td>
+            <td>TBD10</td>
+            <td>COSE_Countersignature / [+ COSE_Countersignature ]</td>
+            <td/>
+            <td>V2 counter signature attribute</td>
+          </tr>
+          <tr>
+            <td>counter signature 0 version 2</td>
+            <td>TBD11</td>
+            <td>COSE_Countersignature0</td>
+            <td/>
+            <td>Abbreviated Counter signature vesion 2</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t>The CDDL fragment that represents the set of header parameters defined in this section is given below.  Each of the header parameters is tagged as optional because they do not need to be in every map; header parameters required in specific maps are discussed above.  </t>
+      <sourcecode type="CDDL"><![CDATA[
+      Generic_Headers /= (
+      ? TBD10 => COSE_Countersignature / [+COSE_Countersignature]
+      ; V2 Countersignature
+      ? TBD11 => COSE_Countersignature0  ; V2 Countersignature0
+      )
+      ]]></sourcecode>
+    </section>
+
+    <section anchor="counter_signatureV2">
+      <name>Version 2 Countersignatures</name>
+      <t>
+        A countersignature is normally defined as a second signature that confirms a primary signature.
+        A normal example of a countersignature is the signature that a notary public places on a document as witnessing that you have signed the document.
+        Thus applying a countersignature to either the COSE_Signature or COSE_Sign1 objects match this traditional definition.
+        This document extends the context of a countersignature to allow it to be applied to all of the security structures defined.
+        It needs to be noted that the countersignature needs to be treated as a separate operation from the initial operation even if it is applied by the same user as is done in <xref target="I-D.ietf-core-groupcomm-bis"/>.
+      </t>
+
+      <t>
+        COSE supports two different forms for countersignatures.
+        Full countersignatures use the structure COSE_Countersignature.
+        This is same structure as COSE_Signature and thus it can have protected and unprotected attributes, including chained countersignatures.
+        Abbreviated countersignatures use the structure COSE_Countersignature0.
+        This structure only contains the signature value and nothing else.
+        The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.
+      </t>
+
+      <t>
+        The version 2 countersignature changes the algorithm used for computing the signature from the original version <relref section="4.5" target="RFC8152"/>.
+        The new version now includes the cryptographic material generated for all of the structures rather than just for a subset.
+      </t>
+      
+      
+      <t>
+        COSE was designed for uniformity in how the data structures are specified.
+        One result of this is that for COSE one can expand the concept of countersignatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
+        When creating a countersignature, one needs to be clear about the security properties that result.
+        When done on a COSE_Signature or COSE_Sign1, the normal countersignature semantics are preserved.
+        That is the countersignature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
+        When done on a COSE_Sign, this is the same as applying a second signature to the payload and adding a parallel signature as a new COSE_Signature is the preferred method.
+        When done on a COSE_Mac or COSE_Mac0, the payload is included as well as the MAC value.
+        When done on a COSE_Encrypt or COSE_Encrypt0, the existence of the encrypted data is attested to.
+        It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
+        If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
+        It is always possible to construct cases where the use of two different keys will appear to result in a successful decryption (the tag check success), but which produce two completely different plaintexts.
+        This situation is not detectable by a countersignature on the encrypted data.
+      </t>
+
+      <section>
+        <name>Full Countersignatures</name>
+        
+        <t>
+          The COSE_Countersignature structure allows for the same set of capabilities  as a COSE_Signature.
+          This means that all of the capabilities of a signature are duplicated with this structure.
+          Specifically, the countersigner does not need to be related to the producer of what is being countersigned as key and algorithm identification can be placed in the countersignature attributes.
+          This also means that the countersignature can itself be countersigned.
+          This is a feature required by protocols such as long-term archiving services.
+          More information on how countersignatures is used can be found in the evidence record syntax described in <xref target="RFC4998"/>.
+        </t>
+        
+        <t>
+          The full countersignature structure can be encoded as either tagged or untagged depending on the context it is used in.  A tagged COSE_Countersignature structure is identified by the CBOR tag TBD0.  The countersignature structure is the same as that used for a signer on a signed object. The CDDL fragment for full countersignatures is:
+        </t>
+
+        <!-- RFC EDITOR -
+             The value #6.9999 should be changed to #6.TBD0
+         -->
+        
+        <sourcecode type="CDDL"><![CDATA[
+COSE_Countersignature_Tagged = #6.9999(COSE_Countersignature)
+COSE_Countersignature = COSE_Signature
+]]></sourcecode>
+        
+        <t>
+          The details of the fields of a countersignature can be found in <relref section="4.1" target="I-D.ietf-cose-rfc8152bis-struct"/>.
+        </t>
+        
+        <t>          
+          An example of a countersignature on a signature can be found in <xref target="Appendix_B_1_3"/>. 
+          An example of a countersignature in an encryption object can be found in <xref target="Appendix_B_3_3"/>. 
+        </t>
+        
+        <t>
+          It should be noted that only a signature algorithm with appendix (see <relref section="8" target="I-D.ietf-cose-rfc8152bis-struct"/>) can be used for countersignatures. 
+          This is because the body should be able to be processed without having to evaluate the countersignature, and this is not possible for signature schemes with message recovery. 
+        </t>
+        
+      </section>
+      
+      <section>
+        <name>Abbreviated Countersignatures</name>
+        <t>
+          Abbreviated countersignatures were designed primarily to deal with the problem of encrypted group messaging, but where it is required to know who originated the message.
+          The objective was to keep the countersignature as small as possible while still providing the needed security.
+          For abbreviated countersignatures, there is no provision for any protected attributes related to the signing operation.
+          Instead, the parameters for computing or verifying the abbreviated countersignature are provided by the same context used to describe the encryption, signature, or MAC processing.
+        </t>
+        <t>
+          The CDDL fragment for the abbreviated countersignatures is:
+        </t>
+        <sourcecode type="CDDL"><![CDATA[
+COSE_Countersignature0 = bstr
+]]></sourcecode>
+        <t>
+          The byte string representing the signature value is placed in the Countersignature0 attribute.
+          This attribute is then encoded as an unprotected header parameter.
+          The attribute is defined below.
+        </t>
+                
+      </section>
+      
+      <section anchor="CountersignV2_verify">
+        <name>Signing and Verification Process</name>
+        <t>
+          In order to create a signature, a well-defined byte string is needed.
+          The Countersign_structure is used to create the canonical form. 
+          This signing and verification process takes in countersignature target structure, the signer information (COSE_Signature), and the application data (external source). 
+          A Countersign_structure is a CBOR array.
+          The target structure of the countersignature needs to have all of it's cryptographic functions finalized before the computing the signature.
+          The fields of the Countersign_structure in order are:
+        </t>
+
+        <ol type="1">
+          <li>
+            <t>
+              A context text string identifying the context of the signature.  The context text string is:
+            </t>
+            <ul empty="true">
+              <li>
+                "CounterSignature" for signatures using the COSE_Countersignature structure when other_fields is absent.
+              </li>
+              <li>
+                "CounterSignature0" for signatures using the COSE_Countersignature0 structure when other_fields is absent.
+              </li>
+              <li>
+                "CounterSignatureV2" for signatures using the COSE_Countersignature structure when other_fields is present.
+              </li>
+              <li>
+                "CounterSignature0V2" for signatures using the COSE_Countersignature0 structure when other_fields is present.
+                </li>
+            </ul>
+          </li>
+          
+          <li>
+            The protected attributes from the target structure encoded in a bstr type.
+            If there are no protected attributes, a zero-length byte string is used.
+          </li>
+          
+          <li>
+            The protected attributes from the signer structure encoded in a bstr type.
+            If there are no protected attributes, a zero-length byte string is used. 
+            This field is omitted for the Countersignature0V2 attribute.
+          </li>
+          
+          <li>
+            The externally supplied data from the application encoded in a bstr type.
+            If this field is not supplied, it defaults to a zero-length byte string.
+            (See <relref section="4.3" target="I-D.ietf-cose-rfc8152bis-struct"/> for application guidance on constructing this field.)
+          </li>
+          
+          <li>
+            The payload to be signed encoded in a bstr type.
+            The payload is placed here independent of how it is transported.
+          </li>
+
+          <li>
+            If there are only two bstr fields in the target structure, this field is omitted.
+            The field is an array of all bstr fields after the second.
+            As an example, this would be an array of one element for the COSE_Sign1 structure containing the signature value.
+          </li>
+        </ol>
+        
+        <t>The CDDL fragment that describes the above text is:  </t>
+        <sourcecode type="CDDL"><![CDATA[
+Countersign_structure = [
+    context : "CounterSignature" / "CounterSignature0" /
+              "CounterSignatureV2" / "CounterSignature0V2" /,
+    body_protected : empty_or_serialized_map,
+    ? sign_protected : empty_or_serialized_map,
+    external_aad : bstr,
+    payload : bstr,
+    ? other_fields : [ + bstr ]
+]
+]]></sourcecode>
+
+
+        <t>How to compute a countersignature:
+        </t>
+        <ol type="1">
+          <li>Create a Countersign_structure and populate it with the appropriate fields.  </li>
+          <li>Create the value ToBeSigned by encoding the Countersign_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"/>.  </li>
+          <li>Call the signature creation algorithm passing in K (the key to sign with), alg (the algorithm to sign with), and ToBeSigned (the value to sign).  </li>
+          <!--
+
+  " 4.  Place the resulting signature value in the 'signature' field of
+        the array."
+
+Although it is clear from the context, one might whish to specify which 
+array to avoid confusion.
+
+[JLS] It is a bit problematical to say which array it is going into because this is one of three different arrays.  However, it would go into a non-array for CounterSignature0.  Hmmmmmm.
+
+   Need to think about how to adjust the text to deal with all of the different ways to put the signature someplace.
+-->
+          <li>
+            Place the resulting signature value in the correct location.
+            This is the 'signature' field of the COSE_Countersignature structure.
+            This is the value of the Countersignature0 attribute.
+          </li>
+          
+        </ol>
+        
+        <t>The steps for verifying a countersignature are:
+        </t>
+        <ol type="1">
+          <li>Create a Countersign_structure and populate it with the appropriate fields.  </li>
+          <li>Create the value ToBeSigned by encoding the Countersign_structure to a byte string, using the encoding described in <xref target="CBOR-Canonical"/>.  </li>
+          <li>Call the signature verification algorithm passing in K (the key to verify with), alg (the algorithm used sign with), ToBeSigned (the value to sign), and sig (the signature to be verified).  </li>
+        </ol>
+
+        <t>
+  In addition to performing the signature verification, the application performs the appropriate checks to ensure that the key is correctly paired with the signing identity and that the signing identity is authorized before performing actions.
+</t>
+      </section>
+      
+    </section>
+
+    <section anchor="CBOR-Canonical">
+      <name>CBOR Encoding Restrictions</name>
+      <t>
+        In order to always regenerate the same byte string for the "to be signed" value, the deterministic encoding rules defined in <relref section="4.2" target="I-D.ietf-cbor-7049bis"/>.
+        These rules match the ones laid out in <relref section="11" target="I-D.ietf-cose-rfc8152bis-struct"/>.
+      </t>
+    </section>
+
+    <section anchor="iana-considerations">
+      <name>IANA Considerations</name>
+      <t>
+        The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
+        The majority of the actions are to update the references to point to this document.
+      </t>
+
+      
+      <section anchor="cbor-tag-assignment">
+        <name>CBOR Tag Assignment</name>
+        <t>
+          IANA is requested to register a new tag for the CounterSignature type.
+        </t>
+
+        <ul>
+          <li>Tag: TBD0</li>
+          <li>Data Item: COSE_Countersignature</li>
+          <li>Semantics: COSE standalone V2 countersignature </li>
+          <li>Reference: [[this document]]</li>
+        </ul>
+      </section>
+      
+      <section anchor="cose-header-key-table">
+        <name>COSE Header Parameters Registry</name>
+        <t>
+          IANA created a registry titled "COSE Header Parameters" as part of processing <xref target="RFC8152"/>. 
+        </t>
+
+        <t>
+          IANA is requested to register the following new items in the registry.
+        </t>
+
+        <table>
+          <name>New Common Header Parameters</name>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Label</th>
+              <th>Value Type</th>
+              <th>Value Registry</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>counter signature version 2</td>
+              <td>TBD10</td>
+              <td>COSE_Countersignature / [+ COSE_Countersignature ]</td>
+              <td/>
+              <td>V2 countersignature attribute</td>
+            </tr>
+            <tr>
+              <td>Countersignature0 version 2</td>
+              <td>TBD11</td>
+              <td>COSE_Countersignature0</td>
+              <td/>
+              <td>Abbreviated Counter signature vesion 2</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <t>
+          IANA is requested to modify the Description field for "counter signature" and "CounterSignature0" to include the words "(Deprecated by [[This Document]]".
+        </t>
+      </section>
+    </section>
+
+    <section anchor="security-considerations">
+      <name>Security Considerations</name>
+      <t>
+        TODO - review and trim as needed.
+      </t>
+      <t>
+        There are a number of security considerations that need to be taken into account by implementers of this specification.
+        While some considerations have been highlighted here, additional considerations may be found in the documents listed in the references.
+      </t>
+      <t>Implementations need to protect the private key material for any individuals.  There are some cases that need to be highlighted on this issue.
+     
+      </t>
+      <ul>
+        <li>Using the same key for two different algorithms can leak information about the key.  It is therefore recommended that keys be restricted to a single algorithm.  </li>
+        <li>Use of 'direct' as a recipient algorithm combined with a second recipient algorithm exposes the direct key to the second recipient.  </li>
+        <li>Several of the algorithms in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> have limits on the number of times that a key can be used without leaking information about the key.</li>
+      </ul>
+      <t>The use of ECDH and direct plus KDF (with no key wrap) will not directly lead to the private key being leaked; the one way function of the KDF will prevent that.  There is, however, a different issue that needs to be addressed.  Having two recipients requires that the CEK be shared between two recipients.  The second recipient therefore has a CEK that was derived from material that can be used for the weak proof of origin.  The second recipient could create a message using the same CEK and send it to the first recipient; the first recipient would, for either static-static ECDH or direct plus KDF, make an assumption that the CEK could be used for proof of origin even though it is from the wrong entity.  If the key wrap step is added, then no proof of origin is implied and this is not an issue.  </t>
+      <t>
+        <!--
+            p. 55 "the use of a single key for multiple algorithms has been demonstrated in some cases to leak information about a key ..." Maybe "a key" to "the key" if we're talking about that specific key.  It'd be good to have links to references going over the cases too.  – changed ‘a’ to ‘that’.  
+            [JLS] Are you looking for links to each of those three instances or something else?  It may be that this should be removed from the document as the “mentioned before” is no longer relevant in the structure document only in the algorithm document – 
+            ALL: Should this just be killed?
+        -->
+            
+        Although it has been mentioned before, the use of a single key for multiple algorithms has been demonstrated in some cases to leak information about that key, provide the opportunity for attackers to forge integrity tags, or gain information about encrypted content.
+        Binding a key to a single algorithm prevents these problems.
+        Key creators and key consumers are strongly encouraged not only to create new keys for each different algorithm, but to include that selection of algorithm in any distribution of key material and strictly enforce the matching of algorithms in the key structure to algorithms in the message structure.
+        In addition to checking that algorithms are correct, the key form needs to be checked as well.
+        Do not use an 'EC2' key where an 'OKP' key is expected.
+      </t>
+      <t>Before using a key for transmission, or before acting on information received, a trust decision on a key needs to be made.  Is the data or action something that the entity associated with the key has a right to see or a right to request? A number of factors are associated with this trust decision.  Some of the ones that are highlighted here are:
+      </t>
+      <ul>
+        <li>What are the permissions associated with the key owner?</li>
+        <li>Is the cryptographic algorithm acceptable in the current context?</li>
+        <li>Have the restrictions associated with the key, such as algorithm or freshness, been checked and are they correct?</li>
+        <li>Is the request something that is reasonable, given the current state of the application?</li>
+        <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?</li>
+      </ul>
+      <t>One area that has been getting exposure is traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
+    </section>
+
+    <section removeInRFC="true">
+      <name>Implementation Status</name>
+      <!--  RFC Editor - Please remove this section and reference RFC7942 prior to publication -->
+      <t>
+        This section records the status of known implementations of the
+        protocol defined by this specification at the time of posting of
+        this Internet-Draft, and is based on a proposal described in <xref target="RFC7942"/>.  The description of implementations in this section is
+        intended to assist the IETF in its decision processes in
+        progressing drafts to RFCs.  Please note that the listing of any
+        individual implementation here does not imply endorsement by the
+        IETF.  Furthermore, no effort has been spent to verify the
+        information presented here that was supplied by IETF contributors.
+        This is not intended as, and must not be construed to be, a
+        catalog of available implementations or their features.  Readers
+        are advised to note that other implementations may exist.
+      </t>
+      <t>
+        According to <xref target="RFC7942"/>, "this will allow reviewers and working
+        groups to assign due consideration to documents that have the
+        benefit of running code, which may serve as evidence of valuable
+        experimentation and feedback that have made the implemented
+        protocols more mature.  It is up to the individual working groups
+        to use this information as they see fit".
+      </t>
+      <section>
+        <name>Author's Versions</name>
+        <t>
+          There are three different implementations that have been created by the author of the document both to create the examples that are included in the document and to validate the structures and methodology used in the design of COSE.
+        </t>
+        <ul>
+          <li>Implementation Location: https://github.com/cose-wg</li>
+          <li>Primary Maintainer: Jim Schaad</li>
+          <li>
+              Languages:
+              There are three different languages that are currently supported:  Java and C#.
+            </li>
+          <li>
+              Cryptography: The Java and C# libraries use Bouncy Castle to provide the required cryptography.
+            </li>
+          <li>
+            Coverage:
+            Both implementations can produce and consume both the old and new countersignatures.
+          </li>
+          <li>
+              Testing:
+              All of the examples in the example library are generated by the C# library and then validated using the Java and C libraries.
+              Both libraries have tests to allow for the creating of the same messages that are in the example library followed by validating them.
+              These are not compared against the example library.
+              The Java and C# libraries have unit testing included.
+              Not all of the <bcp14>MUST</bcp14> statements in the document have been implemented as part of the libraries.
+              One such statement is the requirement that unique labels be present.
+            </li>
+          <li>Licensing: Revised BSD License </li>
+        </ul>
+      </section>
+      <section>
+        <name>COSE Testing Library</name>
+        <ul>
+          <li>Implementation Location: https://github.com/cose-wg/Examples</li>
+          <li>Primary Maintainer: Jim Schaad</li>
+          <li>
+              Description: A set of tests for the COSE library is provided as part of the implementation effort.
+              Both success and fail tests have been provided.
+              All of the examples in this document are part of this example set.
+            </li>
+          <li>
+              Coverage:  An attempt has been made to have test cases for every message type and algorithm in the document.
+              Currently examples dealing with countersignatures, and ECDH with Curve25519 and Goldilocks are missing.
+            </li>
+          <li>Licensing: Public Domain</li>
+        </ul>
+      </section>
+    </section>
+  </middle>
+
+  <back>
+    <references xml:base="https://xml2rfc.ietf.org/public/rfc/">
+      <name>References</name>
+      <references>
+        <name>Normative References</name>
+        <xi:include href="bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cbor-7049bis.xml"/>
+        <xi:include href="bibxml/reference.RFC.8174.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cose-rfc8152bis-algs.xml"/>
+      </references>
+      <references>
+        <name>Informative References</name>
+        <xi:include href="bibxml/reference.RFC.8610.xml"/>
+        <xi:include href="bibxml/reference.RFC.8152.xml"/>
+<!--        <xi:include href="bibxml9/reference.STD.0090.xml"/> -->
+<referencegroup anchor="STD90" target="https://www.rfc-editor.org/info/std90">
+<!-- reference.RFC.8259.xml -->
+<reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259">
+<front>
+<title>
+The JavaScript Object Notation (JSON) Data Interchange Format
+</title>
+<author initials="T." surname="Bray" fullname="T. Bray" role="editor">
+<organization/>
+</author>
+<date year="2017" month="December"/>
+<abstract>
+<t>
+JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format. It was derived from the ECMAScript Programming Language Standard. JSON defines a small set of formatting rules for the portable representation of structured data.
+</t>
+<t>
+This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.
+</t>
+</abstract>
+</front>
+<seriesInfo name="STD" value="90"/>
+<seriesInfo name="RFC" value="8259"/>
+<seriesInfo name="DOI" value="10.17487/RFC8259"/>
+</reference>
+</referencegroup>        
+                <!-- <xi:include href="reference.BCP.0201.xml"/> -->
+        <xi:include href="bibxml/reference.RFC.7252.xml"/>
+        <xi:include href="bibxml/reference.RFC.7942.xml"/>
+        <xi:include href="bibxml/reference.RFC.4998.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-core-groupcomm-bis.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cose-rfc8152bis-struct.xml"/>
+        <xi:include href="bibxml/reference.RFC.8613.xml"/>
+      </references>
+    </references>
+
+    <section anchor="examples">
+      <name>Examples</name>
+      <t>This appendix includes a set of examples that show the different features and message types that have been defined in this document.  To make the examples easier to read, they are presented using the extended CBOR diagnostic notation (defined in <xref target="RFC8610"/>) rather than as a binary dump.  </t>
+      <t>
+        A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.
+        Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented both as a hex dump and in CBOR diagnostic notation format.
+        Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.
+        If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.
+      </t>
+      <t>As noted, the examples are presented using the CBOR's diagnostic notation.  A Ruby-based tool exists that can convert between the diagnostic notation and binary.  This tool can be installed with the command line: </t>
+      <sourcecode type=""><![CDATA[gem install cbor-diag]]></sourcecode>
+      <t>The diagnostic notation can be converted into binary files using the following command line: </t>
+      <sourcecode type=""><![CDATA[diag2cbor.rb < inputfile > outputfile
+]]></sourcecode>
+      <t>The examples can be extracted from the XML version of this document via an XPath expression as all of the sourcecode is tagged with the attribute type='CBORdiag'.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.) </t>
+      <sourcecode type="XPATH"><![CDATA[//sourcecode[@type='CDDL']/text()]]></sourcecode>
+      <section anchor="SignedExamples">
+        <name>Examples of Signed Messages</name>
+        <section anchor="Appendix_B_1_3">
+            <name>Countersignature</name>
+          <t>This example uses the following:
+          </t>
+            <ul>
+              <li>Signature Algorithm: ECDSA w/ SHA-256, Curve P-256</li>
+              <li>The same header parameters are used for both the signature and the countersignature.</li>
+          </ul>
+          <t>Size of binary file is 180 bytes</t>
+          <sourcecode type="CBORdiag"><![CDATA[
+98(
+  [
+    / protected / h'', 
+    / unprotected / {
+      / countersign / 7:[
+        / protected  h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
+        / unprotected / {
+          / kid / 4:'11'
+        }, 
+        / signature / h'5ac05e289d5d0e1b0a7f048a5d2b643813ded50bc9e4
+9220f4f7278f85f19d4a77d655c9d3b51e805a74b099e1e085aacd97fc29d72f887e
+8802bb6650cceb2c'
+      ]
+    }, 
+    / payload / 'This is the content.', 
+    / signatures / [
+      [
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
+        / unprotected / {
+          / kid / 4:'11'
+        }, 
+        / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
+5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
+98f53afd2fa0f30a'
+      ]
+    ]
+  ]
+)
+]]></sourcecode>
+        </section>
+      </section>
+
+      <section anchor="EnvelopedExamples">
+        <name>Examples of Enveloped Messages</name>
+        <section anchor="Appendix_B_3_3">
+            <name>Countersignature on Encrypted Content</name>
+          <t>This example uses the following:
+          </t>
+            <ul>
+              <li>CEK: AES-GCM w/ 128-bit key</li>
+              <li>Recipient class: ECDH Ephemeral-Static, Curve P-256</li>
+          </ul>
+          <t>Size of binary file is 326 bytes</t>
+          <sourcecode type="CBORdiag"><![CDATA[
+96(
+  [
+    / protected h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >>, 
+    / unprotected / {
+      / iv / 5:h'c9cf4df2fe6c632bf7886413', 
+      / countersign / 7:[
+        / protected / h'a1013823' / {
+            \ alg \ 1:-36
+          } / , 
+        / unprotected / {
+          / kid / 4:'bilbo.baggins@hobbiton.example'
+        }, 
+        / signature / h'00929663c8789bb28177ae28467e66377da12302d7f9
+594d2999afa5dfa531294f8896f2b6cdf1740014f4c7f1a358e3a6cf57f4ed6fb02f
+cf8f7aa989f5dfd07f0700a3a7d8f3c604ba70fa9411bd10c2591b483e1d2c31de00
+3183e434d8fba18f17a4c7e3dfa003ac1cf3d30d44d2533c4989d3ac38c38b71481c
+c3430c9d65e7ddff'
+      ]
+    }, 
+    / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
+c52a357da7a644b8070a151b0', 
+    / recipients / [
+      [
+        / protected h'a1013818' / << {
+            / alg / 1:-25 / ECDH-ES + HKDF-256 /
+          } >> , 
+        / unprotected / {
+          / ephemeral / -1:{
+            / kty / 1:2, 
+            / crv / -1:1, 
+            / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
+bf054e1c7b4d91d6280', 
+            / y / -3:true
+          }, 
+          / kid / 4:'meriadoc.brandybuck@buckland.example'
+        }, 
+        / ciphertext / h''
+      ]
+    ]
+  ]
+)
+]]></sourcecode>
+        </section>
+      </section>
+      <section anchor="EncryptExamples">
+        <name>Examples of Encrypted Messages</name>
+      </section>
+      <section anchor="MacExamples">
+        <name>Examples of MACed Messages</name>
+      </section>
+      <section anchor="Mac0Examples">
+        <name>Examples of MAC0 Messages</name>
+      </section>
+    </section>
+    <section numbered="false">
+      <name>Acknowledgments</name>
+      <t>This document is a product of the COSE working group of the IETF.  </t>
+      <t>The initial version of the specification was based to some degree on the outputs of the JOSE and S/MIME working groups.  </t>
+      <!--
+      <t>
+        The following individuals provided input into the final form of the document: Carsten Bormann.
+        </t>
+        -->
+    </section>
+  </back>
+</rfc>
