@@ -4,31 +4,21 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                               17 June 2020
+Obsoletes: 8152 (if approved)                          24 September 2020
 Intended status: Informational                                          
-Expires: 19 December 2020
+Expires: 28 March 2021
 
 
      CBOR Object Signing and Encryption (COSE): Initial Algorithms
-                   draft-ietf-cose-rfc8152bis-algs-08
+                   draft-ietf-cose-rfc8152bis-algs-11
 
 Abstract
 
    Concise Binary Object Representation (CBOR) is a data format designed
    for small code size and small message size.  There is a need for the
    ability to have basic security services defined for this data format.
-   This document defines the CBOR Object Signing and Encryption (COSE)
-   protocol.  This specification describes how to create and process
-   signatures, message authentication codes, and encryption using CBOR
-   for serialization.  COSE additionally describes how to represent
-   cryptographic keys using CBOR.
-
-   This specification defines the conventions for the use of a number of
-   cryptographic algorithms with COSE.  The details of the structure of
-   COSE are defined in [I-D.ietf-cose-rfc8152bis-struct].
-
-   This document along with [I-D.ietf-cose-rfc8152bis-struct] obsoletes
-   RFC8152.
+   THis document defines a set of algorithms that can be used with the
+   CBOR Object Signing and Encryption (COSE) protocol RFC XXXX.
 
 Contributing to this document
 
@@ -50,20 +40,23 @@ Status of This Memo
    working documents as Internet-Drafts.  The list of current Internet-
    Drafts is at https://datatracker.ietf.org/drafts/current/.
 
-
-
-
-Schaad                  Expires 19 December 2020                [Page 1]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 December 2020.
+   This Internet-Draft will expire on 28 March 2021.
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 1]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
 Copyright Notice
 
@@ -89,64 +82,64 @@ Table of Contents
      1.5.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .   5
    2.  Signature Algorithms  . . . . . . . . . . . . . . . . . . . .   5
      2.1.  ECDSA . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-       2.1.1.  Security Considerations . . . . . . . . . . . . . . .   7
+       2.1.1.  Security Considerations for ECDSA . . . . . . . . . .   7
      2.2.  Edwards-Curve Digital Signature Algorithms (EdDSAs) . . .   8
-       2.2.1.  Security Considerations . . . . . . . . . . . . . . .   9
+       2.2.1.  Security Considerations for EdDSA . . . . . . . . . .   9
    3.  Message Authentication Code (MAC) Algorithms  . . . . . . . .   9
      3.1.  Hash-Based Message Authentication Codes (HMACs) . . . . .   9
-       3.1.1.  Security Considerations . . . . . . . . . . . . . . .  11
+       3.1.1.  Security Considerations for HMAC  . . . . . . . . . .  11
      3.2.  AES Message Authentication Code (AES-CBC-MAC) . . . . . .  11
-       3.2.1.  Security Considerations . . . . . . . . . . . . . . .  12
+       3.2.1.  Security Considerations AES-CBC_MAC . . . . . . . . .  12
    4.  Content Encryption Algorithms . . . . . . . . . . . . . . . .  12
      4.1.  AES GCM . . . . . . . . . . . . . . . . . . . . . . . . .  12
-       4.1.1.  Security Considerations . . . . . . . . . . . . . . .  13
+       4.1.1.  Security Considerations for AES-GCM . . . . . . . . .  13
      4.2.  AES CCM . . . . . . . . . . . . . . . . . . . . . . . . .  14
-       4.2.1.  Security Considerations . . . . . . . . . . . . . . .  17
+       4.2.1.  Security Considerations for AES-CCM . . . . . . . . .  17
      4.3.  ChaCha20 and Poly1305 . . . . . . . . . . . . . . . . . .  18
-       4.3.1.  Security Considerations . . . . . . . . . . . . . . .  18
+       4.3.1.  Security Considerations for ChaCha20/Poly1305 . . . .  19
    5.  Key Derivation Functions (KDFs) . . . . . . . . . . . . . . .  19
-
-
-
-
-Schaad                  Expires 19 December 2020                [Page 2]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
      5.1.  HMAC-Based Extract-and-Expand Key Derivation Function
            (HKDF)  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      5.2.  Context Information Structure . . . . . . . . . . . . . .  21
    6.  Content Key Distribution Methods  . . . . . . . . . . . . . .  26
-     6.1.  Direct Encryption . . . . . . . . . . . . . . . . . . . .  26
-       6.1.1.  Direct Key  . . . . . . . . . . . . . . . . . . . . .  26
-       6.1.2.  Direct Key with KDF . . . . . . . . . . . . . . . . .  27
-     6.2.  AES Key Wrap  . . . . . . . . . . . . . . . . . . . . . .  29
-       6.2.1.  Security Considerations for AES-KW  . . . . . . . . .  30
-     6.3.  Direct ECDH . . . . . . . . . . . . . . . . . . . . . . .  30
-       6.3.1.  Security Considerations . . . . . . . . . . . . . . .  33
-     6.4.  ECDH with Key Wrap  . . . . . . . . . . . . . . . . . . .  33
-   7.  Key Object Parameters . . . . . . . . . . . . . . . . . . . .  35
-     7.1.  Elliptic Curve Keys . . . . . . . . . . . . . . . . . . .  36
-       7.1.1.  Double Coordinate Curves  . . . . . . . . . . . . . .  36
-     7.2.  Octet Key Pair  . . . . . . . . . . . . . . . . . . . . .  38
-     7.3.  Symmetric Keys  . . . . . . . . . . . . . . . . . . . . .  38
-   8.  COSE Capabilities . . . . . . . . . . . . . . . . . . . . . .  39
-     8.1.  Assignments for Existing Key Types  . . . . . . . . . . .  40
-     8.2.  Assignments for Existing Algorithms . . . . . . . . . . .  40
-     8.3.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  41
-   9.  CBOR Encoding Restrictions  . . . . . . . . . . . . . . . . .  43
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  43
-     10.1.  Changes to "COSE Key Types" registry.  . . . . . . . . .  43
-     10.2.  Changes to "COSE Algorithms" registry  . . . . . . . . .  44
-     10.3.  Changes to the "COSE Key Type Parameters" registry . . .  44
-     10.4.  COSE Header Algorithm Parameters Registry  . . . . . . .  44
-   11. Security Considerations . . . . . . . . . . . . . . . . . . .  45
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  47
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  47
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  48
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  51
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  51
+     6.1.  Direct Encryption . . . . . . . . . . . . . . . . . . . .  27
+       6.1.1.  Direct Key  . . . . . . . . . . . . . . . . . . . . .  27
+       6.1.2.  Direct Key with KDF . . . . . . . . . . . . . . . . .  28
+     6.2.  Key Wrap  . . . . . . . . . . . . . . . . . . . . . . . .  29
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 2]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+       6.2.1.  AES Key Wrap  . . . . . . . . . . . . . . . . . . . .  30
+     6.3.  Direct Key Agreement  . . . . . . . . . . . . . . . . . .  31
+       6.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  31
+     6.4.  Key Agreement with Key Wrap . . . . . . . . . . . . . . .  34
+       6.4.1.  ECDH with Key Wrap  . . . . . . . . . . . . . . . . .  35
+   7.  Key Object Parameters . . . . . . . . . . . . . . . . . . . .  37
+     7.1.  Elliptic Curve Keys . . . . . . . . . . . . . . . . . . .  37
+       7.1.1.  Double Coordinate Curves  . . . . . . . . . . . . . .  38
+     7.2.  Octet Key Pair  . . . . . . . . . . . . . . . . . . . . .  39
+     7.3.  Symmetric Keys  . . . . . . . . . . . . . . . . . . . . .  40
+   8.  COSE Capabilities . . . . . . . . . . . . . . . . . . . . . .  41
+     8.1.  Assignments for Existing Algorithms . . . . . . . . . . .  42
+     8.2.  Assignments for Existing Key Types  . . . . . . . . . . .  42
+     8.3.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  42
+   9.  CBOR Encoding Restrictions  . . . . . . . . . . . . . . . . .  45
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  45
+     10.1.  Changes to "COSE Key Types" registry.  . . . . . . . . .  45
+     10.2.  Changes to "COSE Algorithms" registry  . . . . . . . . .  46
+     10.3.  Changes to the "COSE Key Type Parameters" registry . . .  46
+     10.4.  Expert Review Instructions . . . . . . . . . . . . . . .  46
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  47
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  49
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  49
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  51
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  54
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  54
 
 1.  Introduction
 
@@ -154,27 +147,28 @@ Internet-Draft               COSE Algorithms                   June 2020
    make up the Internet of Things (IoT).  One of the standards that has
    come out of this process is "Concise Binary Object Representation
    (CBOR)" [RFC7049].  CBOR extended the data model of JavaScript Object
-   Notation (JSON) [RFC8259] by allowing for binary data, among other
+   Notation (JSON) [STD90] by allowing for binary data, among other
    changes.  CBOR is being adopted by several of the IETF working groups
    dealing with the IoT world as their encoding of data structures.
-   CBOR was designed specifically to be both small in terms of message
-   transport and implementation size and be a schema-free decoder.  A
+   CBOR was designed specifically to be both small in terms of messages
+   transported and implementation size and be a schema-free decoder.  A
    need exists to provide message security services for IoT, and using
    CBOR as the message-encoding format makes sense.
-
-
-
-
-Schaad                  Expires 19 December 2020                [Page 3]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
    The core COSE specification consists of two documents.
    [I-D.ietf-cose-rfc8152bis-struct] contains the serialization
    structures and the procedures for using the different cryptographic
    algorithms.  This document provides an initial set of algorithms for
    use with those structures.
+
+
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 3]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
 1.1.  Requirements Terminology
 
@@ -202,11 +196,10 @@ Internet-Draft               COSE Algorithms                   June 2020
    protocol for use in constrained systems.  It is defined in [RFC7252].
 
    Authenticated Encryption (AE) [RFC5116] algorithms are encryption
-   algorithms that provide an authentication check of the contents
-   algorithm with the encryption service.  An example of an AE algorithm
-   used in COSE is AES Key Wrap [RFC3394].  These algorithms are used
-   for key encryption algorithms, but AEAD algorithms would be
-   preferred.
+   algorithms that provide an authentication check of the contents with
+   the encryption service.  An example of an AE algorithm used in COSE
+   is AES Key Wrap [RFC3394].  These algorithms are used for key
+   encryption algorithms, but AEAD algorithms would be preferred.
 
    Authenticated Encryption with Associated Data (AEAD) [RFC5116]
    algorithms provide the same authentication service of the content as
@@ -219,19 +212,19 @@ Internet-Draft               COSE Algorithms                   June 2020
    The term 'byte string' is used for sequences of bytes, while the term
    'text string' is used for sequences of characters.
 
-
-
-Schaad                  Expires 19 December 2020                [Page 4]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    The tables for algorithms contain the following columns:
 
    *  A name for use in documents for the algorithms.
 
    *  The value used on the wire for the algorithm.  One place this is
       used is the algorithm header parameter of a message.
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 4]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    *  A short description so that the algorithm can be easily identified
       when scanning the IANA registry.
@@ -244,7 +237,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    At the time that [RFC8152] was initially published, the CBOR Data
    Definition Language (CDDL) [RFC8610] had not yet been published.
    This document uses a variant of CDDL which is described in
-   [I-D.ietf-cose-rfc8152bis-struct]
+   [I-D.ietf-cose-rfc8152bis-struct].
 
 1.5.  Examples
 
@@ -262,9 +255,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 2.  Signature Algorithms
 
-   Part Section 9.1 of [I-D.ietf-cose-rfc8152bis-struct] contains a
-   generic description of signature algorithms.  The document defines
-   signature algorithm identifiers for two signature algorithms.
+   Section 9.1 of [I-D.ietf-cose-rfc8152bis-struct] contains a generic
+   description of signature algorithms.  The document defines signature
+   algorithm identifiers for two signature algorithms.
 
 2.1.  ECDSA
 
@@ -274,18 +267,20 @@ Internet-Draft               COSE Algorithms                   June 2020
    for systems to avoid relying on random number generators in order to
    avoid generating the same value of 'k' (the per-message random
    value).  Biased generation of the value 'k' can be attacked, and
-
-
-
-Schaad                  Expires 19 December 2020                [Page 5]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    collisions of this value leads to leaked keys.  It additionally
    allows for doing deterministic tests for the signature algorithm.
    The use of deterministic ECDSA does not lessen the need to have good
    random number generation when creating the private key.
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 5]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    The ECDSA signature algorithm is parameterized with a hash function
    (h).  In the event that the length of the hash function output is
@@ -294,7 +289,7 @@ Internet-Draft               COSE Algorithms                   June 2020
 
    The algorithms defined in this document can be found in Table 1.
 
-              +-------+-------+---------+------------------+
+              +=======+=======+=========+==================+
               | Name  | Value | Hash    | Description      |
               +=======+=======+=========+==================+
               | ES256 | -7    | SHA-256 | ECDSA w/ SHA-256 |
@@ -308,9 +303,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
    This document defines ECDSA to work only with the curves P-256,
    P-384, and P-521.  This document requires that the curves be encoded
-   using the 'EC2' (2 coordinate elliptic curve) key type.
+   using the 'EC2' (two coordinate elliptic curve) key type.
    Implementations need to check that the key type and curve are correct
-   when creating and verifying a signature.  Other documents can define
+   when creating and verifying a signature.  Future documents may define
    it to work with other curves and points in the future.
 
    In order to promote interoperability, it is suggested that SHA-256 be
@@ -331,17 +326,17 @@ Internet-Draft               COSE Algorithms                   June 2020
 
    Signature = I2OSP(R, n) | I2OSP(S, n)
 
-
-
-Schaad                  Expires 19 December 2020                [Page 6]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    where n = ceiling(key_length / 8)
 
    When using a COSE key for this algorithm, the following checks are
    made:
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 6]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    *  The 'kty' field MUST be present, and it MUST be 'EC2'.
 
@@ -354,7 +349,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'verify' when
       verifying an ECDSA signature.
 
-2.1.1.  Security Considerations
+2.1.1.  Security Considerations for ECDSA
 
    The security strength of the signature is no greater than the minimum
    of the security strength associated with the bit length of the key
@@ -364,7 +359,10 @@ Internet-Draft               COSE Algorithms                   June 2020
    when good random number generation exists.  Doing so both reduces the
    possibility of having the same value of 'k' in two signature
    operations and allows for reproducible signature values, which helps
-   testing.
+   testing.  There have been recent attacks involving faulting the
+   device in order to extract the key.  This can be addressed by
+   combining both randomness and determinism
+   [I-D.mattsson-cfrg-det-sigs-with-noise].
 
    There are two substitution attacks that can theoretically be mounted
    against the ECDSA signature algorithm.
@@ -380,20 +378,28 @@ Internet-Draft               COSE Algorithms                   June 2020
       version of the attack except to restrict the overall set of curves
       that can be used.
 
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 7]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    *  Change the hash function used to validate the signature: If one
       either has two different hash functions of the same length or can
-      truncate a hash function down, then one could potentially find
+      truncate a hash function, then one could potentially find
       collisions between the hash functions rather than within a single
       hash function (for example, truncating SHA-512 to 256 bits might
       collide with a SHA-256 bit hash value).  As the hash algorithm is
-
-
-
-Schaad                  Expires 19 December 2020                [Page 7]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
       part of the signature algorithm identifier, this attack is
       mitigated by including a signature algorithm identifier in the
       protected header bucket.
@@ -424,7 +430,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    single signature algorithm is defined, which can be used for multiple
    curves.
 
-                      +-------+-------+-------------+
+                      +=======+=======+=============+
                       | Name  | Value | Description |
                       +=======+=======+=============+
                       | EdDSA | -8    | EdDSA       |
@@ -437,18 +443,18 @@ Internet-Draft               COSE Algorithms                   June 2020
    When using a COSE key for this algorithm, the following checks are
    made:
 
+
+
+Schaad                    Expires 28 March 2021                 [Page 8]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    *  The 'kty' field MUST be present, and it MUST be 'OKP' (Octet Key
       Pair).
 
    *  The 'crv' field MUST be present, and it MUST be a curve defined
       for this signature algorithm.
-
-
-
-Schaad                  Expires 19 December 2020                [Page 8]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
    *  If the 'alg' field is present, it MUST match 'EdDSA'.
 
@@ -458,22 +464,22 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'verify' when
       verifying an EdDSA signature.
 
-2.2.1.  Security Considerations
+2.2.1.  Security Considerations for EdDSA
 
    How public values are computed is not the same when looking at EdDSA
-   and Elliptic Curve Diffie-Hellman (ECDH); for this reason, they
-   should not be used with the other algorithm.
+   and Elliptic Curve Diffie-Hellman (ECDH); for this reason, the public
+   key should not be used with the other algorithm.
 
    If batch signature verification is performed, a well-seeded
-   cryptographic random number generator is REQUIRED.  Signing and non-
-   batch signature verification are deterministic operations and do not
-   need random numbers of any kind.
+   cryptographic random number generator is REQUIRED (Section 8.2 of
+   [RFC8032]).  Signing and non-batch signature verification are
+   deterministic operations and do not need random numbers of any kind.
 
 3.  Message Authentication Code (MAC) Algorithms
 
-   Part Section 9.2 of [I-D.ietf-cose-rfc8152bis-struct] contains a
-   generic description of MAC algorithms.  This section defines the
-   conventions for two MAC algorithms.
+   Section 9.2 of [I-D.ietf-cose-rfc8152bis-struct] contains a generic
+   description of MAC algorithms.  This section defines the conventions
+   for two MAC algorithms.
 
 3.1.  Hash-Based Message Authentication Codes (HMACs)
 
@@ -492,21 +498,21 @@ Internet-Draft               COSE Algorithms                   June 2020
    to the difficulty of producing a forgery.  For use in constrained
    environments, we define one HMAC algorithm that is truncated.  There
    are currently no known issues with truncation; however, the security
+
+
+
+Schaad                    Expires 28 March 2021                 [Page 9]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    strength of the message tag is correspondingly reduced in strength.
    When truncating, the leftmost tag length bits are kept and
    transmitted.
 
    The algorithms defined in this document can be found in Table 3.
 
-
-
-
-Schaad                  Expires 19 December 2020                [Page 9]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
-   +-------------+-------+---------+------------+----------------------+
+   +=============+=======+=========+============+======================+
    | Name        | Value | Hash    | Tag Length | Description          |
    +=============+=======+=========+============+======================+
    | HMAC        | 4     | SHA-256 | 64         | HMAC w/ SHA-256      |
@@ -527,9 +533,9 @@ Internet-Draft               COSE Algorithms                   June 2020
    Some recipient algorithms transport the key, while others derive a
    key from secret data.  For those algorithms that transport the key
    (such as AES Key Wrap), the size of the HMAC key SHOULD be the same
-   size as the underlying hash function.  For those algorithms that
-   derive the key (such as ECDH), the derived key MUST be the same size
-   as the underlying hash function.
+   size as the output of the underlying hash function.  For those
+   algorithms that derive the key (such as ECDH), the derived key MUST
+   be the same size as the underlying hash function.
 
    When using a COSE key for this algorithm, the following checks are
    made:
@@ -551,18 +557,12 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 10]
+Schaad                    Expires 28 March 2021                [Page 10]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
-3.1.1.  Security Considerations
+3.1.1.  Security Considerations for HMAC
 
    HMAC has proved to be resistant to attack even when used with
    weakened hash algorithms.  The current best known attack is to brute
@@ -576,12 +576,12 @@ Internet-Draft               COSE Algorithms                   June 2020
    [RFC4493].)
 
    AES-CBC-MAC is parameterized by the key length, the authentication
-   tag length, and the IV used.  For all of these algorithms, the IV is
-   fixed to all zeros.  We provide an array of algorithms for various
-   key lengths and tag lengths.  The algorithms defined in this document
-   are found in Table 4.
+   tag length, and the Initialization Vector (IV) used.  For all of
+   these algorithms, the IV is fixed to all zeros.  We provide an array
+   of algorithms for various key lengths and tag lengths.  The
+   algorithms defined in this document are found in Table 4.
 
-     +---------+-------+------------+------------+------------------+
+     +=========+=======+============+============+==================+
      | Name    | Value | Key Length | Tag Length | Description      |
      +=========+=======+============+============+==================+
      | AES-MAC | 14    | 128        | 64         | AES-MAC 128-bit  |
@@ -613,9 +613,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 11]
+Schaad                    Expires 28 March 2021                [Page 11]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
    *  If the 'alg' field is present, it MUST match the AES-MAC algorithm
@@ -627,7 +627,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'MAC verify'
       when verifying an AES-MAC authentication tag.
 
-3.2.1.  Security Considerations
+3.2.1.  Security Considerations AES-CBC_MAC
 
    A number of attacks exist against Cipher Block Chaining Message
    Authentication Code (CBC-MAC) that need to be considered.
@@ -640,26 +640,24 @@ Internet-Draft               COSE Algorithms                   June 2020
       problem, as a specific encoding structure that includes lengths is
       built and signed.  (CMAC also addresses this issue.)
 
-   *  Cipher Block Chaining (CBC) mode, if the same key is used for both
-      encryption and authentication operations, an attacker can produce
-      messages with a valid authentication code.
+   *  In cipher Block Chaining (CBC) mode, if the same key is used for
+      both encryption and authentication operations, an attacker can
+      produce messages with a valid authentication code.
 
    *  If the IV can be modified, then messages can be forged.  This is
       addressed by fixing the IV to all zeros.
 
 4.  Content Encryption Algorithms
 
-   Part Section 9.3 of [I-D.ietf-cose-rfc8152bis-struct] contains a
-   generic description of Content Encryption algorithms.  This document
-   defines the identifier and usages for three content encryption
-   algorithms.
+   Section 9.3 of [I-D.ietf-cose-rfc8152bis-struct] contains a generic
+   description of Content Encryption algorithms.  This document defines
+   the identifier and usages for three content encryption algorithms.
 
 4.1.  AES GCM
 
-   The Galois/Counter Mode (GCM) mode is a generic authenticated
-   encryption block cipher mode defined in [AES-GCM].  The GCM mode is
-   combined with the AES block encryption algorithm to define an AEAD
-   cipher.
+   The Galois/Counter Mode (GCM) mode is a generic AEAD block cipher
+   mode defined in [AES-GCM].  The GCM mode is combined with the AES
+   block encryption algorithm to define an AEAD cipher.
 
    The GCM mode is parameterized by the size of the authentication tag
    and the size of the nonce.  This document fixes the size of the nonce
@@ -667,16 +665,16 @@ Internet-Draft               COSE Algorithms                   June 2020
    set of values.  For this document however, the size of the
    authentication tag is fixed at 128 bits.
 
-
-
-Schaad                  Expires 19 December 2020               [Page 12]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    The set of algorithms defined in this document are in Table 5.
 
-      +---------+-------+------------------------------------------+
+
+
+Schaad                    Expires 28 March 2021                [Page 12]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+      +=========+=======+==========================================+
       | Name    | Value | Description                              |
       +=========+=======+==========================================+
       | A128GCM | 1     | AES-GCM mode w/ 128-bit key, 128-bit tag |
@@ -707,27 +705,29 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'decrypt' or
       'unwrap key' when decrypting.
 
-4.1.1.  Security Considerations
+4.1.1.  Security Considerations for AES-GCM
 
    When using AES-GCM, the following restrictions MUST be enforced:
 
    *  The key and nonce pair MUST be unique for every message encrypted.
 
-   *  The total amount of data encrypted for a single key MUST NOT
-      exceed 2^39 - 256 bits.  An explicit check is required only in
+   *  The total number of messages encrypted for a single key MUST NOT
+      exceed 2^32 [SP800-38d].  An explicit check is required only in
       environments where it is expected that it might be exceeded.
 
+   *  A more recent analysis in [ROBUST] indicates that the the number
+      of failed decryptions needs to be taken into account as part
+      determining when a key roll-over is to be done.  Following the
+      recommendation of for DTLS, the number of failed message
+      decryptions should be limited to 2^36.
 
 
 
 
 
-
-
-
-Schaad                  Expires 19 December 2020               [Page 13]
+Schaad                    Expires 28 March 2021                [Page 13]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
    Consideration was given to supporting smaller tag values; the
@@ -781,9 +781,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 14]
+Schaad                    Expires 28 March 2021                [Page 14]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
       nonce length is 7 bytes allowing for 2^56 possible values of the
@@ -837,12 +837,12 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 15]
+Schaad                    Expires 28 March 2021                [Page 15]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
-    +--------------------+-------+----+-----+--------+---------------+
+    +====================+=======+====+=====+========+===============+
     | Name               | Value | L  | M   | Key    | Description   |
     |                    |       |    |     | Length |               |
     +====================+=======+====+=====+========+===============+
@@ -893,9 +893,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 16]
+Schaad                    Expires 28 March 2021                [Page 16]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
    Keys may be obtained either from a key structure or from a recipient
@@ -917,7 +917,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'decrypt' or
       'unwrap key' when decrypting.
 
-4.2.1.  Security Considerations
+4.2.1.  Security Considerations for AES-CCM
 
    When using AES-CCM, the following restrictions MUST be enforced:
 
@@ -930,6 +930,30 @@ Internet-Draft               COSE Algorithms                   June 2020
       stream encryption operations.  An explicit check is required only
       in environments where it is expected that it might be exceeded.
 
+   *  [I-D.ietf-quic-tls] contains an analysis on the use of AES-CCM in
+      that environment.  Based on that reommendation, one should
+      restrict the number of messages encrypted to 2^23.  If one is
+      using the 64-bit tag, then the limits are signficantly smaller if
+      one wants to keep the same integrity limits.  A protocol
+      recommending this needs to analysis what level of integrity is
+      acceptable for the smaller tag size.  It may be that to keep the
+      desired integrity one needs to re-key as often as every 2^7
+      messages.
+
+   *  In addition to the number of messages successfully decrypted, the
+      number of failed decryptions needs to be kept as well.  If the
+      number of failed decryptions exceeds 2^23 then a rekeying
+      operation should occur.
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 17]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    [RFC3610] additionally calls out one other consideration of note.  It
    is possible to do a pre-computation attack against the algorithm in
    cases where portions of the plaintext are highly predictable.  This
@@ -940,19 +964,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    can be used for.  Increasing the key size may require more resources
    in the constrained device.  See Sections 5 and 10 of [RFC3610] for
    more information.
-
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 17]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
 4.3.  ChaCha20 and Poly1305
 
@@ -968,14 +979,14 @@ Internet-Draft               COSE Algorithms                   June 2020
    ciphertext as an option.  We define one algorithm identifier for this
    algorithm in Table 7.
 
-         +-------------------+-------+--------------------------+
+         +===================+=======+==========================+
          | Name              | Value | Description              |
          +===================+=======+==========================+
          | ChaCha20/Poly1305 | 24    | ChaCha20/Poly1305 w/     |
          |                   |       | 256-bit key, 128-bit tag |
          +-------------------+-------+--------------------------+
 
-                   Table 7: Algorithm Value for AES-GCM
+              Table 7: Algorithm Value for ChaCha20/Poly1305
 
    Keys may be obtained either from a key structure or from a recipient
    structure.  Implementations encrypting and decrypting MUST validate
@@ -990,44 +1001,70 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'alg' field is present, it MUST match the ChaCha20/Poly1305
       algorithm being used.
 
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 18]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    *  If the 'key_ops' field is present, it MUST include 'encrypt' or
       'wrap key' when encrypting.
 
    *  If the 'key_ops' field is present, it MUST include 'decrypt' or
       'unwrap key' when decrypting.
 
-4.3.1.  Security Considerations
+4.3.1.  Security Considerations for ChaCha20/Poly1305
 
    The key and nonce values MUST be a unique pair for every invocation
    of the algorithm.  Nonce counters are considered to be an acceptable
    way of ensuring that they are unique.
 
+   A more recent analysis in [ROBUST] indicates that the the number of
+   failed decryptions needs to be taken into account as part determining
+   when a key roll-over is to be done.  Following the recommendation of
+   for DTLS, the number of failed message decryptions should be limited
+   to 2^36.
 
-
-
-Schaad                  Expires 19 December 2020               [Page 18]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
+   [I-D.ietf-quic-tls] recommends that no more than 2^24.5 messages be
+   encrypted under a single key.
 
 5.  Key Derivation Functions (KDFs)
 
-   Part Section 9.4 of [I-D.ietf-cose-rfc8152bis-struct] contains a
-   generic description of Key Derivation Functions.  This document
-   defines a single context structure and a single KDF.  These elements
-   are used for all of the recipient algorithms defined in this document
-   that require a KDF process.  These algorithms are defined in Sections
-   6.1.2, 6.3, and 6.4.
+   Section 9.4 of [I-D.ietf-cose-rfc8152bis-struct] contains a generic
+   description of Key Derivation Functions.  This document defines a
+   single context structure and a single KDF.  These elements are used
+   for all of the recipient algorithms defined in this document that
+   require a KDF process.  These algorithms are defined in Sections
+   6.1.2, 6.3.1, and 6.4.1.
 
 5.1.  HMAC-Based Extract-and-Expand Key Derivation Function (HKDF)
 
-   The HKDF key derivation algorithm is defined in [RFC5869].
+   The HKDF key derivation algorithm is defined in [RFC5869][HKDF].
 
    The HKDF algorithm takes these inputs:
 
       secret -- a shared value that is secret.  Secrets may be either
       previously shared or derived from operations like a Diffie-Hellman
       (DH) key agreement.
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 19]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
       salt -- an optional value that is used to change the generation
       process.  The salt value can be either public or private.  If the
@@ -1052,20 +1089,6 @@ Internet-Draft               COSE Algorithms                   June 2020
       PRF -- The underlying pseudorandom function to be used in the HKDF
       algorithm.  The PRF is encoded into the HKDF algorithm selection.
 
-
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 19]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    HKDF is defined to use HMAC as the underlying PRF.  However, it is
    possible to use other functions in the same construct to provide a
    different KDF that is more appropriate in the constrained world.
@@ -1082,7 +1105,24 @@ Internet-Draft               COSE Algorithms                   June 2020
 
    The algorithms defined in this document are found in Table 8.
 
-       +--------------+-------------------+------------------------+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 20]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+       +==============+===================+========================+
        | Name         | PRF               | Description            |
        +==============+===================+========================+
        | HKDF SHA-256 | HMAC with SHA-256 | HKDF using HMAC        |
@@ -1100,29 +1140,7 @@ Internet-Draft               COSE Algorithms                   June 2020
 
                           Table 8: HKDF Algorithms
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 20]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
-    +------+-------+------+----------------------------+-------------+
+    +======+=======+======+============================+=============+
     | Name | Label | Type | Algorithm                  | Description |
     +======+=======+======+============================+=============+
     | salt | -20   | bstr | direct+HKDF-SHA-256,       | Random salt |
@@ -1152,6 +1170,14 @@ Internet-Draft               COSE Algorithms                   June 2020
    elements, as it is done by the encoding used in JOSE (Section 4.6.2
    of [RFC7518]).
 
+
+
+
+Schaad                    Expires 28 March 2021                [Page 21]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    The context information structure refers to PartyU and PartyV as the
    two parties that are doing the key derivation.  Unless the
    application protocol defines differently, we assign PartyU to the
@@ -1171,13 +1197,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  Fields can be defined by usage of the output.  Examples of this
       are the algorithm and key size that are being generated.
 
-
-
-Schaad                  Expires 19 December 2020               [Page 21]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    *  Fields can be defined by parameters from the message.  We define a
       set of header parameters in Table 10 that can be used to carry the
       values associated with the context structure.  Examples of this
@@ -1187,7 +1206,7 @@ Internet-Draft               COSE Algorithms                   June 2020
       they already are included in the cryptographic computation by
       virtue of being included in the context structure.
 
-   +----------+-------+------+---------------------------+-------------+
+   +==========+=======+======+===========================+=============+
    | Name     | Label | Type | Algorithm                 | Description |
    +==========+=======+======+===========================+=============+
    | PartyU   | -21   | bstr | direct+HKDF-SHA-256,      | Party U     |
@@ -1207,6 +1226,14 @@ Internet-Draft               COSE Algorithms                   June 2020
    +----------+-------+------+---------------------------+-------------+
    | PartyU   | -22   | bstr | direct+HKDF-SHA-256,      | Party U     |
    | nonce    |       | /    | direct+HKDF-SHA-512,      | provided    |
+
+
+
+Schaad                    Expires 28 March 2021                [Page 22]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    |          |       | int  | direct+HKDF-AES-128,      | nonce       |
    |          |       |      | direct+HKDF-AES-256,      |             |
    |          |       |      | ECDH-ES+HKDF-256,         |             |
@@ -1226,14 +1253,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    |          |       |      | direct+HKDF-AES-256,      | information |
    |          |       |      | ECDH-ES+HKDF-256,         |             |
    |          |       |      | ECDH-ES+HKDF-512,         |             |
-
-
-
-Schaad                  Expires 19 December 2020               [Page 22]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    |          |       |      | ECDH-SS+HKDF-256,         |             |
    |          |       |      | ECDH-SS+HKDF-512,         |             |
    |          |       |      | ECDH-ES+A128KW,           |             |
@@ -1263,6 +1282,14 @@ Internet-Draft               COSE Algorithms                   June 2020
    |          |       | int  | direct+HKDF-AES-128,      | nonce       |
    |          |       |      | direct+HKDF-AES-256,      |             |
    |          |       |      | ECDH-ES+HKDF-256,         |             |
+
+
+
+Schaad                    Expires 28 March 2021                [Page 23]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    |          |       |      | ECDH-ES+HKDF-512,         |             |
    |          |       |      | ECDH-SS+HKDF-256,         |             |
    |          |       |      | ECDH-SS+HKDF-512,         |             |
@@ -1282,14 +1309,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    |          |       |      | ECDH-SS+HKDF-256,         |             |
    |          |       |      | ECDH-SS+HKDF-512,         |             |
    |          |       |      | ECDH-ES+A128KW,           |             |
-
-
-
-Schaad                  Expires 19 December 2020               [Page 23]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    |          |       |      | ECDH-ES+A192KW,           |             |
    |          |       |      | ECDH-ES+A256KW,           |             |
    |          |       |      | ECDH-SS+A128KW,           |             |
@@ -1319,6 +1338,14 @@ Internet-Draft               COSE Algorithms                   June 2020
       are encoded in the order presented below.  The elements of the
       PartyUInfo array are:
 
+
+
+
+Schaad                    Expires 28 March 2021                [Page 24]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
       identity:  This contains the identity information for party U.
          The identities can be assigned in one of two manners.  First, a
          protocol can assign identities based on roles.  For example,
@@ -1338,14 +1365,6 @@ Internet-Draft               COSE Algorithms                   June 2020
          to nil in that case.
 
       nonce:  This contains a nonce value.  The nonce can either be
-
-
-
-Schaad                  Expires 19 December 2020               [Page 24]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
          implicit from the protocol or be carried as a value in the
          unprotected header bucket.
 
@@ -1374,6 +1393,15 @@ Internet-Draft               COSE Algorithms                   June 2020
          not contain the key for shorter key size as a prefix.
 
       protected:  This field contains the protected parameter field.  If
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 25]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
          there are no elements in the protected field, then use a zero-
          length bstr.
 
@@ -1387,21 +1415,6 @@ Internet-Draft               COSE Algorithms                   June 2020
          and lengths are correctly included.
 
    SuppPrivInfo:  This field contains private information that is
-
-
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 25]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
       mutually known private information.  An example of this
       information would be a preexisting shared secret.  (This could,
       for example, be used in combination with an ECDH key agreement to
@@ -1433,14 +1446,21 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 6.  Content Key Distribution Methods
 
-   Part Section 9.5 of [I-D.ietf-cose-rfc8152bis-struct] contains a
-   generic description of content key distribution methods.  This
-   document defines the identifiers and usage for a number of content
-   key distribution methods.
+   Section 9.5 of [I-D.ietf-cose-rfc8152bis-struct] contains a generic
+   description of content key distribution methods.  This document
+   defines the identifiers and usage for a number of content key
+   distribution methods.
+
+
+
+Schaad                    Expires 28 March 2021                [Page 26]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
 6.1.  Direct Encryption
 
-   Direct encryption algorithm is defined in Part Section 9.5.1 of
+   Direct encryption algorithm is defined in Section 9.5.1 of
    [I-D.ietf-cose-rfc8152bis-struct].  Information about how to fill in
    the COSE_Recipient structure are detailed there.
 
@@ -1451,17 +1471,10 @@ Internet-Draft               COSE Algorithms                   June 2020
    There are no algorithm parameters defined for this algorithm.  The
    algorithm identifier value is assigned in Table 11.
 
-
-
-Schaad                  Expires 19 December 2020               [Page 26]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    When this algorithm is used, the protected field MUST be zero length.
    The key type MUST be 'Symmetric'.
 
-                  +--------+-------+-------------------+
+                  +========+=======+===================+
                   | Name   | Value | Description       |
                   +========+=======+===================+
                   | direct | -6    | Direct use of CEK |
@@ -1469,7 +1482,7 @@ Internet-Draft               COSE Algorithms                   June 2020
 
                            Table 11: Direct Key
 
-6.1.1.1.  Security Considerations
+6.1.1.1.  Security Considerations for Direct Key
 
    This recipient algorithm has several potential problems that need to
    be considered:
@@ -1489,6 +1502,18 @@ Internet-Draft               COSE Algorithms                   June 2020
       adversary succeeds in determining the key for a single message,
       then the key for all messages is also determined.
 
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 27]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
 6.1.2.  Direct Key with KDF
 
    These recipient algorithms take a common shared secret between the
@@ -1501,25 +1526,13 @@ Internet-Draft               COSE Algorithms                   June 2020
    requirement is that it be a unique value for the shared secret in
    question.
 
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 27]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    If the salt/nonce value is generated randomly, then it is suggested
-   that the length of the random value be the same length as the hash
-   function underlying HKDF.  While there is no way to guarantee that it
-   will be unique, there is a high probability that it will be unique.
-   If the salt/nonce value is generated deterministically, it can be
-   guaranteed to be unique, and thus there is no length requirement.
+   that the length of the random value be the same length as the output
+   of the hash function underlying HKDF.  While there is no way to
+   guarantee that it will be unique, there is a high probability that it
+   will be unique.  If the salt/nonce value is generated
+   deterministically, it can be guaranteed to be unique, and thus there
+   is no length requirement.
 
    A new IV must be used for each message if the same key is used.  The
    IV can be modified in a predictable manner, a random manner, or an
@@ -1533,7 +1546,31 @@ Internet-Draft               COSE Algorithms                   June 2020
    The set of algorithms defined in this document can be found in
    Table 12.
 
-   +---------------------+-------+--------------+---------------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 28]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+   +=====================+=======+==============+=====================+
    | Name                | Value | KDF          | Description         |
    +=====================+=======+==============+=====================+
    | direct+HKDF-SHA-256 | -10   | HKDF SHA-256 | Shared secret w/    |
@@ -1562,15 +1599,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'deriveKey' or
       'deriveBits'.
 
-
-
-
-Schaad                  Expires 19 December 2020               [Page 28]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
-6.1.2.1.  Security Considerations
+6.1.2.1.  Security Considerations for Direct Key with KDF
 
    The shared secret needs to have some method to be regularly updated
    over time.  The shared secret forms the basis of trust.  Although not
@@ -1583,7 +1612,21 @@ Internet-Draft               COSE Algorithms                   June 2020
    derivation step will generate a new key that requires the same amount
    of work to get the key.
 
-6.2.  AES Key Wrap
+6.2.  Key Wrap
+
+   Key wrap is defined in Section 9.5.1 of
+   [I-D.ietf-cose-rfc8152bis-struct].  Information about how to fill in
+   the COSE_Recipient structure is detailed there.
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 29]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+6.2.1.  AES Key Wrap
 
    The AES Key Wrap algorithm is defined in [RFC3394].  This algorithm
    uses an AES key to wrap a value that is a multiple of 64 bits.  As
@@ -1613,20 +1656,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST include 'decrypt' or
       'unwrap key' when decrypting.
 
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 29]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
-        +--------+-------+----------+-----------------------------+
+        +========+=======+==========+=============================+
         | Name   | Value | Key Size | Description                 |
         +========+=======+==========+=============================+
         | A128KW | -3    | 128      | AES Key Wrap w/ 128-bit key |
@@ -1638,12 +1668,27 @@ Internet-Draft               COSE Algorithms                   June 2020
 
                   Table 13: AES Key Wrap Algorithm Values
 
-6.2.1.  Security Considerations for AES-KW
+6.2.1.1.  Security Considerations for AES-KW
 
    The shared secret needs to have some method to be regularly updated
    over time.  The shared secret is the basis of trust.
 
-6.3.  Direct ECDH
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 30]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+6.3.  Direct Key Agreement
+
+   Key Transport is defined in Section 9.5.4 of
+   [I-D.ietf-cose-rfc8152bis-struct].  Information about how to fill in
+   the COSE_Recipient structure is detailed there.
+
+6.3.1.  Direct ECDH
 
    The mathematics for ECDH can be found in [RFC6090].  In this
    document, the algorithm is extended to be used with the two curves
@@ -1674,14 +1719,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  Ephemeral-Static or Static-Static: The key agreement process may
       be done using either a static or an ephemeral key for the sender's
       side.  When using ephemeral keys, the sender MUST generate a new
-
-
-
-Schaad                  Expires 19 December 2020               [Page 30]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
       ephemeral key for every key agreement operation.  The ephemeral
       key is placed in the 'ephemeral key' parameter and MUST be present
       for all algorithm identifiers that use ephemeral keys.  When using
@@ -1692,11 +1729,21 @@ Internet-Draft               COSE Algorithms                   June 2020
       (both can be present if desired).  The value in the parameter MUST
       be unique for the pair of keys being used.  It is acceptable to
       use a global counter that is incremented for every static-static
-      operation and use the resulting value.  When using static keys,
-      the static key should be identified to the recipient.  The static
-      key can be identified either by providing the key ('static key')
-      or by providing a key identifier for the static key ('static key
-      id').  Both of these header parameters are defined in Table 15.
+      operation and use the resulting value.  Care must be taken that
+
+
+
+Schaad                    Expires 28 March 2021                [Page 31]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+      the counter is saved to permanent storage in a way to avoid reuse
+      of that counter value.  When using static keys, the static key
+      should be identified to the recipient.  The static key can be
+      identified either by providing the key ('static key') or by
+      providing a key identifier for the static key ('static key id').
+      Both of these header parameters are defined in Table 15.
 
    *  Key Derivation Algorithm: The result of an ECDH key agreement
       process does not provide a uniformly random secret.  As such, it
@@ -1733,12 +1780,21 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 31]
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 32]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
-   +-----------+-------+---------+------------+------+-----------------+
+   +===========+=======+=========+============+======+=================+
    | Name      | Value | KDF     | Ephemeral- | Key  | Description     |
    |           |       |         | Static     | Wrap |                 |
    +===========+=======+=========+============+======+=================+
@@ -1761,7 +1817,7 @@ Internet-Draft               COSE Algorithms                   June 2020
 
                       Table 14: ECDH Algorithm Values
 
-    +-----------+-------+----------+-------------------+-------------+
+    +===========+=======+==========+===================+=============+
     | Name      | Label | Type     | Algorithm         | Description |
     +===========+=======+==========+===================+=============+
     | ephemeral | -1    | COSE_Key | ECDH-ES+HKDF-256, | Ephemeral   |
@@ -1789,9 +1845,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 32]
+Schaad                    Expires 28 March 2021                [Page 33]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
    This document defines these algorithms to be used with the curves
@@ -1814,7 +1870,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  If the 'key_ops' field is present, it MUST be empty for the public
       key.
 
-6.3.1.  Security Considerations
+6.3.1.1.  Security Considerations for ECDH
 
    There is a method of checking that points provided from external
    entities are valid.  For the 'EC2' key format, this can be done by
@@ -1834,28 +1890,79 @@ Internet-Draft               COSE Algorithms                   June 2020
    (either by the end user or by the entity that is responsible for
    making trust statements on keys).
 
-6.4.  ECDH with Key Wrap
+6.4.  Key Agreement with Key Wrap
+
+   Key Agreement with Key Wrap is defined in Section 9.5.5 of
+   [I-D.ietf-cose-rfc8152bis-struct].  Information about how to fill in
+   the COSE_Recipient structure are detailed there.
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 34]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+6.4.1.  ECDH with Key Wrap
 
    These algorithms are defined in Table 16.
 
    ECDH with Key Agreement is parameterized by the same header
-   parameters as for ECDH; see Section 6.3, with the following
+   parameters as for ECDH; see Section 6.3.1, with the following
    modifications:
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 33]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
    *  Key Wrap Algorithm: Any of the key wrap algorithms defined in
       Section 6.2 are supported.  The size of the key used for the key
       wrap algorithm is fed into the KDF.  The set of identifiers are
       found in Table 16.
 
-   +---------+-------+---------+------------+--------+----------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 35]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+   +=========+=======+=========+============+========+================+
    | Name    | Value | KDF     | Ephemeral- | Key    | Description    |
    |         |       |         | Static     | Wrap   |                |
    +=========+=======+=========+============+========+================+
@@ -1897,20 +2004,19 @@ Internet-Draft               COSE Algorithms                   June 2020
 
    *  The 'kty' field MUST be present, and it MUST be 'EC2' or 'OKP'.
 
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 34]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    *  If the 'alg' field is present, it MUST match the key agreement
       algorithm being used.
 
    *  If the 'key_ops' field is present, it MUST include 'derive key' or
       'derive bits' for the private key.
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 36]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    *  If the 'key_ops' field is present, it MUST be empty for the public
       key.
@@ -1934,7 +2040,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    Key types are identified by the 'kty' member of the COSE_Key object.
    In this document, we define four values for the member:
 
-             +-----------+-------+--------------------------+
+             +===========+=======+==========================+
              | Name      | Value | Description              |
              +===========+=======+==========================+
              | OKP       | 1     | Octet Key Pair           |
@@ -1949,19 +2055,6 @@ Internet-Draft               COSE Algorithms                   June 2020
 
                         Table 17: Key Type Values
 
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 35]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
 7.1.  Elliptic Curve Keys
 
    Two different key structures are defined for elliptic curve keys.
@@ -1974,7 +2067,14 @@ Internet-Draft               COSE Algorithms                   June 2020
    Applications MUST check that the curve and the key type are
    consistent and reject a key if they are not.
 
-    +---------+-------+----------+------------------------------------+
+
+
+Schaad                    Expires 28 March 2021                [Page 37]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+    +=========+=======+==========+====================================+
     | Name    | Value | Key Type | Description                        |
     +=========+=======+==========+====================================+
     | P-256   | 1     | EC2      | NIST P-256 also known as secp256r1 |
@@ -2008,16 +2108,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    Table 19.  The members that are defined for this key type are:
 
    crv:  This contains an identifier of the curve to be used with the
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 36]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
         key.  The curves defined in this document for this key type can
         be found in Table 18.  Other curves may be registered in the
         future, and private curves can be used as well.
@@ -2032,6 +2122,14 @@ Internet-Draft               COSE Algorithms                   June 2020
         and encoded as a CBOR bstr.  Leading zero octets MUST be
         preserved.  The compressed point encoding is also supported.
         Compute the sign bit as laid out in the Elliptic-Curve-Point-to-
+
+
+
+Schaad                    Expires 28 March 2021                [Page 38]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
         Octet-String Conversion function of [SEC1].  If the sign bit is
         zero, then encode y as a CBOR false value; otherwise, encode y
         as a CBOR true value.  The encoding of the infinity point is not
@@ -2045,7 +2143,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    that 'x' and 'y' also be present, but they can be recomputed from the
    required elements and omitting them saves on space.
 
-    +------+------+-------+--------+---------------------------------+
+    +======+======+=======+========+=================================+
     | Key  | Name | Label | CBOR   | Description                     |
     | Type |      |       | Type   |                                 |
     +======+======+=======+========+=================================+
@@ -2061,18 +2159,6 @@ Internet-Draft               COSE Algorithms                   June 2020
     +------+------+-------+--------+---------------------------------+
 
                        Table 19: EC Key Parameters
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 37]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
 7.2.  Octet Key Pair
 
@@ -2090,8 +2176,15 @@ Internet-Draft               COSE Algorithms                   June 2020
         future and private curves can be used as well.
 
    x:   This contains the public key.  The byte string contains the
-        public key as defined by the algorithm.  (For X25591, internally
+        public key as defined by the algorithm.  (For X25519, internally
         it is a little-endian integer.)
+
+
+
+Schaad                    Expires 28 March 2021                [Page 39]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    d:   This contains the private key.
 
@@ -2101,7 +2194,7 @@ Internet-Draft               COSE Algorithms                   June 2020
    'x' also be present, but it can be recomputed from the required
    elements and omitting it saves on space.
 
-   +------+----------+-------+-------+---------------------------------+
+   +======+==========+=======+=======+=================================+
    | Name | Key      | Label | Type  | Description                     |
    |      | Type     |       |       |                                 |
    +======+==========+=======+=======+=================================+
@@ -2123,13 +2216,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    For symmetric keys, the 'kty' member is set to 4 ('Symmetric').  The
    member that is defined for this key type is:
 
-
-
-Schaad                  Expires 19 December 2020               [Page 38]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    k:  This contains the value of the key.
 
    This key structure does not have a form that contains only public
@@ -2138,13 +2224,23 @@ Internet-Draft               COSE Algorithms                   June 2020
    accidentally or insecurely.  For symmetric keys, it is REQUIRED that
    'k' be present in the structure.
 
-             +------+----------+-------+------+-------------+
+             +======+==========+=======+======+=============+
              | Name | Key Type | Label | Type | Description |
              +======+==========+=======+======+=============+
              | k    | 4        | -1    | bstr | Key Value   |
              +------+----------+-------+------+-------------+
 
                     Table 21: Symmetric Key Parameters
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 40]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
 8.  COSE Capabilities
 
@@ -2178,25 +2274,39 @@ Internet-Draft               COSE Algorithms                   June 2020
    For algorithm capabilities, the first element should always be a key
    type value if applicable, but the items that are specific to a key
    (for example a curve) should not be included in the algorithm
-
-
-
-Schaad                  Expires 19 December 2020               [Page 39]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    capabilities.  This means that if one wishes to enumerate all of the
-   capabilities for a device which implements ECDH, it requires multiple
-   pairs of capability structures (algorithm, key) to deal with the
-   different key types and curves that are supported.  The last example
-   of Section 8.3 provides a case where this is done.  For a key, the
-   first element should also be a key type value.  While this means that
-   the key type value will be duplicated if both an algorithm and key
-   capability are used, the key type is needed in order to understand
-   the rest of the values.
+   capabilities for a device which implements ECDH, it requires that all
+   of the combinations of algorithms and key pairs to be specified.  The
+   last example of Section 8.3 provides a case where this is done by
+   allowing for a cross product to be specified between an array of
+   algorithm capabilities and key type capabilities (see ECDH-ES+A25KW
+   element).  For a key, the first element should be the key type value.
+   While this means that the key type value will be duplicated if both
+   an algorithm and key capability are used, the key type is needed in
+   order to understand the rest of the values.
 
-8.1.  Assignments for Existing Key Types
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 41]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+8.1.  Assignments for Existing Algorithms
+
+   For the current set of algorithms in the registry, those in this
+   document as well as those in [RFC8230] and [I-D.ietf-cose-hash-sig],
+   the capabilities list is an array with one element, the key type
+   (from the "COSE Key Types" Registry).  It is expected that future
+   registered algorithms could have zero, one, or multiple elements.
+
+8.2.  Assignments for Existing Key Types
 
    There are a number of pre-existing key types, the following deals
    with creating the capability definition for those structures:
@@ -2223,25 +2333,6 @@ Internet-Draft               COSE Algorithms                   June 2020
       -  Algorithm identifier for the underlying hash function from the
          "COSE Algorithms" registry.
 
-8.2.  Assignments for Existing Algorithms
-
-   For the current set of algorithms in the registry, those in this
-   document as well as those in [RFC8230] and [I-D.ietf-cose-hash-sig],
-   the capabilities list is an array with one element, the key type
-   (from the "COSE Key Types" Registry).  It is expected future
-   registered algorithms could have zero, one, or multiple elements.
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 40]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
 8.3.  Examples
 
    Capabilities can be use in a key derivation process to make sure that
@@ -2250,19 +2341,30 @@ Internet-Draft               COSE Algorithms                   June 2020
    [I-D.ietf-core-oscore-groupcomm].  The three examples below show
    different ways that one might include things:
 
-   *  Just an algorithm capability: This is useful if you want to
-      require a specific algorithm such as ECDSA, but you are agnostic
-      about which curve is being used.  See the first example.
-
-   *  Just a key type capability: This is useful if you want to require
-      a specific curve such as P-256, but will accept any algorithm
-      using that curve (e.g. both ECDSA and ECDH).  See the second
+   *  Just an algorithm capability: This is useful if the protocol wants
+      to require a specific algorithm such as ECDSA, but it is agnostic
+      about which curve is being used.  This does require that the
+      algorithm identifier be specified in the protocol.  See the first
       example.
 
-   *  Both an algorithm and a key type capability: This is used if one
-      needs to nail down all of the options surrounding an algorithm
-      E.g.  EdDSA with the curve X25519.  See the third example which
-      just concatenates the two capabilities together.
+
+
+Schaad                    Expires 28 March 2021                [Page 42]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+   *  Just a key type capability: This is useful if the protccol wants
+      to require a specific a specific key type and curve, such as
+      P-256, but will accept any algorithm using that curve (e.g. both
+      ECDSA and ECDH).  See the second example.
+
+   *  Both an algorithm and a key type capability: This is used if the
+      protocol needs to nail down all of the options surrounding an
+      algorithm E.g.  EdDSA with the curve X25519.  As with the first
+      example, the algorithm identifier needs to be specified in the
+      protocol.  See the third example which just concatenates the two
+      capabilities together.
 
    Algorithm ECDSA
 
@@ -2293,9 +2395,19 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-Schaad                  Expires 19 December 2020               [Page 41]
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 43]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
    [
@@ -2345,13 +2457,13 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  The last element indicates that the entity supports AES-GCM of 128
       bits for content encryption.
 
-   The entity does not advertise that it supports and MAC algorithms.
+   The entity does not advertise that it supports any MAC algorithms.
 
 
 
-Schaad                  Expires 19 December 2020               [Page 42]
+Schaad                    Expires 28 March 2021                [Page 44]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
 9.  CBOR Encoding Restrictions
@@ -2376,13 +2488,17 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 10.  IANA Considerations
 
+   IANA is requested to updte ll COSE registeries except for "COSE
+   Header Parmeters" and "COSE Key Common Parameters" from [RFC8152] to
+   [[This document]].
+
 10.1.  Changes to "COSE Key Types" registry.
 
    IANA is requested to create a new column in the "COSE Key Types"
    registry.  The new column is to be labeled "Capabilities".  The new
    column is to be populated according the entries in Table 22.
 
-             +-------+-----------+--------------------------+
+             +=======+===========+==========================+
              | Value | Name      | Capabilities             |
              +=======+===========+==========================+
              | 1     | OKP       | [kty(1), crv]            |
@@ -2401,13 +2517,9 @@ Internet-Draft               COSE Algorithms                   June 2020
 
 
 
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 43]
+Schaad                    Expires 28 March 2021                [Page 45]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
 10.2.  Changes to "COSE Algorithms" registry
@@ -2416,9 +2528,9 @@ Internet-Draft               COSE Algorithms                   June 2020
    registry.  The new column is to be labeled "Capabilities".  The new
    column is populated with "[kty]" for all current, non-provisional,
    registrations.  It is expected that the documents which define those
-   algorithms will be expanded to include this registration, if this is
-   not done then the DE should be consulted before final registration
-   for this document is done.
+   algorithms will be expanded to include this registration.  If this is
+   not done then the Designated Expert should be consulted before final
+   registration for this document is done.
 
    IANA is requested to update all references from RFC 8152 to [[This
    Document]].
@@ -2429,12 +2541,11 @@ Internet-Draft               COSE Algorithms                   June 2020
 
    IANA is requested to add a new row to the "COSE Algorithms" registry.
 
-   +----------+---------------+-------------+------------+-------------+
+   +==========+===============+=============+============+=============+
    | Name     | Value         | Description | Reference  | Recommended |
    +==========+===============+=============+============+=============+
-   | IV       | IV-GENERATION |Reserved for | [[THIS     | No          |
-   |Generation|               | doing IV    | DOCUMENT]] |             |
-   |          |               | generation  |            |             |
+   | IV       | IV-GENERATION |For doing IV | [[THIS     | No          |
+   |Generation|               | generation  | DOCUMENT]] |             |
    |          |               |for symmetric|            |             |
    |          |               | algorithms. |            |             |
    +----------+---------------+-------------+------------+-------------+
@@ -2449,25 +2560,59 @@ Internet-Draft               COSE Algorithms                   June 2020
    line with "Key Type" of 2 and the "Name" of "x".  See Table 20 which
    has been modified with this change.
 
-   IANA is requested to update the references in the table from RFC8152
-   to [[This Document]].
+10.4.  Expert Review Instructions
 
-10.4.  COSE Header Algorithm Parameters Registry
+   All of the IANA registries established by [RFC8152] are, at least in
+   part, defined as expert review.  This section gives some general
+   guidelines for what the experts should be looking for, but they are
+   being designated as experts for a reason, so they should be given
+   substantial latitude.
 
-   IANA created a registry titled "COSE Header Algorithm Parameters" as
-   part of processing [RFC8152].  The registry has been created to use
-   the "Expert Review Required" registration procedure [RFC8126].
+   Expert reviewers should take into consideration the following points:
 
 
 
 
-Schaad                  Expires 19 December 2020               [Page 44]
+Schaad                    Expires 28 March 2021                [Page 46]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
 
-   IANA is requested to update the references from [RFC8152] to this
-   document.
+   *  Point squatting should be discouraged.  Reviewers are encouraged
+      to get sufficient information for registration requests to ensure
+      that the usage is not going to duplicate one that is already
+      registered, and that the point is likely to be used in
+      deployments.  The zones tagged as private use are intended for
+      testing purposes and closed environments; code points in other
+      ranges should not be assigned for testing.
+
+   *  Specifications are required for the standards track range of point
+      assignment.  Specifications should exist for specification
+      required ranges, but early assignment before a specification is
+      available is considered to be permissible.  Specifications are
+      needed for the first-come, first-serve range if they are expected
+      to be used outside of closed environments in an interoperable way.
+      When specifications are not provided, the description provided
+      needs to have sufficient information to identify what the point is
+      being used for.
+
+   *  Experts should take into account the expected usage of fields when
+      approving point assignment.  The fact that there is a range for
+      standards track documents does not mean that a standards track
+      document cannot have points assigned outside of that range.  The
+      length of the encoded value should be weighed against how many
+      code points of that length are left, the size of device it will be
+      used on, and the number of code points left that encode to that
+      size.
+
+   *  When algorithms are registered, vanity registrations should be
+      discouraged.  One way to do this is to require registrations to
+      provide additional documentation on security analysis of the
+      algorithm.  Another thing that should be considered is requesting
+      an opinion on the algorithm from the Crypto Forum Research Group
+      (CFRG).  Algorithms that do not meet the security requirements of
+      the community and the messages structures should not be
+      registered.
 
 11.  Security Considerations
 
@@ -2481,6 +2626,13 @@ Internet-Draft               COSE Algorithms                   June 2020
    Implementations need to protect the private key material for any
    individuals.  There are some cases in this document that need to be
    highlighted on this issue.
+
+
+
+Schaad                    Expires 28 March 2021                [Page 47]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    *  Using the same key for two different algorithms can leak
       information about the key.  It is therefore recommended that keys
@@ -2514,14 +2666,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    Binding a key to a single algorithm prevents these problems.  Key
    creators and key consumers are strongly encouraged not only to create
    new keys for each different algorithm, but to include that selection
-
-
-
-Schaad                  Expires 19 December 2020               [Page 45]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    of algorithm in any distribution of key material and strictly enforce
    the matching of algorithms in the key structure to algorithms in the
    message structure.  In addition to checking that algorithms are
@@ -2538,6 +2682,13 @@ Internet-Draft               COSE Algorithms                   June 2020
    *  What are the permissions associated with the key owner?
 
    *  Is the cryptographic algorithm acceptable in the current context?
+
+
+
+Schaad                    Expires 28 March 2021                [Page 48]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    *  Have the restrictions associated with the key, such as algorithm
       or freshness, been checked and are they correct?
@@ -2559,9 +2710,9 @@ Internet-Draft               COSE Algorithms                   June 2020
    can use a key created for that purpose and encrypt the counter to
    produce the nonce value.
 
-   One area that has been starting to get exposure is doing traffic
-   analysis of encrypted messages based on the length of the message.
-   This specification does not provide for a uniform method of providing
+   One area that has been getting exposure is traffic analysis of
+   encrypted messages based on the length of the message.  This
+   specification does not provide for a uniform method of providing
    padding as part of the message structure.  An observer can
    distinguish between two different messages (for example, 'YES' and
    'NO') based on the length for all of the content encryption
@@ -2570,13 +2721,15 @@ Internet-Draft               COSE Algorithms                   June 2020
    in order to prevent or discourage such analysis.  (For example, the
    text strings could be defined as 'YES' and 'NO '.)
 
-
-
-
-Schaad                  Expires 19 December 2020               [Page 46]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
+   The analsys done in [I-D.ietf-quic-tls] is based on the number of
+   records/packets that are sent.  This should map well to the number of
+   messages sent when use COSE so that analysis should hold here as
+   well.  It needs to be noted that the limits are based on the number
+   of messages, but QUIC and DTLS are always pair-wise based endpoints,
+   [I-D.ietf-core-oscore-groupcomm] use COSE in a group communication.
+   Under these circumstances it may be that no one single entity will
+   see all of the messages that are encrypted an therefore no single
+   entity can trigger the rekey operation.
 
 12.  References
 
@@ -2585,9 +2738,17 @@ Internet-Draft               COSE Algorithms                   June 2020
    [I-D.ietf-cose-rfc8152bis-struct]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-struct-10, 2 June 2020,
+
+
+
+Schaad                    Expires 28 March 2021                [Page 49]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
+              draft-ietf-cose-rfc8152bis-struct-13, 4 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              struct-10>.
+              struct-13>.
 
    [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
               Hashing for Message Authentication", RFC 2104,
@@ -2626,14 +2787,6 @@ Internet-Draft               COSE Algorithms                   June 2020
               Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
               October 2013, <https://www.rfc-editor.org/info/rfc7049>.
 
-
-
-
-Schaad                  Expires 19 December 2020               [Page 47]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
-
    [RFC8439]  Nir, Y. and A. Langley, "ChaCha20 and Poly1305 for IETF
               Protocols", RFC 8439, DOI 10.17487/RFC8439, June 2018,
               <https://www.rfc-editor.org/info/rfc8439>.
@@ -2641,6 +2794,13 @@ Internet-Draft               COSE Algorithms                   June 2020
    [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
               2016, <https://www.rfc-editor.org/info/rfc7748>.
+
+
+
+Schaad                    Expires 28 March 2021                [Page 50]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -2660,10 +2820,8 @@ Internet-Draft               COSE Algorithms                   June 2020
               <http://nvlpubs.nist.gov/nistpubs/FIPS/
               NIST.FIPS.186-4.pdf>.
 
-   [MAC]      National Institute of Standards and Technology, "Computer
-              Data Authentication", FIPS PUB 113, May 1985,
-              <http://csrc.nist.gov/publications/fips/fips113/
-              fips113.html>.
+   [MAC]      Menees, A., van Oorschot, P., and S. Vanstone, "Handbook
+              of Applied Cryptography", 1996.
 
    [SEC1]     Certicom Research, "SEC 1: Elliptic Curve Cryptography",
               May 2009, <http://www.secg.org/sec1-v2.pdf>.
@@ -2673,22 +2831,12 @@ Internet-Draft               COSE Algorithms                   June 2020
               DOI 10.17487/RFC8032, January 2017,
               <https://www.rfc-editor.org/info/rfc8032>.
 
+   [RFC8017]  Moriarty, K., Ed., Kaliski, B., Jonsson, J., and A. Rusch,
+              "PKCS #1: RSA Cryptography Specifications Version 2.2",
+              RFC 8017, DOI 10.17487/RFC8017, November 2016,
+              <https://www.rfc-editor.org/info/rfc8017>.
+
 12.2.  Informative References
-
-   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
-              Writing an IANA Considerations Section in RFCs", BCP 26,
-              RFC 8126, DOI 10.17487/RFC8126, June 2017,
-              <https://www.rfc-editor.org/info/rfc8126>.
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 48]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
    [RFC8610]  Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
               Definition Language (CDDL): A Notational Convention to
@@ -2700,6 +2848,15 @@ Internet-Draft               COSE Algorithms                   June 2020
               224, HMAC-SHA-256, HMAC-SHA-384, and HMAC-SHA-512",
               RFC 4231, DOI 10.17487/RFC4231, December 2005,
               <https://www.rfc-editor.org/info/rfc4231>.
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 51]
+
+Internet-Draft               COSE Algorithms              September 2020
+
 
    [RFC4493]  Song, JH., Poovendran, R., Lee, J., and T. Iwata, "The
               AES-CMAC Algorithm", RFC 4493, DOI 10.17487/RFC4493, June
@@ -2719,10 +2876,10 @@ Internet-Draft               COSE Algorithms                   June 2020
               RFC 6151, DOI 10.17487/RFC6151, March 2011,
               <https://www.rfc-editor.org/info/rfc6151>.
 
-   [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", STD 90, RFC 8259,
-              DOI 10.17487/RFC8259, December 2017,
-              <https://www.rfc-editor.org/info/rfc8259>.
+   [STD90]    Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", STD 90, RFC 8259, December 2017.
+
+              <https://www.rfc-editor.org/info/std90>
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
               Application Protocol (CoAP)", RFC 7252,
@@ -2732,19 +2889,6 @@ Internet-Draft               COSE Algorithms                   June 2020
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
               <https://www.rfc-editor.org/info/rfc7518>.
-
-   [RFC8017]  Moriarty, K., Ed., Kaliski, B., Jonsson, J., and A. Rusch,
-              "PKCS #1: RSA Cryptography Specifications Version 2.2",
-              RFC 8017, DOI 10.17487/RFC8017, November 2016,
-              <https://www.rfc-editor.org/info/rfc8017>.
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 49]
-
-Internet-Draft               COSE Algorithms                   June 2020
-
 
    [RFC8152]  Schaad, J., "CBOR Object Signing and Encryption (COSE)",
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
@@ -2760,12 +2904,22 @@ Internet-Draft               COSE Algorithms                   June 2020
               DOI 10.17487/RFC8230, September 2017,
               <https://www.rfc-editor.org/info/rfc8230>.
 
+
+
+
+
+
+Schaad                    Expires 28 March 2021                [Page 52]
+
+Internet-Draft               COSE Algorithms              September 2020
+
+
    [I-D.ietf-core-oscore-groupcomm]
               Tiloca, M., Selander, G., Palombini, F., and J. Park,
               "Group OSCORE - Secure Group Communication for CoAP", Work
               in Progress, Internet-Draft, draft-ietf-core-oscore-
-              groupcomm-08, 6 April 2020, <https://tools.ietf.org/html/
-              draft-ietf-core-oscore-groupcomm-08>.
+              groupcomm-09, 23 June 2020, <https://tools.ietf.org/html/
+              draft-ietf-core-oscore-groupcomm-09>.
 
    [I-D.ietf-cose-hash-sig]
               Housley, R., "Use of the HSS/LMS Hash-based Signature
@@ -2774,11 +2928,12 @@ Internet-Draft               COSE Algorithms                   June 2020
               sig-09, 11 December 2019,
               <https://tools.ietf.org/html/draft-ietf-cose-hash-sig-09>.
 
-   [I-D.ietf-cbor-sequence]
-              Bormann, C., "Concise Binary Object Representation (CBOR)
-              Sequences", Work in Progress, Internet-Draft, draft-ietf-
-              cbor-sequence-02, 25 September 2019,
-              <https://tools.ietf.org/html/draft-ietf-cbor-sequence-02>.
+   [SP800-38d]
+              Dworkin, M., "Recommendation for Block Cipher Modes of
+              Operation: Galois/Counter Mode (GCM) and GMAC", NIST
+              Special Publication 800-38D , November 2007,
+              <https://nvlpubs.nist.gov/nistpubs/Legacy/SP/
+              nistspecialpublication800-38d.pdf>.
 
    [SP800-56A]
               Barker, E., Chen, L., Roginsky, A., and M. Smid,
@@ -2793,14 +2948,39 @@ Internet-Draft               COSE Algorithms                   June 2020
               "GitHub Examples of COSE",
               <https://github.com/cose-wg/Examples>.
 
+   [I-D.mattsson-cfrg-det-sigs-with-noise]
+              Mattsson, J., Thormarker, E., and S. Ruohomaa,
+              "Deterministic ECDSA and EdDSA Signatures with Additional
+              Randomness", Work in Progress, Internet-Draft, draft-
+              mattsson-cfrg-det-sigs-with-noise-02, 11 March 2020,
+              <https://tools.ietf.org/html/draft-mattsson-cfrg-det-sigs-
+              with-noise-02>.
+
+   [HKDF]     Krawczyk, H., "Cryptographic Extraction and Key
+              Derivation: The HKDF Scheme", 2010,
+              <https://eprint.iacr.org/2010/264.pdf>.
 
 
 
 
-Schaad                  Expires 19 December 2020               [Page 50]
+
+
+Schaad                    Expires 28 March 2021                [Page 53]
 
-Internet-Draft               COSE Algorithms                   June 2020
+Internet-Draft               COSE Algorithms              September 2020
 
+
+   [ROBUST]   Fischlin, M., Günther, F., and C. Janson, "Robust
+              Channels: Handling Unreliable Networks in the Record
+              Layers of QUIC and DTLS", February 2020,
+              <https://www.felixguenther.info/docs/
+              QUIP2020_RobustChannels.pdf>.
+
+   [I-D.ietf-quic-tls]
+              Thomson, M. and S. Turner, "Using TLS to Secure QUIC",
+              Work in Progress, Internet-Draft, draft-ietf-quic-tls-30,
+              9 September 2020,
+              <https://tools.ietf.org/html/draft-ietf-quic-tls-30>.
 
 Acknowledgments
 
@@ -2815,8 +2995,8 @@ Acknowledgments
 
    The following individuals provided input into the final form of the
    document: Carsten Bormann, John Bradley, Brain Campbell, Michael B.
-   Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran
-   Selander.
+   Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and
+   G&#246;ran Selander.
 
 Author's Address
 
@@ -2841,16 +3021,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                  Expires 19 December 2020               [Page 51]
+Schaad                    Expires 28 March 2021                [Page 54]
