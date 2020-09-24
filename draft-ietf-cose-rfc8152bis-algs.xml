@@ -1962,6 +1962,10 @@ ECDH-ES + A256KW with an X25519 curve:
         </t>
 
         <t>
+          IANA is requested to update all references from RFC 8152 to [[This Document]].
+        </t>
+
+        <t>
           IANA is requested to update the reference column in the "COSE Algorithms" registry to include [[This Document]] as a reference for all rows where it is not already present.
         </t>
 
@@ -2136,7 +2140,6 @@ ECDH-ES + A256KW with an X25519 curve:
       </references>
       <references>
         <name>Informative References</name>
-        <xi:include href="bibxml/reference.RFC.8126.xml"/>
         <xi:include href="bibxml/reference.RFC.8610.xml"/>
         <xi:include href="bibxml/reference.RFC.4231.xml"/>
         <xi:include href="bibxml/reference.RFC.4493.xml"/>

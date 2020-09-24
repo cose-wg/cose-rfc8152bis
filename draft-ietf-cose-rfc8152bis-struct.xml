@@ -826,7 +826,6 @@ array to avoid confusion.
 </t>
       </section>
     </section>
-    
     <section anchor="encryption-object">
       <name>Encryption Objects</name>
       <t>
@@ -1661,7 +1660,6 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
         The majority of the actions are to update the references to point to this document.
       </t>
-
       <section anchor="cose-header-key-table">
         <name>COSE Header Parameters Registry</name>
         <t>
