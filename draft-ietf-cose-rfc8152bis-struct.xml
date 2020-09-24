@@ -12,6 +12,8 @@
 <!-- RFC EDITOR
 Issue has been raised about countersign vs counter sign.
 The dictionaries seem to favor a single word, but when you did RFC 8152 you left it as a double word.
+
+I have switched to the single word version except for tables 3 and 4 where it causes the text file to have long lines.
 -->
 
 
@@ -21,12 +23,12 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
 <?rfc comments="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-10" category="std" obsoletes="8152" updates="" submissionType="IETF" xml:lang="en" version="3" consensus="true">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-cose-rfc8152bis-struct-13" category="std" obsoletes="8152" updates="" submissionType="IETF" xml:lang="en" version="3" consensus="true">
   <!-- xml2rfc v2v3 conversion 2.24.0 -->
   <front>
     <title abbrev="COSE Structure">
     CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Structures and Process</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-struct-10"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-cose-rfc8152bis-struct-12"/>
     <author initials="J." surname="Schaad" fullname="Jim Schaad">
       <organization>August Cellars</organization>
       <address>
@@ -59,9 +61,9 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
   <middle>
     <section anchor="introduction">
       <name>Introduction</name>
-      <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="RFC7049"/>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="STD90"/> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically both to be small in terms of messages transported and implementation size and to be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
+      <t>There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT).  One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <xref target="I-D.ietf-cbor-7049bis"/>.  CBOR extended the data model of the JavaScript Object Notation (JSON) <xref target="STD90"/> by allowing for binary data, among other changes.  CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures.  CBOR was designed specifically both to be small in terms of messages transported and implementation size and to be a schema-free decoder.  A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.  </t>
       
-      <t>The JOSE working group produced a set of documents <xref target="RFC7515"/> <xref target="RFC7516"/> <xref target="RFC7517"/> <xref target="RFC7518"/> that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document along with <xref target="I-D.ietf-cose-rfc8152bis-algs"/> defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format.  While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
+      <t>The JOSE working group produced a set of documents <xref target="RFC7515"/> <xref target="RFC7516"/> <xref target="RFC7517"/> <xref target="RFC7518"/> that specified how to process encryption, signatures, and Message Authentication Code (MAC) operations and how to encode keys using JSON.  This document defines the CBOR Object Signing and Encryption (COSE) standard, which does the same thing for the CBOR encoding format. This document is combined with  <xref target="I-D.ietf-cose-rfc8152bis-algs"/> which provides an initial set of algorithms.   While there is a strong attempt to keep the flavor of the original JSON Object Signing and Encryption (JOSE) documents, two considerations are taken into account: </t>
 
       <ul>
         <li>CBOR has capabilities that are not present in JSON and are appropriate to use.  One example of this is the fact that CBOR has a method of encoding binary directly without first converting it into a base64-encoded text string.  </li>
@@ -110,6 +112,11 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
         <xref target="I-D.ietf-cose-hash-algs"/> contains one such possible structure along with defining a set of digest algorithms.
       </t>
 
+      <t>
+        During the process of advancing COSE to Internet Standard, it was noticed the description of the security properties of countersignatures was incorrect for the COSE_Sign1 structure.
+        Since the security properties that were described, those of a true countersignature, were those that the working group desired, the decision was made to remove all of the countersignature text from this document and create a new document <xref target="I-D.ietf-cose-countersign"/> to both deprecate the old countersignature algorithm and header parameters and to define a new algorithm and header parameters with the desired security properties.
+      </t>
+      
       <section anchor="requirements-terminology">
         <name>Requirements Terminology</name>
 
@@ -123,8 +130,10 @@ The dictionaries seem to favor a single word, but when you did RFC 8152 you left
         <ul>
           <li> Split the original document into this document and <xref target="I-D.ietf-cose-rfc8152bis-algs"/>.</li>
           <li>Add some text describing why there is no digest structure defined by COSE.</li>
-          <li>Rearrange the text around counter signatures and define a CBOR Tag for a standalone counter signature.</li>
           <li>Text clarifications and changes in terminology.</li>
+          <li>
+            All of the details relating to countersignatures have been removed and placed in <xref target="I-D.ietf-cose-countersign"/>.
+          </li>
         </ul>
       </section>
 
@@ -211,7 +220,7 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
         <t>In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
         <t>
-          The presence a label that is neither a a text string bor an integer, in a CBOR map, is an error. 
+          The presence a label that is neither a a text string or an integer, in a CBOR map, is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they <bcp14>MUST NOT</bcp14> create messages with incorrect labels. 
         </t>
 
@@ -230,7 +239,7 @@ values = any
         </t>
 
         <t>
-          Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are encryption algorithms that provide an authentication check of the contents algorithm with the encryption service.
+          Authenticated Encryption (AE) <xref target="RFC5116"/> algorithms are encryption algorithms that provide an authentication check of the contents with the encryption service.
           An example of an AE algorithm used in COSE is AES Key Wrap <xref target="RFC3394"/>.
           These algorithms are used for key encryption algorithms, but AEAD algorithms would be preferred.
         </t>
@@ -281,7 +290,12 @@ values = any
       <ol type="1">
         <li>The specific message type is known from the context.  This may be defined by a marker in the containing structure or by restrictions specified by the application protocol.  </li>
         <li>The message type is identified by a CBOR tag.  Messages with a CBOR tag are known in this specification as tagged messages, while those without the CBOR tag are known as untagged messages.  This document defines a CBOR tag for each of the message structures.  These tags can be found in <xref target="CBOR-Tags"/>.  </li>
-        <li>When a COSE object is carried in a media type of 'application/cose', the optional parameter 'cose-type' can be used to identify the embedded object.  The parameter is OPTIONAL if the tagged version of the structure is used.  The parameter is <bcp14>REQUIRED</bcp14> if the untagged version of the structure is used.  The value to use with the parameter for each of the structures can be found in <xref target="CBOR-Tags"/>.  </li>
+        <li>
+          When a COSE object is carried in a media type of 'application/cose', the optional parameter 'cose-type' can be used to identify the embedded object. 
+          The parameter is OPTIONAL if the tagged version of the structure is used. 
+          The parameter is <bcp14>REQUIRED</bcp14> if the untagged version of the structure is used. 
+          The value to use with the parameter for each of the structures can be found in <xref target="CBOR-Tags"/>.
+        </li>
         <li>When a COSE object is carried as a CoAP payload, the CoAP Content-Format Option can be used to identify the message content.  The CoAP Content-Format values can be found in <xref target="CoAP_content_type"/>.  The CBOR tag for the message structure is not required as each security message is uniquely identified.  </li>
       </ol>
       <!--Table 1 -->
@@ -331,12 +345,6 @@ values = any
             <td>cose-mac0</td>
             <td>COSE_Mac0</td>
             <td>COSE Mac w/o Recipients Object</td>
-          </tr>
-          <tr>
-            <td>TBD00</td>
-            <td>cose-countersign</td>
-            <td>COSE_Countersignature</td>
-            <td>COSE standalone counter signature</td>
           </tr>
         </tbody>
       </table>
@@ -407,11 +415,11 @@ COSE_Messages = COSE_Untagged_Message / COSE_Tagged_Message
       
 COSE_Untagged_Message = COSE_Sign / COSE_Sign1 /
     COSE_Encrypt / COSE_Encrypt0 /
-    COSE_Mac / COSE_Mac0 / COSE_Countersignature
+    COSE_Mac / COSE_Mac0
 
 COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
     COSE_Encrypt_Tagged / COSE_Encrypt0_Tagged /
-    COSE_Mac_Tagged / COSE_Mac0_Tagged / COSE_Countersignature_Tagged
+    COSE_Mac_Tagged / COSE_Mac0_Tagged
 ]]></sourcecode>
     </section>
     <section anchor="header-parameters">
@@ -526,8 +534,6 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 
 
           </dd>
-          <dt>counter signature:</dt>
-          <dd>This header parameter holds one or more counter signature values.  Counter signatures provide a method of having a second party sign some data.  The counter signature header parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0.  These structures all have the same beginning elements, so that a consistent calculation of the counter signature can be computed.  Details on counter signatures are found in <xref target="counter_signature"/>.  </dd>
         </dl>
         <table anchor="Header-Table" align="center">
           <name>Common Header Parameters</name>
@@ -583,13 +589,6 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
               <td/>
               <td>Partial Initialization Vector</td>
             </tr>
-            <tr>
-              <td>counter signature</td>
-              <td>7</td>
-              <td>COSE_Signature / [+ COSE_Signature ]</td>
-              <td/>
-              <td>CBOR-encoded signature structure</td>
-            </tr>
           </tbody>
         </table>
         <t>The CDDL fragment that represents the set of header parameters defined in this section is given below.  Each of the header parameters is tagged as optional because they do not need to be in every map; header parameters required in specific maps are discussed above.  </t>
@@ -600,8 +599,7 @@ Generic_Headers = (
     ? 3 => tstr / int,  ; content type
     ? 4 => bstr,        ; key identifier
     ? 5 => bstr,        ; IV
-    ? 6 => bstr,        ; Partial IV
-    ? 7 => COSE_Signature / [+COSE_Signature] ; Counter signature
+    ? 6 => bstr         ; Partial IV
 )
 ]]></sourcecode>
       </section>
@@ -611,7 +609,7 @@ Generic_Headers = (
       <t>COSE supports two different signature structures.  COSE_Sign allows for one or more signatures to be applied to the same content. COSE_Sign1 is restricted to a single signer.  The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.  </t>
       <section anchor="full-signature">
         <name>Signing with One or More Signers</name>
-        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of a header parameter about the content is the content type header parameter.  Examples of header parameters about the signature would be the algorithm and key used to create the signature and counter signatures.  </t>
+        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of a header parameter about the content is the content type header parameter.  An examples of a header parameter about the signature would be the algorithm and key used to create the signature.</t>
         <t>RFC 5652 indicates that:
 
         </t>
@@ -758,6 +756,7 @@ COSE_Sign1 = [
       </section>
       <section anchor="Sig_structure">
         <name>Signing and Verification Process</name>
+        
         <t>
           In order to create a signature, a well-defined byte string is needed.
           The Sig_structure is used to create the canonical form. 
@@ -765,6 +764,7 @@ COSE_Sign1 = [
           A Sig_structure is a CBOR array. 
           The fields of the Sig_structure in order are:
         </t>
+
         <ol type="1">
           <li>
             <t>
@@ -773,26 +773,24 @@ COSE_Sign1 = [
             <ul empty="true">
               <li>"Signature" for signatures using the COSE_Signature structure.</li>
               <li>"Signature1" for signatures using the COSE_Sign1 structure.</li>
-              <li>"CounterSignature" for signatures using the COSE_Countersignature structure.</li>
-              <li>"CounterSignature0" for signatures used as COSE_Countersignature0 structure.</li>
             </ul>
           </li>
           <li>The protected attributes from the body structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.  </li>
-          <li>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.  This field is omitted for the COSE_Sign1 signature structure and CounterSignature0 attributes.  </li>
+          <li>The protected attributes from the signer structure encoded in a bstr type.  If there are no protected attributes, a zero-length byte string is used.  This field is omitted for the COSE_Sign1 signature structure.  </li>
           <li>The externally supplied data from the application encoded in a bstr type.  If this field is not supplied, it defaults to a zero-length byte string.  (See <xref target="Extern_AAD"/> for application guidance on constructing this field.) </li>
           <li>The payload to be signed encoded in a bstr type.  The payload is placed here independent of how it is transported.  </li>
         </ol>
         <t>The CDDL fragment that describes the above text is:  </t>
         <sourcecode type="CDDL"><![CDATA[
 Sig_structure = [
-    context : "Signature" / "Signature1" / "CounterSignature" /
-              "CounterSignature0",
+    context : "Signature" / "Signature1",
     body_protected : empty_or_serialized_map,
     ? sign_protected : empty_or_serialized_map,
     external_aad : bstr,
     payload : bstr
 ]
 ]]></sourcecode>
+
         <t>How to compute a signature:
         </t>
         <ol type="1">
@@ -813,8 +811,7 @@ array to avoid confusion.
 -->
           <li>
   Place the resulting signature value in the correct location.
-  This is the 'signature' field of the COSE_Signature, COSE_Sign1 or COSE_Countersignature structures.
-  This is the value of the Countersignature0 attribute.
+  This is the 'signature' field of the COSE_Signature or COSE_Sign1 structure.
         </li>
         </ol>
         <t>The steps for verifying a signature are:
@@ -827,112 +824,6 @@ array to avoid confusion.
         <t>
   In addition to performing the signature verification, the application performs the appropriate checks to ensure that the key is correctly paired with the signing identity and that the signing identity is authorized before performing actions.
 </t>
-      </section>
-    </section>
-    <section anchor="counter_signature">
-      <name>Counter Signatures</name>
-      <t>
-        A counter signature is normally defined as a second signature that confirms a primary signature.
-        A normal example of a counter signature is the signature that a notary public places on a document as witnessing that you have signed the document.
-        Thus applying a counter signature to either the COSE_Signature or COSE_Sign1 objects match this traditional definition.
-        This document extends the context of a counter signature to allow it to be applied to all of the security structures defined.
-        It needs to be noted that the counter signature needs to be treated as a separate operation from the initial operation even if it is applied by the same user as is done in <xref target="I-D.ietf-core-groupcomm-bis"/>.
-      </t>
-      
-      <t>
-        COSE supports two different forms for counter signatures.
-        Full counter signatures use the structure COSE_Countersignature.
-        This is same structure as COSE_Signature and thus it can have protected and unprotected attributes, including chained counter signatures.
-        Abbreviated counter signatures use the structure COSE_Countersignature0.
-        This structure only contains the signature value and nothing else.
-        The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.
-      </t>
-      <t>
-        COSE was designed for uniformity in how the data structures are specified.
-        One result of this is that for COSE one can expand the concept of counter signatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
-        When creating a counter signature, one needs to be clear about the security properties that result.
-        When done on a COSE_Signature, the normal counter signature semantics are preserved.  That is the counter signature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
-        When done on a COSE_Mac or a COSE_Mac0, one effectively upgrades the MAC operation to a signature operation.
-        When done on a COSE_Encrypt or COSE_Encrypt0, the existence of the encrypted data is attested to.
-        It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
-        If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
-        It is always possible to construct cases where the use of two different keys will appear to result in a successful decryption (the tag check success), but which produce two completely different plaintexts.
-        This situation is not detectable by a counter signature on the encrypted data.
-      </t>
-      <section>
-        <name>Full Counter Signatures</name>
-        <t>
-          The COSE_Countersignature structure allows for the same set of capabilities  as a COSE_Signature.
-          This means that all of the capabilities of a signature are duplicated with this structure.
-          Specifically, the counter signer does not need to be related to the producer of what is being counter signed as key and algorithm identification can be placed in the counter signature attributes.
-          This also means that the counter signature can itself be counter signed.
-          This is a feature required by protocols such as long-term archiving services.
-          More information on how counter signatures is used can be found in the evidence record syntax described in <xref target="RFC4998"/>.
-        </t>
-        <t>
-          The full counter signature structure can be encoded as either tagged or untagged depending on the context it is used in.  A tagged COSE_Countersignature structure is identified by the CBOR tag TBD0.  The CDDL fragment for full counter signatures is:
-        </t>
-        <sourcecode type="CDDL"><![CDATA[
-COSE_CounterSignature_Tagged = #6.TBD(COSE_Countersignature)
-COSE_Countersignature = COSE_Signature
-COSE_CounterSignature = COSE_Countersignature
-]]></sourcecode>
-        <t>
-          The details of the fields of a counter signature can be found in <xref target="full-signature"/>.
-          The process of creating and validating abbreviated counter signatures is defined in <xref target="Sig_structure"/>.
-        </t>
-        <t>          
-          An example of a counter signature on a signature can be found in <xref target="Appendix_B_1_3"/>. 
-          An example of a counter signature in an encryption object can be found in <xref target="Appendix_B_3_3"/>. 
-        </t>
-        <t>
-          It should be noted that only a signature algorithm with appendix (see <xref target="SigAlgs"/>) can be used for counter signatures. 
-          This is because the body should be able to be processed without having to evaluate the counter signature, and this is not possible for signature schemes with message recovery. 
-        </t>
-      </section>
-      <section>
-        <name>Abbreviated Counter Signatures</name>
-        <t>
-          Abbreviated counter signatures were designed primarily to deal with the problem of having encrypted group  messaging, but still needing to know who originated the message.
-          The objective was to keep the counter signature as small as possible while still providing the needed security.
-          For abbreviated counter signatures, there is no provision for any protected attributes related to the signing operation.
-          Instead, the parameters for computing or verifying the abbreviated counter signature are inferred from the same context used to describe the encryption, signature, or MAC processing.
-        </t>
-        <t>
-          The CDDL fragment for the abbreviated counter signatures is:
-        </t>
-        <sourcecode type="CDDL"><![CDATA[
-COSE_Countersignature0 = bstr
-]]></sourcecode>
-        <t>
-          The byte string representing the signature value is placed in the CounterSignature0 attribute.
-          This attribute is then encoded as an unprotected header parameter.
-          The attribute is defined below.
-        </t>
-        <t>
-          The process of creating and validating abbreviated counter signatures is defined in <xref target="Sig_structure"/>.
-        </t>
-        <table anchor="CounterSign0" align="center">
-          <name>Header Parameter for CounterSignature0</name>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Label</th>
-              <th>Value Type</th>
-              <th>Value</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>CounterSignature0</td>
-              <td>9</td>
-              <td>COSE_Countersignature0</td>
-              <td/>
-              <td>Abbreviated Counter Signature</td>
-            </tr>
-          </tbody>
-        </table>
       </section>
     </section>
     <section anchor="encryption-object">
@@ -1479,22 +1370,94 @@ COSE_KeySet = [+COSE_Key]
           Data integrity provides the ability to verify that the data has not been modified since it was signed.
         </t>
         
-        <t>There are two signature algorithm schemes.  The first is signature with appendix.  In this scheme, the message content is processed and a signature is produced; the signature is called the appendix.  This is the scheme used by algorithms such as ECDSA and the RSA Probabilistic Signature Scheme (RSASSA-PSS).  (In fact, the SSA in RSASSA-PSS stands for Signature Scheme with Appendix.) </t>
-        <t>The signature functions for this scheme are: </t>
+        <t>
+          There are two general signature algorithm schemes.
+          The first is signature with appendix.
+          In this scheme, the message content is processed and a signature is produced; the signature is called the appendix.
+          This is the scheme used by algorithms such as ECDSA and the RSA Probabilistic Signature Scheme (RSASSA-PSS).
+          (In fact, the SSA in RSASSA-PSS stands for Signature Scheme with Appendix.)
+        </t>
+        <t>
+          The signature functions for this scheme are:
+        </t>
         <artwork type=""><![CDATA[
 signature = Sign(message content, key)
 
 valid = Verification(message content, key, signature)
 ]]></artwork>
-        <t>The second scheme is signature with message recovery (an example of such an algorithm is <xref target="PVSig"/>). In this scheme, the message content is processed, but part of it is included in the signature.  Moving bytes of the message content into the signature allows for smaller signatures; the signature size is still potentially large, but the message content has shrunk.  This has implications for systems implementing these algorithms and for applications that use them.  The first is that the message content is not fully available until after a signature has been validated.  Until that point, the part of the message contained inside of the signature is unrecoverable.  The second is that the security analysis of the strength of the signature is very much based on the structure of the message content.  Messages that are highly predictable require additional randomness to be supplied as part of the signature process.  In the worst case, it becomes the same as doing a signature with appendix.  Finally, in the event that multiple signatures are applied to a message, all of the signature algorithms are going to be required to consume the same number of bytes of message content.  This means that the mixing of the different schemes in a single message is not supported, and if a recovery signature scheme is used, then the same amount of content needs to be consumed by all of the signatures.  </t>
+        
+        <t>
+          The second scheme is signature with message recovery (an example of such an algorithm is <xref target="PVSig"/>). 
+          In this scheme, the message content is processed, but part of it is included in the signature. 
+          Moving bytes of the message content into the signature allows for smaller signatures; the signature size is still potentially large, but the message content has shrunk. 
+          This has implications for systems implementing these algorithms and for applications that use them. 
+          The first is that the message content is not fully available until after a signature has been validated. 
+          Until that point, the part of the message contained inside of the signature is unrecoverable. 
+          The second is that the security analysis of the strength of the signature can be very much dependent on the structure of the message content. 
+          Finally, in the event that multiple signatures are applied to a message, all of the signature algorithms are going to be required to consume the same bytes of message content. 
+          This means that the mixing of the signature with message recovery and signature with appendix schemes in a single message is not supported, and if a recovery signature scheme is used.
+        </t>
+        
         <t>The signature functions for this scheme are: </t>
+        
         <artwork type=""><![CDATA[
 signature, message sent = Sign(message content, key)
 
 valid, message content = Verification(message sent, key, signature)
 ]]></artwork>
-        <t>Signature algorithms are used with the COSE_Signature and COSE_Sign1 structures.  At this time, only signatures with appendixes are defined for use with COSE; however, considerable interest has been expressed in using a signature with message recovery algorithm due to the effective size reduction that is possible.  Implementations will need to keep this in mind for later possible integration.  </t>
+
+        <t>
+          No message recovery signature algorithms have been formally defined for COSE yet, and given the new constraints arising from this schemes, while some of these issues have already been identified there is a high probability that additional issues will arise when integrating message recovery signature algorithms.
+          The first  algorithm defined  is going to need to make decisions about these issues and those decisions re likely to be binding on any further algorithms defined.
+        </t>
+
+        <t>
+          We use the following terms below:
+        </t>
+        <dl>
+          <dt>message content bytes:</dt>
+          <dd>The byte provided by the application to be signed.</dd>
+          <dt>to-be-signed bytes:</dt>
+          <dd>The byte string passed into the signature algorithm.</dd>
+          <dt>recovered bytes:</dt>
+          <dd>The bytes recovered during the signature verification process.</dd>
+        </dl>
+
+        <t>
+          Some of the issue2 that have already been identified are:
+        </t>
+
+        <ul>
+          <li>
+            The to-be-signed bytes are not the same as the message content bytes.
+            This is because we build a larger to-be-signed message during the signature processing.
+            The recovered bytes length may exceed the  message content length, but not the length of the to-be-signed bytes.
+            This may lead to privacy considerations if, for example, the externally supplied data contains confidential information.
+          </li>
+
+          <li>
+            There may be difficulties in determining where the recovered bytes match up with the to-be-signed bytes, because the recovered  bytes contains data not in the  message content bytes.
+            One possible option would be to create a padding scheme to prevent that.
+          </li>
+
+          <li>
+            Not all message recovery  signature algorithms take the recovered bytes from the end of the to-be-signed bytes.
+            This is a problem because the message content bytes are at the end of the to-be-signed bytes.
+            If the bytes to be recovered are taken from the start of the to-be-signed bytes then, by default, none of the message content bytes may be included in the recovered bytes.
+            One possible option to deal with this is to reverse the to-be-signed data in the event that recovered bytes are taken from the start rather than end of the to-be-signed bytes.
+          </li>
+          
+        </ul>
+          
+        
+        <t>
+          Signature algorithms are used with the COSE_Signature and COSE_Sign1 structures. 
+          At the time of this writing, only signatures with appendixes are defined for use with COSE; however, considerable interest has been expressed in using a signature with message recovery algorithm due to the effective size reduction that is possible. 
+        </t>
+
       </section>
+
+      
       <section>
         <name>Message Authentication Code (MAC) Algorithms</name>
         <t>Message Authentication Codes (MACs) provide data authentication and integrity protection.  They provide either no or very limited data origination.  A MAC, for example, cannot be used to prove the identity of the sender to a third party.  </t>
@@ -1697,45 +1660,24 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
         The majority of the actions are to update the references to point to this document.
       </t>
-      <section anchor="cbor-tag-assignment">
-        <name>CBOR Tag Assignment</name>
-        <t>
-          IANA assigned tags in the "CBOR Tags" registry as part of processing <xref target="RFC8152"/>.
-          IANA is requested to update the references from <xref target="RFC8152"/> to this document.
-        </t>
-        <t>
-          IANA is requested to register a new tag for the CounterSignature type.
-        </t>
-        <ul>
-          <li>Tag: TBD0</li>
-          <li>Data Item: COSE_Countersignature</li>
-          <li>Semantics: COSE standalone counter signature</li>
-          <li>Reference: [[this document]]</li>
-        </ul>
-      </section>
       <section anchor="cose-header-key-table">
         <name>COSE Header Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Header Parameters" as part of processing <xref target="RFC8152"/>. 
-          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
+          IANA is requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.
+          The reference for "counter signature" and "CounterSignature0" are to be left alone.
         </t>
-        <t>
-          Additionally, the type for the attribute CounterSignature0 is to be updated from 'bstr' to 'COSE_Countersignature0'.
-        </t>
-        <t>
-          This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
-        </t>
+        
       </section>
+      
       <section anchor="cose-key-map-registry">
         <name>COSE Key Common Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <xref target="RFC8152"/>.
           IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
-        <t>
-          This document does not update the expert review guidelines provided in <xref target="RFC8152"/>.
-        </t>
       </section>
+      
       <section>
         <name>Media Type Registrations</name>
         <section>
@@ -1842,20 +1784,30 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           IANA is requested to update the reference value from <xref target="RFC8152"/> to [[This Document]].
         </t>
       </section>
-      <!--
+      <section>
+        <name>CBOR Tags Registry</name>
+        <t>
+          IANA is requested to update the references from <xref target="RFC8152"/> to [[This Document]].
+        </t>
+      </section>
+      
       <section title="Expert Review Instructions" anchor="review"  >
-        <t>All of the IANA registries established in this document are defined as expert review.  This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.  </t>
-        <t>Expert reviewers should take into consideration the following points: <list style="symbols">
+        <t>
+          All of the IANA registries established by <xref target="RFC8152"/> are, at least in part, defined as expert review.  This section gives some general guidelines for what the experts should be looking for, but they are being designated as experts for a reason, so they should be given substantial latitude.
+        </t>
+        <t>Expert reviewers should take into consideration the following points:</t>
+<ul>
 
-<t>Point squatting should be discouraged.  Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.  The zones tagged as private use are intended for testing purposes and closed environments; code points in other ranges should not be assigned for testing.  </t>
+<li>Point squatting should be discouraged.  Reviewers are encouraged to get sufficient information for registration requests to ensure that the usage is not going to duplicate one that is already registered, and that the point is likely to be used in deployments.  The zones tagged as private use are intended for testing purposes and closed environments; code points in other ranges should not be assigned for testing.  </li>
 
-<t>Specifications are required for the standards track range of point assignment.  Specifications should exist for specification required ranges, but early assignment before a specification is available is considered to be permissible.  Specifications are needed for the first-come, first-serve range if they are expected to be used outside of closed environments in an interoperable way.  When specifications are not provided, the description provided needs to have sufficient information to identify what the point is being used for.  </t>
+<li>Specifications are required for the standards track range of point assignment.  Specifications should exist for specification required ranges, but early assignment before a specification is available is considered to be permissible.  Specifications are needed for the first-come, first-serve range if they are expected to be used outside of closed environments in an interoperable way.  When specifications are not provided, the description provided needs to have sufficient information to identify what the point is being used for.  </li>
 
-<t>Experts should take into account the expected usage of fields when approving point assignment.  The fact that there is a range for standards track documents does not mean that a standards track document cannot have points assigned outside of that range.  The length of the encoded value should be weighed against how many code points of that length are left, the size of device it will be used on, and the number of code points left that encode to that size. </t>
+<li>Experts should take into account the expected usage of fields when approving point assignment.  The fact that there is a range for standards track documents does not mean that a standards track document cannot have points assigned outside of that range.  The length of the encoded value should be weighed against how many code points of that length are left, the size of device it will be used on, and the number of code points left that encode to that size. </li>
 
-<t>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </t></list> </t>
+<li>When algorithms are registered, vanity registrations should be discouraged.  One way to do this is to require registrations to provide additional documentation on security analysis of the algorithm.  Another thing that should be considered is requesting an opinion on the algorithm from the Crypto Forum Research Group (CFRG).  Algorithms that do not meet the security requirements of the community and the messages structures should not be registered.  </li>
+</ul>
+
 </section>
--->
     </section>
     <section anchor="security-considerations">
       <name>Security Considerations</name>
@@ -1894,7 +1846,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>Is the request something that is reasonable, given the current state of the application?</li>
         <li>Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?</li>
       </ul>
-      <t>One area that has been getting exposure is doing traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
+      <t>One area that has been getting exposure is traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <xref target="I-D.ietf-cose-rfc8152bis-algs"/> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.) </t>
     </section>
     <section removeInRFC="true">
       <name>Implementation Status</name>
@@ -1938,9 +1890,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             </li>
           <li>
               Coverage:
-              The C version currently does not have full counter sign support.
-              The other two versions do.
-              They do have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.
+              All versions have support to allow for implicit algorithm support as they allow for the application to set attributes that are not to be sent in the message.
             </li>
           <li>
               Testing:
@@ -1990,7 +1940,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
             </li>
           <li>
               Coverage:  An attempt has been made to have test cases for every message type and algorithm in the document.
-              Currently examples dealing with counter signatures, and ECDH with Curve25519 and Goldilocks are missing.
+              Currently examples dealing with ECDH with Goldilocks are missing.
             </li>
           <li>Licensing: Public Domain</li>
         </ul>
@@ -1998,30 +1948,29 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
     </section>
   </middle>
   <back>
-    <references>
+    <references xml:base="https://xml2rfc.ietf.org/public/rfc/">
       <name>References</name>
       <references>
         <name>Normative References</name>
-        <xi:include href="reference.RFC.2119.xml"/>
-        <xi:include href="reference.RFC.7049.xml"/>
-        <xi:include href="reference.RFC.8174.xml"/>
-        <xi:include href="reference.I-D.ietf-cose-rfc8152bis-algs.xml"/>
+        <xi:include href="bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cbor-7049bis.xml"/>
+        <xi:include href="bibxml/reference.RFC.8174.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cose-rfc8152bis-algs.xml"/>
       </references>
       <references>
         <name>Informative References</name>
-        <xi:include href="reference.RFC.8152.xml"/>
-        <xi:include href="reference.RFC.8610.xml"/>
-        <xi:include href="reference.RFC.8018.xml"/>
-        <xi:include href="reference.RFC.2633.xml"/>
-        <xi:include href="reference.RFC.4262.xml"/>
-        <xi:include href="reference.RFC.4949.xml"/>
-        <xi:include href="reference.RFC.5116.xml"/>
-        <xi:include href="reference.RFC.5652.xml"/>
-        <xi:include href="reference.RFC.5751.xml"/>
-        <xi:include href="reference.RFC.5752.xml"/>
-        <xi:include href="reference.RFC.5990.xml"/>
-        <xi:include href="reference.RFC.6838.xml"/>
-<!--        <xi:include href="bibxml9/reference.STD.0090.xml"/> -->
+        <xi:include href="bibxml/reference.RFC.8152.xml"/>
+        <xi:include href="bibxml/reference.RFC.8610.xml"/>
+        <xi:include href="bibxml/reference.RFC.2633.xml"/>
+        <xi:include href="bibxml/reference.RFC.4262.xml"/>
+        <xi:include href="bibxml/reference.RFC.4949.xml"/>
+        <xi:include href="bibxml/reference.RFC.5116.xml"/>
+        <xi:include href="bibxml/reference.RFC.5652.xml"/>
+        <xi:include href="bibxml/reference.RFC.5751.xml"/>
+        <xi:include href="bibxml/reference.RFC.5752.xml"/>
+        <xi:include href="bibxml/reference.RFC.5990.xml"/>
+        <xi:include href="bibxml/reference.RFC.6838.xml"/>
+<!--        <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml9/reference.STD.0090.xml"/> -->
 <referencegroup anchor="STD90" target="https://www.rfc-editor.org/info/std90">
 <!-- reference.RFC.8259.xml -->
 <reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259">
@@ -2046,8 +1995,9 @@ This document removes inconsistencies with other specifications of JSON, repairs
 <seriesInfo name="RFC" value="8259"/>
 <seriesInfo name="DOI" value="10.17487/RFC8259"/>
 </reference>
-</referencegroup>        
-                <!-- <xi:include href="reference.BCP.0201.xml"/> -->
+</referencegroup>
+
+<!-- <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml9/reference.BCP.0201.xml"/> -->
 <referencegroup anchor="BCP201" target="https://www.rfc-editor.org/info/bcp201">
 <!-- reference.RFC.7696.xml -->
 <reference anchor="RFC7696" target="https://www.rfc-editor.org/info/rfc7696">
@@ -2070,12 +2020,12 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
 <seriesInfo name="DOI" value="10.17487/RFC7696"/>
 </reference>
 </referencegroup>
-        <xi:include href="reference.RFC.7252.xml"/>
-        <xi:include href="reference.RFC.7515.xml"/>
-        <xi:include href="reference.RFC.7516.xml"/>
-        <xi:include href="reference.RFC.7517.xml"/>
-        <xi:include href="reference.RFC.7518.xml"/>
-        <xi:include href="reference.RFC.8032.xml"/>
+        <xi:include href="bibxml/reference.RFC.7252.xml"/>
+        <xi:include href="bibxml/reference.RFC.7515.xml"/>
+        <xi:include href="bibxml/reference.RFC.7516.xml"/>
+        <xi:include href="bibxml/reference.RFC.7517.xml"/>
+        <xi:include href="bibxml/reference.RFC.7518.xml"/>
+        <xi:include href="bibxml/reference.RFC.8032.xml"/>
         <reference anchor="DSS" target="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
           <front>
             <title>Digital Signature Standard (DSS)</title>
@@ -2088,6 +2038,7 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
           </front>
         </reference>
         <reference anchor="PVSig">
+          <!-- RFC Editor:  alternative non-paywall https://www.certicom.com/content/dam/certicom/images/pdfs/CerticomWP-PVSigSec_login.pdf -->
           <front>
             <title>Formal Security Proofs for a Signature Scheme with Partial Message Recovery</title>
             <seriesInfo name="LNCS" value="Volume 2020"/>
@@ -2105,14 +2056,13 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
             <date year="2017" month="January"/>
           </front>
         </reference>
-        <xi:include href="reference.RFC.8230.xml"/>
-        <xi:include href="reference.RFC.7942.xml"/>
-        <xi:include href="reference.RFC.4998.xml"/>
-        <xi:include href="reference.RFC.3394.xml"/>
-        <xi:include href="reference.I-D.ietf-cose-hash-algs.xml"/>
-        <xi:include href="reference.I-D.ietf-core-groupcomm-bis.xml"/>
-        <xi:include href="reference.RFC.8613.xml"/>
-        <xi:include href="reference.I-D.irtf-cfrg-argon2.xml"/>
+        <xi:include href="bibxml/reference.RFC.8230.xml"/>
+        <xi:include href="bibxml/reference.RFC.7942.xml"/>
+        <xi:include href="bibxml/reference.RFC.3394.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-cose-hash-algs.xml"/>
+        <xi:include href="bibxml3/reference.I-D.ietf-core-groupcomm-bis.xml"/>
+        <xi:include href="bibxml/reference.RFC.8613.xml"/>
+        <xi:include href="bibxml3/reference.I-D.irtf-cfrg-argon2.xml"/>
         <reference anchor="COAP.Formats" target="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">
           <front>
             <title>CoAP Content-Formats</title>
@@ -2149,6 +2099,14 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
             <date/>
           </front>
         </reference>
+        <!--        <xi:include href="bibxml3/reference.I-D.ietf-cose-countersign.xml"/> -->
+        <reference anchor="I-D.ietf-cose-countersign">
+          <front>
+            <title>CBOR Object Signing&nbsp;and&nbsp;Encryption&nbsp;(COSE): Countersignatures</title>
+            <author initials="J." surname="Schaad" fullname="Jim Schaad"/>
+            <date/>
+          </front>
+        </reference>
       </references>
     </references>
     <section>
@@ -2161,7 +2119,7 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
       </t>
       <t>
     This appendix lays out how such a change can be made and the details that an application needs to specify in order to use this option. 
-    Two different sets of details are specified: those needed to omit an algorithm identifier and those needed to use a variant on the counter signature attribute that contains no attributes about itself. 
+    Two different sets of details are specified: those needed to omit an algorithm identifier and those needed to use the variant on the countersignature attribute that contains no attributes about itself. 
       </t>
       <t>Three sets of recommendations are laid out.  The first set of recommendations applies to having an implicit algorithm identified for a single layer of a COSE object.  The second set of recommendations applies to having multiple implicit algorithms identified for multiple layers of a COSE object.  The third set of recommendations applies to having implicit algorithms for multiple COSE object constructs.  </t>
       <t>The key words from <xref target="RFC2119"/> are deliberately not used here.  This specification can provide recommendations, but it cannot enforce them.  </t>
@@ -2185,7 +2143,7 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
       </t>
       <ul>
         <li>Two contexts are distributed as a pair.  Each of the contexts is for use with a COSE_Encrypt message.  Each context will consist of distinct secret keys and IVs and potentially even different algorithms.  One context is for sending messages from party A to party B, and the second context is for sending messages from party B to party A.  This means that there is no chance for a reflection attack to occur as each party uses different secret keys to send its messages; a message that is reflected back to it would fail to decrypt.  </li>
-        <li>Two contexts are distributed as a pair.  The first context is used for encryption of the message, and the second context is used to place a counter signature on the message.  The intention is that the second context can be distributed to other entities independently of the first context.  This allows these entities to validate that the message came from an individual without being able to decrypt the message and see the content.  </li>
+        <li>Two contexts are distributed as a pair.  The first context is used for encryption of the message, and the second context is used to place a countersignature on the message.  The intention is that the second context can be distributed to other entities independently of the first context.  This allows these entities to validate that the message came from an individual without being able to decrypt the message and see the content.  </li>
         <li>
           Two contexts are distributed as a pair.
           The first context contains a key for dealing with MACed messages, and the second context contains a different key for dealing with encrypted messages.
@@ -2224,9 +2182,9 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
       <sourcecode type="CBORdiag"><![CDATA[
 96(
   [ / COSE_Encrypt /
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected  h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >>, 
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
     }, 
@@ -2242,9 +2200,9 @@ Many IETF protocols use cryptographic algorithms to provide confidentiality, int
 18f11', 
         / recipients / [
           [ / COSE_Recipient /
-            / protected / h'a1013818' / {
-                \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-              } / , 
+            / protected  h'a1013818' / << {
+                / alg / 1:-25 / ECDH-ES + HKDF-256 /
+              } >> , 
             / unprotected / {
               / ephemeral / -1:{
                 / kty / 1:2, 
@@ -2298,9 +2256,9 @@ e9b8a55a600b21233e86e68',
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>,
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2331,9 +2289,9 @@ e9b8a55a600b21233e86e68',
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2342,9 +2300,9 @@ e9b8a55a600b21233e86e68',
 98f53afd2fa0f30a'
       ], 
       [
-        / protected / h'a1013823' / {
-            \ alg \ 1:-36
-          } / , 
+        / protected h'a1013823' / << {
+            / alg / 1:-36 / ECDSA 521 /
+          } >> , 
         / unprotected / {
           / kid / 4:'bilbo.baggins@hobbiton.example'
         }, 
@@ -2353,50 +2311,6 @@ de64bb62974c863f0b160dd2163734034e6ac003b01e8705524c5c4ca479a952f024
 7ee8cb0b4fb7397ba08d009e0c8bf482270cc5771aa143966e5a469a09f613488030
 c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
 83ab87bb4f7a0297'
-      ]
-    ]
-  ]
-)
-]]></sourcecode>
-        </section>
-        <section anchor="Appendix_B_1_3">
-            <name>Counter Signature</name>
-          <t>This example uses the following:
-          </t>
-            <ul>
-              <li>Signature Algorithm: ECDSA w/ SHA-256, Curve P-256</li>
-              <li>The same header parameters are used for both the signature and the counter signature.</li>
-          </ul>
-          <t>Size of binary file is 180 bytes</t>
-          <sourcecode type="CBORdiag"><![CDATA[
-98(
-  [
-    / protected / h'', 
-    / unprotected / {
-      / countersign / 7:[
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
-        / unprotected / {
-          / kid / 4:'11'
-        }, 
-        / signature / h'5ac05e289d5d0e1b0a7f048a5d2b643813ded50bc9e4
-9220f4f7278f85f19d4a77d655c9d3b51e805a74b099e1e085aacd97fc29d72f887e
-8802bb6650cceb2c'
-      ]
-    }, 
-    / payload / 'This is the content.', 
-    / signatures / [
-      [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
-        / unprotected / {
-          / kid / 4:'11'
-        }, 
-        / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
-5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
-98f53afd2fa0f30a'
       ]
     ]
   ]
@@ -2415,20 +2329,20 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
           <sourcecode type="CBORdiag"><![CDATA[
 98(
   [
-    / protected / h'a2687265736572766564f40281687265736572766564' / 
-{
+    / protected h'a2687265736572766564f40281687265736572766564' / 
+    << {
         "reserved":false, 
-        \ crit \ 2:[
+        / crit / 2:[
           "reserved"
         ]
-      } / , 
+      } >>, 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / signatures / [
       [
-        / protected / h'a10126' / {
-            \ alg \ 1:-7 \ ECDSA 256 \
-          } / , 
+        / protected h'a10126' / << {
+            / alg / 1:-7 / ECDSA 256 /
+          } >>, 
         / unprotected / {
           / kid / 4:'11'
         }, 
@@ -2455,9 +2369,9 @@ c5b07ec6d722e3835adb5b2d8c44e95ffb13877dd2582866883535de3bb03d01753f
           <sourcecode type="CBORdiag"><![CDATA[
 18(
   [
-    / protected / h'a10126' / {
-        \ alg \ 1:-7 \ ECDSA 256 \
-      } / , 
+    / protected h'a10126' / << {
+        / alg / 1:-7 / ECDSA 256 /
+      } >>,
     / unprotected / {
       / kid / 4:'11'
     }, 
@@ -2484,9 +2398,9 @@ a4c345cacb36'
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >>,
     / unprotected / {
       / iv / 5:h'c9cf4df2fe6c632bf7886413'
     }, 
@@ -2494,9 +2408,9 @@ a4c345cacb36'
 c52a357da7a644b8070a151b0', 
     / recipients / [
       [
-        / protected / h'a1013818' / {
-            \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
+        / protected h'a1013818' / << {
+            / alg / 1:-25 / ECDH-ES + HKDF-256 /
+          } >>,
         / unprotected / {
           / ephemeral / -1:{
             / kty / 1:2, 
@@ -2535,9 +2449,9 @@ bf054e1c7b4d91d6280',
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a1010a' / {
-        \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+    / protected h'a1010a' / << {
+        / alg / 1:10 / AES-CCM-16-64-128 /
+      } >>, 
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a76c'
     }, 
@@ -2545,67 +2459,12 @@ bf054e1c7b4d91d6280',
 1b687b847', 
     / recipients / [
       [
-        / protected / h'a10129' / {
-            \ alg \ 1:-10
-          } / , 
+        / protected  h'a10129' / << {
+            / alg / 1:-10
+          } >>, 
         / unprotected / {
           / salt / -20:'aabbccddeeffgghh', 
           / kid / 4:'our-secret'
-        }, 
-        / ciphertext / h''
-      ]
-    ]
-  ]
-)
-]]></sourcecode>
-        </section>
-        <section anchor="Appendix_B_3_3">
-            <name>Counter Signature on Encrypted Content</name>
-          <t>This example uses the following:
-          </t>
-            <ul>
-              <li>CEK: AES-GCM w/ 128-bit key</li>
-              <li>Recipient class: ECDH Ephemeral-Static, Curve P-256</li>
-          </ul>
-          <t>Size of binary file is 326 bytes</t>
-          <sourcecode type="CBORdiag"><![CDATA[
-96(
-  [
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
-    / unprotected / {
-      / iv / 5:h'c9cf4df2fe6c632bf7886413', 
-      / countersign / 7:[
-        / protected / h'a1013823' / {
-            \ alg \ 1:-36
-          } / , 
-        / unprotected / {
-          / kid / 4:'bilbo.baggins@hobbiton.example'
-        }, 
-        / signature / h'00929663c8789bb28177ae28467e66377da12302d7f9
-594d2999afa5dfa531294f8896f2b6cdf1740014f4c7f1a358e3a6cf57f4ed6fb02f
-cf8f7aa989f5dfd07f0700a3a7d8f3c604ba70fa9411bd10c2591b483e1d2c31de00
-3183e434d8fba18f17a4c7e3dfa003ac1cf3d30d44d2533c4989d3ac38c38b71481c
-c3430c9d65e7ddff'
-      ]
-    }, 
-    / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
-c52a357da7a644b8070a151b0', 
-    / recipients / [
-      [
-        / protected / h'a1013818' / {
-            \ alg \ 1:-25 \ ECDH-ES + HKDF-256 \
-          } / , 
-        / unprotected / {
-          / ephemeral / -1:{
-            / kty / 1:2, 
-            / crv / -1:1, 
-            / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
-bf054e1c7b4d91d6280', 
-            / y / -3:true
-          }, 
-          / kid / 4:'meriadoc.brandybuck@buckland.example'
         }, 
         / ciphertext / h''
       ]
@@ -2627,9 +2486,9 @@ bf054e1c7b4d91d6280',
           <sourcecode type="CBORdiag"><![CDATA[
 96(
   [
-    / protected / h'a10101' / {
-        \ alg \ 1:1 \ AES-GCM 128 \
-      } / , 
+    / protected h'a10101' / << {
+        / alg / 1:1 / AES-GCM 128 /
+      } >> , 
     / unprotected / {
       / iv / 5:h'02d1f7e6f26c43d4868d87ce'
     }, 
@@ -2667,9 +2526,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 16(
   [
-    / protected / h'a1010a' / {
-        \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+    / protected h'a1010a' / << {
+        / alg / 1:10 / AES-CCM-16-64-128 /
+      } >> , 
     / unprotected / {
       / iv / 5:h'89f52f65a1c580933b5261a78c'
     }, 
@@ -2691,9 +2550,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 16(
   [
-    / protected / h'a1010a' / {
-        \ alg \ 1:10 \ AES-CCM-16-64-128 \
-      } / , 
+    / protected  h'a1010a' / << {
+        / alg / 1:10 / AES-CCM-16-64-128 /
+      } >> , 
     / unprotected / {
       / partial iv / 6:h'61a7'
     }, 
@@ -2718,9 +2577,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a1010f' / {
-        \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
+    / protected  h'a1010f' / << {
+        / alg / 1:15 / AES-CBC-MAC-256//64 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'9e1226ba1f81b848', 
@@ -2750,18 +2609,18 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a10105' / {
-        \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
+    / protected  h'a10105' / << {
+        / alg / 1:5 / HMAC 256//256 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'81a03448acd3d305376eaa11fb3fe416a955be2cbe7ec96f012c99
 4bc3f16a41', 
     / recipients / [
       [
-        / protected / h'a101381a' / {
-            \ alg \ 1:-27 \ ECDH-SS + HKDF-256 \
-          } / , 
+        / protected  h'a101381a' / << {
+            / alg / 1:-27 / ECDH-SS + HKDF-256 /
+          } >> , 
         / unprotected / {
           / static kid / -3:'peregrin.took@tuckborough.example', 
           / kid / 4:'meriadoc.brandybuck@buckland.example', 
@@ -2788,9 +2647,9 @@ e1c62'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a1010e' / {
-        \ alg \ 1:14 \ AES-CBC-MAC-128//64 \
-      } / , 
+    / protected  h'a1010e' / << {
+        / alg / 1:14 / AES-CBC-MAC-128//64 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'36f5afaf0bab5d43', 
@@ -2828,18 +2687,18 @@ b6eb0'
           <sourcecode type="CBORdiag"><![CDATA[
 97(
   [
-    / protected / h'a10105' / {
-        \ alg \ 1:5 \ HMAC 256//256 \
-      } / , 
+    / protected h'a10105' / << {
+        / alg / 1:5 / HMAC 256//256 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'bf48235e809b5c42e995f2b7d5fa13620e7ed834e337f6aa43df16
 1e49e9323e', 
     / recipients / [
       [
-        / protected / h'a101381c' / {
-            \ alg \ 1:-29 \ ECHD-ES+A128KW \
-          } / , 
+        / protected h'a101381c' / << {
+            / alg / 1:-29 / ECHD-ES+A128KW /
+          } >> , 
         / unprotected / {
           / ephemeral / -1:{
             / kty / 1:2, 
@@ -2883,9 +2742,9 @@ a69e8c07dfbca5bb1f661bc5f8e0df9e3eff5'
           <sourcecode type="CBORdiag"><![CDATA[
 17(
   [
-    / protected / h'a1010f' / {
-        \ alg \ 1:15 \ AES-CBC-MAC-256//64 \
-      } / , 
+    / protected h'a1010f' / << {
+        / alg / 1:15 / AES-CBC-MAC-256//64 /
+      } >> , 
     / unprotected / {}, 
     / payload / 'This is the content.', 
     / tag / h'726043745027214f'
@@ -3043,7 +2902,7 @@ df1c3'
       <t>The following individuals are to blame for getting me started on this project in the first place: Richard Barnes, Matt Miller, and Martin Thomson.  </t>
       <t>The initial version of the specification was based to some degree on the outputs of the JOSE and S/MIME working groups.  </t>
       <t>
-        The following individuals provided input into the final form of the document: Carsten Bormann, John Bradley, Brain Campbell, Michael B. Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Goran Göran Selander.
+        The following individuals provided input into the final form of the document: Carsten Bormann, John Bradley, Brain Campbell, Michael B. Jones, Ilari Liusvaara, Francesca Palombini, Ludwig Seitz, and Göran Selander.
       </t>
     </section>
   </back>
