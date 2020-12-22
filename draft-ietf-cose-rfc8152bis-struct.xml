@@ -1611,7 +1611,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.
         </li>
         <li>
-          Encoding <bcp14>MUST</bcp14> be done using definite lengths and values <bcp14>MUST</bcp14> be the minimum possible length.
+          Encoding <bcp14>MUST</bcp14> be done using definite lengths and the value's length <bcp14>MUST</bcp14> be the minimum possible length.
           This means that the integer 1 is encoded as "0x01" and not "0x1801".
         </li>
         <li>
