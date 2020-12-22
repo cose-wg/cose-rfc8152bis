@@ -90,17 +90,17 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 2,
+    "comments": 3,
     "created_at": "2020-06-23T06:12:44Z",
-    "updated_at": "2020-06-23T17:27:16Z",
-    "closed_at": null,
+    "updated_at": "2020-09-24T19:25:15Z",
+    "closed_at": "2020-09-24T19:25:15Z",
     "author_association": "NONE",
     "active_lock_reason": null,
     "body": "When COSE was first designed CDDL was still incomplete, and so the COSE RFC expresses the content of binary blobs that contain CDDL using a comment - with \"comments\" that live inside the comment set off by backslashes [eg](https://github.com/cose-wg/cose-rfc8152bis/blob/08ac00ae1a3a0722fc2ff894455967bf04df8683/draft-ietf-cose-rfc8152bis-struct.xml#L2227):\r\n\r\n    / protected / h'a10101' / {\r\n        \\ alg \\ 1:1 \\ AES-GCM 128 \\\r\n      } / , \r\n\r\nCDDL's Extended Diagnostic Notation now defines a clean way to handle this situation, using double angle brackets; the above can now be expressed as:\r\n\r\n    / protected / << {\r\n        / alg / 1:1 / AES-GCM 128 /\r\n    } >> ,\r\n\r\nwhich is easier to read and communicates the intent more clearly.",
@@ -476,17 +476,17 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 2,
+    "comments": 3,
     "created_at": "2019-11-23T01:05:40Z",
-    "updated_at": "2019-12-28T02:36:13Z",
-    "closed_at": null,
+    "updated_at": "2020-09-24T19:25:42Z",
+    "closed_at": "2020-09-24T19:25:42Z",
     "author_association": "NONE",
     "active_lock_reason": null,
     "body": "The protected buckets are sometimes referred to as headers. \r\n\r\n> The IV can be placed in the unprotected header\r\n> The Parital IV can be placed in the unprotected header\r\n> The parameter is used to indicate which protected header labels\r\n> This attribute is then encoded as an unprotected header.\r\n> Applications SHOULD verify that the same label does not occur in both the protected and unprotected headers\r\n\r\n> Headers = (\r\n>     protected : empty_or_serialized_map,\r\n>     unprotected : header_map\r\n> )",
@@ -638,17 +638,17 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
 
     ],
     "milestone": null,
-    "comments": 0,
+    "comments": 1,
     "created_at": "2019-10-11T23:23:06Z",
-    "updated_at": "2019-10-11T23:33:21Z",
-    "closed_at": null,
+    "updated_at": "2020-09-24T19:26:25Z",
+    "closed_at": "2020-09-24T19:26:25Z",
     "author_association": "NONE",
     "active_lock_reason": null,
     "body": "Is a kid, iv, content type... a \"header\", a \"parameter\" or a \"header parameter\"?\r\n\r\nThe textual description of each refers to them as \"parameters\" -- \"This parameter is used to indicate...\"\r\n\r\nThe summarizing table 2 calls them \"header parameters\". \r\n\r\nThe paragraph on CDDL and the CDDL refers them as \"headers\".\r\n\r\nI was theorizing that protected and unprotected are headers and kid, iv... are parameters or header parameters, but that isn't consistent with the text.\r\n\r\nNo ambiguity when implementing, but a little confusing to read.\r\n\r\nIf the official name is \"header parameter\" and \"parameter\" is the short name, then the main divergence is the CDDL and CDDL-related text. If the CDDL and CDDL-related text where changed to  use \"header parameter\" it seems like all would be consistent.\r\n",
