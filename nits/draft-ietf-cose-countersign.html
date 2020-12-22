@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>CBOR Object Signing and Encryption (COSE): Countersignatures</title>
+<meta content="Jim Schaad" name="author">
+<meta content="
+       
+        Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.
+        CBOR Object Signing and Encryption (COSE) defines a set of security services for CBOR.
+        This document defines a countersignature algorithm along with the needed header parameters and CBOR tags for COSE.
+       
+    " name="description">
+<meta content="xml2rfc 3.5.0" name="generator">
+<meta content="draft-ietf-cose-countersign-00" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.5.0
+    Python 3.8.5
+    appdirs 1.4.4
+    ConfigArgParse 1.2.3
+    google-i18n-address 2.4.0
+    html5lib 1.1
+    intervaltree 3.0.2
+    Jinja2 2.11.2
+    kitchen 1.2.6
+    lxml 4.5.0
+    pycountry 19.8.18
+    pyflakes 2.1.1
+    PyYAML 5.3.1
+    requests 2.22.0
+    setuptools 45.2.0
+    six 1.14.0
+-->
+<link href="draft-ietf-cose-countersign.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+
+<style type="text/css">/*<![CDATA[*/
+
+body {
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  color: #333;
+  font-size-adjust: 0.5;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
+}
+
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  font-size-adjust: 0.5;
+  font-weight: bold;
+  color: #333;
+  line-height: 100%;
+  margin: 1.2em 0 0.3em;
+}
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
+h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
+  color: #333;
+}
+
+table {
+  margin-left: 0em;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(2n+1) > td,
+tr:nth-child(2n+1) > th {
+  background-color: #f9f9f9;
+}
+td.reference {
+  max-width: 200px;
+  border-top: none;
+  padding-right: 1em;
+}
+.right {
+  text-align: right;
+}
+
+
+table.header, table#rfc\.headerblock {
+  width: 100%;
+}
+table.header td, table#rfc\.headerblock td {
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0;
+}
+.filename {
+  display: block;
+  color: rgb(119, 119, 119);
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+samp, tt, code, pre {
+  font: 13.5px Consolas, monospace;
+  font-size-adjust: none;
+}
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  padding: 5px;
+  margin: 5px;
+}
+.figure, caption {
+  font-style: italic;
+  margin: 0 1.5em;
+  text-align: left;
+}
+
+address {
+  margin: 16px 2px;
+  line-height: 20px;
+}
+.vcard {
+  font-style: normal;
+}
+.vcardline {
+  display: block;
+}
+.vcardline .fn, address b {
+  font-weight: normal;
+}
+.vcardline .hidden {
+  display: none;
+}
+
+dl {
+  margin-left: 1em;
+}
+dl.dl-horizontal: {
+  margin-left: 0;
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.nohang > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .5em;
+}
+dl.compact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+ul.empty {
+  list-style-type: none;
+}
+ul.empty li {
+  margin-top: .5em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+hr.noprint {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #2a6496;
+}
+a[href]:hover {
+  background-color: #eee;
+}
+
+p, ol, ul, li {
+  padding: 0;
+}
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
+}
+address {
+  font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
+}
+
+.github-fork-ribbon-wrapper {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* "Fork me on GitHub" CSS ribbon based on
+   * https://github.com/simonwhitaker/github-fork-ribbon-css
+   */
+  .github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    pointer-events: auto;
+
+    top: 38px;
+    right: -45px;
+
+    transform: rotate(45deg);
+  }
+
+  .github-fork-ribbon a[href],
+  .github-fork-ribbon a[href]:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    width: 190px;
+    line-height: 18px;
+
+    display: inline-block;
+    padding: 2px 0;
+
+    border: 1.5px dotted #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .github-fork-ribbon-wrapper {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    overflow: hidden;
+    top: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .github-fork-ribbon-wrapper {
+    position: fixed;
+  }
+  /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
+
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body>
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">COSE Structure</td>
+<td class="right">December 2020</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Schaad</td>
+<td class="center">Expires 25 June 2021</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">COSE Working Group</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2020-12-22" class="published">22 December 2020</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Standards Track</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2021-06-25">25 June 2021</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">J. Schaad</div>
+<div class="org">August Cellars</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">CBOR Object Signing and Encryption (COSE): Countersignatures</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">
+        Concise Binary Object Representation (CBOR) is a data format designed for small code size and small message size.
+        CBOR Object Signing and Encryption (COSE) defines a set of security services for CBOR.
+        This document defines a countersignature algorithm along with the needed header parameters and CBOR tags for COSE.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-contributing-to-this-docume">
+<a href="#name-contributing-to-this-docume" class="section-name selfRef">Contributing to this document</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        The source for this draft is being maintained in GitHub.
+        Suggested changes should be submitted as pull requests  at <span><a href="https://github.com/cose-wg/cose-rfc8152bis">https://github.com/cose-wg/cose-rfc8152bis</a></span>.
+        Instructions are on that page as well.
+        Editorial changes can be managed in GitHub, but any substantial issues need to be discussed on the COSE mailing list.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 25 June 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2020 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Simplified BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Simplified BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="ulEmpty toc compact">
+<li class="ulEmpty toc compact" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.1.2.2">
+                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-cbor-grammar" class="xref">CBOR Grammar</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.1.2.3">
+                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-document-terminology" class="xref">Document Terminology</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-countersignature-header-par" class="xref">Countersignature Header Parameters</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-version-2-countersignatures" class="xref">Version 2 Countersignatures</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-full-countersignatures" class="xref">Full Countersignatures</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-abbreviated-countersignatur" class="xref">Abbreviated Countersignatures</a><a href="#section-toc.1-1.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-signing-and-verification-pr" class="xref">Signing and Verification Process</a><a href="#section-toc.1-1.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-cbor-encoding-restrictions" class="xref">CBOR Encoding Restrictions</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-cbor-tag-assignment" class="xref">CBOR Tag Assignment</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-cose-header-parameters-regi" class="xref">COSE Header Parameters Registry</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-implementation-status" class="xref">Implementation Status</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-authors-versions" class="xref">Author's Versions</a><a href="#section-toc.1-1.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-cose-testing-library" class="xref">COSE Testing Library</a><a href="#section-toc.1-1.7.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.8.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-examples" class="xref">Examples</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-a.1" class="xref">A.1</a>.  <a href="#name-examples-of-signed-messages" class="xref">Examples of Signed Messages</a><a href="#section-toc.1-1.9.2.1.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.9.2.1.2.1">
+                    <p id="section-toc.1-1.9.2.1.2.1.1"><a href="#section-a.1.1" class="xref">A.1.1</a>.  <a href="#name-countersignature" class="xref">Countersignature</a><a href="#section-toc.1-1.9.2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-a.2" class="xref">A.2</a>.  <a href="#name-examples-of-enveloped-messa" class="xref">Examples of Enveloped Messages</a><a href="#section-toc.1-1.9.2.2.1" class="pilcrow">¶</a></p>
+<ul class="compact toc ulEmpty">
+<li class="compact toc ulEmpty" id="section-toc.1-1.9.2.2.2.1">
+                    <p id="section-toc.1-1.9.2.2.2.1.1"><a href="#section-a.2.1" class="xref">A.2.1</a>.  <a href="#name-countersignature-on-encrypt" class="xref">Countersignature on Encrypted Content</a><a href="#section-toc.1-1.9.2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-a.3" class="xref">A.3</a>.  <a href="#name-examples-of-encrypted-messa" class="xref">Examples of Encrypted Messages</a><a href="#section-toc.1-1.9.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-a.4" class="xref">A.4</a>.  <a href="#name-examples-of-maced-messages" class="xref">Examples of MACed Messages</a><a href="#section-toc.1-1.9.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="compact toc ulEmpty" id="section-toc.1-1.9.2.5">
+                <p id="section-toc.1-1.9.2.5.1"><a href="#section-a.5" class="xref">A.5</a>.  <a href="#name-examples-of-mac0-messages" class="xref">Examples of MAC0 Messages</a><a href="#section-toc.1-1.9.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-appendix.b" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty toc compact" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-appendix.c" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">
+        There has been an increased focus on small, constrained devices that make up the Internet of Things (IoT). 
+        One of the standards that has come out of this process is "Concise Binary Object Representation (CBOR)" <span>[<a href="#I-D.ietf-cbor-7049bis" class="xref">I-D.ietf-cbor-7049bis</a>]</span>. 
+        CBOR extended the data model of the JavaScript Object Notation (JSON) <span>[<a href="#STD90" class="xref">STD90</a>]</span> by allowing for binary data, among other changes. 
+        CBOR has been adopted by several of the IETF working groups dealing with the IoT world as their encoding of data structures. 
+        CBOR was designed specifically both to be small in terms of messages transported and implementation size and to be a schema-free decoder. 
+        A need exists to provide message security services for IoT, and using CBOR as the message-encoding format makes sense.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">
+        During the process of advancing COSE to an Internet Standard, it was noticed the description of the security properties of countersignatures was incorrect for the COSE_Sign1 structure.
+        Since the security properties that were described, those of a true countersignature, were those that the working group desired, the decision was made to remove all of the countersignature text from <span>[<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> and create a new document to both deprecate the old countersignature algorithm and to define a new one with the desired security properties.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">
+        The problem with the previous countersignature algorithm was that the cryptographically computed value was not always included.
+        The initial assumption that the cryptographic value was in the third slot of the array was known not to be true at the time, but in the case of the MAC structures this was not deemed to be an issue.
+        The new algorithm is more aggressive about the set of values included in the countersignature computation so that the cryptographic computed values is included.
+        The exception to this is the COSE_Signature structure where there is no cryptographic computed value.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">
+        The new algorithm is designed to produce the same countersignature value in those cases where the cryptographic computed value was already included.
+        This means that for those structures the only thing that would need to be done is to change the value of the header parameter.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<div id="requirements-terminology">
+<section id="section-1.1">
+        <h3 id="name-requirements-terminology">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-requirements-terminology" class="section-name selfRef">Requirements Terminology</a>
+        </h3>
+<p id="section-1.1-1">
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cbor-grammar">
+<section id="section-1.2">
+        <h3 id="name-cbor-grammar">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-cbor-grammar" class="section-name selfRef">CBOR Grammar</a>
+        </h3>
+<p id="section-1.2-1">
+          CBOR grammar in the document is presented using CBOR Data Definition Language (CDDL) <span>[<a href="#RFC8610" class="xref">RFC8610</a>]</span>.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">The collected CDDL can be extracted from the XML version of this document via the following XPath expression below.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.)<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<div id="section-1.2-3">
+<pre class="sourcecode lang-XPATH">
+//sourcecode[@type='CDDL']/text()
+</pre><a href="#section-1.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-1.2-4">CDDL expects the initial non-terminal symbol to be the first symbol in the file.  For this reason, the first fragment of CDDL is presented here.<a href="#section-1.2-4" class="pilcrow">¶</a></p>
+<div id="section-1.2-5">
+<pre class="sourcecode lang-CDDL">
+start = COSE_Countersignature_Tagged / Internal_Types
+
+; This is defined to make the tool quieter:
+Internal_Types = Countersign_structure / COSE_Countersignature0
+</pre><a href="#section-1.2-5" class="pilcrow">¶</a>
+</div>
+<p id="section-1.2-6">The non-terminal Internal_Types is defined for dealing with the automated validation tools used during the writing of this document.  It references those non-terminals that are used for security computations but are not emitted for transport.<a href="#section-1.2-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-1.3">
+        <h3 id="name-document-terminology">
+<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-document-terminology" class="section-name selfRef">Document Terminology</a>
+        </h3>
+<p id="section-1.3-1">In this document, we use the following terminology:<a href="#section-1.3-1" class="pilcrow">¶</a></p>
+<p id="section-1.3-2">Byte is a synonym for octet.<a href="#section-1.3-2" class="pilcrow">¶</a></p>
+<p id="section-1.3-3">
+          Constrained Application Protocol (CoAP) is a specialized web transfer protocol for use in constrained systems.  It is defined in <span>[<a href="#RFC7252" class="xref">RFC7252</a>]</span>.<a href="#section-1.3-3" class="pilcrow">¶</a></p>
+<p id="section-1.3-4">
+          Context is used throughout the document to represent information that is not part of the COSE message.
+          Information which is part of the context can come from several different sources including:
+          Protocol interactions, associated key structures, and program configuration.
+          The context to use can be implicit, identified using the 'kid context' header parameter defined in <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span>, or identified by a protocol-specific identifier.
+          Context should generally be included in the cryptographic construction; for more details see <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14#section-4.3" class="relref">Section 4.3</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span>.<a href="#section-1.3-4" class="pilcrow">¶</a></p>
+<p id="section-1.3-5">The term 'byte string' is used for sequences of bytes, while the term 'text string' is used for sequences of characters.<a href="#section-1.3-5" class="pilcrow">¶</a></p>
+</section>
+</section>
+</div>
+<section id="section-2">
+      <h2 id="name-countersignature-header-par">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-countersignature-header-par" class="section-name selfRef">Countersignature Header Parameters</a>
+      </h2>
+<p id="section-2-1">This section defines a set of common header parameters.  A summary of these header parameters can be found in <a href="#Header-Table" class="xref">Table 1</a>.  This table should be consulted to determine the value of label and the type of the value.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">The set of header parameters defined in this section are:<a href="#section-2-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2-3">
+        <dt id="section-2-3.1">V2 countersignature:</dt>
+        <dd style="margin-left: 1.5em" id="section-2-3.2">
+          This header parameter holds one or more countersignature values. 
+          Countersignatures provide a method of having a second party sign some data. 
+          The countersignature header parameter can occur as an unprotected attribute in any of the following structures: COSE_Sign1, COSE_Signature, COSE_Encrypt, COSE_recipient, COSE_Encrypt0, COSE_Mac, and COSE_Mac0. 
+          Details on version 2 countersignatures are found in <a href="#counter_signatureV2" class="xref">Section 3</a>.<a href="#section-2-3.2" class="pilcrow">¶</a>
+</dd>
+      <dd class="break"></dd>
+</dl>
+<span id="name-common-header-parameters"></span><div id="Header-Table">
+<table class="center" id="table-1">
+        <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-common-header-parameters" class="selfRef">Common Header Parameters</a>
+        </caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Name</th>
+            <th class="text-left" rowspan="1" colspan="1">Label</th>
+            <th class="text-left" rowspan="1" colspan="1">Value Type</th>
+            <th class="text-left" rowspan="1" colspan="1">Value Registry</th>
+            <th class="text-left" rowspan="1" colspan="1">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">counter signature version 2</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD10</td>
+            <td class="text-left" rowspan="1" colspan="1">COSE_Countersignature / [+ COSE_Countersignature ]</td>
+            <td class="text-left" rowspan="1" colspan="1"></td>
+            <td class="text-left" rowspan="1" colspan="1">V2 counter signature attribute</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">counter signature 0 version 2</td>
+            <td class="text-left" rowspan="1" colspan="1">TBD11</td>
+            <td class="text-left" rowspan="1" colspan="1">COSE_Countersignature0</td>
+            <td class="text-left" rowspan="1" colspan="1"></td>
+            <td class="text-left" rowspan="1" colspan="1">Abbreviated Counter signature vesion 2</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<p id="section-2-5">The CDDL fragment that represents the set of header parameters defined in this section is given below.  Each of the header parameters is tagged as optional because they do not need to be in every map; header parameters required in specific maps are discussed above.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<div id="section-2-6">
+<pre class="sourcecode lang-CDDL">
+      Generic_Headers /= (
+      ? TBD10 =&gt; COSE_Countersignature / [+COSE_Countersignature]
+      ; V2 Countersignature
+      ? TBD11 =&gt; COSE_Countersignature0  ; V2 Countersignature0
+      )
+</pre><a href="#section-2-6" class="pilcrow">¶</a>
+</div>
+</section>
+<div id="counter_signatureV2">
+<section id="section-3">
+      <h2 id="name-version-2-countersignatures">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-version-2-countersignatures" class="section-name selfRef">Version 2 Countersignatures</a>
+      </h2>
+<p id="section-3-1">
+        A countersignature is normally defined as a second signature that confirms a primary signature.
+        A normal example of a countersignature is the signature that a notary public places on a document as witnessing that you have signed the document.
+        Thus applying a countersignature to either the COSE_Signature or COSE_Sign1 objects match this traditional definition.
+        This document extends the context of a countersignature to allow it to be applied to all of the security structures defined.
+        It needs to be noted that the countersignature needs to be treated as a separate operation from the initial operation even if it is applied by the same user as is done in <span>[<a href="#I-D.ietf-core-groupcomm-bis" class="xref">I-D.ietf-core-groupcomm-bis</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">
+        COSE supports two different forms for countersignatures.
+        Full countersignatures use the structure COSE_Countersignature.
+        This is same structure as COSE_Signature and thus it can have protected and unprotected attributes, including chained countersignatures.
+        Abbreviated countersignatures use the structure COSE_Countersignature0.
+        This structure only contains the signature value and nothing else.
+        The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">
+        The version 2 countersignature changes the algorithm used for computing the signature from the original version <span><a href="https://rfc-editor.org/rfc/rfc8152#section-4.5" class="relref">Section 4.5</a> of [<a href="#RFC8152" class="xref">RFC8152</a>]</span>.
+        The new version now includes the cryptographic material generated for all of the structures rather than just for a subset.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">
+        COSE was designed for uniformity in how the data structures are specified.
+        One result of this is that for COSE one can expand the concept of countersignatures beyond just the idea of signing a signature to being able to sign most of the structures without having to create a new signing layer.
+        When creating a countersignature, one needs to be clear about the security properties that result.
+        When done on a COSE_Signature or COSE_Sign1, the normal countersignature semantics are preserved.
+        That is the countersignature makes a statement about the existence of a signature and, when used as a timestamp, a time point at which the signature exists.
+        When done on a COSE_Sign, this is the same as applying a second signature to the payload and adding a parallel signature as a new COSE_Signature is the preferred method.
+        When done on a COSE_Mac or COSE_Mac0, the payload is included as well as the MAC value.
+        When done on a COSE_Encrypt or COSE_Encrypt0, the existence of the encrypted data is attested to.
+        It should be noted that there is a big difference between attesting to the encrypted data as opposed to attesting to the unencrypted data.
+        If the latter is what is desired, then one needs to apply a signature to the data and then encrypt that.
+        It is always possible to construct cases where the use of two different keys will appear to result in a successful decryption (the tag check success), but which produce two completely different plaintexts.
+        This situation is not detectable by a countersignature on the encrypted data.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<section id="section-3.1">
+        <h3 id="name-full-countersignatures">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-full-countersignatures" class="section-name selfRef">Full Countersignatures</a>
+        </h3>
+<p id="section-3.1-1">
+          The COSE_Countersignature structure allows for the same set of capabilities  as a COSE_Signature.
+          This means that all of the capabilities of a signature are duplicated with this structure.
+          Specifically, the countersigner does not need to be related to the producer of what is being countersigned as key and algorithm identification can be placed in the countersignature attributes.
+          This also means that the countersignature can itself be countersigned.
+          This is a feature required by protocols such as long-term archiving services.
+          More information on how countersignatures is used can be found in the evidence record syntax described in <span>[<a href="#RFC4998" class="xref">RFC4998</a>]</span>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">
+          The full countersignature structure can be encoded as either tagged or untagged depending on the context it is used in.  A tagged COSE_Countersignature structure is identified by the CBOR tag TBD0.  The countersignature structure is the same as that used for a signer on a signed object. The CDDL fragment for full countersignatures is:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<div id="section-3.1-3">
+<pre class="sourcecode lang-CDDL">
+COSE_Countersignature_Tagged = #6.9999(COSE_Countersignature)
+COSE_Countersignature = COSE_Signature
+</pre><a href="#section-3.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3.1-4">
+          The details of the fields of a countersignature can be found in <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14#section-4.1" class="relref">Section 4.1</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">          
+          An example of a countersignature on a signature can be found in <a href="#Appendix_B_1_3" class="xref">Appendix A.1.1</a>. 
+          An example of a countersignature in an encryption object can be found in <a href="#Appendix_B_3_3" class="xref">Appendix A.2.1</a>.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-6">
+          It should be noted that only a signature algorithm with appendix (see <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14#section-8" class="relref">Section 8</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span>) can be used for countersignatures. 
+          This is because the body should be able to be processed without having to evaluate the countersignature, and this is not possible for signature schemes with message recovery.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
+</section>
+<section id="section-3.2">
+        <h3 id="name-abbreviated-countersignatur">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-abbreviated-countersignatur" class="section-name selfRef">Abbreviated Countersignatures</a>
+        </h3>
+<p id="section-3.2-1">
+          Abbreviated countersignatures were designed primarily to deal with the problem of encrypted group messaging, but where it is required to know who originated the message.
+          The objective was to keep the countersignature as small as possible while still providing the needed security.
+          For abbreviated countersignatures, there is no provision for any protected attributes related to the signing operation.
+          Instead, the parameters for computing or verifying the abbreviated countersignature are provided by the same context used to describe the encryption, signature, or MAC processing.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">
+          The CDDL fragment for the abbreviated countersignatures is:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<div id="section-3.2-3">
+<pre class="sourcecode lang-CDDL">
+COSE_Countersignature0 = bstr
+</pre><a href="#section-3.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3.2-4">
+          The byte string representing the signature value is placed in the Countersignature0 attribute.
+          This attribute is then encoded as an unprotected header parameter.
+          The attribute is defined below.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+</section>
+<div id="CountersignV2_verify">
+<section id="section-3.3">
+        <h3 id="name-signing-and-verification-pr">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-signing-and-verification-pr" class="section-name selfRef">Signing and Verification Process</a>
+        </h3>
+<p id="section-3.3-1">
+          In order to create a signature, a well-defined byte string is needed.
+          The Countersign_structure is used to create the canonical form. 
+          This signing and verification process takes in countersignature target structure, the signer information (COSE_Signature), and the application data (external source). 
+          A Countersign_structure is a CBOR array.
+          The target structure of the countersignature needs to have all of it's cryptographic functions finalized before the computing the signature.
+          The fields of the Countersign_structure in order are:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.3-2">
+          <li id="section-3.3-2.1">
+            <p id="section-3.3-2.1.1">
+              A context text string identifying the context of the signature.  The context text string is:<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
+<ul class="ulEmpty normal">
+<li class="ulEmpty normal" id="section-3.3-2.1.2.1">
+                "CounterSignature" for signatures using the COSE_Countersignature structure when other_fields is absent.<a href="#section-3.3-2.1.2.1" class="pilcrow">¶</a>
+</li>
+              <li class="ulEmpty normal" id="section-3.3-2.1.2.2">
+                "CounterSignature0" for signatures using the COSE_Countersignature0 structure when other_fields is absent.<a href="#section-3.3-2.1.2.2" class="pilcrow">¶</a>
+</li>
+              <li class="ulEmpty normal" id="section-3.3-2.1.2.3">
+                "CounterSignatureV2" for signatures using the COSE_Countersignature structure when other_fields is present.<a href="#section-3.3-2.1.2.3" class="pilcrow">¶</a>
+</li>
+              <li class="ulEmpty normal" id="section-3.3-2.1.2.4">
+                "CounterSignature0V2" for signatures using the COSE_Countersignature0 structure when other_fields is present.<a href="#section-3.3-2.1.2.4" class="pilcrow">¶</a>
+</li>
+            </ul>
+</li>
+          <li id="section-3.3-2.2">
+            The protected attributes from the target structure encoded in a bstr type.
+            If there are no protected attributes, a zero-length byte string is used.<a href="#section-3.3-2.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-2.3">
+            The protected attributes from the signer structure encoded in a bstr type.
+            If there are no protected attributes, a zero-length byte string is used. 
+            This field is omitted for the Countersignature0V2 attribute.<a href="#section-3.3-2.3" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-2.4">
+            The externally supplied data from the application encoded in a bstr type.
+            If this field is not supplied, it defaults to a zero-length byte string.
+            (See <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14#section-4.3" class="relref">Section 4.3</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span> for application guidance on constructing this field.)<a href="#section-3.3-2.4" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-2.5">
+            The payload to be signed encoded in a bstr type.
+            The payload is placed here independent of how it is transported.<a href="#section-3.3-2.5" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-2.6">
+            If there are only two bstr fields in the target structure, this field is omitted.
+            The field is an array of all bstr fields after the second.
+            As an example, this would be an array of one element for the COSE_Sign1 structure containing the signature value.<a href="#section-3.3-2.6" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-3.3-3">The CDDL fragment that describes the above text is:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+<div id="section-3.3-4">
+<pre class="sourcecode lang-CDDL">
+Countersign_structure = [
+    context : "CounterSignature" / "CounterSignature0" /
+              "CounterSignatureV2" / "CounterSignature0V2" /,
+    body_protected : empty_or_serialized_map,
+    ? sign_protected : empty_or_serialized_map,
+    external_aad : bstr,
+    payload : bstr,
+    ? other_fields : [ + bstr ]
+]
+</pre><a href="#section-3.3-4" class="pilcrow">¶</a>
+</div>
+<p id="section-3.3-5">How to compute a countersignature:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.3-6">
+          <li id="section-3.3-6.1">Create a Countersign_structure and populate it with the appropriate fields.<a href="#section-3.3-6.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-6.2">Create the value ToBeSigned by encoding the Countersign_structure to a byte string, using the encoding described in <a href="#CBOR-Canonical" class="xref">Section 4</a>.<a href="#section-3.3-6.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-6.3">Call the signature creation algorithm passing in K (the key to sign with), alg (the algorithm to sign with), and ToBeSigned (the value to sign).<a href="#section-3.3-6.3" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-6.4">
+            Place the resulting signature value in the correct location.
+            This is the 'signature' field of the COSE_Countersignature structure.
+            This is the value of the Countersignature0 attribute.<a href="#section-3.3-6.4" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-3.3-7">The steps for verifying a countersignature are:<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.3-8">
+          <li id="section-3.3-8.1">Create a Countersign_structure and populate it with the appropriate fields.<a href="#section-3.3-8.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-8.2">Create the value ToBeSigned by encoding the Countersign_structure to a byte string, using the encoding described in <a href="#CBOR-Canonical" class="xref">Section 4</a>.<a href="#section-3.3-8.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-3.3-8.3">Call the signature verification algorithm passing in K (the key to verify with), alg (the algorithm used sign with), ToBeSigned (the value to sign), and sig (the signature to be verified).<a href="#section-3.3-8.3" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-3.3-9">
+  In addition to performing the signature verification, the application performs the appropriate checks to ensure that the key is correctly paired with the signing identity and that the signing identity is authorized before performing actions.<a href="#section-3.3-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="CBOR-Canonical">
+<section id="section-4">
+      <h2 id="name-cbor-encoding-restrictions">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-cbor-encoding-restrictions" class="section-name selfRef">CBOR Encoding Restrictions</a>
+      </h2>
+<p id="section-4-1">
+        In order to always regenerate the same byte string for the "to be signed" value, the deterministic encoding rules defined in <span><a href="https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16#section-4.2" class="relref">Section 4.2</a> of [<a href="#I-D.ietf-cbor-7049bis" class="xref">I-D.ietf-cbor-7049bis</a>]</span>.
+        These rules match the ones laid out in <span><a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14#section-11" class="relref">Section 11</a> of [<a href="#I-D.ietf-cose-rfc8152bis-struct" class="xref">I-D.ietf-cose-rfc8152bis-struct</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-5">
+      <h2 id="name-iana-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-5-1">
+        The registries and registrations listed below were created during processing of RFC 8152 <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>.
+        The majority of the actions are to update the references to point to this document.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<div id="cbor-tag-assignment">
+<section id="section-5.1">
+        <h3 id="name-cbor-tag-assignment">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-cbor-tag-assignment" class="section-name selfRef">CBOR Tag Assignment</a>
+        </h3>
+<p id="section-5.1-1">
+          IANA is requested to register a new tag for the CounterSignature type.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-2.1">Tag: TBD0<a href="#section-5.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.2">Data Item: COSE_Countersignature<a href="#section-5.1-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.3">Semantics: COSE standalone V2 countersignature<a href="#section-5.1-2.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-5.1-2.4">Reference: [[this document]]<a href="#section-5.1-2.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</div>
+<div id="cose-header-key-table">
+<section id="section-5.2">
+        <h3 id="name-cose-header-parameters-regi">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-cose-header-parameters-regi" class="section-name selfRef">COSE Header Parameters Registry</a>
+        </h3>
+<p id="section-5.2-1">
+          IANA created a registry titled "COSE Header Parameters" as part of processing <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">
+          IANA is requested to register the following new items in the registry.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<span id="name-new-common-header-parameter"></span><table class="center" id="table-2">
+          <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-new-common-header-parameter" class="selfRef">New Common Header Parameters</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Name</th>
+              <th class="text-left" rowspan="1" colspan="1">Label</th>
+              <th class="text-left" rowspan="1" colspan="1">Value Type</th>
+              <th class="text-left" rowspan="1" colspan="1">Value Registry</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">counter signature version 2</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD10</td>
+              <td class="text-left" rowspan="1" colspan="1">COSE_Countersignature / [+ COSE_Countersignature ]</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+              <td class="text-left" rowspan="1" colspan="1">V2 countersignature attribute</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Countersignature0 version 2</td>
+              <td class="text-left" rowspan="1" colspan="1">TBD11</td>
+              <td class="text-left" rowspan="1" colspan="1">COSE_Countersignature0</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+              <td class="text-left" rowspan="1" colspan="1">Abbreviated Counter signature vesion 2</td>
+            </tr>
+          </tbody>
+        </table>
+<p id="section-5.2-4">
+          IANA is requested to modify the Description field for "counter signature" and "CounterSignature0" to include the words "(Deprecated by [[This Document]]".<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-6">
+      <h2 id="name-security-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-6-1">
+        TODO - review and trim as needed.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">
+        There are a number of security considerations that need to be taken into account by implementers of this specification.
+        While some considerations have been highlighted here, additional considerations may be found in the documents listed in the references.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">Implementations need to protect the private key material for any individuals.  There are some cases that need to be highlighted on this issue.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-4.1">Using the same key for two different algorithms can leak information about the key.  It is therefore recommended that keys be restricted to a single algorithm.<a href="#section-6-4.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-4.2">Use of 'direct' as a recipient algorithm combined with a second recipient algorithm exposes the direct key to the second recipient.<a href="#section-6-4.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-4.3">Several of the algorithms in <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span> have limits on the number of times that a key can be used without leaking information about the key.<a href="#section-6-4.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-6-5">The use of ECDH and direct plus KDF (with no key wrap) will not directly lead to the private key being leaked; the one way function of the KDF will prevent that.  There is, however, a different issue that needs to be addressed.  Having two recipients requires that the CEK be shared between two recipients.  The second recipient therefore has a CEK that was derived from material that can be used for the weak proof of origin.  The second recipient could create a message using the same CEK and send it to the first recipient; the first recipient would, for either static-static ECDH or direct plus KDF, make an assumption that the CEK could be used for proof of origin even though it is from the wrong entity.  If the key wrap step is added, then no proof of origin is implied and this is not an issue.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">
+        
+            
+        Although it has been mentioned before, the use of a single key for multiple algorithms has been demonstrated in some cases to leak information about that key, provide the opportunity for attackers to forge integrity tags, or gain information about encrypted content.
+        Binding a key to a single algorithm prevents these problems.
+        Key creators and key consumers are strongly encouraged not only to create new keys for each different algorithm, but to include that selection of algorithm in any distribution of key material and strictly enforce the matching of algorithms in the key structure to algorithms in the message structure.
+        In addition to checking that algorithms are correct, the key form needs to be checked as well.
+        Do not use an 'EC2' key where an 'OKP' key is expected.<a href="#section-6-6" class="pilcrow">¶</a></p>
+<p id="section-6-7">Before using a key for transmission, or before acting on information received, a trust decision on a key needs to be made.  Is the data or action something that the entity associated with the key has a right to see or a right to request? A number of factors are associated with this trust decision.  Some of the ones that are highlighted here are:<a href="#section-6-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-8.1">What are the permissions associated with the key owner?<a href="#section-6-8.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-8.2">Is the cryptographic algorithm acceptable in the current context?<a href="#section-6-8.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-8.3">Have the restrictions associated with the key, such as algorithm or freshness, been checked and are they correct?<a href="#section-6-8.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-8.4">Is the request something that is reasonable, given the current state of the application?<a href="#section-6-8.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-8.5">Have any security considerations that are part of the message been enforced (as specified by the application or 'crit' header parameter)?<a href="#section-6-8.5" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-6-9">One area that has been getting exposure is traffic analysis of encrypted messages based on the length of the message.  This specification does not provide for a uniform method of providing padding as part of the message structure.  An observer can distinguish between two different messages (for example, 'YES' and 'NO') based on the length for all of the content encryption algorithms that are defined in <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span> document.  This means that it is up to the applications to document how content padding is to be done in order to prevent or discourage such analysis.  (For example, the text strings could be defined as 'YES' and 'NO '.)<a href="#section-6-9" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-7">
+      <h2 id="name-implementation-status">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
+      </h2>
+<p id="section-7-1">This section is to be removed before publishing as an RFC.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">
+        This section records the status of known implementations of the
+        protocol defined by this specification at the time of posting of
+        this Internet-Draft, and is based on a proposal described in <span>[<a href="#RFC7942" class="xref">RFC7942</a>]</span>.  The description of implementations in this section is
+        intended to assist the IETF in its decision processes in
+        progressing drafts to RFCs.  Please note that the listing of any
+        individual implementation here does not imply endorsement by the
+        IETF.  Furthermore, no effort has been spent to verify the
+        information presented here that was supplied by IETF contributors.
+        This is not intended as, and must not be construed to be, a
+        catalog of available implementations or their features.  Readers
+        are advised to note that other implementations may exist.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">
+        According to <span>[<a href="#RFC7942" class="xref">RFC7942</a>]</span>, "this will allow reviewers and working
+        groups to assign due consideration to documents that have the
+        benefit of running code, which may serve as evidence of valuable
+        experimentation and feedback that have made the implemented
+        protocols more mature.  It is up to the individual working groups
+        to use this information as they see fit".<a href="#section-7-3" class="pilcrow">¶</a></p>
+<section id="section-7.1">
+        <h3 id="name-authors-versions">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-authors-versions" class="section-name selfRef">Author's Versions</a>
+        </h3>
+<p id="section-7.1-1">
+          There are three different implementations that have been created by the author of the document both to create the examples that are included in the document and to validate the structures and methodology used in the design of COSE.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.1-2.1">Implementation Location: https://github.com/cose-wg<a href="#section-7.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.1-2.2">Primary Maintainer: Jim Schaad<a href="#section-7.1-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.1-2.3">
+              Languages:
+              There are three different languages that are currently supported:  Java and C#.<a href="#section-7.1-2.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.1-2.4">
+              Cryptography: The Java and C# libraries use Bouncy Castle to provide the required cryptography.<a href="#section-7.1-2.4" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.1-2.5">
+            Coverage:
+            Both implementations can produce and consume both the old and new countersignatures.<a href="#section-7.1-2.5" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.1-2.6">
+              Testing:
+              All of the examples in the example library are generated by the C# library and then validated using the Java and C libraries.
+              Both libraries have tests to allow for the creating of the same messages that are in the example library followed by validating them.
+              These are not compared against the example library.
+              The Java and C# libraries have unit testing included.
+              Not all of the <span class="bcp14">MUST</span> statements in the document have been implemented as part of the libraries.
+              One such statement is the requirement that unique labels be present.<a href="#section-7.1-2.6" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.1-2.7">Licensing: Revised BSD License<a href="#section-7.1-2.7" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+<section id="section-7.2">
+        <h3 id="name-cose-testing-library">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-cose-testing-library" class="section-name selfRef">COSE Testing Library</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-7.2-1.1">Implementation Location: https://github.com/cose-wg/Examples<a href="#section-7.2-1.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-1.2">Primary Maintainer: Jim Schaad<a href="#section-7.2-1.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-1.3">
+              Description: A set of tests for the COSE library is provided as part of the implementation effort.
+              Both success and fail tests have been provided.
+              All of the examples in this document are part of this example set.<a href="#section-7.2-1.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-1.4">
+              Coverage:  An attempt has been made to have test cases for every message type and algorithm in the document.
+              Currently examples dealing with countersignatures, and ECDH with Curve25519 and Goldilocks are missing.<a href="#section-7.2-1.4" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-7.2-1.5">Licensing: Public Domain<a href="#section-7.2-1.5" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+</section>
+<section id="section-8">
+      <h2 id="name-references">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<section id="section-8.1">
+        <h3 id="name-normative-references">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-cbor-7049bis">[I-D.ietf-cbor-7049bis]</dt>
+        <dd>
+<span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-7049bis-16</span>, <time datetime="2020-09-30" class="refDate">30 September 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16">https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</dt>
+      <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-12</span>, <time datetime="2020-09-24" class="refDate">24 September 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-12">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-12</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-8.2">
+        <h3 id="name-informative-references">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC8610">[RFC8610]</dt>
+        <dd>
+<span class="refAuthor">Birkholz, H.</span><span class="refAuthor">, Vigano, C.</span><span class="refAuthor">, and C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8610">https://www.rfc-editor.org/info/rfc8610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8152">[RFC8152]</dt>
+        <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span class="seriesInfo">RFC 8152</span>, <span class="seriesInfo">DOI 10.17487/RFC8152</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8152">https://www.rfc-editor.org/info/rfc8152</a>&gt;</span>. </dd>
+<dd class="break"></dd><dt id="STD90">[STD90]</dt>
+        <dd><div class="refInstance" id="RFC8259">
+            <span class="refAuthor">Bray, T., Ed.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="seriesInfo">STD 90</span>, <span class="seriesInfo">RFC 8259</span>, <time datetime="2017-12" class="refDate">December 2017</time>. </div>
+<span>&lt;<a href="https://www.rfc-editor.org/info/std90">https://www.rfc-editor.org/info/std90</a>&gt;</span>
+</dd>
+<dd class="break"></dd><dt id="RFC7252">[RFC7252]</dt>
+        <dd>
+<span class="refAuthor">Shelby, Z.</span><span class="refAuthor">, Hartke, K.</span><span class="refAuthor">, and C. Bormann</span>, <span class="refTitle">"The Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 7252</span>, <span class="seriesInfo">DOI 10.17487/RFC7252</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7252">https://www.rfc-editor.org/info/rfc7252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7942">[RFC7942]</dt>
+        <dd>
+<span class="refAuthor">Sheffer, Y.</span><span class="refAuthor"> and A. Farrel</span>, <span class="refTitle">"Improving Awareness of Running Code: The Implementation Status Section"</span>, <span class="seriesInfo">BCP 205</span>, <span class="seriesInfo">RFC 7942</span>, <span class="seriesInfo">DOI 10.17487/RFC7942</span>, <time datetime="2016-07" class="refDate">July 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7942">https://www.rfc-editor.org/info/rfc7942</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4998">[RFC4998]</dt>
+        <dd>
+<span class="refAuthor">Gondrom, T.</span><span class="refAuthor">, Brandner, R.</span><span class="refAuthor">, and U. Pordesch</span>, <span class="refTitle">"Evidence Record Syntax (ERS)"</span>, <span class="seriesInfo">RFC 4998</span>, <span class="seriesInfo">DOI 10.17487/RFC4998</span>, <time datetime="2007-08" class="refDate">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4998">https://www.rfc-editor.org/info/rfc4998</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-core-groupcomm-bis">[I-D.ietf-core-groupcomm-bis]</dt>
+        <dd>
+<span class="refAuthor">Dijk, E.</span><span class="refAuthor">, Wang, C.</span><span class="refAuthor">, and M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-02</span>, <time datetime="2020-11-02" class="refDate">2 November 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-02">https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ietf-cose-rfc8152bis-struct">[I-D.ietf-cose-rfc8152bis-struct]</dt>
+        <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Structures and Process"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-struct-14</span>, <time datetime="2020-09-24" class="refDate">24 September 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-struct-14</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8613">[RFC8613]</dt>
+      <dd>
+<span class="refAuthor">Selander, G.</span><span class="refAuthor">, Mattsson, J.</span><span class="refAuthor">, Palombini, F.</span><span class="refAuthor">, and L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07" class="refDate">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8613">https://www.rfc-editor.org/info/rfc8613</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</section>
+<div id="examples">
+<section id="section-appendix.a">
+      <h2 id="name-examples">
+<a href="#section-appendix.a" class="section-number selfRef">Appendix A. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
+      </h2>
+<p id="section-appendix.a-1">This appendix includes a set of examples that show the different features and message types that have been defined in this document.  To make the examples easier to read, they are presented using the extended CBOR diagnostic notation (defined in <span>[<a href="#RFC8610" class="xref">RFC8610</a>]</span>) rather than as a binary dump.<a href="#section-appendix.a-1" class="pilcrow">¶</a></p>
+<p id="section-appendix.a-2">
+        A GitHub project has been created at &lt;https://github.com/cose-wg/Examples&gt; that contains not only the examples presented in this document, but a more complete set of testing examples as well.
+        Each example is found in a JSON file that contains the inputs used to create the example, some of the intermediate values that can be used in debugging the example and the output of the example presented both as a hex dump and in CBOR diagnostic notation format.
+        Some of the examples at the site are designed failure testing cases; these are clearly marked as such in the JSON file.
+        If errors in the examples in this document are found, the examples on GitHub will be updated, and a note to that effect will be placed in the JSON file.<a href="#section-appendix.a-2" class="pilcrow">¶</a></p>
+<p id="section-appendix.a-3">As noted, the examples are presented using the CBOR's diagnostic notation.  A Ruby-based tool exists that can convert between the diagnostic notation and binary.  This tool can be installed with the command line:<a href="#section-appendix.a-3" class="pilcrow">¶</a></p>
+<div id="section-appendix.a-4">
+<pre class="sourcecode">gem install cbor-diag</pre><a href="#section-appendix.a-4" class="pilcrow">¶</a>
+</div>
+<p id="section-appendix.a-5">The diagnostic notation can be converted into binary files using the following command line:<a href="#section-appendix.a-5" class="pilcrow">¶</a></p>
+<div id="section-appendix.a-6">
+<pre class="sourcecode">diag2cbor.rb &lt; inputfile &gt; outputfile
+</pre><a href="#section-appendix.a-6" class="pilcrow">¶</a>
+</div>
+<p id="section-appendix.a-7">The examples can be extracted from the XML version of this document via an XPath expression as all of the sourcecode is tagged with the attribute type='CBORdiag'.  (Depending on the XPath evaluator one is using, it may be necessary to deal with &amp;gt; as an entity.)<a href="#section-appendix.a-7" class="pilcrow">¶</a></p>
+<div id="section-appendix.a-8">
+<pre class="sourcecode lang-XPATH">//sourcecode[@type='CDDL']/text()</pre><a href="#section-appendix.a-8" class="pilcrow">¶</a>
+</div>
+<div id="SignedExamples">
+<section id="section-a.1">
+        <h2 id="name-examples-of-signed-messages">
+<a href="#section-a.1" class="section-number selfRef">A.1. </a><a href="#name-examples-of-signed-messages" class="section-name selfRef">Examples of Signed Messages</a>
+        </h2>
+<div id="Appendix_B_1_3">
+<section id="section-a.1.1">
+          <h3 id="name-countersignature">
+<a href="#section-a.1.1" class="section-number selfRef">A.1.1. </a><a href="#name-countersignature" class="section-name selfRef">Countersignature</a>
+          </h3>
+<p id="section-a.1.1-1">This example uses the following:<a href="#section-a.1.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-a.1.1-2.1">Signature Algorithm: ECDSA w/ SHA-256, Curve P-256<a href="#section-a.1.1-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-a.1.1-2.2">The same header parameters are used for both the signature and the countersignature.<a href="#section-a.1.1-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<p id="section-a.1.1-3">Size of binary file is 180 bytes<a href="#section-a.1.1-3" class="pilcrow">¶</a></p>
+<div id="section-a.1.1-4">
+<pre class="sourcecode lang-CBORdiag">
+98(
+  [
+    / protected / h'',
+    / unprotected / {
+      / countersign / 7:[
+        / protected  h'a10126' / &lt;&lt; {
+            / alg / 1:-7 / ECDSA 256 /
+          } &gt;&gt;,
+        / unprotected / {
+          / kid / 4:'11'
+        },
+        / signature / h'5ac05e289d5d0e1b0a7f048a5d2b643813ded50bc9e4
+9220f4f7278f85f19d4a77d655c9d3b51e805a74b099e1e085aacd97fc29d72f887e
+8802bb6650cceb2c'
+      ]
+    },
+    / payload / 'This is the content.',
+    / signatures / [
+      [
+        / protected h'a10126' / &lt;&lt; {
+            / alg / 1:-7 / ECDSA 256 /
+          } &gt;&gt;,
+        / unprotected / {
+          / kid / 4:'11'
+        },
+        / signature / h'e2aeafd40d69d19dfe6e52077c5d7ff4e408282cbefb
+5d06cbf414af2e19d982ac45ac98b8544c908b4507de1e90b717c3d34816fe926a2b
+98f53afd2fa0f30a'
+      ]
+    ]
+  ]
+)
+</pre><a href="#section-a.1.1-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="EnvelopedExamples">
+<section id="section-a.2">
+        <h2 id="name-examples-of-enveloped-messa">
+<a href="#section-a.2" class="section-number selfRef">A.2. </a><a href="#name-examples-of-enveloped-messa" class="section-name selfRef">Examples of Enveloped Messages</a>
+        </h2>
+<div id="Appendix_B_3_3">
+<section id="section-a.2.1">
+          <h3 id="name-countersignature-on-encrypt">
+<a href="#section-a.2.1" class="section-number selfRef">A.2.1. </a><a href="#name-countersignature-on-encrypt" class="section-name selfRef">Countersignature on Encrypted Content</a>
+          </h3>
+<p id="section-a.2.1-1">This example uses the following:<a href="#section-a.2.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-a.2.1-2.1">CEK: AES-GCM w/ 128-bit key<a href="#section-a.2.1-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-a.2.1-2.2">Recipient class: ECDH Ephemeral-Static, Curve P-256<a href="#section-a.2.1-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+<p id="section-a.2.1-3">Size of binary file is 326 bytes<a href="#section-a.2.1-3" class="pilcrow">¶</a></p>
+<div id="section-a.2.1-4">
+<pre class="sourcecode lang-CBORdiag">
+96(
+  [
+    / protected h'a10101' / &lt;&lt; {
+        / alg / 1:1 / AES-GCM 128 /
+      } &gt;&gt;,
+    / unprotected / {
+      / iv / 5:h'c9cf4df2fe6c632bf7886413',
+      / countersign / 7:[
+        / protected / h'a1013823' / {
+            \ alg \ 1:-36
+          } / ,
+        / unprotected / {
+          / kid / 4:'bilbo.baggins@hobbiton.example'
+        },
+        / signature / h'00929663c8789bb28177ae28467e66377da12302d7f9
+594d2999afa5dfa531294f8896f2b6cdf1740014f4c7f1a358e3a6cf57f4ed6fb02f
+cf8f7aa989f5dfd07f0700a3a7d8f3c604ba70fa9411bd10c2591b483e1d2c31de00
+3183e434d8fba18f17a4c7e3dfa003ac1cf3d30d44d2533c4989d3ac38c38b71481c
+c3430c9d65e7ddff'
+      ]
+    },
+    / ciphertext / h'7adbe2709ca818fb415f1e5df66f4e1a51053ba6d65a1a0
+c52a357da7a644b8070a151b0',
+    / recipients / [
+      [
+        / protected h'a1013818' / &lt;&lt; {
+            / alg / 1:-25 / ECDH-ES + HKDF-256 /
+          } &gt;&gt; ,
+        / unprotected / {
+          / ephemeral / -1:{
+            / kty / 1:2,
+            / crv / -1:1,
+            / x / -2:h'98f50a4ff6c05861c8860d13a638ea56c3f5ad7590bbf
+bf054e1c7b4d91d6280',
+            / y / -3:true
+          },
+          / kid / 4:'meriadoc.brandybuck@buckland.example'
+        },
+        / ciphertext / h''
+      ]
+    ]
+  ]
+)
+</pre><a href="#section-a.2.1-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="EncryptExamples">
+<section id="section-a.3">
+        <h2 id="name-examples-of-encrypted-messa">
+<a href="#section-a.3" class="section-number selfRef">A.3. </a><a href="#name-examples-of-encrypted-messa" class="section-name selfRef">Examples of Encrypted Messages</a>
+      </h2>
+</section>
+</div>
+<div id="MacExamples">
+<section id="section-a.4">
+        <h2 id="name-examples-of-maced-messages">
+<a href="#section-a.4" class="section-number selfRef">A.4. </a><a href="#name-examples-of-maced-messages" class="section-name selfRef">Examples of MACed Messages</a>
+      </h2>
+</section>
+</div>
+<div id="Mac0Examples">
+<section id="section-a.5">
+        <h2 id="name-examples-of-mac0-messages">
+<a href="#section-a.5" class="section-number selfRef">A.5. </a><a href="#name-examples-of-mac0-messages" class="section-name selfRef">Examples of MAC0 Messages</a>
+      </h2>
+</section>
+</div>
+</section>
+</div>
+<section id="section-appendix.b">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="section-appendix.b-1">This document is a product of the COSE working group of the IETF.<a href="#section-appendix.b-1" class="pilcrow">¶</a></p>
+<p id="section-appendix.b-2">The initial version of the specification was based to some degree on the outputs of the JOSE and S/MIME working groups.<a href="#section-appendix.b-2" class="pilcrow">¶</a></p>
+</section>
+<div id="authors-addresses">
+<section id="section-appendix.c">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Jim Schaad</span></div>
+<div dir="auto" class="left"><span class="org">August Cellars</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:ietf@augustcellars.com" class="email">ietf@augustcellars.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
