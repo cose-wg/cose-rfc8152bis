@@ -1658,14 +1658,16 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <name>IANA Considerations</name>
       <t>
         The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
-        The majority of the actions are to update the references to point to this document.
+        The majority of the following actions are to update the references to point to either this document.
+      </t>
+      <t>
+        Note that while <xref target="I-D.ietf-cose-rfc8152bis-algs"/> also updates the registries and registrations originally established by <xref target="RFC8152"/>, the requested updates are mutually exclusive.  The updates requested in this document do not conflict or overlap with the updates requested in <xref target="I-D.ietf-cose-rfc8152bis-algs"/>, and vice versa.
       </t>
       <section anchor="cose-header-key-table">
         <name>COSE Header Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Header Parameters" as part of processing <xref target="RFC8152"/>. 
-          IANA is requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.
-          The reference for "counter signature" and "CounterSignature0" are to be left alone.
+          IANA is requested to update the reference for this registry from <xref targe="RFC"/> to this document.  IANA is also requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.  The reference for "counter signature" and "CounterSignature0" are to be left as-is.
         </t>
         
       </section>
@@ -1674,7 +1676,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <name>COSE Key Common Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <xref target="RFC8152"/>.
-          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
+          IANA is requested to update the registry from <xref target="RFC8152"/> to this document.  IANA is also requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
       </section>
       
