@@ -1658,7 +1658,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <name>IANA Considerations</name>
       <t>
         The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
-        The majority of the following actions are to update the references to point to either this document.
+        The majority of the following actions are to update the references to point to this document.
       </t>
       <t>
         Note that while <xref target="I-D.ietf-cose-rfc8152bis-algs"/> also updates the registries and registrations originally established by <xref target="RFC8152"/>, the requested updates are mutually exclusive.  The updates requested in this document do not conflict or overlap with the updates requested in <xref target="I-D.ietf-cose-rfc8152bis-algs"/>, and vice versa.
