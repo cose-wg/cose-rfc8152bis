@@ -1667,7 +1667,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <name>COSE Header Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Header Parameters" as part of processing <xref target="RFC8152"/>. 
-          IANA is requested to update the reference for this registry from <xref targe="RFC"/> to this document.  IANA is also requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.  The reference for "counter signature" and "CounterSignature0" are to be left as-is.
+          IANA is requested to update the reference for this registry from <xref target="RFC8152"/> to this document.  IANA is also requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.  The reference for "counter signature" and "CounterSignature0" are to be left as-is.
         </t>
         
       </section>
