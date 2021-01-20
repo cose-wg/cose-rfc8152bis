@@ -1676,7 +1676,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <name>COSE Key Common Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <xref target="RFC8152"/>.
-          IANA is requested to update the registry from <xref target="RFC8152"/> to this document.  IANA is also requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
+          IANA is requested to update the reference for this registry from <xref target="RFC8152"/> to this document.  IANA is also requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
       </section>
       
