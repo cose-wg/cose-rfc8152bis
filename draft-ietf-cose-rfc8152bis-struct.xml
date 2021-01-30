@@ -96,7 +96,7 @@ I have switched to the single word version except for tables 3 and 4 where it ca
       <t>
         COSE was initially designed as part of a solution to provide security to Constrained RESTful Environments (CoRE), and this is done using <xref target="RFC8613"/> and <xref target="I-D.ietf-core-groupcomm-bis"/>.
         However, COSE is not restricted to just these cases and can be used in any place where one would consider either JOSE or CMS <xref target="RFC5652"/> for the purpose of providing security services.
-        The use of COSE, like JOSE and CMS, is only for use in store and forward or offline protocols.
+        COSE, like JOSE and CMS, is only for use in store and forward or offline protocols.
         The use of COSE in online protocols needing encryption, require that an online key establishment process be done before sending objects back and forth.
         Any application which uses COSE for security services first needs to determine what security services are required and then select the appropriate COSE structures and cryptographic algorithms based on those needs.
         <xref target="app-considerations"/> provides additional information on what applications need to specify when using COSE.
@@ -108,7 +108,7 @@ I have switched to the single word version except for tables 3 and 4 where it ca
         It is better for the structure to be defined in each protocol as different protocols will want to include a different set of fields as part of the structure.
         While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
         Applications may additionally want to define additional data fields as part of the structure.
-        A one such application-specific element would be to include a URI or other pointer to where the data that is being hashed can be obtained.
+        One such application-specific element would be to include a URI or other pointer to where the data that is being hashed can be obtained.
         <xref target="I-D.ietf-cose-hash-algs"/> contains one such possible structure along with defining a set of digest algorithms.
       </t>
 
@@ -220,7 +220,7 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
         <t>In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.  </t>
 
         <t>
-          The presence a label that is neither a a text string or an integer, in a CBOR map, is an error. 
+          The presence a label that is neither a text string or an integer, in a CBOR map, is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they <bcp14>MUST NOT</bcp14> create messages with incorrect labels. 
         </t>
 
@@ -283,7 +283,7 @@ values = any
         Elements after this point are dependent on the specific message type.
       </t>
 
-      <t>COSE messages are built using the concept of layers to separate different types of cryptographic concepts.  As an example of how this works, consider the COSE_Encrypt message (<xref target="EnvelopedData"/>).  This message type is broken into two layers: the content layer and the recipient layer.  The content layer contains the plaintext is encrypted and information about the encrypted message.  The recipient layer contins the content encryption key (CEK) is encrypted and information about how it is encrypted for each recipient.  A single layer version of the encryption message COSE_Encrypt0 (<xref target="EnvelopedData0"/>) is provided for cases where the CEK is pre-shared.  </t>
+      <t>COSE messages are built using the concept of layers to separate different types of cryptographic concepts.  As an example of how this works, consider the COSE_Encrypt message (<xref target="EnvelopedData"/>).  This message type is broken into two layers: the content layer and the recipient layer.  The content layer contains the encrypted plaintext and information about the encrypted message.  The recipient layer contains the encrypted content encryption key (CEK) and information about how it is encrypted for each recipient.  A single layer version of the encryption message COSE_Encrypt0 (<xref target="EnvelopedData0"/>) is provided for cases where the CEK is pre-shared.</t>
 
       <t>Identification of which type of message has been presented is done by the following methods:
       </t>
@@ -609,7 +609,7 @@ Generic_Headers = (
       <t>COSE supports two different signature structures.  COSE_Sign allows for one or more signatures to be applied to the same content. COSE_Sign1 is restricted to a single signer.  The structures cannot be converted between each other; as the signature computation includes a parameter identifying which structure is being used, the converted structure will fail signature validation.  </t>
       <section anchor="full-signature">
         <name>Signing with One or More Signers</name>
-        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of a header parameter about the content is the content type header parameter.  An examples of a header parameter about the signature would be the algorithm and key used to create the signature.</t>
+        <t>The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of a header parameter about the content is the content type header parameter.  An example of a header parameter about the signature would be the algorithm and key used to create the signature.</t>
         <t>RFC 5652 indicates that:
 
         </t>
@@ -1395,7 +1395,7 @@ valid = Verification(message content, key, signature)
           Until that point, the part of the message contained inside of the signature is unrecoverable. 
           The second is that the security analysis of the strength of the signature can be very much dependent on the structure of the message content. 
           Finally, in the event that multiple signatures are applied to a message, all of the signature algorithms are going to be required to consume the same bytes of message content. 
-          This means that the mixing of the signature with message recovery and signature with appendix schemes in a single message is not supported, and if a recovery signature scheme is used.
+          This means that the mixing of the signature with message recovery and signature with appendix schemes in a single message is not supported.
         </t>
         
         <t>The signature functions for this scheme are: </t>
@@ -1408,7 +1408,7 @@ valid, message content = Verification(message sent, key, signature)
 
         <t>
           No message recovery signature algorithms have been formally defined for COSE yet, and given the new constraints arising from this schemes, while some of these issues have already been identified there is a high probability that additional issues will arise when integrating message recovery signature algorithms.
-          The first  algorithm defined  is going to need to make decisions about these issues and those decisions re likely to be binding on any further algorithms defined.
+          The first  algorithm defined  is going to need to make decisions about these issues and those decisions are likely to be binding on any further algorithms defined.
         </t>
 
         <t>
@@ -1424,7 +1424,7 @@ valid, message content = Verification(message sent, key, signature)
         </dl>
 
         <t>
-          Some of the issue2 that have already been identified are:
+          Some of the issues that have already been identified are:
         </t>
 
         <ul>
@@ -1611,7 +1611,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.
         </li>
         <li>
-          Encoding <bcp14>MUST</bcp14> be done using definite lengths and values <bcp14>MUST</bcp14> be the minimum possible length.
+          Encoding <bcp14>MUST</bcp14> be done using definite lengths and the value's length <bcp14>MUST</bcp14> be the minimum possible length.
           This means that the integer 1 is encoded as "0x01" and not "0x1801".
         </li>
         <li>
@@ -1640,7 +1640,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <li>When applications use externally defined authenticated data, they need to define how that data is encoded.  This document assumes that the data will be provided as a byte string.  More information can be found in <xref target="Extern_AAD"/>.  </li>
         <li>Applications need to determine the set of security algorithms that are to be used.  When selecting the algorithms to be used as the mandatory-to-implement set, consideration should be given to choosing different types of algorithms when two are chosen for a specific purpose.
         An example of this would be choosing HMAC-SHA512 and AES-CMAC as different MAC algorithms; the construction is vastly different between these two algorithms.  This means that a weakening of one algorithm would be unlikely to lead to a weakening of the other algorithms.  Of course, these algorithms do not provide the same level of security and thus may not be comparable for the desired security functionality.
-                Additional guidence can be found in <xref target="BCP201"/>.
+                Additional guidance can be found in <xref target="BCP201"/>.
 
         </li>
         <li>
@@ -1658,14 +1658,16 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       <name>IANA Considerations</name>
       <t>
         The registries and registrations listed below were created during processing of RFC 8152 <xref target="RFC8152"/>.
-        The majority of the actions are to update the references to point to this document.
+        The majority of the following actions are to update the references to point to this document.
+      </t>
+      <t>
+        Note that while <xref target="I-D.ietf-cose-rfc8152bis-algs"/> also updates the registries and registrations originally established by <xref target="RFC8152"/>, the requested updates are mutually exclusive.  The updates requested in this document do not conflict or overlap with the updates requested in <xref target="I-D.ietf-cose-rfc8152bis-algs"/>, and vice versa.
       </t>
       <section anchor="cose-header-key-table">
         <name>COSE Header Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Header Parameters" as part of processing <xref target="RFC8152"/>. 
-          IANA is requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.
-          The reference for "counter signature" and "CounterSignature0" are to be left alone.
+          IANA is requested to update the reference for this registry from <xref target="RFC8152"/> to this document.  IANA is also requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <xref target="RFC8152"/> to this document.  The reference for "counter signature" and "CounterSignature0" are to be left as-is.
         </t>
         
       </section>
@@ -1674,7 +1676,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         <name>COSE Key Common Parameters Registry</name>
         <t>
           IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <xref target="RFC8152"/>.
-          IANA is requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
+          IANA is requested to update the reference for this registry from <xref target="RFC8152"/> to this document.  IANA is also requested to update the reference for entries in the table from <xref target="RFC8152"/> to this document.
         </t>
       </section>
       
