@@ -4,8 +4,8 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Intended status: Standards Track                       24 September 2020
-Expires: 28 March 2021
+Intended status: Standards Track                         30 January 2021
+Expires: 3 August 2021
 
 
       CBOR Object Signing and Encryption (COSE): Countersignatures
@@ -44,18 +44,18 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2021.
+   This Internet-Draft will expire on 3 August 2021.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 1]
+Schaad                    Expires 3 August 2021                 [Page 1]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 2]
+Schaad                    Expires 3 August 2021                 [Page 2]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 3]
+Schaad                    Expires 3 August 2021                 [Page 3]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 1.2.  CBOR Grammar
@@ -221,9 +221,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 4]
+Schaad                    Expires 3 August 2021                 [Page 4]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 2.  Countersignature Header Parameters
@@ -244,16 +244,16 @@ Internet-Draft               COSE Structure               September 2020
       on version 2 countersignatures are found in Section 3.
 
    +===========+=====+========================+==========+=============+
-   | Name      |Label| Value Type             | Value    | Description |
+   |Name       |Label|Value Type              | Value    | Description |
    |           |     |                        | Registry |             |
    +===========+=====+========================+==========+=============+
-   | counter   |TBD10|COSE_Countersignature / |          | V2 counter  |
-   | signature |     |[+ COSE_Countersignature|          | signature   |
-   | version 2 |     | ]                      |          | attribute   |
+   |counter    |TBD10|COSE_Countersignature / |          | V2 counter  |
+   |signature  |     |[+ COSE_Countersignature|          | signature   |
+   |version 2  |     |]                       |          | attribute   |
    +-----------+-----+------------------------+----------+-------------+
-   | counter   |TBD11| COSE_Countersignature0 |          | Abbreviated |
+   |counter    |TBD11|COSE_Countersignature0  |          | Abbreviated |
    |signature 0|     |                        |          | Counter     |
-   | version 2 |     |                        |          | signature   |
+   |version 2  |     |                        |          | signature   |
    |           |     |                        |          | vesion 2    |
    +-----------+-----+------------------------+----------+-------------+
 
@@ -277,9 +277,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 5]
+Schaad                    Expires 3 August 2021                 [Page 5]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 3.  Version 2 Countersignatures
@@ -333,9 +333,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 6]
+Schaad                    Expires 3 August 2021                 [Page 6]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    needs to apply a signature to the data and then encrypt that.  It is
@@ -389,9 +389,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 7]
+Schaad                    Expires 3 August 2021                 [Page 7]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 3.2.  Abbreviated Countersignatures
@@ -445,9 +445,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 8]
+Schaad                    Expires 3 August 2021                 [Page 8]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    2.  The protected attributes from the target structure encoded in a
@@ -501,9 +501,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 9]
+Schaad                    Expires 3 August 2021                 [Page 9]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    4.  Place the resulting signature value in the correct location.
@@ -557,9 +557,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 10]
+Schaad                    Expires 3 August 2021                [Page 10]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 5.2.  COSE Header Parameters Registry
@@ -571,18 +571,18 @@ Internet-Draft               COSE Structure               September 2020
    registry.
 
    +=================+=====+======================+========+================+
-   | Name            |Label| Value Type           | Value  | Description    |
+   |Name             |Label|Value Type            |Value   |Description     |
    |                 |     |                      |Registry|                |
    +=================+=====+======================+========+================+
-   |counter signature|TBD10|COSE_Countersignature |        | V2             |
-   | version 2       |     | / [+                 |        |countersignature|
-   |                 |     |COSE_Countersignature |        | attribute      |
-   |                 |     | ]                    |        |                |
+   |counter signature|TBD10|COSE_Countersignature |        |V2              |
+   |version 2        |     |/ [+                  |        |countersignature|
+   |                 |     |COSE_Countersignature |        |attribute       |
+   |                 |     |]                     |        |                |
    +-----------------+-----+----------------------+--------+----------------+
-   |Countersignature0|TBD11|COSE_Countersignature0|        | Abbreviated    |
-   | version 2       |     |                      |        | Counter        |
+   |Countersignature0|TBD11|COSE_Countersignature0|        |Abbreviated     |
+   |version 2        |     |                      |        |Counter         |
    |                 |     |                      |        |signature vesion|
-   |                 |     |                      |        | 2              |
+   |                 |     |                      |        |2               |
    +-----------------+-----+----------------------+--------+----------------+
 
                    Table 2: New Common Header Parameters
@@ -613,9 +613,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 11]
+Schaad                    Expires 3 August 2021                [Page 11]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  Use of 'direct' as a recipient algorithm combined with a second
@@ -669,9 +669,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 12]
+Schaad                    Expires 3 August 2021                [Page 12]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  Is the request something that is reasonable, given the current
@@ -725,9 +725,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 13]
+Schaad                    Expires 3 August 2021                [Page 13]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 7.1.  Author's Versions
@@ -781,9 +781,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 14]
+Schaad                    Expires 3 August 2021                [Page 14]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  Licensing: Public Domain
@@ -800,8 +800,8 @@ Internet-Draft               COSE Structure               September 2020
    [I-D.ietf-cbor-7049bis]
               Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", Work in Progress, Internet-Draft,
-              draft-ietf-cbor-7049bis-14, 16 June 2020,
-              <https://tools.ietf.org/html/draft-ietf-cbor-7049bis-14>.
+              draft-ietf-cbor-7049bis-16, 30 September 2020,
+              <https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -810,9 +810,9 @@ Internet-Draft               COSE Structure               September 2020
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-algs-11, 1 July 2020,
+              draft-ietf-cose-rfc8152bis-algs-12, 24 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              algs-11>.
+              algs-12>.
 
 8.2.  Informative References
 
@@ -837,9 +837,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 15]
+Schaad                    Expires 3 August 2021                [Page 15]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
@@ -860,15 +860,15 @@ Internet-Draft               COSE Structure               September 2020
               Dijk, E., Wang, C., and M. Tiloca, "Group Communication
               for the Constrained Application Protocol (CoAP)", Work in
               Progress, Internet-Draft, draft-ietf-core-groupcomm-bis-
-              01, 13 July 2020, <https://tools.ietf.org/html/draft-ietf-
-              core-groupcomm-bis-01>.
+              02, 2 November 2020, <https://tools.ietf.org/html/draft-
+              ietf-core-groupcomm-bis-02>.
 
    [I-D.ietf-cose-rfc8152bis-struct]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Structures and Process", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-struct-13, 4 September 2020,
+              draft-ietf-cose-rfc8152bis-struct-14, 24 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              struct-13>.
+              struct-14>.
 
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
@@ -893,9 +893,9 @@ Appendix A.  Examples
 
 
 
-Schaad                    Expires 28 March 2021                [Page 16]
+Schaad                    Expires 3 August 2021                [Page 16]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    examples at the site are designed failure testing cases; these are
@@ -949,9 +949,9 @@ A.1.1.  Countersignature
 
 
 
-Schaad                    Expires 28 March 2021                [Page 17]
+Schaad                    Expires 3 August 2021                [Page 17]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    98(
@@ -1005,9 +1005,9 @@ A.2.1.  Countersignature on Encrypted Content
 
 
 
-Schaad                    Expires 28 March 2021                [Page 18]
+Schaad                    Expires 3 August 2021                [Page 18]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    96(
@@ -1061,9 +1061,9 @@ A.4.  Examples of MACed Messages
 
 
 
-Schaad                    Expires 28 March 2021                [Page 19]
+Schaad                    Expires 3 August 2021                [Page 19]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 A.5.  Examples of MAC0 Messages
@@ -1117,4 +1117,4 @@ Author's Address
 
 
 
-Schaad                    Expires 28 March 2021                [Page 20]
+Schaad                    Expires 3 August 2021                [Page 20]

@@ -4,9 +4,9 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                          24 September 2020
+Obsoletes: 8152 (if approved)                            30 January 2021
 Intended status: Informational                                          
-Expires: 28 March 2021
+Expires: 3 August 2021
 
 
      CBOR Object Signing and Encryption (COSE): Initial Algorithms
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2021.
+   This Internet-Draft will expire on 3 August 2021.
 
 
 
@@ -53,14 +53,14 @@ Status of This Memo
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 1]
+Schaad                    Expires 3 August 2021                 [Page 1]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 2]
+Schaad                    Expires 3 August 2021                 [Page 2]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
        6.2.1.  AES Key Wrap  . . . . . . . . . . . . . . . . . . . .  30
@@ -165,9 +165,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 3]
+Schaad                    Expires 3 August 2021                 [Page 3]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 1.1.  Requirements Terminology
@@ -221,9 +221,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 4]
+Schaad                    Expires 3 August 2021                 [Page 4]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  A short description so that the algorithm can be easily identified
@@ -277,9 +277,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 5]
+Schaad                    Expires 3 August 2021                 [Page 5]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    The ECDSA signature algorithm is parameterized with a hash function
@@ -333,9 +333,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 6]
+Schaad                    Expires 3 August 2021                 [Page 6]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  The 'kty' field MUST be present, and it MUST be 'EC2'.
@@ -389,9 +389,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 7]
+Schaad                    Expires 3 August 2021                 [Page 7]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  Change the hash function used to validate the signature: If one
@@ -445,9 +445,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 8]
+Schaad                    Expires 3 August 2021                 [Page 8]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  The 'kty' field MUST be present, and it MUST be 'OKP' (Octet Key
@@ -501,9 +501,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 9]
+Schaad                    Expires 3 August 2021                 [Page 9]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    strength of the message tag is correspondingly reduced in strength.
@@ -557,9 +557,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 10]
+Schaad                    Expires 3 August 2021                [Page 10]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 3.1.1.  Security Considerations for HMAC
@@ -613,9 +613,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 11]
+Schaad                    Expires 3 August 2021                [Page 11]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  If the 'alg' field is present, it MUST match the AES-MAC algorithm
@@ -669,9 +669,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 12]
+Schaad                    Expires 3 August 2021                [Page 12]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
       +=========+=======+==========================================+
@@ -725,9 +725,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 13]
+Schaad                    Expires 3 August 2021                [Page 13]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    Consideration was given to supporting smaller tag values; the
@@ -781,9 +781,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 14]
+Schaad                    Expires 3 August 2021                [Page 14]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
       nonce length is 7 bytes allowing for 2^56 possible values of the
@@ -837,9 +837,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 15]
+Schaad                    Expires 3 August 2021                [Page 15]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
     +====================+=======+====+=====+========+===============+
@@ -893,9 +893,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 16]
+Schaad                    Expires 3 August 2021                [Page 16]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    Keys may be obtained either from a key structure or from a recipient
@@ -949,9 +949,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 17]
+Schaad                    Expires 3 August 2021                [Page 17]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    [RFC3610] additionally calls out one other consideration of note.  It
@@ -1005,9 +1005,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 18]
+Schaad                    Expires 3 August 2021                [Page 18]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  If the 'key_ops' field is present, it MUST include 'encrypt' or
@@ -1061,9 +1061,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 19]
+Schaad                    Expires 3 August 2021                [Page 19]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
       salt -- an optional value that is used to change the generation
@@ -1117,9 +1117,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 20]
+Schaad                    Expires 3 August 2021                [Page 20]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
        +==============+===================+========================+
@@ -1173,9 +1173,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 21]
+Schaad                    Expires 3 August 2021                [Page 21]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    The context information structure refers to PartyU and PartyV as the
@@ -1229,9 +1229,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 22]
+Schaad                    Expires 3 August 2021                [Page 22]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    |          |       | int  | direct+HKDF-AES-128,      | nonce       |
@@ -1285,9 +1285,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 23]
+Schaad                    Expires 3 August 2021                [Page 23]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    |          |       |      | ECDH-ES+HKDF-512,         |             |
@@ -1341,9 +1341,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 24]
+Schaad                    Expires 3 August 2021                [Page 24]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
       identity:  This contains the identity information for party U.
@@ -1397,9 +1397,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 25]
+Schaad                    Expires 3 August 2021                [Page 25]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
          there are no elements in the protected field, then use a zero-
@@ -1453,9 +1453,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 26]
+Schaad                    Expires 3 August 2021                [Page 26]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 6.1.  Direct Encryption
@@ -1509,9 +1509,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 27]
+Schaad                    Expires 3 August 2021                [Page 27]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 6.1.2.  Direct Key with KDF
@@ -1565,9 +1565,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 28]
+Schaad                    Expires 3 August 2021                [Page 28]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    +=====================+=======+==============+=====================+
@@ -1621,9 +1621,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 29]
+Schaad                    Expires 3 August 2021                [Page 29]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 6.2.1.  AES Key Wrap
@@ -1677,9 +1677,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 30]
+Schaad                    Expires 3 August 2021                [Page 30]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 6.3.  Direct Key Agreement
@@ -1733,9 +1733,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 31]
+Schaad                    Expires 3 August 2021                [Page 31]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
       the counter is saved to permanent storage in a way to avoid reuse
@@ -1789,9 +1789,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 32]
+Schaad                    Expires 3 August 2021                [Page 32]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    +===========+=======+=========+============+======+=================+
@@ -1845,9 +1845,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 33]
+Schaad                    Expires 3 August 2021                [Page 33]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    This document defines these algorithms to be used with the curves
@@ -1901,9 +1901,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 34]
+Schaad                    Expires 3 August 2021                [Page 34]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 6.4.1.  ECDH with Key Wrap
@@ -1957,9 +1957,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 35]
+Schaad                    Expires 3 August 2021                [Page 35]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    +=========+=======+=========+============+========+================+
@@ -2013,9 +2013,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 36]
+Schaad                    Expires 3 August 2021                [Page 36]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  If the 'key_ops' field is present, it MUST be empty for the public
@@ -2069,9 +2069,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 37]
+Schaad                    Expires 3 August 2021                [Page 37]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
     +=========+=======+==========+====================================+
@@ -2125,9 +2125,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 38]
+Schaad                    Expires 3 August 2021                [Page 38]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
         Octet-String Conversion function of [SEC1].  If the sign bit is
@@ -2181,9 +2181,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 39]
+Schaad                    Expires 3 August 2021                [Page 39]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    d:   This contains the private key.
@@ -2237,9 +2237,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 40]
+Schaad                    Expires 3 August 2021                [Page 40]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 8.  COSE Capabilities
@@ -2293,9 +2293,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 41]
+Schaad                    Expires 3 August 2021                [Page 41]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 8.1.  Assignments for Existing Algorithms
@@ -2349,9 +2349,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 42]
+Schaad                    Expires 3 August 2021                [Page 42]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  Just a key type capability: This is useful if the protccol wants
@@ -2405,9 +2405,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 43]
+Schaad                    Expires 3 August 2021                [Page 43]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    [
@@ -2461,9 +2461,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 44]
+Schaad                    Expires 3 August 2021                [Page 44]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 9.  CBOR Encoding Restrictions
@@ -2517,9 +2517,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 45]
+Schaad                    Expires 3 August 2021                [Page 45]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
 10.2.  Changes to "COSE Algorithms" registry
@@ -2542,12 +2542,12 @@ Internet-Draft               COSE Algorithms              September 2020
    IANA is requested to add a new row to the "COSE Algorithms" registry.
 
    +==========+===============+=============+============+=============+
-   | Name     | Value         | Description | Reference  | Recommended |
+   |Name      | Value         |Description  | Reference  | Recommended |
    +==========+===============+=============+============+=============+
-   | IV       | IV-GENERATION |For doing IV | [[THIS     | No          |
-   |Generation|               | generation  | DOCUMENT]] |             |
+   |IV        | IV-GENERATION |For doing IV | [[THIS     | No          |
+   |Generation|               |generation   | DOCUMENT]] |             |
    |          |               |for symmetric|            |             |
-   |          |               | algorithms. |            |             |
+   |          |               |algorithms.  |            |             |
    +----------+---------------+-------------+------------+-------------+
 
                                   Table 23
@@ -2573,9 +2573,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 46]
+Schaad                    Expires 3 August 2021                [Page 46]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
@@ -2629,9 +2629,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 47]
+Schaad                    Expires 3 August 2021                [Page 47]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  Using the same key for two different algorithms can leak
@@ -2685,9 +2685,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 48]
+Schaad                    Expires 3 August 2021                [Page 48]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    *  Have the restrictions associated with the key, such as algorithm
@@ -2741,14 +2741,14 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 49]
+Schaad                    Expires 3 August 2021                [Page 49]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
-              draft-ietf-cose-rfc8152bis-struct-13, 4 September 2020,
+              draft-ietf-cose-rfc8152bis-struct-14, 24 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              struct-13>.
+              struct-14>.
 
    [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
               Hashing for Message Authentication", RFC 2104,
@@ -2797,9 +2797,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 50]
+Schaad                    Expires 3 August 2021                [Page 50]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
@@ -2853,9 +2853,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 51]
+Schaad                    Expires 3 August 2021                [Page 51]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    [RFC4493]  Song, JH., Poovendran, R., Lee, J., and T. Iwata, "The
@@ -2909,17 +2909,18 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 52]
+Schaad                    Expires 3 August 2021                [Page 52]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    [I-D.ietf-core-oscore-groupcomm]
               Tiloca, M., Selander, G., Palombini, F., and J. Park,
               "Group OSCORE - Secure Group Communication for CoAP", Work
               in Progress, Internet-Draft, draft-ietf-core-oscore-
-              groupcomm-09, 23 June 2020, <https://tools.ietf.org/html/
-              draft-ietf-core-oscore-groupcomm-09>.
+              groupcomm-10, 2 November 2020,
+              <https://tools.ietf.org/html/draft-ietf-core-oscore-
+              groupcomm-10>.
 
    [I-D.ietf-cose-hash-sig]
               Housley, R., "Use of the HSS/LMS Hash-based Signature
@@ -2964,10 +2965,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
 
 
-
-Schaad                    Expires 28 March 2021                [Page 53]
+Schaad                    Expires 3 August 2021                [Page 53]
 
-Internet-Draft               COSE Algorithms              September 2020
+Internet-Draft               COSE Algorithms                January 2021
 
 
    [ROBUST]   Fischlin, M., Günther, F., and C. Janson, "Robust
@@ -2978,9 +2978,9 @@ Internet-Draft               COSE Algorithms              September 2020
 
    [I-D.ietf-quic-tls]
               Thomson, M. and S. Turner, "Using TLS to Secure QUIC",
-              Work in Progress, Internet-Draft, draft-ietf-quic-tls-30,
-              9 September 2020,
-              <https://tools.ietf.org/html/draft-ietf-quic-tls-30>.
+              Work in Progress, Internet-Draft, draft-ietf-quic-tls-34,
+              14 January 2021,
+              <https://tools.ietf.org/html/draft-ietf-quic-tls-34>.
 
 Acknowledgments
 
@@ -3021,4 +3021,4 @@ Author's Address
 
 
 
-Schaad                    Expires 28 March 2021                [Page 54]
+Schaad                    Expires 3 August 2021                [Page 54]

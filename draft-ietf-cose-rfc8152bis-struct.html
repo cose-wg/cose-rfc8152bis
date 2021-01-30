@@ -12,8 +12,26 @@
         This document along with   obsoletes RFC8152.
        
     " name="description">
-<meta content="xml2rfc 2.47.0" name="generator">
+<meta content="xml2rfc 3.5.0" name="generator">
 <meta content="draft-ietf-cose-rfc8152bis-struct-13" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.5.0
+    Python 3.8.5
+    appdirs 1.4.4
+    ConfigArgParse 1.2.3
+    google-i18n-address 2.4.0
+    html5lib 1.1
+    intervaltree 3.0.2
+    Jinja2 2.11.2
+    kitchen 1.2.6
+    lxml 4.5.0
+    pycountry 19.8.18
+    pyflakes 2.1.1
+    PyYAML 5.4.1
+    requests 2.22.0
+    setuptools 45.2.0
+    six 1.14.0
+-->
 <link href="draft-ietf-cose-rfc8152bis-struct.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 
@@ -289,6 +307,7 @@ ul.toc li {
   <meta name="viewport" content="initial-scale=1.0">
 
 <link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
 </head>
 <body>
 <script src="metadata.min.js"></script>
@@ -296,11 +315,11 @@ ul.toc li {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">COSE Structure</td>
-<td class="right">September 2020</td>
+<td class="right">January 2021</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Schaad</td>
-<td class="center">Expires 28 March 2021</td>
+<td class="center">Expires 3 August 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -316,12 +335,12 @@ ul.toc li {
 <a href="https://www.rfc-editor.org/rfc/rfc8152" class="eref">8152</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-09-24" class="published">24 September 2020</time>
+<time datetime="2021-01-30" class="published">30 January 2021</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-03-28">28 March 2021</time></dd>
+<dd class="expires"><time datetime="2021-08-03">3 August 2021</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -368,7 +387,7 @@ ul.toc li {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 March 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 August 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -377,7 +396,7 @@ ul.toc li {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2020 IETF Trust and the persons identified as the
+            Copyright (c) 2021 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -396,305 +415,305 @@ ul.toc li {
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.1">
+<nav class="toc"><ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.1.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-requirements-terminology" class="xref">Requirements Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.2">
                 <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-changes-from-rfc8152" class="xref">Changes from RFC8152</a><a href="#section-toc.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.3">
                 <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-design-changes-from-jose" class="xref">Design Changes from JOSE</a><a href="#section-toc.1-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.4">
                 <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="xref">1.4</a>.  <a href="#name-cbor-grammar" class="xref">CBOR Grammar</a><a href="#section-toc.1-1.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.5">
                 <p id="section-toc.1-1.1.2.5.1"><a href="#section-1.5" class="xref">1.5</a>.  <a href="#name-cbor-related-terminology" class="xref">CBOR-Related Terminology</a><a href="#section-toc.1-1.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.1.2.6">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.6">
                 <p id="section-toc.1-1.1.2.6.1"><a href="#section-1.6" class="xref">1.6</a>.  <a href="#name-document-terminology" class="xref">Document Terminology</a><a href="#section-toc.1-1.1.2.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.2">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-basic-cose-structure" class="xref">Basic COSE Structure</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.3">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-header-parameters" class="xref">Header Parameters</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.3.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-common-cose-header-paramete" class="xref">Common COSE Header Parameters</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.4">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-signing-objects" class="xref">Signing Objects</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.4.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-signing-with-one-or-more-si" class="xref">Signing with One or More Signers</a><a href="#section-toc.1-1.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-signing-with-one-signer" class="xref">Signing with One Signer</a><a href="#section-toc.1-1.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-externally-supplied-data" class="xref">Externally Supplied Data</a><a href="#section-toc.1-1.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-signing-and-verification-pr" class="xref">Signing and Verification Process</a><a href="#section-toc.1-1.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.5">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-encryption-objects" class="xref">Encryption Objects</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-enveloped-cose-structure" class="xref">Enveloped COSE Structure</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.5.2.1.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1.2.1">
                     <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="xref">5.1.1</a>.  <a href="#name-content-key-distribution-me" class="xref">Content Key Distribution Methods</a><a href="#section-toc.1-1.5.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-single-recipient-encrypted" class="xref">Single Recipient Encrypted</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-how-to-encrypt-and-decrypt-" class="xref">How to Encrypt and Decrypt for AEAD Algorithms</a><a href="#section-toc.1-1.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.5.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.4">
                 <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="xref">5.4</a>.  <a href="#name-how-to-encrypt-and-decrypt-f" class="xref">How to Encrypt and Decrypt for AE Algorithms</a><a href="#section-toc.1-1.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.6">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-mac-objects" class="xref">MAC Objects</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.6.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-maced-message-with-recipien" class="xref">MACed Message with Recipients</a><a href="#section-toc.1-1.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-maced-messages-with-implici" class="xref">MACed Messages with Implicit Key</a><a href="#section-toc.1-1.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.6.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="xref">6.3</a>.  <a href="#name-how-to-compute-and-verify-a" class="xref">How to Compute and Verify a MAC</a><a href="#section-toc.1-1.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.7">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-key-objects" class="xref">Key Objects</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.7.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.7.2.1">
                 <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-cose-key-common-parameters" class="xref">COSE Key Common Parameters</a><a href="#section-toc.1-1.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.8">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-taxonomy-of-algorithms-used" class="xref">Taxonomy of Algorithms used by COSE</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.8.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.8.2.1">
                 <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-signature-algorithms" class="xref">Signature Algorithms</a><a href="#section-toc.1-1.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.2">
                 <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-message-authentication-code" class="xref">Message Authentication Code (MAC) Algorithms</a><a href="#section-toc.1-1.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.3">
                 <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="xref">8.3</a>.  <a href="#name-content-encryption-algorith" class="xref">Content Encryption Algorithms</a><a href="#section-toc.1-1.8.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.4">
                 <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="xref">8.4</a>.  <a href="#name-key-derivation-functions-kd" class="xref">Key Derivation Functions (KDFs)</a><a href="#section-toc.1-1.8.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.5">
                 <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="xref">8.5</a>.  <a href="#name-content-key-distribution-met" class="xref">Content Key Distribution Methods</a><a href="#section-toc.1-1.8.2.5.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.8.2.5.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.8.2.5.2.1">
                     <p id="section-toc.1-1.8.2.5.2.1.1"><a href="#section-8.5.1" class="xref">8.5.1</a>.  <a href="#name-direct-encryption" class="xref">Direct Encryption</a><a href="#section-toc.1-1.8.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.5.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.5.2.2">
                     <p id="section-toc.1-1.8.2.5.2.2.1"><a href="#section-8.5.2" class="xref">8.5.2</a>.  <a href="#name-key-wrap" class="xref">Key Wrap</a><a href="#section-toc.1-1.8.2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.5.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.5.2.3">
                     <p id="section-toc.1-1.8.2.5.2.3.1"><a href="#section-8.5.3" class="xref">8.5.3</a>.  <a href="#name-key-transport" class="xref">Key Transport</a><a href="#section-toc.1-1.8.2.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.5.2.4">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.5.2.4">
                     <p id="section-toc.1-1.8.2.5.2.4.1"><a href="#section-8.5.4" class="xref">8.5.4</a>.  <a href="#name-direct-key-agreement" class="xref">Direct Key Agreement</a><a href="#section-toc.1-1.8.2.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.8.2.5.2.5">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.8.2.5.2.5">
                     <p id="section-toc.1-1.8.2.5.2.5.1"><a href="#section-8.5.5" class="xref">8.5.5</a>.  <a href="#name-key-agreement-with-key-wrap" class="xref">Key Agreement with Key Wrap</a><a href="#section-toc.1-1.8.2.5.2.5.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.9">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-cbor-encoding-restrictions" class="xref">CBOR Encoding Restrictions</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.10">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-application-profiling-consi" class="xref">Application Profiling Considerations</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.11">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.11.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.11.2.1">
                 <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-cose-header-parameters-regi" class="xref">COSE Header Parameters Registry</a><a href="#section-toc.1-1.11.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-cose-key-common-parameters-" class="xref">COSE Key Common Parameters Registry</a><a href="#section-toc.1-1.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.3">
                 <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="xref">11.3</a>.  <a href="#name-media-type-registrations" class="xref">Media Type Registrations</a><a href="#section-toc.1-1.11.2.3.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.11.2.3.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.11.2.3.2.1">
                     <p id="section-toc.1-1.11.2.3.2.1.1"><a href="#section-11.3.1" class="xref">11.3.1</a>.  <a href="#name-cose-security-message" class="xref">COSE Security Message</a><a href="#section-toc.1-1.11.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.3.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.3.2.2">
                     <p id="section-toc.1-1.11.2.3.2.2.1"><a href="#section-11.3.2" class="xref">11.3.2</a>.  <a href="#name-cose-key-media-type" class="xref">COSE Key Media Type</a><a href="#section-toc.1-1.11.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.4">
                 <p id="section-toc.1-1.11.2.4.1"><a href="#section-11.4" class="xref">11.4</a>.  <a href="#name-coap-content-formats-regist" class="xref">CoAP Content-Formats Registry</a><a href="#section-toc.1-1.11.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.5">
                 <p id="section-toc.1-1.11.2.5.1"><a href="#section-11.5" class="xref">11.5</a>.  <a href="#name-cbor-tags-registry" class="xref">CBOR Tags Registry</a><a href="#section-toc.1-1.11.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.6">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.6">
                 <p id="section-toc.1-1.11.2.6.1"><a href="#section-11.6" class="xref">11.6</a>.  <a href="#name-expert-review-instructions" class="xref">Expert Review Instructions</a><a href="#section-toc.1-1.11.2.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.12">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-12" class="xref">12</a>. <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.13">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#section-13" class="xref">13</a>. <a href="#name-implementation-status" class="xref">Implementation Status</a><a href="#section-toc.1-1.13.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.13.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.13.2.1">
                 <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="xref">13.1</a>.  <a href="#name-authors-versions" class="xref">Author's Versions</a><a href="#section-toc.1-1.13.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.13.2.2">
                 <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="xref">13.2</a>.  <a href="#name-javascript-version" class="xref">JavaScript Version</a><a href="#section-toc.1-1.13.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.13.2.3">
                 <p id="section-toc.1-1.13.2.3.1"><a href="#section-13.3" class="xref">13.3</a>.  <a href="#name-python-version" class="xref">Python Version</a><a href="#section-toc.1-1.13.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.13.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.13.2.4">
                 <p id="section-toc.1-1.13.2.4.1"><a href="#section-13.4" class="xref">13.4</a>.  <a href="#name-cose-testing-library" class="xref">COSE Testing Library</a><a href="#section-toc.1-1.13.2.4.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.14">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#section-14" class="xref">14</a>. <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.14.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.14.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.14.2.1">
                 <p id="section-toc.1-1.14.2.1.1"><a href="#section-14.1" class="xref">14.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.14.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.14.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.14.2.2">
                 <p id="section-toc.1-1.14.2.2.1"><a href="#section-14.2" class="xref">14.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.14.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.15">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.15">
             <p id="section-toc.1-1.15.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-guidelines-for-external-dat" class="xref">Guidelines for External Data Authentication of Algorithms</a><a href="#section-toc.1-1.15.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.16">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.16">
             <p id="section-toc.1-1.16.1"><a href="#section-appendix.b" class="xref">Appendix B</a>.  <a href="#name-two-layers-of-recipient-inf" class="xref">Two Layers of Recipient Information</a><a href="#section-toc.1-1.16.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.17">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.17">
             <p id="section-toc.1-1.17.1"><a href="#section-appendix.c" class="xref">Appendix C</a>.  <a href="#name-examples" class="xref">Examples</a><a href="#section-toc.1-1.17.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.1">
                 <p id="section-toc.1-1.17.2.1.1"><a href="#section-c.1" class="xref">C.1</a>.  <a href="#name-examples-of-signed-messages" class="xref">Examples of Signed Messages</a><a href="#section-toc.1-1.17.2.1.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.1.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.1.2.1">
                     <p id="section-toc.1-1.17.2.1.2.1.1"><a href="#section-c.1.1" class="xref">C.1.1</a>.  <a href="#name-single-signature" class="xref">Single Signature</a><a href="#section-toc.1-1.17.2.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.1.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.1.2.2">
                     <p id="section-toc.1-1.17.2.1.2.2.1"><a href="#section-c.1.2" class="xref">C.1.2</a>.  <a href="#name-multiple-signers" class="xref">Multiple Signers</a><a href="#section-toc.1-1.17.2.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.1.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.1.2.3">
                     <p id="section-toc.1-1.17.2.1.2.3.1"><a href="#section-c.1.3" class="xref">C.1.3</a>.  <a href="#name-signature-with-criticality" class="xref">Signature with Criticality</a><a href="#section-toc.1-1.17.2.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.2">
                 <p id="section-toc.1-1.17.2.2.1"><a href="#section-c.2" class="xref">C.2</a>.  <a href="#name-single-signer-examples" class="xref">Single Signer Examples</a><a href="#section-toc.1-1.17.2.2.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.2.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.2.2.1">
                     <p id="section-toc.1-1.17.2.2.2.1.1"><a href="#section-c.2.1" class="xref">C.2.1</a>.  <a href="#name-single-ecdsa-signature" class="xref">Single ECDSA Signature</a><a href="#section-toc.1-1.17.2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.3">
                 <p id="section-toc.1-1.17.2.3.1"><a href="#section-c.3" class="xref">C.3</a>.  <a href="#name-examples-of-enveloped-messa" class="xref">Examples of Enveloped Messages</a><a href="#section-toc.1-1.17.2.3.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.3.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.3.2.1">
                     <p id="section-toc.1-1.17.2.3.2.1.1"><a href="#section-c.3.1" class="xref">C.3.1</a>.  <a href="#name-direct-ecdh" class="xref">Direct ECDH</a><a href="#section-toc.1-1.17.2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.3.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.3.2.2">
                     <p id="section-toc.1-1.17.2.3.2.2.1"><a href="#section-c.3.2" class="xref">C.3.2</a>.  <a href="#name-direct-plus-key-derivation" class="xref">Direct Plus Key Derivation</a><a href="#section-toc.1-1.17.2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.3.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.3.2.3">
                     <p id="section-toc.1-1.17.2.3.2.3.1"><a href="#section-c.3.3" class="xref">C.3.3</a>.  <a href="#name-encrypted-content-with-exte" class="xref">Encrypted Content with External Data</a><a href="#section-toc.1-1.17.2.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.4">
                 <p id="section-toc.1-1.17.2.4.1"><a href="#section-c.4" class="xref">C.4</a>.  <a href="#name-examples-of-encrypted-messa" class="xref">Examples of Encrypted Messages</a><a href="#section-toc.1-1.17.2.4.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.4.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.4.2.1">
                     <p id="section-toc.1-1.17.2.4.2.1.1"><a href="#section-c.4.1" class="xref">C.4.1</a>.  <a href="#name-simple-encrypted-message" class="xref">Simple Encrypted Message</a><a href="#section-toc.1-1.17.2.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.4.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.4.2.2">
                     <p id="section-toc.1-1.17.2.4.2.2.1"><a href="#section-c.4.2" class="xref">C.4.2</a>.  <a href="#name-encrypted-message-with-a-pa" class="xref">Encrypted Message with a Partial IV</a><a href="#section-toc.1-1.17.2.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.5">
                 <p id="section-toc.1-1.17.2.5.1"><a href="#section-c.5" class="xref">C.5</a>.  <a href="#name-examples-of-maced-messages" class="xref">Examples of MACed Messages</a><a href="#section-toc.1-1.17.2.5.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.5.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.5.2.1">
                     <p id="section-toc.1-1.17.2.5.2.1.1"><a href="#section-c.5.1" class="xref">C.5.1</a>.  <a href="#name-shared-secret-direct-mac" class="xref">Shared Secret Direct MAC</a><a href="#section-toc.1-1.17.2.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.5.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.5.2.2">
                     <p id="section-toc.1-1.17.2.5.2.2.1"><a href="#section-c.5.2" class="xref">C.5.2</a>.  <a href="#name-ecdh-direct-mac" class="xref">ECDH Direct MAC</a><a href="#section-toc.1-1.17.2.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.5.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.5.2.3">
                     <p id="section-toc.1-1.17.2.5.2.3.1"><a href="#section-c.5.3" class="xref">C.5.3</a>.  <a href="#name-wrapped-mac" class="xref">Wrapped MAC</a><a href="#section-toc.1-1.17.2.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.5.2.4">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.5.2.4">
                     <p id="section-toc.1-1.17.2.5.2.4.1"><a href="#section-c.5.4" class="xref">C.5.4</a>.  <a href="#name-multi-recipient-maced-messa" class="xref">Multi-Recipient MACed Message</a><a href="#section-toc.1-1.17.2.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.6">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.6">
                 <p id="section-toc.1-1.17.2.6.1"><a href="#section-c.6" class="xref">C.6</a>.  <a href="#name-examples-of-mac0-messages" class="xref">Examples of MAC0 Messages</a><a href="#section-toc.1-1.17.2.6.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.6.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.6.2.1">
                     <p id="section-toc.1-1.17.2.6.2.1.1"><a href="#section-c.6.1" class="xref">C.6.1</a>.  <a href="#name-shared-secret-direct-mac-2" class="xref">Shared Secret Direct MAC</a><a href="#section-toc.1-1.17.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.7">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.7">
                 <p id="section-toc.1-1.17.2.7.1"><a href="#section-c.7" class="xref">C.7</a>.  <a href="#name-cose-keys" class="xref">COSE Keys</a><a href="#section-toc.1-1.17.2.7.1" class="pilcrow">¶</a></p>
-<ul class="toc ulEmpty compact">
-<li class="toc ulEmpty compact" id="section-toc.1-1.17.2.7.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.17.2.7.2.1">
                     <p id="section-toc.1-1.17.2.7.2.1.1"><a href="#section-c.7.1" class="xref">C.7.1</a>.  <a href="#name-public-keys" class="xref">Public Keys</a><a href="#section-toc.1-1.17.2.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="toc ulEmpty compact" id="section-toc.1-1.17.2.7.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.17.2.7.2.2">
                     <p id="section-toc.1-1.17.2.7.2.2.1"><a href="#section-c.7.2" class="xref">C.7.2</a>.  <a href="#name-private-keys" class="xref">Private Keys</a><a href="#section-toc.1-1.17.2.7.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.18">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.18">
             <p id="section-toc.1-1.18.1"><a href="#section-appendix.d" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a><a href="#section-toc.1-1.18.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="toc ulEmpty compact" id="section-toc.1-1.19">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.19">
             <p id="section-toc.1-1.19.1"><a href="#section-appendix.e" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a><a href="#section-toc.1-1.19.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -736,7 +755,7 @@ ul.toc li {
 <p id="section-1-7">
         COSE was initially designed as part of a solution to provide security to Constrained RESTful Environments (CoRE), and this is done using <span>[<a href="#RFC8613" class="xref">RFC8613</a>]</span> and <span>[<a href="#I-D.ietf-core-groupcomm-bis" class="xref">I-D.ietf-core-groupcomm-bis</a>]</span>.
         However, COSE is not restricted to just these cases and can be used in any place where one would consider either JOSE or CMS <span>[<a href="#RFC5652" class="xref">RFC5652</a>]</span> for the purpose of providing security services.
-        The use of COSE, like JOSE and CMS, is only for use in store and forward or offline protocols.
+        COSE, like JOSE and CMS, is only for use in store and forward or offline protocols.
         The use of COSE in online protocols needing encryption, require that an online key establishment process be done before sending objects back and forth.
         Any application which uses COSE for security services first needs to determine what security services are required and then select the appropriate COSE structures and cryptographic algorithms based on those needs.
         <a href="#app-considerations" class="xref">Section 10</a> provides additional information on what applications need to specify when using COSE.<a href="#section-1-7" class="pilcrow">¶</a></p>
@@ -746,7 +765,7 @@ ul.toc li {
         It is better for the structure to be defined in each protocol as different protocols will want to include a different set of fields as part of the structure.
         While an algorithm identifier and the digest value are going to be common to all applications, the two values may not always be adjacent as the algorithm could be defined once with multiple values.
         Applications may additionally want to define additional data fields as part of the structure.
-        A one such application-specific element would be to include a URI or other pointer to where the data that is being hashed can be obtained.
+        One such application-specific element would be to include a URI or other pointer to where the data that is being hashed can be obtained.
         <span>[<a href="#I-D.ietf-cose-hash-algs" class="xref">I-D.ietf-cose-hash-algs</a>]</span> contains one such possible structure along with defining a set of digest algorithms.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">
         During the process of advancing COSE to Internet Standard, it was noticed the description of the security properties of countersignatures was incorrect for the COSE_Sign1 structure.
@@ -876,7 +895,7 @@ Internal_Types = Sig_structure / Enc_structure / MAC_structure
         </h3>
 <p id="section-1.5-1">In JSON, maps are called objects and only have one kind of map key: a text string.  In COSE, we use text strings, negative integers, and unsigned integers as map keys.  The integers are used for compactness of encoding and easy comparison.  The inclusion of text strings allows for an additional range of short encoded values to be used as well.  Since the word "key" is mainly used in its other meaning, as a cryptographic key, we use the term "label" for this usage as a map key.<a href="#section-1.5-1" class="pilcrow">¶</a></p>
 <p id="section-1.5-2">
-          The presence a label that is neither a a text string or an integer, in a CBOR map, is an error. 
+          The presence a label that is neither a text string or an integer, in a CBOR map, is an error. 
           Applications can either fail processing or process messages by ignoring incorrect labels; however, they <span class="bcp14">MUST NOT</span> create messages with incorrect labels.<a href="#section-1.5-2" class="pilcrow">¶</a></p>
 <p id="section-1.5-3">A CDDL grammar fragment defines the non-terminal 'label', as in the previous paragraph, and 'values', which permits any value to be used.<a href="#section-1.5-3" class="pilcrow">¶</a></p>
 <div id="section-1.5-4">
@@ -938,7 +957,7 @@ values = any
 <p id="section-2-3"> 
 
         Elements after this point are dependent on the specific message type.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">COSE messages are built using the concept of layers to separate different types of cryptographic concepts.  As an example of how this works, consider the COSE_Encrypt message (<a href="#EnvelopedData" class="xref">Section 5.1</a>).  This message type is broken into two layers: the content layer and the recipient layer.  The content layer contains the plaintext is encrypted and information about the encrypted message.  The recipient layer contins the content encryption key (CEK) is encrypted and information about how it is encrypted for each recipient.  A single layer version of the encryption message COSE_Encrypt0 (<a href="#EnvelopedData0" class="xref">Section 5.2</a>) is provided for cases where the CEK is pre-shared.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-4">COSE messages are built using the concept of layers to separate different types of cryptographic concepts.  As an example of how this works, consider the COSE_Encrypt message (<a href="#EnvelopedData" class="xref">Section 5.1</a>).  This message type is broken into two layers: the content layer and the recipient layer.  The content layer contains the encrypted plaintext and information about the encrypted message.  The recipient layer contains the encrypted content encryption key (CEK) and information about how it is encrypted for each recipient.  A single layer version of the encryption message COSE_Encrypt0 (<a href="#EnvelopedData0" class="xref">Section 5.2</a>) is provided for cases where the CEK is pre-shared.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <p id="section-2-5">Identification of which type of message has been presented is done by the following methods:<a href="#section-2-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-2-6">
         <li id="section-2-6.1">The specific message type is known from the context.  This may be defined by a marker in the containing structure or by restrictions specified by the application protocol.<a href="#section-2-6.1" class="pilcrow">¶</a>
@@ -1101,7 +1120,7 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
         The two buckets are:<a href="#section-3-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3-4">
         <dt id="section-3-4.1">protected:</dt>
-        <dd id="section-3-4.2">
+        <dd style="margin-left: 1.5em" id="section-3-4.2">
           <p id="section-3-4.2.1">
             Contains parameters about the current layer that are cryptographically protected. 
             This bucket <span class="bcp14">MUST</span> be empty if it is not going to be included in a cryptographic computation. 
@@ -1117,7 +1136,7 @@ COSE_Tagged_Message = COSE_Sign_Tagged / COSE_Sign1_Tagged /
 </dd>
         <dd class="break"></dd>
 <dt id="section-3-4.3">unprotected:</dt>
-        <dd id="section-3-4.4">Contains parameters about the current layer that are not cryptographically protected.<a href="#section-3-4.4" class="pilcrow">¶</a>
+        <dd style="margin-left: 1.5em" id="section-3-4.4">Contains parameters about the current layer that are not cryptographically protected.<a href="#section-3-4.4" class="pilcrow">¶</a>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1153,11 +1172,11 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 <p id="section-3.1-2">The set of header parameters defined in this section are:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3.1-3">
           <dt id="section-3.1-3.1">alg:</dt>
-          <dd id="section-3.1-3.2"> This header parameter is used to indicate the algorithm used for the security processing.  This header parameter <span class="bcp14">MUST</span> be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (e.g. COSE_Sign and COSE_Mac0).  This authentication can be done either by placing the header parameter in the protected header parameter bucket or as part of the externally supplied data <a href="#Extern_AAD" class="xref">Section 4.3</a>).  The value is taken from the "COSE Algorithms" registry (see <span>[<a href="#COSE.Algorithms" class="xref">COSE.Algorithms</a>]</span>).<a href="#section-3.1-3.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-3.1-3.2"> This header parameter is used to indicate the algorithm used for the security processing.  This header parameter <span class="bcp14">MUST</span> be authenticated where the ability to do so exists.  This support is provided by AEAD algorithms or construction (e.g. COSE_Sign and COSE_Mac0).  This authentication can be done either by placing the header parameter in the protected header parameter bucket or as part of the externally supplied data <a href="#Extern_AAD" class="xref">Section 4.3</a>).  The value is taken from the "COSE Algorithms" registry (see <span>[<a href="#COSE.Algorithms" class="xref">COSE.Algorithms</a>]</span>).<a href="#section-3.1-3.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-3.3">crit:</dt>
-          <dd id="section-3.1-3.4">
+          <dd style="margin-left: 1.5em" id="section-3.1-3.4">
             <p id="section-3.1-3.4.1">
           This header parameter is used to indicate which protected header parameters an application that is processing a message is required to understand. 
           Header parameters defined in this document do not need to be included as they should be understood by all implementations.
@@ -1184,19 +1203,19 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-3.5">content type:</dt>
-          <dd id="section-3.1-3.6">This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <span>[<a href="#COAP.Formats" class="xref">COAP.Formats</a>]</span>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <span>[<a href="#RFC6838" class="xref">RFC6838</a>]</span>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications <span class="bcp14">SHOULD</span> provide this header parameter if the content structure is potentially ambiguous.<a href="#section-3.1-3.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-3.1-3.6">This header parameter is used to indicate the content type of the data in the payload or ciphertext fields.  Integers are from the "CoAP Content-Formats" IANA registry table <span>[<a href="#COAP.Formats" class="xref">COAP.Formats</a>]</span>.  Text values following the syntax of "&lt;type-name&gt;/&lt;subtype-name&gt;" where &lt;type-name&gt; and &lt;subtype-name&gt; are defined in Section 4.2 of <span>[<a href="#RFC6838" class="xref">RFC6838</a>]</span>.  Leading and trailing whitespace is also omitted.  Textual content values along with parameters and subparameters can be located using the IANA "Media Types" registry.  Applications <span class="bcp14">SHOULD</span> provide this header parameter if the content structure is potentially ambiguous.<a href="#section-3.1-3.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-3.7">kid:</dt>
-          <dd id="section-3.1-3.8">This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications <span class="bcp14">MUST NOT</span> assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected header parameters bucket.<a href="#section-3.1-3.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-3.1-3.8">This header parameter identifies one piece of data that can be used as input to find the needed cryptographic key.  The value of this header parameter can be matched against the 'kid' member in a COSE_Key structure.  Other methods of key distribution can define an equivalent field to be matched.  Applications <span class="bcp14">MUST NOT</span> assume that 'kid' values are unique.  There may be more than one key with the same 'kid' value, so all of the keys associated with this 'kid' may need to be checked.  The internal structure of 'kid' values is not defined and cannot be relied on by applications.  Key identifier values are hints about which key to use.  This is not a security-critical field.  For this reason, it can be placed in the unprotected header parameters bucket.<a href="#section-3.1-3.8" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-3.9">IV:</dt>
-          <dd id="section-3.1-3.10">This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.<a href="#section-3.1-3.10" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-3.1-3.10">This header parameter holds the Initialization Vector (IV) value.  For some symmetric encryption algorithms, this may be referred to as a nonce.  The IV can be placed in the unprotected bucket as modifying the IV will cause the decryption to yield plaintext that is readily detectable as garbled.<a href="#section-3.1-3.10" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-3.11">Partial IV:</dt>
-          <dd id="section-3.1-3.12">
+          <dd style="margin-left: 1.5em" id="section-3.1-3.12">
             <p id="section-3.1-3.12.1">
   This header parameter holds a part of the IV value. 
   When using the COSE_Encrypt0 structure, a portion of the IV can be part of the context associated with the key (Context IV) while a portion can be changed with each message (Partial IV). 
@@ -1303,7 +1322,7 @@ Generic_Headers = (
         <h3 id="name-signing-with-one-or-more-si">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-signing-with-one-or-more-si" class="section-name selfRef">Signing with One or More Signers</a>
         </h3>
-<p id="section-4.1-1">The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of a header parameter about the content is the content type header parameter.  An examples of a header parameter about the signature would be the algorithm and key used to create the signature.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The COSE_Sign structure allows for one or more signatures to be applied to a message payload. Header parameters relating to the content and header parameters relating to the signature are carried along with the signature itself.  These header parameters may be authenticated by the signature, or just present.  An example of a header parameter about the content is the content type header parameter.  An example of a header parameter about the signature would be the algorithm and key used to create the signature.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">RFC 5652 indicates that:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <blockquote id="section-4.1-3">
           When more than one signature is present, the successful validation of one signature associated with a given signer is usually treated as a successful signature by that signer.  However, there are some application environments where other rules are needed.  An application that employs a rule other than one valid signature for each signer must specify those rules.  Also, where simple matching of the signer identifier is not sufficient to determine whether the signatures were generated by the same signer, the application specification must describe how to determine which signatures were generated by the same signer.  Support for different communities of recipients is the primary reason that signers choose to include more than one signature.<a href="#section-4.1-3" class="pilcrow">¶</a>
@@ -1320,15 +1339,15 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
 <p id="section-4.1-8">The COSE_Sign structure is a CBOR array.  The fields of the array in order are:<a href="#section-4.1-8" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-4.1-9">
           <dt id="section-4.1-9.1">protected:</dt>
-          <dd id="section-4.1-9.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-9.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.1-9.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-9.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.1-9.3">unprotected:</dt>
-          <dd id="section-4.1-9.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-9.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.1-9.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-9.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.1-9.5">payload:</dt>
-          <dd id="section-4.1-9.6">
+          <dd style="margin-left: 1.5em" id="section-4.1-9.6">
             <p id="section-4.1-9.6.1">
               This field contains the serialized content to be signed.
               If the payload is not present in the message, the application is required to supply the payload separately.
@@ -1341,7 +1360,7 @@ COSE_Sign_Tagged = #6.98(COSE_Sign)
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.1-9.7">signatures:</dt>
-          <dd id="section-4.1-9.8">This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.<a href="#section-4.1-9.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.1-9.8">This field is an array of signatures.  Each signature is represented as a COSE_Signature structure.<a href="#section-4.1-9.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1358,15 +1377,15 @@ COSE_Sign = [
 <p id="section-4.1-12">The COSE_Signature structure is a CBOR array.  The fields of the array in order are:<a href="#section-4.1-12" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-4.1-13">
           <dt id="section-4.1-13.1">protected:</dt>
-          <dd id="section-4.1-13.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-13.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.1-13.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-13.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.1-13.3">unprotected:</dt>
-          <dd id="section-4.1-13.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-13.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.1-13.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.1-13.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.1-13.5">signature:</dt>
-          <dd id="section-4.1-13.6">This field contains the computed signature value.  The type of the field is a bstr.  Algorithms <span class="bcp14">MUST</span> specify padding if the signature value is not a multiple of 8 bits.<a href="#section-4.1-13.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.1-13.6">This field contains the computed signature value.  The type of the field is a bstr.  Algorithms <span class="bcp14">MUST</span> specify padding if the signature value is not a multiple of 8 bits.<a href="#section-4.1-13.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1396,19 +1415,19 @@ COSE_Sign1_Tagged = #6.18(COSE_Sign1)
 <p id="section-4.2-5">The COSE_Sign1 structure is a CBOR array.  The fields of the array in order are:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-4.2-6">
           <dt id="section-4.2-6.1">protected:</dt>
-          <dd id="section-4.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.2-6.3">unprotected:</dt>
-          <dd id="section-4.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.2-6.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-4.2-6.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.2-6.5">payload:</dt>
-          <dd id="section-4.2-6.6">This is as described in <a href="#full-signature" class="xref">Section 4.1</a>.<a href="#section-4.2-6.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.2-6.6">This is as described in <a href="#full-signature" class="xref">Section 4.1</a>.<a href="#section-4.2-6.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-4.2-6.7">signature:</dt>
-          <dd id="section-4.2-6.8">This field contains the computed signature value.  The type of the field is a bstr.<a href="#section-4.2-6.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-4.2-6.8">This field contains the computed signature value.  The type of the field is a bstr.<a href="#section-4.2-6.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1558,19 +1577,19 @@ COSE_Encrypt_Tagged = #6.96(COSE_Encrypt)
 <p id="section-5.1-5">The COSE_Encrypt structure is a CBOR array.  The fields of the array in order are:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.1-6">
           <dt id="section-5.1-6.1">protected:</dt>
-          <dd id="section-5.1-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-6.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-6.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-6.3">unprotected:</dt>
-          <dd id="section-5.1-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-6.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-6.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-6.5">ciphertext:</dt>
-          <dd id="section-5.1-6.6">This field contains the ciphertext encoded as a bstr.  If the ciphertext is to be transported independently of the control information about the encryption process (i.e., detached content), then the field is encoded as a nil value.<a href="#section-5.1-6.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-6.6">This field contains the ciphertext encoded as a bstr.  If the ciphertext is to be transported independently of the control information about the encryption process (i.e., detached content), then the field is encoded as a nil value.<a href="#section-5.1-6.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-6.7">recipients:</dt>
-          <dd id="section-5.1-6.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient.<a href="#section-5.1-6.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-6.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient.<a href="#section-5.1-6.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1587,19 +1606,19 @@ COSE_Encrypt = [
 <p id="section-5.1-9">The COSE_recipient structure is a CBOR array.  The fields of the array in order are:<a href="#section-5.1-9" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.1-10">
           <dt id="section-5.1-10.1">protected:</dt>
-          <dd id="section-5.1-10.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-10.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-10.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-10.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-10.3">unprotected:</dt>
-          <dd id="section-5.1-10.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-10.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-10.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.1-10.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-10.5">ciphertext:</dt>
-          <dd id="section-5.1-10.6">This field contains the encrypted key encoded as a bstr.  All encoded keys are symmetric keys; the binary value of the key is the content.  If there is not an encrypted key, then this field is encoded as a nil value.<a href="#section-5.1-10.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-10.6">This field contains the encrypted key encoded as a bstr.  All encoded keys are symmetric keys; the binary value of the key is the content.  If there is not an encrypted key, then this field is encoded as a nil value.<a href="#section-5.1-10.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.1-10.7">recipients:</dt>
-          <dd id="section-5.1-10.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient (an example of this can be found in <a href="#three-layer" class="xref">Appendix B</a>). If there are no recipient information structures, this element is absent.<a href="#section-5.1-10.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.1-10.8">This field contains an array of recipient information structures.  The type for the recipient information structure is a COSE_recipient (an example of this can be found in <a href="#three-layer" class="xref">Appendix B</a>). If there are no recipient information structures, this element is absent.<a href="#section-5.1-10.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1626,29 +1645,29 @@ COSE_recipient = [
             A short summary of the five content key distribution methods is:<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.1.1-2">
             <dt id="section-5.1.1-2.1">direct:</dt>
-            <dd id="section-5.1.1-2.2">
+            <dd style="margin-left: 1.5em" id="section-5.1.1-2.2">
                 The CEK is the same as the identified previously distributed symmetric key or is derived from a previously distributed secret. 
                 No CEK is transported in the message.<a href="#section-5.1.1-2.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 <dt id="section-5.1.1-2.3">symmetric key-encryption keys (KEK):</dt>
-            <dd id="section-5.1.1-2.4">
+            <dd style="margin-left: 1.5em" id="section-5.1.1-2.4">
                 The CEK is encrypted using a previously distributed symmetric KEK. 
                 Also known as key wrap.<a href="#section-5.1.1-2.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 <dt id="section-5.1.1-2.5">key agreement:</dt>
-            <dd id="section-5.1.1-2.6">
+            <dd style="margin-left: 1.5em" id="section-5.1.1-2.6">
                 The recipient's public key and a sender's private key are used to generate a pairwise secret, a Key Derivation Function (KDF) is applied to derive a key, and then the CEK is either the derived key or encrypted by the derived key.<a href="#section-5.1.1-2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 <dt id="section-5.1.1-2.7">key transport:</dt>
-            <dd id="section-5.1.1-2.8">
+            <dd style="margin-left: 1.5em" id="section-5.1.1-2.8">
                 The CEK is encrypted with the recipient's public key.<a href="#section-5.1.1-2.8" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 <dt id="section-5.1.1-2.9">passwords:</dt>
-            <dd id="section-5.1.1-2.10">
+            <dd style="margin-left: 1.5em" id="section-5.1.1-2.10">
                 The CEK is encrypted in a KEK that is derived from a password.
                 As of when this document was published, no password algorithms have been defined.<a href="#section-5.1.1-2.10" class="pilcrow">¶</a>
 </dd>
@@ -1674,15 +1693,15 @@ COSE_Encrypt0_Tagged = #6.16(COSE_Encrypt0)
 <p id="section-5.2-5">The COSE_Encrypt0 structure is a CBOR array.  The fields of the array in order are:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.2-6">
           <dt id="section-5.2-6.1">protected:</dt>
-          <dd id="section-5.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.2-6.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.2-6.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.2-6.3">unprotected:</dt>
-          <dd id="section-5.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.2-6.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-5.2-6.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-5.2-6.5">ciphertext:</dt>
-          <dd id="section-5.2-6.6">This is as described in <a href="#EnvelopedData" class="xref">Section 5.1</a>.<a href="#section-5.2-6.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-5.2-6.6">This is as described in <a href="#EnvelopedData" class="xref">Section 5.1</a>.<a href="#section-5.2-6.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1745,11 +1764,11 @@ Enc_structure = [
             <p id="section-5.3-6.3.1">Determine the encryption key (K).  This step is dependent on the class of recipient algorithm being used.  For:<a href="#section-5.3-6.3.1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.3-6.3.2">
               <dt id="section-5.3-6.3.2.1">No Recipients:</dt>
-              <dd id="section-5.3-6.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.3-6.3.2.2" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.3-6.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.3-6.3.2.2" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-6.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
-              <dd id="section-5.3-6.3.2.4">
+              <dd style="margin-left: 1.5em" id="section-5.3-6.3.2.4">
   The key is determined by the key and algorithm in the recipient structure. 
   The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
   (For direct, the KDF can be thought of as the identity operation.)
@@ -1757,7 +1776,7 @@ Enc_structure = [
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-6.3.2.5">Other:</dt>
-              <dd id="section-5.3-6.3.2.6">The key is randomly or pseudo-randomly generated.<a href="#section-5.3-6.3.2.6" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.3-6.3.2.6">The key is randomly or pseudo-randomly generated.<a href="#section-5.3-6.3.2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1777,18 +1796,18 @@ Enc_structure = [
             <p id="section-5.3-8.3.1">Determine the decryption key.  This step is dependent on the class of recipient algorithm being used.  For:<a href="#section-5.3-8.3.1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.3-8.3.2">
               <dt id="section-5.3-8.3.2.1">No Recipients:</dt>
-              <dd id="section-5.3-8.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.3-8.3.2.2" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.3-8.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.3-8.3.2.2" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-8.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
-              <dd id="section-5.3-8.3.2.4">
+              <dd style="margin-left: 1.5em" id="section-5.3-8.3.2.4">
   The key is determined by the key and algorithm in the recipient structure. 
   The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient. 
   (For direct, the KDF can be thought of as the identity operation.)<a href="#section-5.3-8.3.2.4" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.3-8.3.2.5">Other:</dt>
-              <dd id="section-5.3-8.3.2.6">The key is determined by decoding and decrypting one of the recipient structures.<a href="#section-5.3-8.3.2.6" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.3-8.3.2.6">The key is determined by decoding and decrypting one of the recipient structures.<a href="#section-5.3-8.3.2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1813,16 +1832,16 @@ Enc_structure = [
             <p id="section-5.4-2.3.1">Determine the encryption key.  This step is dependent on the class of recipient algorithm being used.  For:<a href="#section-5.4-2.3.1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.4-2.3.2">
               <dt id="section-5.4-2.3.2.1">No Recipients:</dt>
-              <dd id="section-5.4-2.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.4-2.3.2.2" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.4-2.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.4-2.3.2.2" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.4-2.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
-              <dd id="section-5.4-2.3.2.4">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
+              <dd style="margin-left: 1.5em" id="section-5.4-2.3.2.4">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
 Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>.<a href="#section-5.4-2.3.2.4" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.4-2.3.2.5">Other:</dt>
-              <dd id="section-5.4-2.3.2.6">The key is randomly generated.<a href="#section-5.4-2.3.2.6" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.4-2.3.2.6">The key is randomly generated.<a href="#section-5.4-2.3.2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1842,16 +1861,16 @@ Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a hr
             <p id="section-5.4-4.3.1">Determine the decryption key.  This step is dependent on the class of recipient algorithm being used.  For:<a href="#section-5.4-4.3.1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.4-4.3.2">
               <dt id="section-5.4-4.3.2.1">No Recipients:</dt>
-              <dd id="section-5.4-4.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.4-4.3.2.2" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.4-4.3.2.2">The key to be used is determined by the algorithm and key at the current layer.  Examples are key transport keys (<a href="#KeyTransport" class="xref">Section 8.5.3</a>), key wrap keys (<a href="#key_wrap_algs" class="xref">Section 8.5.2</a>), or pre-shared secrets.<a href="#section-5.4-4.3.2.2" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.4-4.3.2.3">Direct Encryption and Direct Key Agreement:</dt>
-              <dd id="section-5.4-4.3.2.4">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
+              <dd style="margin-left: 1.5em" id="section-5.4-4.3.2.4">The key is determined by the key and algorithm in the recipient structure.  The encryption algorithm and size of the key to be used are inputs into the KDF used for the recipient.  (For direct, the KDF can be thought of as the identity operation.)
 Examples of these algorithms are found in Sections 6.1.2 and 6.3 of <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>.<a href="#section-5.4-4.3.2.4" class="pilcrow">¶</a>
 </dd>
               <dd class="break"></dd>
 <dt id="section-5.4-4.3.2.5">Other:</dt>
-              <dd id="section-5.4-4.3.2.6">The key is determined by decoding and decrypting one of the recipient structures.<a href="#section-5.4-4.3.2.6" class="pilcrow">¶</a>
+              <dd style="margin-left: 1.5em" id="section-5.4-4.3.2.6">The key is determined by decoding and decrypting one of the recipient structures.<a href="#section-5.4-4.3.2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1891,23 +1910,23 @@ COSE_Mac_Tagged = #6.97(COSE_Mac)
 <p id="section-6.1-4">The COSE_Mac structure is a CBOR array.  The fields of the array in order are:<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-6.1-5">
           <dt id="section-6.1-5.1">protected:</dt>
-          <dd id="section-6.1-5.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-5.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-5.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.1-5.3">unprotected:</dt>
-          <dd id="section-6.1-5.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-5.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.1-5.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.1-5.5">payload:</dt>
-          <dd id="section-6.1-5.6">This field contains the serialized content to be MACed.  If the payload is not present in the message, the application is required to supply the payload separately.  The payload is wrapped in a bstr to ensure that it is transported without changes.  If the payload is transported separately (i.e., detached content), then a nil CBOR value is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.<a href="#section-6.1-5.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.6">This field contains the serialized content to be MACed.  If the payload is not present in the message, the application is required to supply the payload separately.  The payload is wrapped in a bstr to ensure that it is transported without changes.  If the payload is transported separately (i.e., detached content), then a nil CBOR value is placed in this location, and it is the responsibility of the application to ensure that it will be transported without changes.<a href="#section-6.1-5.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.1-5.7">tag:</dt>
-          <dd id="section-6.1-5.8">This field contains the MAC value.<a href="#section-6.1-5.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.8">This field contains the MAC value.<a href="#section-6.1-5.8" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.1-5.9">recipients:</dt>
-          <dd id="section-6.1-5.10">This is as described in <a href="#EnvelopedData" class="xref">Section 5.1</a>.<a href="#section-6.1-5.10" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.1-5.10">This is as described in <a href="#EnvelopedData" class="xref">Section 5.1</a>.<a href="#section-6.1-5.10" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1939,19 +1958,19 @@ COSE_Mac0_Tagged = #6.17(COSE_Mac0)
 <p id="section-6.2-5">The COSE_Mac0 structure is a CBOR array.  The fields of the array in order are:<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-6.2-6">
           <dt id="section-6.2-6.1">protected:</dt>
-          <dd id="section-6.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.2-6.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.2-6.2">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.2-6.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.2-6.3">unprotected:</dt>
-          <dd id="section-6.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.2-6.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.2-6.4">This is as described in <a href="#header-parameters" class="xref">Section 3</a>.<a href="#section-6.2-6.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.2-6.5">payload:</dt>
-          <dd id="section-6.2-6.6">This is as described in <a href="#Mac_n" class="xref">Section 6.1</a>.<a href="#section-6.2-6.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.2-6.6">This is as described in <a href="#Mac_n" class="xref">Section 6.1</a>.<a href="#section-6.2-6.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-6.2-6.7">tag:</dt>
-          <dd id="section-6.2-6.8">This field contains the MAC value.<a href="#section-6.2-6.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-6.2-6.8">This field contains the MAC value.<a href="#section-6.2-6.8" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -2111,24 +2130,24 @@ COSE_KeySet = [+COSE_Key]
 </div>
 <span class="break"></span><dl class="dlParallel" id="section-7.1-3">
           <dt id="section-7.1-3.1">kty:</dt>
-          <dd id="section-7.1-3.2">This parameter is used to identify the family of keys for this structure and, thus, the set of key-type-specific parameters to be found.  The set of values defined in this document can be found in <span>[<a href="#COSE.KeyTypes" class="xref">COSE.KeyTypes</a>]</span>.  This parameter <span class="bcp14">MUST</span> be present in a key object.  Implementations <span class="bcp14">MUST</span> verify that the key type is appropriate for the algorithm being processed.  The key type <span class="bcp14">MUST</span> be included as part of the trust decision process.<a href="#section-7.1-3.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-7.1-3.2">This parameter is used to identify the family of keys for this structure and, thus, the set of key-type-specific parameters to be found.  The set of values defined in this document can be found in <span>[<a href="#COSE.KeyTypes" class="xref">COSE.KeyTypes</a>]</span>.  This parameter <span class="bcp14">MUST</span> be present in a key object.  Implementations <span class="bcp14">MUST</span> verify that the key type is appropriate for the algorithm being processed.  The key type <span class="bcp14">MUST</span> be included as part of the trust decision process.<a href="#section-7.1-3.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-7.1-3.3">alg:</dt>
-          <dd id="section-7.1-3.4">This parameter is used to restrict the algorithm that is used with the key.  If this parameter is present in the key structure, the application <span class="bcp14">MUST</span> verify that this algorithm matches the algorithm for which the key is being used.  If the algorithms do not match, then this key object <span class="bcp14">MUST NOT</span> be used to perform the cryptographic operation.  Note that the same key can be in a different key structure with a different or no algorithm specified; however, this is considered to be a poor security practice.<a href="#section-7.1-3.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-7.1-3.4">This parameter is used to restrict the algorithm that is used with the key.  If this parameter is present in the key structure, the application <span class="bcp14">MUST</span> verify that this algorithm matches the algorithm for which the key is being used.  If the algorithms do not match, then this key object <span class="bcp14">MUST NOT</span> be used to perform the cryptographic operation.  Note that the same key can be in a different key structure with a different or no algorithm specified; however, this is considered to be a poor security practice.<a href="#section-7.1-3.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-7.1-3.5">kid:</dt>
-          <dd id="section-7.1-3.6">This parameter is used to give an identifier for a key.  The identifier is not structured and can be anything from a user-provided byte string to a value computed on the public portion of the key.  This field is intended for matching against a 'kid' parameter in a message in order to filter down the set of keys that need to be checked.
+          <dd style="margin-left: 1.5em" id="section-7.1-3.6">This parameter is used to give an identifier for a key.  The identifier is not structured and can be anything from a user-provided byte string to a value computed on the public portion of the key.  This field is intended for matching against a 'kid' parameter in a message in order to filter down the set of keys that need to be checked.
           The value of the identifier is not a unique value and can occur in other key objects, even for different keys.<a href="#section-7.1-3.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-7.1-3.7">key_ops:</dt>
-          <dd id="section-7.1-3.8">This parameter is defined to restrict the set of operations that a key is to be used for.  The value of the field is an array of values from <a href="#x-table-key-ops" class="xref">Table 5</a>.  Algorithms define the values of key ops that are permitted to appear and are required for specific operations.  The set of values matches that in <span>[<a href="#RFC7517" class="xref">RFC7517</a>]</span> and <span>[<a href="#W3C.WebCrypto" class="xref">W3C.WebCrypto</a>]</span>.<a href="#section-7.1-3.8" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-7.1-3.8">This parameter is defined to restrict the set of operations that a key is to be used for.  The value of the field is an array of values from <a href="#x-table-key-ops" class="xref">Table 5</a>.  Algorithms define the values of key ops that are permitted to appear and are required for specific operations.  The set of values matches that in <span>[<a href="#RFC7517" class="xref">RFC7517</a>]</span> and <span>[<a href="#W3C.WebCrypto" class="xref">W3C.WebCrypto</a>]</span>.<a href="#section-7.1-3.8" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-7.1-3.9">Base IV:</dt>
-          <dd id="section-7.1-3.10">
+          <dd style="margin-left: 1.5em" id="section-7.1-3.10">
             <p id="section-7.1-3.10.1">This parameter is defined to carry the base portion of an IV.  It is designed to be used with the Partial IV header parameter defined in <a href="#cose-headers" class="xref">Section 3.1</a>.  This field provides the ability to associate a Base IV with a key that is then modified on a per message basis with the Partial IV.<a href="#section-7.1-3.10.1" class="pilcrow">¶</a></p>
 <p id="section-7.1-3.10.2"> Extreme care needs to be taken when using a Base IV in an application.  Many encryption algorithms lose security if the same IV is used twice.<a href="#section-7.1-3.10.2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3.10.3">
@@ -2250,7 +2269,7 @@ valid = Verification(message content, key, signature)
           Until that point, the part of the message contained inside of the signature is unrecoverable. 
           The second is that the security analysis of the strength of the signature can be very much dependent on the structure of the message content. 
           Finally, in the event that multiple signatures are applied to a message, all of the signature algorithms are going to be required to consume the same bytes of message content. 
-          This means that the mixing of the signature with message recovery and signature with appendix schemes in a single message is not supported, and if a recovery signature scheme is used.<a href="#section-8.1-5" class="pilcrow">¶</a></p>
+          This means that the mixing of the signature with message recovery and signature with appendix schemes in a single message is not supported.<a href="#section-8.1-5" class="pilcrow">¶</a></p>
 <p id="section-8.1-6">The signature functions for this scheme are:<a href="#section-8.1-6" class="pilcrow">¶</a></p>
 <div class="artwork art-text alignLeft" id="section-8.1-7">
 <pre>
@@ -2261,25 +2280,25 @@ valid, message content = Verification(message sent, key, signature)
 </div>
 <p id="section-8.1-8">
           No message recovery signature algorithms have been formally defined for COSE yet, and given the new constraints arising from this schemes, while some of these issues have already been identified there is a high probability that additional issues will arise when integrating message recovery signature algorithms.
-          The first  algorithm defined  is going to need to make decisions about these issues and those decisions re likely to be binding on any further algorithms defined.<a href="#section-8.1-8" class="pilcrow">¶</a></p>
+          The first  algorithm defined  is going to need to make decisions about these issues and those decisions are likely to be binding on any further algorithms defined.<a href="#section-8.1-8" class="pilcrow">¶</a></p>
 <p id="section-8.1-9">
           We use the following terms below:<a href="#section-8.1-9" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-8.1-10">
           <dt id="section-8.1-10.1">message content bytes:</dt>
-          <dd id="section-8.1-10.2">The byte provided by the application to be signed.<a href="#section-8.1-10.2" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-8.1-10.2">The byte provided by the application to be signed.<a href="#section-8.1-10.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-8.1-10.3">to-be-signed bytes:</dt>
-          <dd id="section-8.1-10.4">The byte string passed into the signature algorithm.<a href="#section-8.1-10.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-8.1-10.4">The byte string passed into the signature algorithm.<a href="#section-8.1-10.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-8.1-10.5">recovered bytes:</dt>
-          <dd id="section-8.1-10.6">The bytes recovered during the signature verification process.<a href="#section-8.1-10.6" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-8.1-10.6">The bytes recovered during the signature verification process.<a href="#section-8.1-10.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
 <p id="section-8.1-11">
-          Some of the issue2 that have already been identified are:<a href="#section-8.1-11" class="pilcrow">¶</a></p>
+          Some of the issues that have already been identified are:<a href="#section-8.1-11" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-8.1-12.1">
             The to-be-signed bytes are not the same as the message content bytes.
@@ -2496,7 +2515,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
           The restriction applies to the encoding of the Sig_structure, the Enc_structure, and the MAC_structure.<a href="#section-9-2.1" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-9-2.2">
-          Encoding <span class="bcp14">MUST</span> be done using definite lengths and values <span class="bcp14">MUST</span> be the minimum possible length.
+          Encoding <span class="bcp14">MUST</span> be done using definite lengths and the value's length <span class="bcp14">MUST</span> be the minimum possible length.
           This means that the integer 1 is encoded as "0x01" and not "0x1801".<a href="#section-9-2.2" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-9-2.3">
@@ -2529,7 +2548,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 </li>
         <li class="normal" id="section-10-4.4">Applications need to determine the set of security algorithms that are to be used.  When selecting the algorithms to be used as the mandatory-to-implement set, consideration should be given to choosing different types of algorithms when two are chosen for a specific purpose.
         An example of this would be choosing HMAC-SHA512 and AES-CMAC as different MAC algorithms; the construction is vastly different between these two algorithms.  This means that a weakening of one algorithm would be unlikely to lead to a weakening of the other algorithms.  Of course, these algorithms do not provide the same level of security and thus may not be comparable for the desired security functionality.
-                Additional guidence can be found in <span>[<a href="#BCP201" class="xref">BCP201</a>]</span>.<a href="#section-10-4.4" class="pilcrow">¶</a>
+                Additional guidance can be found in <span>[<a href="#BCP201" class="xref">BCP201</a>]</span>.<a href="#section-10-4.4" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-10-4.5">
           <p id="section-10-4.5.1">Applications may need to provide some type of negotiation or discovery method if multiple algorithms or message structures are permitted.  The method can be as simple as requiring pre-configuration of the set of algorithms to providing a discovery method built into the protocol.  S/MIME provided a number of different ways to approach the problem that applications could follow:<a href="#section-10-4.5.1" class="pilcrow">¶</a></p>
@@ -2552,7 +2571,9 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
       </h2>
 <p id="section-11-1">
         The registries and registrations listed below were created during processing of RFC 8152 <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>.
-        The majority of the actions are to update the references to point to this document.<a href="#section-11-1" class="pilcrow">¶</a></p>
+        The majority of the following actions are to update the references to point to this document.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-2">
+        Note that while <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span> also updates the registries and registrations originally established by <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>, the requested updates are mutually exclusive.  The updates requested in this document do not conflict or overlap with the updates requested in <span>[<a href="#I-D.ietf-cose-rfc8152bis-algs" class="xref">I-D.ietf-cose-rfc8152bis-algs</a>]</span>, and vice versa.<a href="#section-11-2" class="pilcrow">¶</a></p>
 <div id="cose-header-key-table">
 <section id="section-11.1">
         <h3 id="name-cose-header-parameters-regi">
@@ -2560,8 +2581,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </h3>
 <p id="section-11.1-1">
           IANA created a registry titled "COSE Header Parameters" as part of processing <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>. 
-          IANA is requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span> to this document.
-          The reference for "counter signature" and "CounterSignature0" are to be left alone.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+          IANA is requested to update the reference for this registry from <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span> to this document.  IANA is also requested to update the reference for all entries, except "counter signature" and "CounterSignature0", in the table from <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span> to this document.  The reference for "counter signature" and "CounterSignature0" are to be left as-is.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cose-key-map-registry">
@@ -2571,7 +2591,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
         </h3>
 <p id="section-11.2-1">
           IANA created a registry titled "COSE Key Common Parameters" as part of the processing of <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span>.
-          IANA is requested to update the reference for entries in the table from <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span> to this document.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+          IANA is requested to update the reference for this registry from <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span> to this document.  IANA is also requested to update the reference for entries in the table from <span>[<a href="#RFC8152" class="xref">RFC8152</a>]</span> to this document.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-11.3">
@@ -2953,7 +2973,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dd class="break"></dd>
 <dt id="I-D.ietf-cbor-7049bis">[I-D.ietf-cbor-7049bis]</dt>
         <dd>
-<span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-7049bis-14</span>, <time datetime="2020-06-16" class="refDate">16 June 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cbor-7049bis-14">https://tools.ietf.org/html/draft-ietf-cbor-7049bis-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Bormann, C.</span><span class="refAuthor"> and P. Hoffman</span>, <span class="refTitle">"Concise Binary Object Representation (CBOR)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cbor-7049bis-16</span>, <time datetime="2020-09-30" class="refDate">30 September 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16">https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
@@ -2961,7 +2981,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dd class="break"></dd>
 <dt id="I-D.ietf-cose-rfc8152bis-algs">[I-D.ietf-cose-rfc8152bis-algs]</dt>
       <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-11</span>, <time datetime="2020-07-01" class="refDate">1 July 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-11">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Initial Algorithms"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-rfc8152bis-algs-12</span>, <time datetime="2020-09-24" class="refDate">24 September 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-12">https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-algs-12</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3078,7 +3098,7 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dd class="break"></dd>
 <dt id="I-D.ietf-core-groupcomm-bis">[I-D.ietf-core-groupcomm-bis]</dt>
         <dd>
-<span class="refAuthor">Dijk, E.</span><span class="refAuthor">, Wang, C.</span><span class="refAuthor">, and M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-01</span>, <time datetime="2020-07-13" class="refDate">13 July 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-01">https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-01</a>&gt;</span>. </dd>
+<span class="refAuthor">Dijk, E.</span><span class="refAuthor">, Wang, C.</span><span class="refAuthor">, and M. Tiloca</span>, <span class="refTitle">"Group Communication for the Constrained Application Protocol (CoAP)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-groupcomm-bis-02</span>, <time datetime="2020-11-02" class="refDate">2 November 2020</time>, <span>&lt;<a href="https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-02">https://tools.ietf.org/html/draft-ietf-core-groupcomm-bis-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8613">[RFC8613]</dt>
         <dd>
@@ -3090,22 +3110,22 @@ encryptedKey = KeyWrap(KDF(DH-Shared, context), CEK)
 <dd class="break"></dd>
 <dt id="COAP.Formats">[COAP.Formats]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"CoAP Content-Formats"</span>, <span></span>, <span>&lt;<a href="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"CoAP Content-Formats"</span>, <span>&lt;<a href="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="COSE.Algorithms">[COSE.Algorithms]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Algorithms"</span>, <span></span>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#algorithms">https://www.iana.org/assignments/cose/cose.xhtml#algorithms</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Algorithms"</span>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#algorithms">https://www.iana.org/assignments/cose/cose.xhtml#algorithms</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="COSE.KeyParameters">[COSE.KeyParameters]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Parameters"</span>, <span></span>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters">https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Parameters"</span>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters">https://www.iana.org/assignments/cose/cose.xhtml#key-common-parameters</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="COSE.KeyTypes">[COSE.KeyTypes]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Types"</span>, <span></span>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type">https://www.iana.org/assignments/cose/cose.xhtml#key-type</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"COSE Key Types"</span>, <span>&lt;<a href="https://www.iana.org/assignments/cose/cose.xhtml#key-type">https://www.iana.org/assignments/cose/cose.xhtml#key-type</a>&gt;</span>. </dd>
 <dd class="break"></dd><dt id="I-D.ietf-cose-countersign">[I-D.ietf-cose-countersign]</dt>
       <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Countersignatures"</span>, <span></span>. </dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE): Countersignatures"</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3803,7 +3823,7 @@ b6eb0'
             <li class="normal" id="section-c.5.4-2.2">
               <p id="section-c.5.4-2.2.1">Recipient class: Uses three different methods<a href="#section-c.5.4-2.2.1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-c.5.4-2.2.2">
-                <li id="section-c.5.4-2.2.2.1">ECDH Ephemeral-Static, Curve P-521, AES Key Wrap w/ 128-bit key<a href="#section-c.5.4-2.2.2.1" class="pilcrow">¶</a>
+                      <li id="section-c.5.4-2.2.2.1">ECDH Ephemeral-Static, Curve P-521, AES Key Wrap w/ 128-bit key<a href="#section-c.5.4-2.2.2.1" class="pilcrow">¶</a>
 </li>
                 <li id="section-c.5.4-2.2.2.2">AES Key Wrap w/ 256-bit key<a href="#section-c.5.4-2.2.2.2" class="pilcrow">¶</a>
 </li>

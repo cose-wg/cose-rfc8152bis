@@ -4,9 +4,9 @@
 
 COSE Working Group                                             J. Schaad
 Internet-Draft                                            August Cellars
-Obsoletes: 8152 (if approved)                          24 September 2020
+Obsoletes: 8152 (if approved)                            30 January 2021
 Intended status: Standards Track                                        
-Expires: 28 March 2021
+Expires: 3 August 2021
 
 
    CBOR Object Signing and Encryption (COSE): Structures and Process
@@ -53,16 +53,16 @@ Status of This Memo
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 1]
+Schaad                    Expires 3 August 2021                 [Page 1]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
-   This Internet-Draft will expire on 28 March 2021.
+   This Internet-Draft will expire on 3 August 2021.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,14 +109,14 @@ Table of Contents
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 2]
+Schaad                    Expires 3 August 2021                 [Page 2]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
      8.3.  Content Encryption Algorithms . . . . . . . . . . . . . .  40
      8.4.  Key Derivation Functions (KDFs) . . . . . . . . . . . . .  41
-     8.5.  Content Key Distribution Methods  . . . . . . . . . . . .  42
+     8.5.  Content Key Distribution Methods  . . . . . . . . . . . .  41
        8.5.1.  Direct Encryption . . . . . . . . . . . . . . . . . .  42
        8.5.2.  Key Wrap  . . . . . . . . . . . . . . . . . . . . . .  42
        8.5.3.  Key Transport . . . . . . . . . . . . . . . . . . . .  43
@@ -124,7 +124,7 @@ Internet-Draft               COSE Structure               September 2020
        8.5.5.  Key Agreement with Key Wrap . . . . . . . . . . . . .  44
    9.  CBOR Encoding Restrictions  . . . . . . . . . . . . . . . . .  45
    10. Application Profiling Considerations  . . . . . . . . . . . .  45
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  47
+   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  46
      11.1.  COSE Header Parameters Registry  . . . . . . . . . . . .  47
      11.2.  COSE Key Common Parameters Registry  . . . . . . . . . .  47
      11.3.  Media Type Registrations . . . . . . . . . . . . . . . .  47
@@ -132,53 +132,53 @@ Internet-Draft               COSE Structure               September 2020
        11.3.2.  COSE Key Media Type  . . . . . . . . . . . . . . . .  48
      11.4.  CoAP Content-Formats Registry  . . . . . . . . . . . . .  50
      11.5.  CBOR Tags Registry . . . . . . . . . . . . . . . . . . .  50
-     11.6.  Expert Review Instructions . . . . . . . . . . . . . . .  50
-   12. Security Considerations . . . . . . . . . . . . . . . . . . .  51
+     11.6.  Expert Review Instructions . . . . . . . . . . . . . . .  51
+   12. Security Considerations . . . . . . . . . . . . . . . . . . .  52
    13. Implementation Status . . . . . . . . . . . . . . . . . . . .  53
      13.1.  Author's Versions  . . . . . . . . . . . . . . . . . . .  54
-     13.2.  JavaScript Version . . . . . . . . . . . . . . . . . . .  54
+     13.2.  JavaScript Version . . . . . . . . . . . . . . . . . . .  55
      13.3.  Python Version . . . . . . . . . . . . . . . . . . . . .  55
      13.4.  COSE Testing Library . . . . . . . . . . . . . . . . . .  55
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  55
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  55
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  56
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  56
      14.2.  Informative References . . . . . . . . . . . . . . . . .  56
    Appendix A.  Guidelines for External Data Authentication of
            Algorithms  . . . . . . . . . . . . . . . . . . . . . . .  60
    Appendix B.  Two Layers of Recipient Information  . . . . . . . .  63
    Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  65
-     C.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  65
-       C.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  65
-       C.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  66
-       C.1.3.  Signature with Criticality  . . . . . . . . . . . . .  67
-     C.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  68
-       C.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  68
-     C.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  69
-       C.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  69
-       C.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  70
-       C.3.3.  Encrypted Content with External Data  . . . . . . . .  71
-     C.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  72
-       C.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  72
-       C.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  73
-     C.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  73
-       C.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  73
-       C.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  74
+     C.1.  Examples of Signed Messages . . . . . . . . . . . . . . .  66
+       C.1.1.  Single Signature  . . . . . . . . . . . . . . . . . .  66
+       C.1.2.  Multiple Signers  . . . . . . . . . . . . . . . . . .  67
+       C.1.3.  Signature with Criticality  . . . . . . . . . . . . .  68
+     C.2.  Single Signer Examples  . . . . . . . . . . . . . . . . .  69
+       C.2.1.  Single ECDSA Signature  . . . . . . . . . . . . . . .  69
+     C.3.  Examples of Enveloped Messages  . . . . . . . . . . . . .  70
+       C.3.1.  Direct ECDH . . . . . . . . . . . . . . . . . . . . .  70
+       C.3.2.  Direct Plus Key Derivation  . . . . . . . . . . . . .  71
+       C.3.3.  Encrypted Content with External Data  . . . . . . . .  72
+     C.4.  Examples of Encrypted Messages  . . . . . . . . . . . . .  73
+       C.4.1.  Simple Encrypted Message  . . . . . . . . . . . . . .  73
+       C.4.2.  Encrypted Message with a Partial IV . . . . . . . . .  74
+     C.5.  Examples of MACed Messages  . . . . . . . . . . . . . . .  74
+       C.5.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  74
+       C.5.2.  ECDH Direct MAC . . . . . . . . . . . . . . . . . . .  75
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 3]
+Schaad                    Expires 3 August 2021                 [Page 3]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
-       C.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  75
-       C.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  76
-     C.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  77
-       C.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  77
-     C.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  78
-       C.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  78
-       C.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  79
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  81
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  82
+       C.5.3.  Wrapped MAC . . . . . . . . . . . . . . . . . . . . .  76
+       C.5.4.  Multi-Recipient MACed Message . . . . . . . . . . . .  77
+     C.6.  Examples of MAC0 Messages . . . . . . . . . . . . . . . .  78
+       C.6.1.  Shared Secret Direct MAC  . . . . . . . . . . . . . .  78
+     C.7.  COSE Keys . . . . . . . . . . . . . . . . . . . . . . . .  79
+       C.7.1.  Public Keys . . . . . . . . . . . . . . . . . . . . .  79
+       C.7.2.  Private Keys  . . . . . . . . . . . . . . . . . . . .  80
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  82
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  83
 
 1.  Introduction
 
@@ -221,9 +221,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 4]
+Schaad                    Expires 3 August 2021                 [Page 4]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  The description of the structure for the CBOR objects which are
@@ -248,15 +248,15 @@ Internet-Draft               COSE Structure               September 2020
    [RFC8613] and [I-D.ietf-core-groupcomm-bis].  However, COSE is not
    restricted to just these cases and can be used in any place where one
    would consider either JOSE or CMS [RFC5652] for the purpose of
-   providing security services.  The use of COSE, like JOSE and CMS, is
-   only for use in store and forward or offline protocols.  The use of
-   COSE in online protocols needing encryption, require that an online
-   key establishment process be done before sending objects back and
-   forth.  Any application which uses COSE for security services first
-   needs to determine what security services are required and then
-   select the appropriate COSE structures and cryptographic algorithms
-   based on those needs.  Section 10 provides additional information on
-   what applications need to specify when using COSE.
+   providing security services.  COSE, like JOSE and CMS, is only for
+   use in store and forward or offline protocols.  The use of COSE in
+   online protocols needing encryption, require that an online key
+   establishment process be done before sending objects back and forth.
+   Any application which uses COSE for security services first needs to
+   determine what security services are required and then select the
+   appropriate COSE structures and cryptographic algorithms based on
+   those needs.  Section 10 provides additional information on what
+   applications need to specify when using COSE.
 
    One feature that is present in CMS that is not present in this
    standard is a digest structure.  This omission is deliberate.  It is
@@ -266,7 +266,7 @@ Internet-Draft               COSE Structure               September 2020
    are going to be common to all applications, the two values may not
    always be adjacent as the algorithm could be defined once with
    multiple values.  Applications may additionally want to define
-   additional data fields as part of the structure.  A one such
+   additional data fields as part of the structure.  One such
    application-specific element would be to include a URI or other
    pointer to where the data that is being hashed can be obtained.
    [I-D.ietf-cose-hash-algs] contains one such possible structure along
@@ -277,9 +277,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 5]
+Schaad                    Expires 3 August 2021                 [Page 5]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    During the process of advancing COSE to Internet Standard, it was
@@ -333,9 +333,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 6]
+Schaad                    Expires 3 August 2021                 [Page 6]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  Use binary encodings, rather than base64url encodings, to encode
@@ -389,9 +389,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 7]
+Schaad                    Expires 3 August 2021                 [Page 7]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
       * FOO -- indicates that the type FOO appears zero or more times.
@@ -445,15 +445,15 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 8]
+Schaad                    Expires 3 August 2021                 [Page 8]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
-   The presence a label that is neither a a text string or an integer,
-   in a CBOR map, is an error.  Applications can either fail processing
-   or process messages by ignoring incorrect labels; however, they MUST
-   NOT create messages with incorrect labels.
+   The presence a label that is neither a text string or an integer, in
+   a CBOR map, is an error.  Applications can either fail processing or
+   process messages by ignoring incorrect labels; however, they MUST NOT
+   create messages with incorrect labels.
 
    A CDDL grammar fragment defines the non-terminal 'label', as in the
    previous paragraph, and 'values', which permits any value to be used.
@@ -501,9 +501,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                 [Page 9]
+Schaad                    Expires 3 August 2021                 [Page 9]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 2.  Basic COSE Structure
@@ -530,11 +530,11 @@ Internet-Draft               COSE Structure               September 2020
    different types of cryptographic concepts.  As an example of how this
    works, consider the COSE_Encrypt message (Section 5.1).  This message
    type is broken into two layers: the content layer and the recipient
-   layer.  The content layer contains the plaintext is encrypted and
-   information about the encrypted message.  The recipient layer contins
-   the content encryption key (CEK) is encrypted and information about
-   how it is encrypted for each recipient.  A single layer version of
-   the encryption message COSE_Encrypt0 (Section 5.2) is provided for
+   layer.  The content layer contains the encrypted plaintext and
+   information about the encrypted message.  The recipient layer
+   contains the encrypted content encryption key (CEK) and information
+   about how it is encrypted for each recipient.  A single layer version
+   of the encryption message COSE_Encrypt0 (Section 5.2) is provided for
    cases where the CEK is pre-shared.
 
    Identification of which type of message has been presented is done by
@@ -557,9 +557,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 10]
+Schaad                    Expires 3 August 2021                [Page 10]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
        the untagged version of the structure is used.  The value to use
@@ -613,9 +613,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 11]
+Schaad                    Expires 3 August 2021                [Page 11]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
         +===========================+==========+=====+============+
@@ -669,9 +669,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 12]
+Schaad                    Expires 3 August 2021                [Page 12]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 3.  Header Parameters
@@ -725,9 +725,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 13]
+Schaad                    Expires 3 August 2021                [Page 13]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    Only header parameters that deal with the current layer are to be
@@ -781,9 +781,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 14]
+Schaad                    Expires 3 August 2021                [Page 14]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 3.1.  Common COSE Header Parameters
@@ -837,9 +837,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 15]
+Schaad                    Expires 3 August 2021                [Page 15]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
       The header parameters indicated by 'crit' can be processed by
@@ -893,9 +893,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 16]
+Schaad                    Expires 3 August 2021                [Page 16]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
       The message IV is generated by the following steps:
@@ -949,9 +949,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 17]
+Schaad                    Expires 3 August 2021                [Page 17]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    Generic_Headers = (
@@ -980,7 +980,7 @@ Internet-Draft               COSE Structure               September 2020
    along with the signature itself.  These header parameters may be
    authenticated by the signature, or just present.  An example of a
    header parameter about the content is the content type header
-   parameter.  An examples of a header parameter about the signature
+   parameter.  An example of a header parameter about the signature
    would be the algorithm and key used to create the signature.
 
    RFC 5652 indicates that:
@@ -1005,9 +1005,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 18]
+Schaad                    Expires 3 August 2021                [Page 18]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    associated with one algorithm or the other.  More-detailed
@@ -1061,9 +1061,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 19]
+Schaad                    Expires 3 August 2021                [Page 19]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    COSE_Sign = [
@@ -1117,9 +1117,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 20]
+Schaad                    Expires 3 August 2021                [Page 20]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    unprotected:  This is as described in Section 3.
@@ -1173,9 +1173,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 21]
+Schaad                    Expires 3 August 2021                [Page 21]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  If multiple items are included, an order for the items needs to be
@@ -1229,9 +1229,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 22]
+Schaad                    Expires 3 August 2021                [Page 22]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    Sig_structure = [
@@ -1285,9 +1285,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 23]
+Schaad                    Expires 3 August 2021                [Page 23]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 5.  Encryption Objects
@@ -1341,9 +1341,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 24]
+Schaad                    Expires 3 August 2021                [Page 24]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
       If the ciphertext is to be transported independently of the
@@ -1397,9 +1397,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 25]
+Schaad                    Expires 3 August 2021                [Page 25]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 5.1.1.  Content Key Distribution Methods
@@ -1453,9 +1453,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 26]
+Schaad                    Expires 3 August 2021                [Page 26]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    protected:  This is as described in Section 3.
@@ -1509,9 +1509,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 27]
+Schaad                    Expires 3 August 2021                [Page 27]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    The CDDL fragment that describes the above text is:
@@ -1565,9 +1565,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 28]
+Schaad                    Expires 3 August 2021                [Page 28]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    2.  Encode the Enc_structure to a byte string (AAD), using the
@@ -1621,9 +1621,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 29]
+Schaad                    Expires 3 August 2021                [Page 29]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
        Other:  The key is randomly generated.
@@ -1677,9 +1677,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 30]
+Schaad                    Expires 3 August 2021                [Page 30]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    In this section, we describe the structure and methods to be used
@@ -1733,9 +1733,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 31]
+Schaad                    Expires 3 August 2021                [Page 31]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
       the payload is not present in the message, the application is
@@ -1789,9 +1789,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 32]
+Schaad                    Expires 3 August 2021                [Page 32]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    tag:  This field contains the MAC value.
@@ -1845,9 +1845,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 33]
+Schaad                    Expires 3 August 2021                [Page 33]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    2.  Create the value ToBeMaced by encoding the MAC_structure to a
@@ -1901,9 +1901,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 34]
+Schaad                    Expires 3 August 2021                [Page 34]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    The element "kty" is a required element in a COSE_Key map.
@@ -1957,9 +1957,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 35]
+Schaad                    Expires 3 August 2021                [Page 35]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    kty:  This parameter is used to identify the family of keys for this
@@ -2013,9 +2013,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 36]
+Schaad                    Expires 3 August 2021                [Page 36]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
       senders.  This could be done by providing a different base point
@@ -2069,9 +2069,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 37]
+Schaad                    Expires 3 August 2021                [Page 37]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
 8.1.  Signature Algorithms
@@ -2111,8 +2111,7 @@ Internet-Draft               COSE Structure               September 2020
    message, all of the signature algorithms are going to be required to
    consume the same bytes of message content.  This means that the
    mixing of the signature with message recovery and signature with
-   appendix schemes in a single message is not supported, and if a
-   recovery signature scheme is used.
+   appendix schemes in a single message is not supported.
 
    The signature functions for this scheme are:
 
@@ -2120,23 +2119,21 @@ Internet-Draft               COSE Structure               September 2020
 
    valid, message content = Verification(message sent, key, signature)
 
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 38]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    No message recovery signature algorithms have been formally defined
    for COSE yet, and given the new constraints arising from this
    schemes, while some of these issues have already been identified
+
+
+
+Schaad                    Expires 3 August 2021                [Page 38]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    there is a high probability that additional issues will arise when
    integrating message recovery signature algorithms.  The first
    algorithm defined is going to need to make decisions about these
-   issues and those decisions re likely to be binding on any further
+   issues and those decisions are likely to be binding on any further
    algorithms defined.
 
    We use the following terms below:
@@ -2150,7 +2147,7 @@ Internet-Draft               COSE Structure               September 2020
    recovered bytes:  The bytes recovered during the signature
       verification process.
 
-   Some of the issue2 that have already been identified are:
+   Some of the issues that have already been identified are:
 
    *  The to-be-signed bytes are not the same as the message content
       bytes.  This is because we build a larger to-be-signed message
@@ -2178,17 +2175,16 @@ Internet-Draft               COSE Structure               September 2020
    Signature algorithms are used with the COSE_Signature and COSE_Sign1
    structures.  At the time of this writing, only signatures with
    appendixes are defined for use with COSE; however, considerable
-
-
-
-Schaad                    Expires 28 March 2021                [Page 39]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    interest has been expressed in using a signature with message
    recovery algorithm due to the effective size reduction that is
    possible.
+
+
+
+Schaad                    Expires 3 August 2021                [Page 39]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
 8.2.  Message Authentication Code (MAC) Algorithms
 
@@ -2232,19 +2228,19 @@ Internet-Draft               COSE Structure               September 2020
    sake, the authentication code will normally be defined as being
    appended to the ciphertext stream.  The encryption functions are:
 
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 40]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    ciphertext = Encrypt(message content, key, additional data)
 
    valid, message content = Decrypt(ciphertext, key, additional data)
+
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 40]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    Most AEAD algorithms are logically defined as returning the message
    content only if the decryption is valid.  Many but not all
@@ -2284,20 +2280,6 @@ Internet-Draft               COSE Structure               September 2020
    context-based keying material is considered to be a good security
    practice.
 
-
-
-
-
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 41]
-
-Internet-Draft               COSE Structure               September 2020
-
-
 8.5.  Content Key Distribution Methods
 
    Content key distribution methods (recipient algorithms) can be
@@ -2307,6 +2289,14 @@ Internet-Draft               COSE Structure               September 2020
    classes used here are the same as those defined in [RFC7516].  Other
    specifications use different terms for the recipient algorithm
    classes or do not support some of the recipient algorithm classes.
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 41]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
 8.5.1.  Direct Encryption
 
@@ -2346,14 +2336,6 @@ Internet-Draft               COSE Structure               September 2020
    The COSE_Recipient structure for the recipient is organized as
    follows:
 
-
-
-
-Schaad                    Expires 28 March 2021                [Page 42]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    *  The 'protected' field MUST be absent if the key wrap algorithm is
       an AE algorithm.
 
@@ -2362,6 +2344,15 @@ Internet-Draft               COSE Structure               September 2020
       has an unsupported algorithm.  Failing to decrypt that specific
       recipient is an acceptable way of dealing with it.  Failing to
       process the message is not an acceptable way of dealing with it.
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 42]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    *  The plaintext to be encrypted is the key from next layer down
       (usually the content layer).
@@ -2402,19 +2393,22 @@ Internet-Draft               COSE Structure               September 2020
    other variants exist.  Since COSE is designed for a store and forward
    environment rather than an online environment, many of the DH
    variants cannot be used as the receiver of the message cannot provide
-
-
-
-Schaad                    Expires 28 March 2021                [Page 43]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    any dynamic key material.  One side effect of this is that forward
    secrecy (see [RFC4949]) is not achievable.  A static key will always
    be used for the receiver of the COSE object.
 
    Two variants of DH that are supported are:
+
+
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 43]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
       Ephemeral-Static (ES) DH: where the sender of the message creates
       a one-time DH key and uses a static key for the recipient.  The
@@ -2459,17 +2453,18 @@ Internet-Draft               COSE Structure               September 2020
 
    *  The 'protected' field is fed into the KDF context structure.
 
-
-
-Schaad                    Expires 28 March 2021                [Page 44]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    *  The plaintext to be encrypted is the key from the next layer down
       (usually the content layer).
 
    *  The 'alg' header parameter MUST be present in the layer.
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 44]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    *  A header parameter identifying the recipient's key SHOULD be
       present.  A header parameter identifying the sender's key SHOULD
@@ -2484,9 +2479,9 @@ Internet-Draft               COSE Structure               September 2020
    *  The restriction applies to the encoding of the Sig_structure, the
       Enc_structure, and the MAC_structure.
 
-   *  Encoding MUST be done using definite lengths and values MUST be
-      the minimum possible length.  This means that the integer 1 is
-      encoded as "0x01" and not "0x1801".
+   *  Encoding MUST be done using definite lengths and the value's
+      length MUST be the minimum possible length.  This means that the
+      integer 1 is encoded as "0x01" and not "0x1801".
 
    *  Applications MUST NOT generate messages with the same label used
       twice as a key in a single map.  Applications MUST NOT parse and
@@ -2513,19 +2508,19 @@ Internet-Draft               COSE Structure               September 2020
    application.  This section provides a set of guidelines and topics
    that need to be considered when profiling this document.
 
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 45]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    *  Applications need to determine the set of messages defined in this
       document that they will be using.  The set of messages corresponds
       fairly directly to the set of security services that are needed
       and to the security levels needed.
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 45]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    *  Applications may define new header parameters for a specific
       purpose.  Applications will often times select specific header
@@ -2551,7 +2546,7 @@ Internet-Draft               COSE Structure               September 2020
       weakening of the other algorithms.  Of course, these algorithms do
       not provide the same level of security and thus may not be
       comparable for the desired security functionality.  Additional
-      guidence can be found in [BCP201].
+      guidance can be found in [BCP201].
 
    *  Applications may need to provide some type of negotiation or
       discovery method if multiple algorithms or message structures are
@@ -2570,33 +2565,42 @@ Internet-Draft               COSE Structure               September 2020
          over time [RFC2633] [RFC5751] (note that [RFC2633] has been
          obsoleted by [RFC5751]).
 
-
-
-
-Schaad                    Expires 28 March 2021                [Page 46]
-
-Internet-Draft               COSE Structure               September 2020
-
-
 11.  IANA Considerations
 
    The registries and registrations listed below were created during
-   processing of RFC 8152 [RFC8152].  The majority of the actions are to
-   update the references to point to this document.
+   processing of RFC 8152 [RFC8152].  The majority of the following
+   actions are to update the references to point to this document.
+
+
+
+Schaad                    Expires 3 August 2021                [Page 46]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
+   Note that while [I-D.ietf-cose-rfc8152bis-algs] also updates the
+   registries and registrations originally established by [RFC8152], the
+   requested updates are mutually exclusive.  The updates requested in
+   this document do not conflict or overlap with the updates requested
+   in [I-D.ietf-cose-rfc8152bis-algs], and vice versa.
 
 11.1.  COSE Header Parameters Registry
 
    IANA created a registry titled "COSE Header Parameters" as part of
    processing [RFC8152].  IANA is requested to update the reference for
-   all entries, except "counter signature" and "CounterSignature0", in
-   the table from [RFC8152] to this document.  The reference for
-   "counter signature" and "CounterSignature0" are to be left alone.
+   this registry from [RFC8152] to this document.  IANA is also
+   requested to update the reference for all entries, except "counter
+   signature" and "CounterSignature0", in the table from [RFC8152] to
+   this document.  The reference for "counter signature" and
+   "CounterSignature0" are to be left as-is.
 
 11.2.  COSE Key Common Parameters Registry
 
    IANA created a registry titled "COSE Key Common Parameters" as part
    of the processing of [RFC8152].  IANA is requested to update the
-   reference for entries in the table from [RFC8152] to this document.
+   reference for this registry from [RFC8152] to this document.  IANA is
+   also requested to update the reference for entries in the table from
+   [RFC8152] to this document.
 
 11.3.  Media Type Registrations
 
@@ -2623,16 +2627,15 @@ Internet-Draft               COSE Structure               September 2020
 
       Published specification: [[this document]]
 
+
+
+Schaad                    Expires 3 August 2021                [Page 47]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
       Applications that use this media type: IoT applications sending
       security content over HTTP(S) transports.
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 47]
-
-Internet-Draft               COSE Structure               September 2020
-
 
       Fragment identifier considerations: N/A
 
@@ -2678,17 +2681,19 @@ Internet-Draft               COSE Structure               September 2020
 
       Encoding considerations: binary
 
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 48]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
       Security considerations: See the Security Considerations section
       of [[This Document]].
 
       Interoperability considerations: N/A
-
-
-
-Schaad                    Expires 28 March 2021                [Page 48]
-
-Internet-Draft               COSE Structure               September 2020
-
 
       Published specification: [[this document]]
 
@@ -2732,19 +2737,21 @@ Internet-Draft               COSE Structure               September 2020
 
       Encoding considerations: binary
 
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 49]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
       Security considerations: See the Security Considerations section
       of [[This Document]].
 
       Interoperability considerations: N/A
 
       Published specification: [[this document]]
-
-
-
-Schaad                    Expires 28 March 2021                [Page 49]
-
-Internet-Draft               COSE Structure               September 2020
-
 
       Applications that use this media type: Distribution of COSE based
       keys for IoT applications.
@@ -2785,6 +2792,16 @@ Internet-Draft               COSE Structure               September 2020
    IANA is requested to update the references from [RFC8152] to [[This
    Document]].
 
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 50]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
 11.6.  Expert Review Instructions
 
    All of the IANA registries established by [RFC8152] are, at least in
@@ -2794,13 +2811,6 @@ Internet-Draft               COSE Structure               September 2020
    substantial latitude.
 
    Expert reviewers should take into consideration the following points:
-
-
-
-Schaad                    Expires 28 March 2021                [Page 50]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Point squatting should be discouraged.  Reviewers are encouraged
       to get sufficient information for registration requests to ensure
@@ -2838,6 +2848,16 @@ Internet-Draft               COSE Structure               September 2020
       the community and the messages structures should not be
       registered.
 
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 51]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
 12.  Security Considerations
 
    There are a number of security considerations that need to be taken
@@ -2848,15 +2868,6 @@ Internet-Draft               COSE Structure               September 2020
    Implementations need to protect the private key material for any
    individuals.  There are some cases that need to be highlighted on
    this issue.
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 51]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Using the same key for two different algorithms can leak
       information about the key.  It is therefore recommended that keys
@@ -2896,6 +2907,13 @@ Internet-Draft               COSE Structure               September 2020
    correct, the key form needs to be checked as well.  Do not use an
    'EC2' key where an 'OKP' key is expected.
 
+
+
+Schaad                    Expires 3 August 2021                [Page 52]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    Before using a key for transmission, or before acting on information
    received, a trust decision on a key needs to be made.  Is the data or
    action something that the entity associated with the key has a right
@@ -2906,13 +2924,6 @@ Internet-Draft               COSE Structure               September 2020
    *  What are the permissions associated with the key owner?
 
    *  Is the cryptographic algorithm acceptable in the current context?
-
-
-
-Schaad                    Expires 28 March 2021                [Page 52]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Have the restrictions associated with the key, such as algorithm
       or freshness, been checked and are they correct?
@@ -2940,6 +2951,25 @@ Internet-Draft               COSE Structure               September 2020
 
    This section is to be removed before publishing as an RFC.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 53]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    This section records the status of known implementations of the
    protocol defined by this specification at the time of posting of this
    Internet-Draft, and is based on a proposal described in [RFC7942].
@@ -2959,16 +2989,6 @@ Internet-Draft               COSE Structure               September 2020
    and feedback that have made the implemented protocols more mature.
    It is up to the individual working groups to use this information as
    they see fit".
-
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 53]
-
-Internet-Draft               COSE Structure               September 2020
-
 
 13.1.  Author's Versions
 
@@ -2998,6 +3018,14 @@ Internet-Draft               COSE Structure               September 2020
       creating of the same messages that are in the example library
       followed by validating them.  These are not compared against the
       example library.  The Java and C# libraries have unit testing
+
+
+
+Schaad                    Expires 3 August 2021                [Page 54]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
       included.  Not all of the MUST statements in the document have
       been implemented as part of the libraries.  One such statement is
       the requirement that unique labels be present.
@@ -3017,14 +3045,6 @@ Internet-Draft               COSE Structure               September 2020
    *  Coverage: Full Encrypt, Signature and MAC objects are supported.
 
    *  Testing: Basic testing against the common example library.
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 54]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Licensing: Apache License 2.0
 
@@ -3052,6 +3072,16 @@ Internet-Draft               COSE Structure               September 2020
 
    *  Primary Maintainer: Jim Schaad
 
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 55]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    *  Description: A set of tests for the COSE library is provided as
       part of the implementation effort.  Both success and fail tests
       have been provided.  All of the examples in this document are part
@@ -3072,21 +3102,11 @@ Internet-Draft               COSE Structure               September 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 55]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    [I-D.ietf-cbor-7049bis]
               Bormann, C. and P. Hoffman, "Concise Binary Object
               Representation (CBOR)", Work in Progress, Internet-Draft,
-              draft-ietf-cbor-7049bis-14, 16 June 2020,
-              <https://tools.ietf.org/html/draft-ietf-cbor-7049bis-14>.
+              draft-ietf-cbor-7049bis-16, 30 September 2020,
+              <https://tools.ietf.org/html/draft-ietf-cbor-7049bis-16>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -3095,9 +3115,9 @@ Internet-Draft               COSE Structure               September 2020
    [I-D.ietf-cose-rfc8152bis-algs]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Initial Algorithms", Work in Progress, Internet-Draft,
-              draft-ietf-cose-rfc8152bis-algs-11, 1 July 2020,
+              draft-ietf-cose-rfc8152bis-algs-12, 24 September 2020,
               <https://tools.ietf.org/html/draft-ietf-cose-rfc8152bis-
-              algs-11>.
+              algs-12>.
 
 14.2.  Informative References
 
@@ -3110,6 +3130,13 @@ Internet-Draft               COSE Structure               September 2020
               Express Concise Binary Object Representation (CBOR) and
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/info/rfc8610>.
+
+
+
+Schaad                    Expires 3 August 2021                [Page 56]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    [RFC2633]  Ramsdell, B., Ed., "S/MIME Version 3 Message
               Specification", RFC 2633, DOI 10.17487/RFC2633, June 1999,
@@ -3127,16 +3154,6 @@ Internet-Draft               COSE Structure               September 2020
    [RFC5116]  McGrew, D., "An Interface and Algorithms for Authenticated
               Encryption", RFC 5116, DOI 10.17487/RFC5116, January 2008,
               <https://www.rfc-editor.org/info/rfc5116>.
-
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 56]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
@@ -3168,6 +3185,15 @@ Internet-Draft               COSE Structure               September 2020
 
               <https://www.rfc-editor.org/info/std90>
 
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 57]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    [BCP201]   Housley, R., "Guidelines for Cryptographic Algorithm
               Agility and Selecting Mandatory-to-Implement Algorithms",
               BCP 201, RFC 7696, November 2015.
@@ -3186,13 +3212,6 @@ Internet-Draft               COSE Structure               September 2020
    [RFC7516]  Jones, M. and J. Hildebrand, "JSON Web Encryption (JWE)",
               RFC 7516, DOI 10.17487/RFC7516, May 2015,
               <https://www.rfc-editor.org/info/rfc7516>.
-
-
-
-Schaad                    Expires 28 March 2021                [Page 57]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
@@ -3222,6 +3241,15 @@ Internet-Draft               COSE Structure               September 2020
               Watson, M., "Web Cryptography API", W3C Recommendation,
               January 2017, <https://www.w3.org/TR/WebCryptoAPI/>.
 
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 58]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    [RFC8230]  Jones, M., "Using RSA Algorithms with CBOR Object Signing
               and Encryption (COSE) Messages", RFC 8230,
               DOI 10.17487/RFC8230, September 2017,
@@ -3243,19 +3271,12 @@ Internet-Draft               COSE Structure               September 2020
               <https://tools.ietf.org/html/draft-ietf-cose-hash-algs-
               09>.
 
-
-
-Schaad                    Expires 28 March 2021                [Page 58]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    [I-D.ietf-core-groupcomm-bis]
               Dijk, E., Wang, C., and M. Tiloca, "Group Communication
               for the Constrained Application Protocol (CoAP)", Work in
               Progress, Internet-Draft, draft-ietf-core-groupcomm-bis-
-              01, 13 July 2020, <https://tools.ietf.org/html/draft-ietf-
-              core-groupcomm-bis-01>.
+              02, 2 November 2020, <https://tools.ietf.org/html/draft-
+              ietf-core-groupcomm-bis-02>.
 
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
@@ -3273,6 +3294,17 @@ Internet-Draft               COSE Structure               September 2020
               IANA, "CoAP Content-Formats",
               <https://www.iana.org/assignments/core-parameters/core-
               parameters.xhtml#content-formats>.
+
+
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 59]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    [COSE.Algorithms]
               IANA, "COSE Algorithms",
@@ -3292,19 +3324,6 @@ Internet-Draft               COSE Structure               September 2020
    [I-D.ietf-cose-countersign]
               Schaad, J., "CBOR Object Signing and Encryption (COSE):
               Countersignatures".
-
-
-
-
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 59]
-
-Internet-Draft               COSE Structure               September 2020
-
 
 Appendix A.  Guidelines for External Data Authentication of Algorithms
 
@@ -3333,6 +3352,16 @@ Appendix A.  Guidelines for External Data Authentication of Algorithms
    recommendations applies to having implicit algorithms for multiple
    COSE object constructs.
 
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 60]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    The key words from [RFC2119] are deliberately not used here.  This
    specification can provide recommendations, but it cannot enforce
    them.
@@ -3344,23 +3373,6 @@ Appendix A.  Guidelines for External Data Authentication of Algorithms
    COSE_Encrypt0, but could apply to the other structures as well.
 
    The following items should be taken into account:
-
-
-
-
-
-
-
-
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 60]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Applications need to list the set of COSE structures that implicit
       algorithms are to be used in.  Applications need to require that
@@ -3398,6 +3410,14 @@ Internet-Draft               COSE Structure               September 2020
       message, but only the transaction identifier would need to be sent
       after that point as the context is tied into the transaction
       identifier.  Another way would be to associate a context with a
+
+
+
+Schaad                    Expires 3 August 2021                [Page 61]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
       network address.  All messages coming from a single network
       address can be assumed to be associated with a specific context.
       (In this case, the address would normally be distributed as part
@@ -3410,13 +3430,6 @@ Internet-Draft               COSE Structure               September 2020
       run in different contexts (i.e., with a different context
       provider) or if the system combines the security contexts from
       different applications together into a single store.
-
-
-
-Schaad                    Expires 28 March 2021                [Page 61]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Applications should continue the practice of protecting the
       algorithm identifier.  Since this is not done by placing it in the
@@ -3454,6 +3467,13 @@ Internet-Draft               COSE Structure               September 2020
    There are a number of different scenarios where this might be
    applicable.  Some of these scenarios are:
 
+
+
+Schaad                    Expires 3 August 2021                [Page 62]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    *  Two contexts are distributed as a pair.  Each of the contexts is
       for use with a COSE_Encrypt message.  Each context will consist of
       distinct secret keys and IVs and potentially even different
@@ -3463,16 +3483,6 @@ Internet-Draft               COSE Structure               September 2020
       attack to occur as each party uses different secret keys to send
       its messages; a message that is reflected back to it would fail to
       decrypt.
-
-
-
-
-
-
-Schaad                    Expires 28 March 2021                [Page 62]
-
-Internet-Draft               COSE Structure               September 2020
-
 
    *  Two contexts are distributed as a pair.  The first context is used
       for encryption of the message, and the second context is used to
@@ -3513,6 +3523,13 @@ Appendix B.  Two Layers of Recipient Information
 
    *  Layer 1: The encryption of the CEK by a KEK.
 
+
+
+Schaad                    Expires 3 August 2021                [Page 63]
+
+Internet-Draft               COSE Structure                 January 2021
+
+
    *  Layer 2: The encryption of a long random secret using an RSA key
       and a key derivation function to convert that secret into the KEK.
 
@@ -3523,13 +3540,6 @@ Appendix B.  Two Layers of Recipient Information
 
    *  Layer 1: Uses the AES Key Wrap algorithm with a 128-bit key.
 
-
-
-Schaad                    Expires 28 March 2021                [Page 63]
-
-Internet-Draft               COSE Structure               September 2020
-
-
    *  Layer 2: Uses ECDH Ephemeral-Static direct to generate the layer 1
       key.
 
@@ -3537,6 +3547,44 @@ Internet-Draft               COSE Structure               September 2020
    ECDH-ES+A128KW algorithm.
 
    Size of binary file is 183 bytes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 64]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    96(
      [ / COSE_Encrypt /
@@ -3579,13 +3627,6 @@ Internet-Draft               COSE Structure               September 2020
      ]
    )
 
-
-
-Schaad                    Expires 28 March 2021                [Page 64]
-
-Internet-Draft               COSE Structure               September 2020
-
-
 Appendix C.  Examples
 
    This appendix includes a set of examples that show the different
@@ -3593,6 +3634,13 @@ Appendix C.  Examples
    To make the examples easier to read, they are presented using the
    extended CBOR diagnostic notation (defined in [RFC8610]) rather than
    as a binary dump.
+
+
+
+Schaad                    Expires 3 August 2021                [Page 65]
+
+Internet-Draft               COSE Structure                 January 2021
+
 
    A GitHub project has been created at <https://github.com/cose-wg/
    Examples> that contains not only the examples presented in this
@@ -3637,9 +3685,17 @@ C.1.1.  Single Signature
 
 
 
-Schaad                    Expires 28 March 2021                [Page 65]
+
+
+
+
+
+
+
+
+Schaad                    Expires 3 August 2021                [Page 66]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    98(
@@ -3693,9 +3749,9 @@ C.1.2.  Multiple Signers
 
 
 
-Schaad                    Expires 28 March 2021                [Page 66]
+Schaad                    Expires 3 August 2021                [Page 67]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    98(
@@ -3749,9 +3805,9 @@ C.1.3.  Signature with Criticality
 
 
 
-Schaad                    Expires 28 March 2021                [Page 67]
+Schaad                    Expires 3 August 2021                [Page 68]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    98(
@@ -3805,9 +3861,9 @@ C.2.1.  Single ECDSA Signature
 
 
 
-Schaad                    Expires 28 March 2021                [Page 68]
+Schaad                    Expires 3 August 2021                [Page 69]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    18(
@@ -3861,9 +3917,9 @@ C.3.1.  Direct ECDH
 
 
 
-Schaad                    Expires 28 March 2021                [Page 69]
+Schaad                    Expires 3 August 2021                [Page 70]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    96(
@@ -3917,9 +3973,9 @@ C.3.2.  Direct Plus Key Derivation
 
 
 
-Schaad                    Expires 28 March 2021                [Page 70]
+Schaad                    Expires 3 August 2021                [Page 71]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    Size of binary file is 91 bytes
@@ -3973,9 +4029,9 @@ C.3.3.  Encrypted Content with External Data
 
 
 
-Schaad                    Expires 28 March 2021                [Page 71]
+Schaad                    Expires 3 August 2021                [Page 72]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    96(
@@ -4029,9 +4085,9 @@ C.4.1.  Simple Encrypted Message
 
 
 
-Schaad                    Expires 28 March 2021                [Page 72]
+Schaad                    Expires 3 August 2021                [Page 73]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    16(
@@ -4085,9 +4141,9 @@ C.5.1.  Shared Secret Direct MAC
 
 
 
-Schaad                    Expires 28 March 2021                [Page 73]
+Schaad                    Expires 3 August 2021                [Page 74]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    97(
@@ -4141,9 +4197,9 @@ C.5.2.  ECDH Direct MAC
 
 
 
-Schaad                    Expires 28 March 2021                [Page 74]
+Schaad                    Expires 3 August 2021                [Page 75]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    97(
@@ -4197,9 +4253,9 @@ C.5.3.  Wrapped MAC
 
 
 
-Schaad                    Expires 28 March 2021                [Page 75]
+Schaad                    Expires 3 August 2021                [Page 76]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    97(
@@ -4253,9 +4309,9 @@ C.5.4.  Multi-Recipient MACed Message
 
 
 
-Schaad                    Expires 28 March 2021                [Page 76]
+Schaad                    Expires 3 August 2021                [Page 77]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    97(
@@ -4309,9 +4365,9 @@ C.6.1.  Shared Secret Direct MAC
 
 
 
-Schaad                    Expires 28 March 2021                [Page 77]
+Schaad                    Expires 3 August 2021                [Page 78]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  Recipient class: direct shared secret
@@ -4365,9 +4421,9 @@ C.7.1.  Public Keys
 
 
 
-Schaad                    Expires 28 March 2021                [Page 78]
+Schaad                    Expires 3 August 2021                [Page 79]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    [
@@ -4421,9 +4477,9 @@ C.7.2.  Private Keys
 
 
 
-Schaad                    Expires 28 March 2021                [Page 79]
+Schaad                    Expires 3 August 2021                [Page 80]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    *  An EC key with a kid of "meriadoc.brandybuck@buckland.example"
@@ -4477,9 +4533,9 @@ Internet-Draft               COSE Structure               September 2020
 
 
 
-Schaad                    Expires 28 March 2021                [Page 80]
+Schaad                    Expires 3 August 2021                [Page 81]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
        -4:h'00085138ddabf5ca975f5860f91a08e91d6d5f9a76ad4018766a476680b
@@ -4533,9 +4589,9 @@ Acknowledgments
 
 
 
-Schaad                    Expires 28 March 2021                [Page 81]
+Schaad                    Expires 3 August 2021                [Page 82]
 
-Internet-Draft               COSE Structure               September 2020
+Internet-Draft               COSE Structure                 January 2021
 
 
    The following individuals provided input into the final form of the
@@ -4589,4 +4645,4 @@ Author's Address
 
 
 
-Schaad                    Expires 28 March 2021                [Page 82]
+Schaad                    Expires 3 August 2021                [Page 83]
