@@ -33,7 +33,7 @@ This requires that you have the necessary software installed.  See
 A number of different implementations of COSE exist in a variety of different languages.
 
 * [C](https://github.com/cose-wg/COSE-C) works with a version of CBOR also avaible.  Compiles with GCC, ARM and Clang using CMAKE for a build system.  Only a partial implementation
-* [C](https://github.com/bergzand/libcoe] I have not evaluated this version yet.
+* [C](https://github.com/bergzand/libcose) I have not evaluated this version yet.
 * [C#](https://github.com/cose-wg/COSE-csharp) is my primary development version and as such will support algorithms not available else where. Implements all structures.
 * [JAVA](https://github.com/cose-wg/COSE-JAVA) implemented using the JAVA Security APIs.  Implements all structures.
 * [JavaScript](https://github.com/erdtman/cose-js) I have not evaluated this version yet.
