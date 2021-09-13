@@ -571,7 +571,7 @@ empty_or_serialized_map = bstr .cbor header_map / bstr .size 0
             <tr>
               <td>kid</td>
               <td>4</td>
-              <td>bstr</td>
+              <td>bstr / int</td>
               <td/>
               <td>Key identifier</td>
             </tr>
@@ -1204,7 +1204,7 @@ MAC_structure = [
       <sourcecode type="CDDL"><![CDATA[
 COSE_Key = {
     1 => tstr / int,          ; kty
-    ? 2 => bstr,              ; kid
+    ? 2 => bstr / int,        ; kid
     ? 3 => tstr / int,        ; alg
     ? 4 => [+ (tstr / int) ], ; key_ops
     ? 5 => bstr,              ; Base IV
@@ -1238,7 +1238,7 @@ COSE_KeySet = [+COSE_Key]
             <tr>
               <td>kid</td>
               <td>2</td>
-              <td>bstr</td>
+              <td>bstr / int</td>
               <td/>
               <td>Key identification value -- match to kid in message</td>
             </tr>
