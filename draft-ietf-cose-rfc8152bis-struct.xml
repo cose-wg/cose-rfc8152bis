@@ -597,7 +597,7 @@ Generic_Headers = (
     ? 1 => int / tstr,  ; algorithm identifier
     ? 2 => [+label],    ; criticality
     ? 3 => tstr / int,  ; content type
-    ? 4 => bstr,        ; key identifier
+    ? 4 => bstr / int,  ; key identifier
     ? 5 => bstr,        ; IV
     ? 6 => bstr         ; Partial IV
 )
